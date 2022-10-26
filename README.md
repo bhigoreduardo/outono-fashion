@@ -2,14 +2,14 @@
 <summary>✨ Rotas</summary>
 <ul>
 <li>
-    <h4>Raíz</h4>
+    <h3>Raíz</h3>
     <p>Página Inicial: <code>outonofashion.com</code></p>
 </li>
 
 <li>
     <h4>Página Produtos</h4>
     <p>Página Produtos Masculino: <code>/masculino</code></p>
-    <p>Página Produtos Feminino: <code>/feminin</code></p>
+    <p>Página Produtos Feminino: <code>/feminino</code></p>
     <p>Página Produtos Menino: <code>/menino</code></p>
     <p>Página Produtos Menina: <code>/menina</code></p>
 </li>
