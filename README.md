@@ -1,14 +1,48 @@
 <details>
 <summary>📒 Requisitos</summary>
 
-- *Produto*
-    - **Gênero**
-    Categoria (acessorios)
-    Tipo (oculos)
-    Tamanho (unico)
-    Marca (coca-cola)
-    Cor (azul)
-    Preço (380,00)
+- **Produto**
+    - Descritivo: Nome, Descrição, Detalhes, Imagem, Estoque, Peso, Dimensões
+    - Deve possuir: Gênero (masculino), Categoria (acessorios), Tipo (oculos), Tamanho (unico), Marca (coca-cola), Cor (azul), Preço (380,00)
+    - Deve possui modal de preview
+    - Filtrar no máximo 15 por página de busca
+
+- **Cliente**
+    - Autenticação para acessar a conta
+    - Autenticação para comentário
+    - Autenticação para favorito
+    - Autenticação para pagamento
+    - Cadastro restrito para um CPF/CNPJ e E-mail
+
+- **Gestão Produto**
+    - Tipo depende da Categoria
+    - Marca depende do Tipo
+
+- **Gênero**
+    - Masculino, Feminino, Menino, Menina, Unissex
+
+- **Categorias**
+    - Calçados, Roupas, Acessórios
+
+- **Tipos**
+    - *Calçados:* Botas, Chinelos, Chuteiras, Crocs, Sapatênis, Tênis
+    - *Roupas:* Bermudas, Calças, Camisas, Jaquetas, Moletons, Shorts
+    - *Acessórios:* Bonés, Malas, Meias, Mochilas, Óculos, Relógios
+
+- **Tamanho**
+    - PP, P, M, G, GG, XG, 20 - 50 (múltiplo 2), Único
+
+- **Marcas**
+    - *Calçados:* Adidas, Asics, Fila, Kappa, Mizuno, Nike, Oakley, Olympikus, Puma
+    - *Roupas:* Adidas, Aramis, Armadilho, Calvin Klein, Colcci, Everlast, Lacoste, Nike, Reserva
+    - *Acessórios:* Adidas, Amora, Capricho, Caterpillar, Coca Cola, Colcci, Everlast
+
+- **Cores**
+    - Amarelo, Azul Claro, Azul Escuro, Bege, Bordô, Branco, Cinza, Dourado, Laranja, Lilás, Marinho, Marrom, Preto, Rosa, Roxo
+	- Verde, Verde Escuro, Verde Claro, Vermelho, Vinho, Violeta
+
+- **Faixa de preço**
+    - Menos 60, Entre (60 - 100), Entre (100 - 160), Entre (160 - 240), Entre (240 - 380), Entre (380 - 770), Mais 770
 
 </details>
 
