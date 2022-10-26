@@ -136,3 +136,34 @@
         - Descrição
 
 </details>
+
+<details>
+<summary>🎁 Página Produtos</summary>
+
+- **Slideshow de Campanha [Hero]**
+    - Imagem Background
+    - Link Produtos
+- **Produtos Miniatura [Categorização]**
+    - Nome
+    - Imagem
+- **Container Ads [Campanha]**
+    - Imagem
+    - Link Produtos
+- **Mais Baratos [Carrosel]**
+    - Mais Vendidos [Unissex]
+    - Nome Produto
+    - Preço
+- **Container Ads [Campanha]**
+    - Imagem
+    - Link Produtos
+- **Novos [Carrosel]**
+    - Mais Vendidos [Unissex]
+    - Nome Produto
+    - Preço
+- **Banner [CTA]**
+    - Nome Banner
+    - Descrição Banner
+    - Imagem Background
+    - Link Produtos
+
+</details>
