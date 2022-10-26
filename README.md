@@ -1,3 +1,4 @@
+<details>
 <summary>✨ Rotas</summary>
 
 - *Raíz*
@@ -33,7 +34,7 @@
 - *Página Itens Compra*
     - *Página Carrinho:* `/carrinho`
 
-- *Página Pagamento:*
+- *Página Pagamento*
     - *Página Finalizar Compra:* `/finalizar-compra`
     - *Página Confirmação:* `/finalizar-compra/confirmacao`
 
@@ -48,3 +49,5 @@
 
 - *Página Novidades*
     - *Página Blog:* `/blog`
+
+</details>
