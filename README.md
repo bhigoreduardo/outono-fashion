@@ -211,6 +211,11 @@
 
 </details>
 
+## 📌 Desenvolvimento (Steps):
+
+- **Produto**
+![Produto Conceitual](assets/images/produto-conceitual.png)
+
 ## 💼 Tecnologias utilizadas:
 
 - Angular
