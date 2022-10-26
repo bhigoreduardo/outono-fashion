@@ -167,3 +167,31 @@
     - Link Produtos
 
 </details>
+
+<details>
+<summary>🎯 Página Filtro</summary>
+
+- **Banner [Hero]**
+    - Imagem Background
+    - Breadcrumb
+- **Sidebar [Filtro]**
+    - Gênero
+    - Tipo de Produto
+    - Tamanho
+    - Marca
+    - Cor
+    - Preço
+- **List [Card Produto]**
+    - Ordenação
+        Mais Populares
+        Mais Vendidos
+        Lançamentos
+        Ofertas
+        Maior Preço
+        Menor Preço
+        Melhor Avaliados
+    - Card Container
+- **Ofertas [Carrosel]**
+- **Novidade [Carrosel]**
+
+</details>
