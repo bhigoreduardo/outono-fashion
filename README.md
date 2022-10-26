@@ -49,53 +49,90 @@
 <details>
 <summary>✨ Rotas</summary>
 
-- *Raíz*
-    - *Página Inicial:* `outonofashion.com`
+- **Raíz**
+    - Página Inicial: `outonofashion.com`
 
-- *Página Produtos*
-    - *Página Produtos Masculino:* `/masculino`
-    - *Página Produtos Feminino:* `/feminino`
-    - *Página Produtos Menino:* `/menino`
-    - *Página Produtos Menina:* `/menina`
+- **Página Produtos**
+    - Página Produtos Masculino: `/masculino`
+    - Página Produtos Feminino: `/feminino`
+    - Página Produtos Menino: `/menino`
+    - Página Produtos Menina: `/menina`
 
-    - *Página Produtos Promoções [Unissex]:* `/promocoes`
-    - *Página Produtos Calçados [Unissex]:* `/calcados`
-    - *Página Produtos Roupas [Unissex]:* `/roupas`
-    - *Página Produtos Acessórios [Unissex]:* `/acessorios`
-    - *Página Produtos Marcas [Unissex]:* `/marcas`
+    - Página Produtos Promoções [Unissex]: `/promocoes`
+    - Página Produtos Calçados [Unissex]: `/calcados`
+    - Página Produtos Roupas [Unissex]: `/roupas`
+    - Página Produtos Acessórios [Unissex]: `/acessorios`
+    - Página Produtos Marcas [Unissex]: `/marcas`
 
-- *Página Filtro*
-    - *Página Filtro Calçados:* `/calcados/produtos?tipo-produto=chinelo?genero=masculino&tamanho=40&marca=coca-cola&cor=azul&preco=60-100`
-    - *Página Filtro Roupas:* `/roupas/produtos?tipo-produto=biquini&genero=feminino&tamanho=m&marca=billabong&cor=verde&preco=100-160`
-    - *Página Filtro Acessórios:* `/acessorios/produtos?tipo-produto=oculos&genero=menino&tamanho=50&marca=atitude&cor=prata&preco=240-380`
-    - *Página Filtro Marcas:* `/marcas/produtos?marca=adidas?tipo-produto=agasalho&genero=menina&tamanho=p&cor=rosa&preco=380-770&sort=ofertas`
+- **Página Filtro**
+    - Página Filtro Calçados: `/calcados/produtos?tipo-produto=chinelo?genero=masculino&tamanho=40&marca=coca-cola&cor=azul&preco=60-100`
+    - Página Filtro Roupas: `/roupas/produtos?tipo-produto=biquini&genero=feminino&tamanho=m&marca=billabong&cor=verde&preco=100-160`
+    - Página Filtro Acessórios: `/acessorios/produtos?tipo-produto=oculos&genero=menino&tamanho=50&marca=atitude&cor=prata&preco=240-380`
+    - Página Filtro Marcas: `/marcas/produtos?marca=adidas?tipo-produto=agasalho&genero=menina&tamanho=p&cor=rosa&preco=380-770&sort=ofertas`
 
-- *Página Autenticação*
-    - *Página Login/Cadastro:* `/login`
-    - *Página Cadastro Confirmação:* `/login/cadastrado`
-    - *Página Login Pagamento:* `/login/finalizar-compra`
+- **Página Autenticação**
+    - Página Login/Cadastro: `/login`
+    - Página Cadastro Confirmação: `/login/cadastrado`
+    - Página Login Pagamento: `/login/finalizar-compra`
 
-- *Página Dados Cliente*
-    - *Página Conta:* `/conta`
-    - *Página Favorito:* `/conta/favoritos`
+- **Página Dados Cliente**
+    - Página Conta: `/conta`
+    - Página Favorito: `/conta/favoritos`
 
-- *Página Itens Compra*
-    - *Página Carrinho:* `/carrinho`
+- **Página Itens Compra**
+    - Página Carrinho: `/carrinho`
 
-- *Página Pagamento*
-    - *Página Finalizar Compra:* `/finalizar-compra`
-    - *Página Confirmação:* `/finalizar-compra/confirmacao`
+- **Página Pagamento**
+    - Página Finalizar Compra: `/finalizar-compra`
+    - Página Confirmação: `/finalizar-compra/confirmacao`
 
-- *Página Institucionais*
-    - *Página Sobre:* `/sobre`
-    - *Página Política de Privacidade:* `/politicas-privacidade`
-    - *Página Não Encontrada:* `/pagina-nao-encontrada`
-    - *Página Contato:* `/contato`
+- **Página Institucionais**
+    - Página Sobre: `/sobre`
+    - Página Política de Privacidade: `/politicas-privacidade`
+    - Página Não Encontrada: `/pagina-nao-encontrada`
+    - *Página Contato: `/contato`
 
-- *Página Gerência*
-    - *Página CMS:* `/cms`
+- **Página Gerência**
+    - Página CMS: `/cms`
 
-- *Página Novidades*
-    - *Página Blog:* `/blog`
+- **Página Novidades**
+    - Página Blog: `/blog`
+
+</details>
+
+<details>
+<summary>🗂️ Página Inicial</summary>
+
+- **Slideshow de Campanha [Hero]**
+    - Imagem Background
+    - Link Produtos
+- **Seção de Ofertas [Campanha]**
+    - Nome Campanha
+    - Descrição Oferta
+    - Imagem Background
+    - Link Produtos
+- **Produtos Gênero [Carrosel]**
+    - Últimos Adicionados
+    - Nome Produto
+    - Preço
+- **Banner [CTA]**
+    - Nome Banner
+    - Descrição Banner
+    - Imagem Background
+    - Link Produtos
+- **Mais Vendidos [Carrosel]**
+    - Mais Vendidos [Unissex]
+    - Nome Produto
+    - Preço
+- **Top Marcas [Carrosel]**
+    - Logo Marcas
+- **Newsletter [Lead]**
+    - Imagem Background
+    - Oferta [Isca]
+    - Regras Oferta
+    - Form E-mail
+    - Box Icons
+        - Nome
+        - Descrição
 
 </details>
