@@ -1,8 +1,8 @@
 <details>
 <summary>✨ Rotas</summary>
-    - **Páginas:**
-        # Raíz
-        - *Página Inicial:* `outonofashion.com`
+    - <h3>Páginas:</h3>
+        <h2>Raíz</h2>
+        <p>Página Inicial: <code>outonofashion.com</code></p>
 
         # Página Produtos
         - *Página Produtos Masculino:* `/masculino`
