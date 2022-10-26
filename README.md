@@ -1,4 +1,18 @@
 <details>
+<summary>📒 Requisitos</summary>
+
+- *Produto*
+    - **Gênero**
+    Categoria (acessorios)
+    Tipo (oculos)
+    Tamanho (unico)
+    Marca (coca-cola)
+    Cor (azul)
+    Preço (380,00)
+
+</details>
+
+<details>
 <summary>✨ Rotas</summary>
 
 - *Raíz*
