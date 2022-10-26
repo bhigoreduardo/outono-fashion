@@ -1,7 +1,5 @@
 <summary>✨ Rotas</summary>
 
-- **Páginas:**
-
 - *Raíz*
     - *Página Inicial:* `outonofashion.com`
 
