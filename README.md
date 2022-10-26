@@ -213,8 +213,14 @@
 
 ## 📌 Desenvolvimento (Steps):
 
+
+<details>
+<summary>📋 Conceito Entidades</summary>
+
 - **Produto**
 ![Produto Conceitual](assets/images/produto-conceitual.png)
+
+</details>
 
 ## 💼 Tecnologias utilizadas:
 
