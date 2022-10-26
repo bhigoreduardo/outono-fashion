@@ -1,6 +1,6 @@
 <details>
 <summary>✨ Rotas</summary>
-    - <h3>Páginas:</h3>
+    <h3>Páginas:</h3>
         <h2>Raíz</h2>
         <p>Página Inicial: <code>outonofashion.com</code></p>
 
