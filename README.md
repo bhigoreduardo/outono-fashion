@@ -213,7 +213,6 @@
 
 ## 📌 Desenvolvimento (Steps):
 
-
 <details>
 <summary>📋 Conceito Entidades</summary>
 
