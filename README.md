@@ -1,18 +1,18 @@
 <details>
 <summary>✨ Rotas</summary>
-    <ul>
-        <li>
-            <h2>Raíz</h2>
-            <p>Página Inicial: <code>outonofashion.com</code></p>
-        </li>
+<ul>
+<li>
+    <h2>Raíz</h2>
+    <p>Página Inicial: <code>outonofashion.com</code></p>
+</li>
 
-        <li>
-            <h2>Página Produtos</h2>
-            <p>Página Inicial: <code>outonofashion.com</code></p>
-            <p>Página Inicial: <code>outonofashion.com</code></p>
-            <p>Página Inicial: <code>outonofashion.com</code></p>
-        </li>
-    </ul>
+<li>
+    <h2>Página Produtos</h2>
+    <p>Página Inicial: <code>outonofashion.com</code></p>
+    <p>Página Inicial: <code>outonofashion.com</code></p>
+    <p>Página Inicial: <code>outonofashion.com</code></p>
+</li>
+</ul>
 
         # Página Produtos
         - *Página Produtos Masculino:* `/masculino`
