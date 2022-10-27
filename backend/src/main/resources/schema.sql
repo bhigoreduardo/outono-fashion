@@ -1,0 +1,17 @@
+create table categoria (id  bigserial not null, descricao varchar(255) not null, primary key (id));
+create table comentario (id  bigserial not null, classificacao float8 not null, data_comentario timestamp not null, descricao varchar(255), produto_id int8, primary key (id));
+create table cor (id  bigserial not null, descricao varchar(255) not null, primary key (id));
+create table estoque (id  bigserial not null, preco numeric(19, 2) not null, quantidade int4 not null, cor_id int8, produto_id int8, tamnho_id int8, primary key (id));
+create table genero (id  bigserial not null, descricao varchar(255) not null, primary key (id));
+create table marca (id  bigserial not null, descricao varchar(255) not null, primary key (id));
+create table produto (id  bigserial not null, altura float8 not null, comprimento float8 not null, data_atualizacao timestamp not null, data_cadastro timestamp not null, descricao varchar(255) not null, detalhe varchar(255) not null, largura float8 not null, nome varchar(255) not null, peso float8 not null, categoria_id int8 not null, genero_id int8 not null, marca_id int8 not null, tipo_id int8 not null, primary key (id));
+create table tamanho (id  bigserial not null, descricao varchar(255) not null, primary key (id));
+create table tipo (id  bigserial not null, descricao varchar(255) not null, primary key (id));
+alter table comentario add constraint FKlu4q43jb7xarmqju8re7uqvg foreign key (produto_id) references produto;
+alter table estoque add constraint FK4tbkowd7rjn74n098wjndfpeb foreign key (cor_id) references cor;
+alter table estoque add constraint FKh201uorwvq9pjj4dsvjyo73ft foreign key (produto_id) references produto;
+alter table estoque add constraint FKq5tnlbiuq0u2yar2o23us4c29 foreign key (tamnho_id) references tamanho;
+alter table produto add constraint FKopu9jggwnamfv0c8k2ri3kx0a foreign key (categoria_id) references categoria;
+alter table produto add constraint FKegqur49tcit22o6t6envldhyy foreign key (genero_id) references genero;
+alter table produto add constraint FKjwfodivt9e04sad1s7u0ya4jq foreign key (marca_id) references marca;
+alter table produto add constraint FK12kmk8fvtqqtr5cnpimif8k6k foreign key (tipo_id) references tipo;
