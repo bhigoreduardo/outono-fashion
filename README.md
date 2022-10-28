@@ -562,9 +562,9 @@
 
 ### Backlog Funcionamento Usuário
 
-- [x] Design (Figma)
-    - [] Página Inicial
-    - [] Página Filtro
+- [ ] Design (Figma)
+    - [ ] Página Inicial
+    - [ ] Página Filtro
     - [] Página Produto Individual
     - [] Página Autenticação (Cliente)
     - [] Página Carrinho (Cliente)
