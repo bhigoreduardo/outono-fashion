@@ -596,6 +596,11 @@ Back-End  | 3     | Higor
 <details>
 <summary><b>⏳ Sprint Funcionamento Usuário</b></summary>
 
+- ### Prazos/Responsáveis
+    - Design (1 dia)
+    - Back-End (3 dias)
+    - Front-End (3 dias)
+
 - ### Em Andamento
     - [ ] 28/10 Design (1 dia)
 
