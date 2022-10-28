@@ -588,7 +588,7 @@
 
 ### Sprint Planning Funcionamento Usuário [1 2 3 5 8]
     | Task      | Score | Responsável   |
-    -------------------------------------
+    ------------|-------|---------------|
     | Design    | 3     | Higor         |
     | Front-End | 5     | Higor         |
     | Back-End  | 3     | Higor         |
