@@ -565,26 +565,26 @@
 - [ ] Design (Figma)
     - [ ] Página Inicial
     - [ ] Página Filtro
-    - [] Página Produto Individual
-    - [] Página Autenticação (Cliente)
-    - [] Página Carrinho (Cliente)
-    - [] Página Pagamento (Cliente)
-    - [] Página Conta (Cliente)
-- [] Front-End (Angular)
-    - [] Página Inicial (Header - Hero - Footer)
-    - [] Página Filtro
-    - [] Página Produto Individual
-    - [] Página Autenticação (Cliente)
-    - [] Página Carrinho (Cliente)
-    - [] Página Pagamento (Cliente)
-    - [] Página Conta (Cliente)
-- [] Back-End (RESTApi Spring)
-    - [] Página Filtro
-    - [] Página Produto Individual
-    - [] Página Autenticação (Cliente)
-    - [] Página Carrinho (Cliente)
-    - [] Página Pagamento (Cliente)
-    - [] Página Conta (Cliente)
+    - [ ] Página Produto Individual
+    - [ ] Página Autenticação (Cliente)
+    - [ ] Página Carrinho (Cliente)
+    - [ ] Página Pagamento (Cliente)
+    - [ ] Página Conta (Cliente)
+- [ ] Front-End (Angular)
+    - [ ] Página Inicial (Header - Hero - Footer)
+    - [ ] Página Filtro
+    - [ ] Página Produto Individual
+    - [ ] Página Autenticação (Cliente)
+    - [ ] Página Carrinho (Cliente)
+    - [ ] Página Pagamento (Cliente)
+    - [ ] Página Conta (Cliente)
+- [ ] Back-End (RESTApi Spring)
+    - [ ] Página Filtro
+    - [ ] Página Produto Individual
+    - [ ] Página Autenticação (Cliente)
+    - [ ] Página Carrinho (Cliente)
+    - [ ] Página Pagamento (Cliente)
+    - [ ] Página Conta (Cliente)
 
 </details>
 
