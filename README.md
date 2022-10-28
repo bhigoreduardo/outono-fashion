@@ -560,21 +560,31 @@
 <details>
 <summary><b>🚀 Scrum</b></summary>
 
-**Backlog Funcionamento Usuário**
+### Backlog Funcionamento Usuário
+
+- [] Design (Figma)
     - [] Página Inicial
-    - 2. Página Filtro
-    - 3. Página Produto Individual
-    - 4. Página Autenticação (Cliente)
-    - 5. Página Carrinho (Cliente)
-    - 6. Página Pagamento (Cliente)
-    - 7. Página Conta (Cliente)
-
-### Project status
-
-- [x] Design
-- [x] Mockups
-- [x] Development
-
+    - [] Página Filtro
+    - [] Página Produto Individual
+    - [] Página Autenticação (Cliente)
+    - [] Página Carrinho (Cliente)
+    - [] Página Pagamento (Cliente)
+    - [] Página Conta (Cliente)
+- [] Front-End (Angular)
+    - [] Página Inicial (Header - Hero - Footer)
+    - [] Página Filtro
+    - [] Página Produto Individual
+    - [] Página Autenticação (Cliente)
+    - [] Página Carrinho (Cliente)
+    - [] Página Pagamento (Cliente)
+    - [] Página Conta (Cliente)
+- [] Back-End (RESTApi Spring)
+    - [] Página Filtro
+    - [] Página Produto Individual
+    - [] Página Autenticação (Cliente)
+    - [] Página Carrinho (Cliente)
+    - [] Página Pagamento (Cliente)
+    - [] Página Conta (Cliente)
 
 </details>
 
