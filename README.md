@@ -569,6 +569,13 @@
     - 6. Página Pagamento (Cliente)
     - 7. Página Conta (Cliente)
 
+### Project status
+
+- [x] Design
+- [x] Mockups
+- [x] Development
+
+
 </details>
 
 - **Produto**
