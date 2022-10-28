@@ -593,6 +593,22 @@ Design    | 3     | Higor
 Front-End | 5     | Higor
 Back-End  | 3     | Higor
 
+<details>
+<summary><b>⏳ Sprint Funcionamento Usuário</b></summary>
+
+- ### Em Andamento
+    - [] 28/10 Design (1 dia)
+
+- ### Validação
+
+- ### Aguardando Deploy
+
+- ### Em Produção
+
+- ### Revisão Sprint
+
+</details>
+
 </details>
 
 - **Produto**
