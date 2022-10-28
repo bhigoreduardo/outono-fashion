@@ -561,13 +561,13 @@
 <summary><b>🚀 Scrum</b></summary>
 
 **Backlog Funcionamento Usuário**
-    - [ ] 1. Página Inicial
-    - [ ] 2. Página Filtro
-    - [ ] 3. Página Produto Individual
-    - [ ] 4. Página Autenticação (Cliente)
-    - [ ] 5. Página Carrinho (Cliente)
-    - [ ] 6. Página Pagamento (Cliente)
-    - [ ] 7. Página Conta (Cliente)
+    - [] Página Inicial
+    - 2. Página Filtro
+    - 3. Página Produto Individual
+    - 4. Página Autenticação (Cliente)
+    - 5. Página Carrinho (Cliente)
+    - 6. Página Pagamento (Cliente)
+    - 7. Página Conta (Cliente)
 
 </details>
 
