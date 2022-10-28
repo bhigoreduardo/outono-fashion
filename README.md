@@ -597,7 +597,7 @@ Back-End  | 3     | Higor
 <summary><b>⏳ Sprint Funcionamento Usuário</b></summary>
 
 - ### Em Andamento
-    - [] 28/10 Design (1 dia)
+    - [ ] 28/10 Design (1 dia)
 
 - ### Validação
 
