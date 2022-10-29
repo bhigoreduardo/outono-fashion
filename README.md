@@ -566,10 +566,10 @@
     - [x] Página Inicial
     - [x] Página Filtro
     - [x] Página Produto Individual
-    - [ ] Página Autenticação (Cliente)
-    - [ ] Página Carrinho (Cliente)
-    - [ ] Página Pagamento (Cliente)
-    - [ ] Página Conta (Cliente)
+    - [x] Página Autenticação (Cliente)
+    - [x] Página Carrinho (Cliente)
+    - [x] Página Pagamento (Cliente)
+    - [x] Página Conta (Cliente)
 - [ ] Front-End (Angular)
     - [ ] Página Inicial (Header - Hero - Footer)
     - [ ] Página Filtro
@@ -602,9 +602,10 @@ Back-End  | 3     | Higor
     - Front-End (3 dias)
 
 - ### Em Andamento
-    - [ ] 28/10 Design (1 dia)
+    - [x] 28/10 Design
 
 - ### Validação
+    - [ ] 29/10 Design
 
 - ### Aguardando Deploy
 
