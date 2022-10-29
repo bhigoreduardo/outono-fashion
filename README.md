@@ -119,7 +119,7 @@
 
     - **Valores do Tipo**
         - *Calçados:* Botas, Chinelos, Chuteiras(M), Crocs, Sapatênis, Tênis
-        - *Roupas:* Bermudas(M), Calças, Camisas, Jaquetas, Moletons, Shorts, Vestidos(F)
+        - *Roupas:* Bermudas, Calças, Camisas, Jaquetas, Moletons, Shorts, Vestidos(F)
         - *Acessórios:* Bonés, Malas, Meias, Mochilas, Óculos, Relógios
 
     - **Valores do Tamanho**
@@ -563,9 +563,9 @@
 ### Backlog Funcionamento Usuário
 
 - [ ] Design (Figma)
-    - [ ] Página Inicial
-    - [ ] Página Filtro
-    - [ ] Página Produto Individual
+    - [x] Página Inicial
+    - [x] Página Filtro
+    - [x] Página Produto Individual
     - [ ] Página Autenticação (Cliente)
     - [ ] Página Carrinho (Cliente)
     - [ ] Página Pagamento (Cliente)
@@ -596,7 +596,7 @@ Back-End  | 3     | Higor
 <details>
 <summary><b>⏳ Sprint Funcionamento Usuário</b></summary>
 
-- ### Prazos/Responsáveis
+- ### Prazos
     - Design (1 dia)
     - Back-End (3 dias)
     - Front-End (3 dias)
