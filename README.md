@@ -617,8 +617,26 @@ Back-End  | 3     | Higor
 
 </details>
 
-- **Produto**
+## 🗃️ Documentos Projeto:
+
+<details>
+<summary><b>📝 Modelagem de Entidades</b></summary>
+
+<details>
+<summary><b>🧺 Produto</b></summary>
+
 ![Produto Conceitual](assets/images/produto-conceitual.png)
+
+</details>
+
+<details>
+<summary><b>👦 Usuário</b></summary>
+
+![Produto Conceitual](assets/images/usuario-conceitual.png)
+
+</details>
+
+</details>
 
 ## 💼 Tecnologias utilizadas:
 
