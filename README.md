@@ -603,6 +603,7 @@ Back-End  | 3     | Higor
 
 - ### Em Andamento
     - [x] 28/10 Design
+    - [ ] 29/10 Back-End
 
 - ### Validação
     - [ ] 29/10 Design
@@ -640,17 +641,17 @@ Back-End  | 3     | Higor
 
 ## 💼 Tecnologias utilizadas:
 
-- Angular
+- #### Angular (Front)
   - HTML
   - SCSS
   - JavaScript
   - TypesScript
 
-- Java
+- #### Java (Back)
   - Spring Boot
 
-- SQL
-  - MySQL
+- #### SQL (Banco)
+  - PostgreSQL
 
 <h2>🦄 Autor</h2>
 
