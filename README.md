@@ -5,13 +5,13 @@
 
 - **PO (Product Owner):** Higor E. Batista
 - **Scrum Master:** Higor E. Batista
-- **Dev Team: Higor** E. Batista
+- **Dev Team:** Higor E. Batista
 
-✅ Design Responsivo (Angular)
-✅ Gateway Pagamento (Teste)
-✅ Segurança e Autenticação JWT (Autenticação)
+✅ RESTApi
+✅ Design Responsivo
+✅ Segurança e Autenticação JWT
+✅ Gateway Pagamento
 ✅ CMS (Dashboard Estatísticas e Gestão)
-✅ RESTApi (Spring Boot)
 
 # ✨ Objetivo:
 
@@ -31,7 +31,10 @@
     - Comentar em produtos comprados (credibilidade)
     - Permitir cadastrar somente um CPF/CNPJ e E-mail
     - Pagamento facilitado e flexível no cartão de crédito em até 12x sem juros
-    - Pagamento boleto e pix
+    - Pagamento cartão e boleto
+    - Cupom de desconto restrito por CPF/CNPJ não cumulativo
+    - Salvar cartões de crédito histórico
+    - Devolução no cartão ou conta bancária do cliente
 
 - **Experiência do Usuário (Administrador):**
     - Acessar todas compras, faturamento, chat
@@ -116,6 +119,7 @@
 
     - **Valores da Categoria**
         - Calçados, Roupas, Acessórios
+        Select * from TABELA where CAMPO like '%texto_para_encontrar%' collate utf8_general_ci
 
     - **Valores do Tipo**
         - *Calçados:* Botas, Chinelos, Chuteiras(M), Crocs, Sapatênis, Tênis

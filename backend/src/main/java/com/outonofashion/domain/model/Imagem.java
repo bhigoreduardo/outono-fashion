@@ -1,29 +1,22 @@
 package com.outonofashion.domain.model;
 
-import java.math.BigDecimal;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
 
-import com.outonofashion.domain.model.id.EstoqueId;
+import com.outonofashion.domain.model.id.ImagemId;
 
 import lombok.Data;
 
-@Entity
 @Data
-@IdClass(EstoqueId.class)
-public class Estoque {
+@Entity
+@IdClass(ImagemId.class)
+public class Imagem {
 	
 	@Column(nullable = false)
-	private Integer quantidade;
-	
-	@Column(nullable = false)
-	private BigDecimal preco;
-	
-	private BigDecimal oferta;
+	private String url;
 	
 	@Id
 	@ManyToOne
@@ -32,9 +25,5 @@ public class Estoque {
 	@Id
 	@ManyToOne
 	private Cor cor;
-	
-	@Id
-	@ManyToOne
-	private Tamanho tamanho;
 
 }

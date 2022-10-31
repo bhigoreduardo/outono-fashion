@@ -8,33 +8,30 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
 
-import com.outonofashion.domain.model.id.EstoqueId;
+import com.outonofashion.domain.model.id.ItemPedidoId;
 
 import lombok.Data;
 
-@Entity
 @Data
-@IdClass(EstoqueId.class)
-public class Estoque {
+@Entity
+@IdClass(ItemPedidoId.class)
+public class ItemPedido {
 	
 	@Column(nullable = false)
 	private Integer quantidade;
 	
 	@Column(nullable = false)
-	private BigDecimal preco;
+	private BigDecimal precoUnitario;
 	
-	private BigDecimal oferta;
+	@Column(length = 120)
+	private String observacao;
+	
+	@Id
+	@ManyToOne
+	private Pedido pedido;
 	
 	@Id
 	@ManyToOne
 	private Produto produto;
 	
-	@Id
-	@ManyToOne
-	private Cor cor;
-	
-	@Id
-	@ManyToOne
-	private Tamanho tamanho;
-
 }

@@ -1,6 +1,9 @@
 package com.outonofashion.domain.model;
 
+import java.sql.Date;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,7 +11,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -16,68 +22,70 @@ import org.hibernate.annotations.UpdateTimestamp;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-@Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Data
 @Entity
-public class Produto {
-
+public class Usuario {
+	
 	@EqualsAndHashCode.Include
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(nullable = false, length = 120)
+	@Column(nullable = false, length = 60)
 	private String nome;
-
+	
+	@Column(length = 60)
+	private String sobrenome;
+	
+	@Column(nullable = false, length = 120, unique = true)
+	private String email;
+	
+	@Column(nullable = false, length = 20)
+	private String senha;
+	
+	@Column(nullable = false, length = 14, unique = true)
+	private String cpfCnpj;
+	
+	@Column(nullable = false, length = 14)
+	private String rgIe;
+	
+	private Date dataNascimento;
+	
 	@Column(nullable = false)
-	private String descricao;
-
-	@Column(nullable = false)
-	private String detalhe;
-
-	@Column(nullable = false)
-	private Double largura;
-
-	@Column(nullable = false)
-	private Double altura;
-
-	@Column(nullable = false)
-	private Double comprimento;
-
-	@Column(nullable = false)
-	private Double peso;
-
 	@CreationTimestamp
-	@Column(nullable = false)
 	private OffsetDateTime dataCadastro;
-
-	@UpdateTimestamp
+	
 	@Column(nullable = false)
+	@UpdateTimestamp
 	private OffsetDateTime dataAtualizacao;
-
+	
 	@Column(nullable = false)
 	private Boolean ativo;
-
-	@ManyToOne
+	
+	@Column(length = 30)
+	private String bancoConta;
+	
+	@Column(length = 30)
+	private String agenciaBancaria;
+	
+	@Column(length = 30)
+	private String contaBancaria;
+	
 	@JoinColumn(nullable = false)
+	@ManyToOne
 	private Genero genero;
-
-	@ManyToOne
-	@JoinColumn(nullable = false)
-	private Categoria categoria;
-
-	@ManyToOne
-	@JoinColumn(nullable = false)
-	private Tipo tipo;
-
-	@ManyToOne
-	@JoinColumn(nullable = false)
-	private Marca marca;
-
-	// Estoque
 	
-	// Imagem
+	@ManyToOne
+	private Foto foto;
 	
-	// Comentario
-
+	// Endereco
+	
+	// Cartao
+	
+	@ManyToOne
+	private Grupo grupo;
+	
+	// Telefone
+	
 }
