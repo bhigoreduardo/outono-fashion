@@ -1,0 +1,75 @@
+/* FONT IMPORT LINK */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
+
+/* FONT-FAMILY */
+$font-family: "Poppins", sans-serif;
+
+/* FONT-SIZE */
+$font-size-xxs: 10px;
+$font-size-xs: 12px;
+$font-size-sm: 14px;
+$font-size-base: 16px;
+$font-size-lg: 18px;
+$font-size-h5: 20px;
+$font-size-h4: 24px;
+$font-size-h3: 28px;
+$font-size-h2: 32px;
+$font-size-h1: 40px;
+$font-size-display: 56px;
+
+/* FONT-WEIGHT */
+$font-weight-regular: 400;
+$font-weight-semi-bold: 600;
+$font-weight-bold: 700;
+
+/* LINE-HEIGHT */
+$line-height-xxs: 1.5;
+$line-height-xs: 1.5;
+$line-height-sm: 1.5;
+$line-height-base: 1.5;
+$line-height-lg: 1.5;
+$line-height-h5: 1.5;
+$line-height-h4: 1.3;
+$line-height-h3: 1.3;
+$line-height-h2: 1.3;
+$line-height-h1: 1.3;
+$line-height-display: 1.3;
+
+/* COLORS */
+$color-warning: #f29d36;
+$color-light: #f6f6f6;
+$color-dark: #333333;
+$color-gray: #c4c4c4;
+
+/* NORMAL COLORS */
+$color-white: #ffffff;
+$color-black: #000000;
+
+/* GRAY-COLORS */
+$color-gray-900: #1f1b2d;
+$color-gray-800: #454056;
+$color-gray-700: #666276;
+$color-gray-600: #9691a4;
+$color-gray-500: #bbb7c5;
+$color-gray-400: #d5d2dc;
+$color-gray-300: #efecf3;
+$color-gray-200: #f5f4f8;
+$color-gray-100: #f9f8fa;
+
+/* WHITE-COLORS*/
+$color-white-700: #ffffffb3;
+$color-white-500: #ffffff80;
+$color-white-150: #ffffff26;
+$color-white-120: #ffffff1f;
+$color-white-040: #ffffff0a;
+
+/* BOX-SHADOW */
+$box-shadow-small: 0 2px 2px -2px rgba(31, 27, 45, 0.08),
+  0 4px 12px rgba(31, 27, 45, 0.08);
+$box-shadow-default: 0 2px 8px -4px rgba(31, 27, 45, 0.12),
+  0 4px 16px rgba(31, 27, 45, 0.12);
+$box-shadow-large: 0 4px 12px -6px rgba(31, 27, 45, 0.2),
+  0 8px 16px rgba(31, 27, 45, 0.16);
+
+/* MAX-WIDTH */
+$max-width: 1218px; /* 1170px + 48px */

@@ -1,0 +1,65 @@
+/* VARS */
+@import "./vars";
+
+/* BASE */
+*,
+::before,
+::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+}
+
+::ng-deep html,
+::ng-deep body {
+  font-family: $font-family;
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+::selection {
+  color: $color-white;
+  background-color: $color-black;
+}
+
+ul,
+ol {
+  list-style-type: none;
+}
+
+a {
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+input[type="submit"],
+button {
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+select,
+textarea,
+input {
+  font-family: inherit;
+  border: none;
+  resize: none;
+}
+
+img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* CONTAINER */
+.container {
+  padding: 0 24px;
+  margin: 0 auto;
+  max-width: $max-width;
+}
