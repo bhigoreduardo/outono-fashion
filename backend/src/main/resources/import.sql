@@ -1,42 +1,47 @@
 -- Gênero
-INSERT INTO genero
-	(descricao)
-	VALUES
-	('Masculino'), ('Feminino'), ('Menino'), ('Menina'), ('Unissex');
-	
+INSERT INTO genero (descricao) VALUES ('Masculino'), ('Feminino'), ('Menino'), ('Menina'), ('Unissex');
+
 -- Categoria
-INSERT INTO categoria
-	(descricao)
-	VALUES
-	('Calçados', 'Roupas', 'Acessórios');
+INSERT INTO categoria (descricao) VALUES ('Calçados'), ('Roupas'), ('Acessórios');
 
 -- Tipo
-INSERT INTO tipo
-	(descricao)
-	VALUES
-	('Botas', 'Chinelos', 'Chuteiras', 'Crocs', 'Sapatênis', 'Tênis',
-	'Bermudas', 'Calças', 'Camisas', 'Jaquetas', 'Moletons', 'Shorts', 'Vestidos',
-	'Bonés', 'Malas', 'Meias', 'Mochilas', 'Óculos', 'Relógios');
-	
+INSERT INTO tipo (descricao) VALUES	('Botas'), ('Chinelos'), ('Chuteiras'), ('Crocs'), ('Sapatênis'), ('Tênis'), ('Bermudas'), ('Calças'), ('Camisas'), ('Jaquetas'), ('Moletons'), ('Shorts'), ('Vestidos'), ('Bonés'), ('Malas'), ('Meias'), ('Mochilas'), ('Óculos'), ('Relógios');
+
 -- Tamanho
-INSERT INTO tamanho
-	(descricao)
-	VALUES
-	('PP', 'P', 'M', 'G', 'GG', 'XG', '20', '22', 24', '26', '28', '30', '32', '34',
-	'36', '38', '40', '42', '44', '46', '48', '50', 'Único');
-	
+INSERT INTO tamanho	(descricao)	VALUES ('PP'), ('P'), ('M'), ('G'), ('GG'), ('XG'), ('20'), ('22'), ('24'), ('26'), ('28'), ('30'), ('32'), ('34'), ('36'), ('38'), ('40'), ('42'), ('44'), ('46'), ('48'), ('50'), ('Único');
+
 -- Marca
-INSERT INTO marca
-	(descricao)
-	VALUES
-	('Adidas', 'Amora', 'Asics', 'Aramis', 'Armadilho', 'Calvin Klein', 'Colcci',
-	'Capricho', 'Caterpillar', 'Coca Cola', 'Everlast', 'Fila', 'Kappa', 'Mizuno',
-	'Nike', 'Oakley', 'Olympikus', 'Puma', 'Lacoste', 'Reserva');
-	
+INSERT INTO marca (descricao) VALUES ('Adidas'), ('Amora'), ('Asics'), ('Aramis'), ('Armadilho'), ('Calvin Klein'), ('Colcci'), ('Capricho'), ('Caterpillar'), ('Coca Cola'), ('Everlast'), ('Fila'), ('Kappa'), ('Mizuno'), ('Nike'), ('Oakley'), ('Olympikus'), ('Puma'), ('Lacoste'), ('Reserva');
+
 -- Cor
-INSERT INTO cor
-	(descricao)
-	VALUES
-	('Amarelo', 'Azul Claro', 'Azul Escuro', 'Bege', 'Bordô', 'Branco', 'Cinza',
-	'Dourado', 'Laranja', 'Lilás', 'Marinho', 'Marrom', 'Preto', 'Rosa', 'Roxo',
-	'Verde', 'Verde Escuro', 'Verde Claro', 'Vermelho', 'Vinho', 'Violeta');
+INSERT INTO cor (descricao) VALUES ('Amarelo'), ('Azul Claro'), ('Azul Escuro'), ('Bege'), ('Bordô'), ('Branco'), ('Cinza'), ('Dourado'), ('Laranja'), ('Lilás'), ('Marinho'), ('Marrom'), ('Preto'), ('Rosa'), ('Roxo'), ('Verde'), ('Verde Escuro'), ('Verde Claro'), ('Vermelho'), ('Vinho'), ('Violeta');
+
+-- Produto
+
+-- Masculino -> Calçados -> Botas
+INSERT INTO produto	(nome, descricao, detalhe, largura, altura, comprimento, peso, data_cadastro, data_atualizacao, ativo, genero_id, categoria_id, tipo_id, marca_id) VALUES ('Bota Chelsea Colcci Israel Preta', 'Bota Coturno Masculino Colcci Israel Preta', 'Bota Chelsea Colcci Israel Preta<br>Bota Coturno Masculino Colcci Israel Preta<br>Bico: Redondo<br>Medidas da peça: 12x20cm (Altura X Circunferência)<br>Características: Possui puxador posterior para facilitar o calce<br><br>VERSÁTIL E MODERNA: Coringas para os dias mais frios ou chuvosos, as botas masculinas podem compor looks cheios de estilo que vão do urbano garage ao elegante, podendo ser usadas até mesmo para um visual mais formal para o trabalho!<br><br>RESISTENTE E ATEMPORAL: O Couro é o material obtido através da pele de animal curtida, e pode ter diversos acabamentos. Apresenta resistência e durabilidade, o que torna um material nobre muito utilizado na confecção de calçados, roupas e acessórios. A escolha perfeita para quem deseja um produto duradouro!<br><br>Sobre a marca: Há 30 anos a Colcci é considerada uma das marcas mais influentes da moda brasileira, graças aos seus produtos que aliam qualidade, sofisticação e informação de moda. A marca é um Must-Have de qualquer guarda-roupa, e conta com peças para todas as ocasiões.<br>Produto enviado com nota fiscal!', '18.00', '9.50', '28.00', '500.00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, true, 1, 1, 1, 7);
+
+INSERT INTO produto	(nome, descricao, detalhe, largura, altura, comprimento, peso, data_cadastro, data_atualizacao, ativo, genero_id, categoria_id, tipo_id, marca_id) VALUES ('Bota Coturno Colcci José Café', 'Bota Coturno Masculino Colcci José Café', 'Bota Coturno Colcci José Café<br>Bota Coturno Masculino Colcci José Café<br>Bico: Redondo<br>Medidas da peça: 12x30cm (Altura X Circunferência)<br>Características: Possui solado tratorado<br><br>VERSÁTIL E MODERNA: Coringas para os dias mais frios ou chuvosos, as botas masculinas podem compor looks cheios de estilo que vão do urbano garage ao elegante, podendo ser usadas até mesmo para um visual mais formal para o trabalho!<br><br>RESISTENTE E ATEMPORAL: O Couro é o material obtido através da pele de animal curtida, e pode ter diversos acabamentos. Apresenta resistência e durabilidade, o que torna um material nobre muito utilizado na confecção de calçados, roupas e acessórios. A escolha perfeita para quem deseja um produto duradouro!<br><br>Sobre a marca: Há 30 anos a Colcci é considerada uma das marcas mais influentes da moda brasileira, graças aos seus produtos que aliam qualidade, sofisticação e informação de moda. A marca é um Must-Have de qualquer guarda-roupa, e conta com peças para todas as ocasiões.<br>Produto enviado com nota fiscal!', '18.00', '9.50', '28.00', '500.00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, true, 1, 1, 1, 7);
+	
+INSERT INTO produto	(nome, descricao, detalhe, largura, altura, comprimento, peso, data_cadastro, data_atualizacao, ativo, genero_id, categoria_id, tipo_id, marca_id) VALUES ('Bota Chelsea Colcci Israel Café', 'Bota Coturno Masculino Colcci Israel Café', 'Bota Chelsea Colcci Israel Café<br>Bota Coturno Masculino Colcci Israel Café<br>Bico: Redondo<br>Medidas da peça: 12x20cm (Altura X Circunferência)<br>Características: Possui puxador posterior para facilitar o calce<br><br>VERSÁTIL E MODERNA: Coringas para os dias mais frios ou chuvosos, as botas masculinas podem compor looks cheios de estilo que vão do urbano garage ao elegante, podendo ser usadas até mesmo para um visual mais formal para o trabalho!<br><br>RESISTENTE E ATEMPORAL: O Couro é o material obtido através da pele de animal curtida, e pode ter diversos acabamentos. Apresenta resistência e durabilidade, o que torna um material nobre muito utilizado na confecção de calçados, roupas e acessórios. A escolha perfeita para quem deseja um produto duradouro!<br><br>Sobre a marca: Há 30 anos a Colcci é considerada uma das marcas mais influentes da moda brasileira, graças aos seus produtos que aliam qualidade, sofisticação e informação de moda. A marca é um Must-Have de qualquer guarda-roupa, e conta com peças para todas as ocasiões.<br>Produto enviado com nota fiscal!', '18.00', '9.50', '28.00', '500.00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, true, 1, 1, 1, 7);
+
+INSERT INTO imagem (nome, tipo, cor_id, produto_id) VALUES ('bota-chelsea-colcci-israel-preta-1-1', 'webp', 13, 1), ('bota-chelsea-colcci-israel-preta-1-2', 'webp', 13, 1), ('bota-chelsea-colcci-israel-preta-1-3', 'webp', 13, 1), ('bota-chelsea-colcci-israel-preta-1-4', 'webp', 13, 1), ('bota-chelsea-colcci-israel-preta-1-5', 'webp', 13, 1), ('bota-chelsea-colcci-israel-preta-1-6', 'webp', 13, 1);
+
+INSERT INTO imagem (nome, tipo, cor_id, produto_id) VALUES ('bota-coturno-colcci-josé-café-2-1', 'webp', 13, 2), ('bota-coturno-colcci-josé-café-2-2', 'webp', 13, 2), ('bota-coturno-colcci-josé-café-2-3', 'webp', 13, 2), ('bota-coturno-colcci-josé-café-2-4', 'webp', 13, 2), ('bota-coturno-colcci-josé-café-2-5', 'webp', 13, 2), ('bota-coturno-colcci-josé-café-2-6', 'webp', 13, 2);
+
+INSERT INTO imagem (nome, tipo, cor_id, produto_id) VALUES ('bota-chelsea-colcci-israel-café-3-1', 'webp', 13, 3), ('bota-chelsea-colcci-israel-café-3-2', 'webp', 13, 3), ('bota-chelsea-colcci-israel-café-3-3', 'webp', 13, 3), ('bota-chelsea-colcci-israel-café-3-4', 'webp', 13, 3), ('bota-chelsea-colcci-israel-café-3-5', 'webp', 13, 3);
+
+INSERT INTO estoque (quantidade, preco, produto_id, cor_id, tamanho_id) VALUES (19, 280.90, 1, 13, 17), (20, 280.90, 1, 13, 18), (23, 280.90, 1, 13, 19), (19, 270.90, 2, 13, 17), (20, 270.90, 2, 13, 18), (19, 270.90, 2, 13, 19), (19, 270.90, 2, 13, 20), (20, 200.90, 3, 13, 18), (23, 200.90, 3, 13, 19);
+
+-- Feminino -> Roupas -> Camisas
+INSERT INTO produto	(nome, descricao, detalhe, largura, altura, comprimento, peso, data_cadastro, data_atualizacao, ativo, genero_id, categoria_id, tipo_id, marca_id) VALUES ('Camisa Calvin Klein Reta Listrada Rosa', 'Camisa Calvin Klein Reta Listrada Rosa Feminina', 'Camisa Calvin Klein Reta Listrada Rosa<br>Camisa GAP Reta Listrada Rosa Feminina<br>Camisa GAP Reta Listrada Rosa/Branca<br>Manga: Longa<br>Gola: Ponta<br>Fecho: Botão<br>Bolsos: 1<br>Medidas da peça no tamanho G: Ombro: 15cm/ Ombro a Ombro: 44cm/ Manga: 63cm/ Busto: 116cm /Comprimento: 64cm<br>Medidas do Modelo: Altura 1,81m / Busto: 102cm / Cintura: 84cm / Quadril: 113cm.<br>Produto enviado com nota fiscal!', '18.00', '5.00', '28.00', '200.00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, true, 2, 2, 9, 6);
+
+INSERT INTO produto	(nome, descricao, detalhe, largura, altura, comprimento, peso, data_cadastro, data_atualizacao, ativo, genero_id, categoria_id, tipo_id, marca_id) VALUES ('Camisa Armadilho Manga Longa Algodão Branco', 'Camisa Armadilho Manga Longa Algodão Branco Feminina', 'Camisa Armadilho Manga Longa Algodão Branco<br>Camisa Armadilho Manga Longa Algodão Branco Feminina<br>Camisa manga longa básica algodão com poliamida e elastano, toque macio, ótimo caimento modelagem ajustada com pences. Fechamento botão.<br>Produto enviado com nota fiscal!', '18.00', '5.00', '28.00', '200.00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, true, 2, 2, 9, 5);
+
+INSERT INTO produto	(nome, descricao, detalhe, largura, altura, comprimento, peso, data_cadastro, data_atualizacao, ativo, genero_id, categoria_id, tipo_id, marca_id) VALUES ('Camisa Facinelli by MOONCITY Amarração Rosa', 'Camisa Armadilho by MOONCITY Amarração Rosa Feminina', 'Camisa Armadilho by MOONCITY Amarração Rosa<br>Camisa Armadilho by MOONCITY Amarração Rosa Feminina<br>Modelagem: Reta<br>Gola: Ponta<br>Manga: Longa<br>Fecho: Botão<br>Detalhes: Possui amarração na barra. <br><br>Medidas da peça no tamanho P:<br>• Ombro: 14cm<br>• Ombro a ombro: 45cm<br>• Comprimento da manga: 65cm<br>• Largura da manga: 48cm<br>• Comprimento da peça: 66cm<br>• Busto: 118cm<br>Medidas do Modelo: Altura 1,70m/ Busto: 86cm/ Cintura: 65cm/ Quadril: 87cm.<br><br>CLÁSSICA E ELEGANTE: As camisas são peças obrigatórias em qualquer guarda-roupa, pois são super fáceis de combinar e dão automaticamente aquele ar arrumado ao look. Mas se engana quem acredita que ela não pode compor looks mais descontraídos. Basta usá-la de formas diferentes, como deixar um lado solto e outro dentro da calça ou até mesmo adicionar acessórios mais pesados para um visual diferente!<br>Produto enviado com nota fiscal!', '18.00', '5.00', '28.00', '200.00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, true, 2, 2, 9, 5);
+
+INSERT INTO imagem (nome, tipo, cor_id, produto_id) VALUES ('camisa-calvin-klein-reta-listrada-rosa-4-1', 'webp', 14, 4), ('camisa-calvin-klein-reta-listrada-rosa-4-2', 'webp', 14, 4), ('camisa-calvin-klein-reta-listrada-rosa-4-3', 'webp', 14, 4), ('camisa-calvin-klein-reta-listrada-rosa-4-4', 'webp', 14, 4);
+
+INSERT INTO imagem (nome, tipo, cor_id, produto_id) VALUES ('camisa-armadilho-manga-longa-algodao-branco-5-1', 'webp', 6, 5), ('camisa-armadilho-manga-longa-algodao-branco-5-2', 'webp', 6, 5), ('camisa-armadilho-manga-longa-algodao-branco-5-3', 'webp', 6, 5), ('camisa-armadilho-manga-longa-algodao-branco-5-4', 'webp', 6, 5);
+
+INSERT INTO imagem (nome, tipo, cor_id, produto_id) VALUES ('camisa-facinelli-by-mooncity-amarracao-rosa-6-1', 'webp', 14, 6), ('camisa-facinelli-by-mooncity-amarracao-rosa-6-2', 'webp', 14, 6), ('camisa-facinelli-by-mooncity-amarracao-rosa-6-3', 'webp', 14, 6), ('camisa-facinelli-by-mooncity-amarracao-rosa-6-4', 'webp', 14, 6);

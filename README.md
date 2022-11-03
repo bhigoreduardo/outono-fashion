@@ -176,13 +176,15 @@
     - Página Produtos Marcas (Unissex): `/marcas`
 
 - **Página Filtro:** Dedicada ao resultado de busca do usuário (cliente)
-    - Página Filtro Calçados: `/calcados/produtos?tipo-produto=chinelo?genero=masculino&tamanho=40&marca=coca-cola&cor=azul&preco=60-100`
-    - Página Filtro Roupas: `/roupas/produtos?tipo-produto=biquini&genero=feminino&tamanho=m&marca=billabong&cor=verde&preco=100-160`
-    - Página Filtro Acessórios: `/acessorios/produtos?tipo-produto=oculos&genero=menino&tamanho=50&marca=atitude&cor=prata&preco=240-380`
-    - Página Filtro Marcas: `/marcas/produtos?marca=adidas?tipo-produto=agasalho&genero=menina&tamanho=p&cor=rosa&preco=380-770&sort=ofertas`
+    - Página Filtro Produto Individual: `/produtos/camisa-polo-masculina/1`
+    - Página Filtro Pesquisa (Barra de Pesquisa): `/produtos/bota-masculina-colcci-preta-tamanho-40`
+    - Página Filtro Calçados (Sidebar): `/produtos?categoria=calcados&tipo=chinelo&genero=masculino&tamanho=40,42&marca=coca-cola&cor=azul&precoMin=60&precoMax=100`
+    - Página Filtro Roupas (Sidebar): `/produtos?categoria=roupas&tipo=biquini&genero=feminino&tamanho=m&marca=billabong&cor=verde&precoMin=100&precoMax=160`
+    - Página Filtro Acessórios (Sidebar): `/produtos?categoria=acessorios&tipo=oculos&genero=menino&tamanho=50&marca=atitude&cor=prata&precoMin=240&precoMax=380`
+    - Página Filtro Marcas (Sidebar): `/produtos?marca=adidas&tipo=agasalho&genero=menina,menino&tamanho=p&cor=rosa&precoMin&precoMax=380-770&sort=menor-preco`
 
-- **Página Produto Individual:** Dedicada a obter informações e escolha do produto
-    - Camisa Poló Masculino: `/produtos?camisa-polo-masculina&id=1`
+    - Sorted: Mais Populares, Novidades, Menor Preço, Maior Preço, Maior Desconto
+    
 
 ### 2. Usuários (Cliente)
 - **Página Autenticação:** Dedicada a permissão de acesso ao usuário (cliente)
@@ -642,6 +644,17 @@ Back-End  | 3     | Higor
 </details>
 
 </details>
+
+Configurações:
+SHOW TIMEZONE;
+
+SET TIME ZONE 'UTC';
+SET TIME ZONE 'GMT+3';
+
+SELECT CURRENT_TIMESTAMP
+
+SELECT NOW()
+
 
 ## 💼 Tecnologias utilizadas:
 
