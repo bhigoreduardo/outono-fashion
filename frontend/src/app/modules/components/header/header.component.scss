@@ -61,10 +61,14 @@
 
                 @include animate(move, 20000ms, linear, infinite);
 
-                @media screen and (max-width: 900px) {
+                @media screen and (max-width: 1100px) {
                     @include animate(move, 15000ms, linear, infinite);
                 }
             }
+        }
+
+        span {
+            font-weight: $font-weight-semi-bold;
         }
     }
 
@@ -79,7 +83,7 @@
             gap: 36px;
             width: 100%;
 
-            @media screen and (max-width: 900px) {
+            @media screen and (max-width: 1100px) {
                 display: grid;
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -121,7 +125,7 @@
         .logo {
             text-align: center;
 
-            @media screen and (max-width: 900px) {
+            @media screen and (max-width: 1100px) {
                 grid-row: 1 / 3;
             }
 
@@ -140,7 +144,7 @@
             align-items: center;
             gap: 20px;
 
-            @media screen and (max-width: 900px) {
+            @media screen and (max-width: 1100px) {
                 grid-template-columns: auto auto;
             }
 
@@ -234,7 +238,7 @@
                 .hambuguer-menu {
                     display: none;
 
-                    @media screen and (max-width: 900px) {
+                    @media screen and (max-width: 1100px) {
                         display: inline-block;
                     }
                 }
@@ -243,25 +247,29 @@
     }
 
     .header--navbar {
-        padding: 20px 0;
-        text-align: center;
-        transition: all 200ms ease-in;
+        padding-top: 10px;
 
-        @media screen and (max-width: 900px) {
+
+        position: relative;
+
+        @media screen and (max-width: 1100px) {
             display: none;
+            position: absolute;
+            top: 0;
             right: -100%;
+            bottom: 0;
+            transition: all 200ms ease-in;
 
             &.active {
-                position: absolute;
-                top: 0;
-                right: 0;
-                bottom: 0;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
 
+                right: 0;
+
                 width: 250px;
                 background-color: $color-white;
+
                 box-shadow: $box-shadow-large,
                     0 0 0 100vw rgba(0, 0, 0, 0.3);
             }
@@ -270,10 +278,10 @@
         .fa-times {
             display: none;
 
-            @media screen and (max-width: 900px) {
+            @media screen and (max-width: 1100px) {
                 position: absolute;
                 top: 36px;
-                left: 36px;
+                right: 36px;
 
                 display: inline-block;
                 color: $color-warning;
@@ -287,53 +295,167 @@
             }
         }
 
-        a:not(:first-of-type) {
-            font-size: $font-size-base;
-            line-height: $line-height-base;
-            color: $color-black;
-            font-weight: $font-weight-semi-bold;
-            text-transform: uppercase;
-            padding: 5px 10px;
-            margin: 0 5px;
-            transition: all 200ms ease-in;
+        .header--navbar-list-item {
+            text-align: center;
+            padding-bottom: 20px;
 
-            @media screen and (max-width: 580px) {
-                margin: 5px;
+            @media screen and (max-width: 1100px) {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                padding-bottom: 0;
             }
 
-            &:last-of-type {
-                color: $color-warning;
+            a {
+                font-size: $font-size-base;
+                line-height: $line-height-base;
+                color: $color-black;
+                font-weight: $font-weight-semi-bold;
+                text-transform: uppercase;
+                padding: 5px 10px;
+                margin: 0 5px;
+                transition: all 200ms ease-in;
 
-                &:hover {
-                    color: $color-white;
-                    background-color: $color-warning;
+                @media screen and (min-width: 1100px) {
+                    &.active {
+                        position: relative;
+                        color: $color-black;
+                        background-color: $color-white;
+                        z-index: 2;
+                    }
                 }
-            }
 
-            &:hover:not(:last-of-type) {
-                color: $color-white;
-                background-color: $color-black;
+                @media screen and (max-width: 580px) {
+                    margin: 5px;
+                }
+
+                &:last-of-type {
+                    color: $color-warning;
+
+                    &:hover {
+                        color: $color-white;
+                        background-color: $color-warning;
+                    }
+                }
+
+                &:hover:not(:last-of-type) {
+                    color: $color-white;
+                    background-color: $color-black;
+                }
             }
         }
     }
-}
 
-.header--drop-menu {
-    z-index: -1;
+    .header--drop-menu {
+        transform: scale(0);
 
-    .container {
+        width: 100%;
+        transition: all 200ms ease-in !important;
+        background-color: transparent;
 
-        .box-container {
-            display: grid;
-            grid-template-columns: repeat(4, 210px) 330px;
-            background-color: $color-white;
+        @media screen and (min-width: 1100px) {
+            display: none;
 
             &.active {
-                background-color: chocolate;
+                display: block;
+                position: fixed;
+                left: 50%;
+                transform: scale(1) translateX(-50%);
+
+                max-height: 336px;
+            }
+        }
+
+        @media screen and (max-width: 1100px) {
+            .container {
+                padding: 0;
             }
 
-            box-shadow: $box-shadow-large,
-            0 0 0 100vw rgba(0, 0, 0, 0.3);
+            &.active {
+                display: block;
+                transform: scale(1);
+
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+
+                max-height: 100vh;
+                width: 250px;
+                background-color: $color-white;
+
+                overflow-x: hidden;
+                overflow-y: auto;
+
+                box-shadow: $box-shadow-large,
+                    0 0 0 100vw rgba(0, 0, 0, 0.3);
+            }
+        }
+
+        .fa-arrow-left {
+            display: none;
+
+            @media screen and (max-width: 1100px) {
+                position: absolute;
+                top: 36px;
+                left: 36px;
+
+                display: inline-block;
+                color: $color-warning;
+                font-size: $font-size-h5;
+                line-height: $line-height-h5;
+                transition: all 200ms ease-in;
+
+                z-index: 3;
+
+                &:hover {
+                    transform: rotate(360deg);
+                }
+            }
+        }
+
+        .box-container {
+            position: relative;
+            top: -10px;
+
+            display: none;
+
+            &.active {
+                display: grid;
+                grid-template-columns: repeat(4, calc((100% - 282px) / 4)) 282px;
+                background-color: $color-white;
+
+                max-height: 337px;
+
+                box-shadow: $box-shadow-large,
+                    0 0 0 100vw rgba(0, 0, 0, 0.3);
+            }
+
+            @media screen and (max-width: 1100px) {
+                left: -100%;
+
+                &.active {
+                    box-shadow: none;
+
+                    display: flex;
+                    flex-direction: column;
+                    padding-top: 90px;
+
+                    left: 0;
+                }
+            }
+
+            .button-target {
+                position: absolute;
+
+                left: 30px;
+                bottom: 30px;
+
+                @media screen and (max-width: 1100px) {
+                    position: static;
+                    margin: 0 30px;
+                }
+            }
 
             .box:not(:last-of-type) {
                 display: flex;
@@ -354,13 +476,20 @@
                     font-size: $font-size-sm;
                     line-height: $line-height-sm;
                     color: $color-gray;
-                    margin-bottom: 5px;
                     transition: all 200ms ease-in;
 
                     &:hover,
                     &.active {
                         color: $color-warning;
                     }
+                }
+
+                .list-item {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px;
+                    max-height: 160px;
+                    overflow-y: auto;
                 }
             }
         }

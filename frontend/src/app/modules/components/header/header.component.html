@@ -3,19 +3,19 @@
     <div class="header--toolbar">
         <div class="container">
             <div class="text-wrapper">
-                <p class="text">
-                    <span class="semi-bold">Troca grátis </span>
+                <p>
+                    <span>Troca grátis </span>
                     em até 30 dias
                 </p>
 
-                <p class="text">
-                    <span class="semi-bold">Frete grátis </span>
+                <p>
+                    <span>Frete grátis </span>
                     para compras acima de R$99,90
                 </p>
 
-                <p class="text">
+                <p>
                     Parcele em até
-                    <span class="semi-bold">12x sem juros</span>
+                    <span>12x sem juros</span>
                 </p>
             </div>
         </div>
@@ -60,7 +60,7 @@
                         <i class="far fa-heart"></i>
                     </a>
 
-                    <a title="Menu de navegação" href="" class="hambuguer-menu">
+                    <a title="Menu de navegação" class="hambuguer-menu" (click)="isNavbar=true">
                         <i class="fas fa-bars"></i>
                     </a>
                 </div>
@@ -68,80 +68,118 @@
         </div>
     </div>
 
-    <nav class="header--navbar">
-        <a><i class="fas fa-times"></i></a>
-        <a title="Início" (mouseover)="target=''" href="">Início</a>
-        <a title="Masculino" (mouseover)="target=masculino" href="">Masculino</a>
-        <a title="Feminino" (mouseover)="target=feminino" href="">Feminino</a>
-        <a title="Infantil" (mouseover)="target=infantil" href="">Infantil</a>
-        <a title="Acessórios" (mouseover)="target=acessorio" href="">Acessórios</a>
-        <a title="Marcas" (mouseover)="target=marcas" href="">Marcas</a>
-        <a title="Promoções" (mouseover)="target=''" href=""><i class="fas fa-tags"></i> Promoções</a>
+    <nav class="header--navbar" [ngClass]="{active: isNavbar}">
+        <a><i class="fas fa-times" (click)="isNavbar=false"></i></a>
+
+        <div class="header--navbar-list-item">
+            <a title="Início" (mouseover)="target=''">Início</a>
+            <a title="Masculino" (mouseover)="target=masculino" [ngClass]="{active: target == masculino}">Masculino</a>
+            <a title="Feminino" (mouseover)="target=feminino" [ngClass]="{active: target == feminino}">Feminino</a>
+            <a title="Infantil" (mouseover)="target=infantil" [ngClass]="{active: target == infantil}">Infantil</a>
+            <a title="Acessórios" (mouseover)="target=acessorio" [ngClass]="{active: target == acessorio}">Acessórios</a>
+            <a title="Marcas" (mouseover)="target=marcas" [ngClass]="{active: target == marcas}">Marcas</a>
+            <a title="Promoções" (mouseover)="target=''"><i class="fas fa-tags"></i> Promoções</a>
+        </div>
     </nav>
-</header>
-<!-- / HEADER -->
 
-<div class="header--drop-menu">
-    <div class="container">
-        <div
-            #masculino data-target="masculino"
-            (mouseout)="target=''"
-            [ngClass]="{active: target == masculino}"
-            class="box-container" style="display: none;">
-            Masculino
-        </div>
-        <div
-            #feminino data-target="feminino"
-            (mouseout)="target=''"
-            [ngClass]="{active: target == feminino}"
-            class="box-container">
-            <div class="box">
-               <h6>Calçados</h6>
-               <a href="">Botas</a>
-               <a href="">Chinelos</a>
-               <a class="active" href="">Todos calçados</a>
+    <div class="header--drop-menu custom-scrollbar" [ngClass]="{active: target != ''}">
+        <a><i class="fas fa-arrow-left" (click)="target=''"></i></a>
+
+        <div class="container">
+            <div #masculino data-target="masculino"
+                (mouseout)="target=''"
+                [ngClass]="{active: target == masculino}"
+                class="box-container">
+                Masculino
             </div>
 
-            <div class="box">
-                <h6>Roupas</h6>
-                <a href="">Bermudas</a>
-                <a href="">Calças</a>
+            <div #feminino data-target="feminino"
+                (mouseover)="target=feminino" (mouseout)="target=''"
+                [ngClass]="{active: target == feminino}"
+                class="box-container">
+                <a class="button button-warning button-xs button-target" href="">Ir para Feminino</a>
+
+                <div class="box">
+                    <h6>Calçados</h6>
+                    <div class="list-item custom-scrollbar">
+                        <a href="">Botas</a>
+                        <a href="">Chinelos</a>
+                        <a href="">Crocs</a>
+                        <a href="">Sapatênis</a>
+                        <a href="">Tênis</a>
+                    </div>
+                    <a class="active" href="">Todos calçados</a>
+                </div>
+
+                <div class="box">
+                    <h6>Roupas</h6>
+                    <div class="list-item custom-scrollbar">
+                        <a href="">Bermudas</a>
+                        <a href="">Calças</a>
+                        <a href="">Camisas</a>
+                        <a href="">Jaquetas</a>
+                        <a href="">Moletons</a>
+                        <a href="">Shorts</a>
+                        <a href="">Vestidos</a>
+                    </div>
+                    <a class="active" href="">Todas roupas</a>
+                </div>
+
+                <div class="box">
+                    <h6>Acessórios</h6>
+                    <div class="list-item custom-scrollbar">
+                        <a href="">Bonés</a>
+                        <a href="">Malas</a>
+                        <a href="">Meias</a>
+                        <a href="">Mochilas</a>
+                        <a href="">Óculos</a>
+                        <a href="">Relógios</a>
+                    </div>
+                    <a class="active" href="">Todos acessórios</a>
+                </div>
+
+                <div class="box">
+                    <h6>Marcas</h6>
+                    <div class="list-item custom-scrollbar">
+                        <a href="">Adidas</a>
+                        <a href="">Asics</a>
+                        <a href="">Fila</a>
+                        <a href="">Kappa</a>
+                        <a href="">Mizuno</a>
+                        <a href="">Nike</a>
+                        <a href="">Oakley</a>
+                    </div>
+                    <a class="active" href="">Todas marcas</a>
+                </div>
+
+                <div class="box">
+                    <a href="">
+                        <img title="Chinelos à partir de 29,99" [src]="femininoHighlight" alt="">
+                    </a>
+                </div>
             </div>
 
-            <div class="box">
-                <h6>Acessórios</h6>
-                <a href="">Bonés</a>
-                <a href="">Malas</a>
+            <div #infantil data-target="infantil"
+                (mouseout)="target=''"
+                [ngClass]="{active: target == infantil}"
+                class="box-container">
+                Infantil
             </div>
 
-            <div class="box">
-                <h6>Marcas</h6>
-                <a href="">Adidas</a>
-                <a href="">Asics</a>
+            <div #acessorio data-target="acessorio"
+                (mouseout)="target=''"
+                [ngClass]="{active: target == acessorio}"
+                class="box-container">
+                Acessório
             </div>
 
-            <div class="box" style="background-color: red;">img</div>
-        </div>
-        <div
-            #infantil data-target="infantil"
-            (mouseout)="target=''"
-            [ngClass]="{active: target == infantil}"
-            class="box-container" style="display: none;">
-            Infantil
-        </div>
-        <div
-            #acessorio data-target="acessorio"
-            (mouseout)="target=''"
-            [ngClass]="{active: target == acessorio}"
-            class="box-container" style="display: none;">
-            Acessório
-        </div>
-        <div
-            #marcas data-target="marcas"
-            (mouseout)="target=''"
-            [ngClass]="{active: target == marcas}"
-            class="box-container" style="display: none;">
-            Marcas
+            <div #marcas data-target="marcas"
+                (mouseout)="target=''"
+                [ngClass]="{active: target == marcas}"
+                class="box-container">
+                Marcas
+            </div>
         </div>
     </div>
-</div>
+</header>
+<!-- / HEADER -->

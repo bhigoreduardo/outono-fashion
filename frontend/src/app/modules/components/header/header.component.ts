@@ -8,10 +8,16 @@ import { Component, OnInit } from '@angular/core';
 export class HeaderComponent implements OnInit {
 
   logo: string = "/assets/images/logo.svg";
-  target: any = "";
-  cond: boolean = true;
+  
+  femininoHighlight = "/assets/images/feminino-highlights-drop-menu.webp";
 
-  constructor() { }
+  target: any;
+  isNavbar: boolean;
+
+  constructor() {
+    this.target = "";
+    this.isNavbar = false;
+  }
 
   ngOnInit(): void {
   }

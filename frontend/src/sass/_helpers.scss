@@ -1,9 +1,121 @@
-/* WEIGHT FORMAT */
+/* EDIT SCROLLBAR */
+.custom-scrollbar {
+    &::-webkit-scrollbar {
+        width: 2px;
+    }
 
-.semi-bold {
+    &::-webkit-scrollbar-thumb {
+        background-color: $color-warning;
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: $color-gray-400;
+    }
+}
+
+/* BUTTONS COLOR */
+.button {
+    border: 1px solid transparent;
+    transition: all 200ms ease-in;
+    font-weight: $font-weight-regular;
+}
+
+.button-warning {
+    color: $color-white !important;
+    background-color: $color-warning !important;
+}
+
+.button-warning:hover {
+    color: $color-warning !important;
+    background-color: $color-white !important;
+    border-color: $color-warning !important;
+}
+
+.button-black {
+    color: $color-white !important;
+    background-color: $color-black !important;
+}
+
+.button-black:hover {
+    color: $color-black !important;
+    background-color: $color-white !important;
+    border-color: $color-black !important;
+}
+
+.button-white {
+    color: $color-warning !important;
+    border-color: $color-warning !important;
+}
+
+.button-white:hover {
+    color: $color-white !important;
+    background-color: $color-warning !important;
+}
+
+.button-none {
+    color: $color-black !important;
+    border-color: $color-black !important;
+}
+
+.button-none:hover {
+    background-color: $color-white !important;
+}
+
+/* BUTTONS FORMAT */
+.button-center {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.button-uppercase {
+    text-transform: uppercase;
+}
+
+.button-semi-bold {
     font-weight: $font-weight-semi-bold;
 }
 
-.bold {
+.button-bold {
     font-weight: $font-weight-bold;
+}
+
+/* BUTTONS TYPE (XS - 10px) */
+.button-xxs {
+    font-size: $font-size-xxs;
+    line-height: $line-height-xxs;
+    padding: 5px 15px;
+    letter-spacing: 0.25em;
+}
+
+/* BUTTONS TYPE (XS - 12px) */
+.button-xs {
+    font-size: $font-size-xs;
+    line-height: $line-height-xs;
+    padding: 5px 20px;
+    letter-spacing: 0.25em;
+}
+
+/* BUTTONS TYPE (SM - 14px) */
+.button-sm {
+    font-size: $font-size-sm;
+    line-height: $line-height-sm;
+    padding: 5px 20px;
+    letter-spacing: 0.25em;
+}
+
+/* BUTTONS TYPE (BASE - 16px) */
+.button-base {
+    font-size: $font-size-base;
+    line-height: $line-height-base;
+    padding: 10px 25px;
+    letter-spacing: 0.25em;
+}
+
+/* BUTTONS TYPE (LG - 18px) */
+.button-lg {
+    font-size: $font-size-lg;
+    line-height: $line-height-lg;
+    padding: 10px 25px;
+    letter-spacing: 0.25em;
 }
