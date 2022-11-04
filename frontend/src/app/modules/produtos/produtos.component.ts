@@ -9,7 +9,23 @@ import SwiperCore, { SwiperOptions } from 'swiper';
 })
 export class ProdutosComponent implements OnInit {
 
-  constructor() { }
+  sideGenero: boolean;
+  sideCategoria: boolean;
+  sideTipo: boolean;
+  sideTamanho: boolean;
+  sideCor: boolean;
+  sideMarca: boolean;
+  sidePreco: boolean;
+
+  constructor() {
+    this.sideGenero = false;
+    this.sideCategoria = false;
+    this.sideTipo = false;
+    this.sideTamanho = false;
+    this.sideCor = false;
+    this.sideMarca = false;
+    this.sidePreco = false;
+  }
 
   ngOnInit(): void {
   }
