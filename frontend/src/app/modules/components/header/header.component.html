@@ -1,31 +1,147 @@
 <!-- HEADER -->
 <header class="header">
-    <div class="header__toolbar">
+    <div class="header--toolbar">
         <div class="container">
-            <p class="text sm-text color-white">
-                <span class="semi-bold">Troca grátis </span>
-                em até 30 dias
-            </p>
+            <div class="text-wrapper">
+                <p class="text">
+                    <span class="semi-bold">Troca grátis </span>
+                    em até 30 dias
+                </p>
 
-            <p class="text sm-text color-white">
-                <span class="semi-bold">Frete grátis </span>
-                para compras acima de R$99,90
-            </p>
+                <p class="text">
+                    <span class="semi-bold">Frete grátis </span>
+                    para compras acima de R$99,90
+                </p>
 
-            <p class="text sm-text color-white">
-                Parcele em até
-                <span class="semi-bold">12x sem juros</span>
-            </p>
+                <p class="text">
+                    Parcele em até
+                    <span class="semi-bold">12x sem juros</span>
+                </p>
+            </div>
         </div>
     </div>
 
-    <div class="header__middle">
+    <div class="header--middle">
         <div class="container">
             <form class="search-produtos">
-                <input type="text" placeholder="O que você procura?" />
-                <button type="submit"></button>
+                <input title="Pesquisar produtos" type="text" placeholder="O que você procura?" />
+                <button title="Pesquisar" type="submit"><i class="fas fa-search"></i></button>
             </form>
+
+            <a href="" class="logo">
+                <img title="Outono Fashion" [src]="logo" alt="Outono Fashion" />
+            </a>
+
+            <div class="box-container">
+                <div class="header-login">
+                    <i class="far fa-user-circle"></i>
+                    <div class="message">
+                        <small>Bem-Vindo</small>
+                        <p class="user-info">
+                            <a title="Acessar conta" href="" class="login-true" style="display: none">
+                                <span>John Doe</span>
+                                <i class="fas fa-angle-down"></i>
+                            </a>
+
+                            <a title="Fazer login" href="" class="login-false">
+                                <span>Fazer login</span>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="icon-container">
+                    <a title="Carrinho" href="" class="shopping-bag">
+                        <i class="fa fa-shopping-bag"></i>
+                        <span class="badge">2</span>
+                    </a>
+
+                    <a title="Favoritos" href="" class="washlist-heart">
+                        <i class="far fa-heart"></i>
+                    </a>
+
+                    <a title="Menu de navegação" href="" class="hambuguer-menu">
+                        <i class="fas fa-bars"></i>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
+
+    <nav class="header--navbar">
+        <a><i class="fas fa-times"></i></a>
+        <a title="Início" (mouseover)="target=''" href="">Início</a>
+        <a title="Masculino" (mouseover)="target=masculino" href="">Masculino</a>
+        <a title="Feminino" (mouseover)="target=feminino" href="">Feminino</a>
+        <a title="Infantil" (mouseover)="target=infantil" href="">Infantil</a>
+        <a title="Acessórios" (mouseover)="target=acessorio" href="">Acessórios</a>
+        <a title="Marcas" (mouseover)="target=marcas" href="">Marcas</a>
+        <a title="Promoções" (mouseover)="target=''" href=""><i class="fas fa-tags"></i> Promoções</a>
+    </nav>
 </header>
 <!-- / HEADER -->
+
+<div class="header--drop-menu">
+    <div class="container">
+        <div
+            #masculino data-target="masculino"
+            (mouseout)="target=''"
+            [ngClass]="{active: target == masculino}"
+            class="box-container" style="display: none;">
+            Masculino
+        </div>
+        <div
+            #feminino data-target="feminino"
+            (mouseout)="target=''"
+            [ngClass]="{active: target == feminino}"
+            class="box-container">
+            <div class="box">
+               <h6>Calçados</h6>
+               <a href="">Botas</a>
+               <a href="">Chinelos</a>
+               <a class="active" href="">Todos calçados</a>
+            </div>
+
+            <div class="box">
+                <h6>Roupas</h6>
+                <a href="">Bermudas</a>
+                <a href="">Calças</a>
+            </div>
+
+            <div class="box">
+                <h6>Acessórios</h6>
+                <a href="">Bonés</a>
+                <a href="">Malas</a>
+            </div>
+
+            <div class="box">
+                <h6>Marcas</h6>
+                <a href="">Adidas</a>
+                <a href="">Asics</a>
+            </div>
+
+            <div class="box" style="background-color: red;">img</div>
+        </div>
+        <div
+            #infantil data-target="infantil"
+            (mouseout)="target=''"
+            [ngClass]="{active: target == infantil}"
+            class="box-container" style="display: none;">
+            Infantil
+        </div>
+        <div
+            #acessorio data-target="acessorio"
+            (mouseout)="target=''"
+            [ngClass]="{active: target == acessorio}"
+            class="box-container" style="display: none;">
+            Acessório
+        </div>
+        <div
+            #marcas data-target="marcas"
+            (mouseout)="target=''"
+            [ngClass]="{active: target == marcas}"
+            class="box-container" style="display: none;">
+            Marcas
+        </div>
+    </div>
+</div>

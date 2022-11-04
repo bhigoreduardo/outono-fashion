@@ -5,6 +5,7 @@ import { ProdutosRoutingModule } from './produtos-routing.module';
 import { ProdutosComponent } from './produtos.component';
 import { SharedModule } from '../shared.module';
 
+import { SwiperModule } from 'swiper/angular';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { SharedModule } from '../shared.module';
   imports: [
     CommonModule,
     ProdutosRoutingModule,
-    SharedModule
+    SharedModule,
+    SwiperModule
   ]
 })
 export class ProdutosModule { }
