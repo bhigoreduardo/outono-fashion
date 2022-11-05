@@ -1,0 +1,19 @@
+<article class="card">
+    <div *ngIf="offer != ''" class="badge">
+        <small>Desconto</small>
+        <span>{{ offer }}% off</span>
+    </div>
+
+    <div class="image">
+        <img src="{{ image }}" />
+        <a class="button button-warning button-uppercase button-semi-bold button-xs">
+            <i class="fa fa-cart-plus"></i>
+            Comprar
+        </a>
+    </div>
+
+    <div class="description">
+        <p>{{ name }}</p>
+        <span><small>R$</small>{{ price }}</span>
+    </div>
+</article>

@@ -9,6 +9,8 @@ import SwiperCore, { SwiperOptions } from 'swiper';
 })
 export class ProdutosComponent implements OnInit {
 
+  lines: number[] = [1, 2, 3, 4];
+
   sideGenero: boolean;
   sideCategoria: boolean;
   sideTipo: boolean;
@@ -16,6 +18,8 @@ export class ProdutosComponent implements OnInit {
   sideCor: boolean;
   sideMarca: boolean;
   sidePreco: boolean;
+
+  sideBars: boolean;
 
   constructor() {
     this.sideGenero = false;
@@ -25,6 +29,8 @@ export class ProdutosComponent implements OnInit {
     this.sideCor = false;
     this.sideMarca = false;
     this.sidePreco = false;
+
+    this.sideBars = false;
   }
 
   ngOnInit(): void {

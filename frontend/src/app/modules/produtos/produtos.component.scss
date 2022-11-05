@@ -40,10 +40,57 @@
 
 .catalog {
     display: grid;
-    grid-template-columns: 260px auto;
+    grid-template-columns: 200px auto;
     gap: 40px;
+    margin-bottom: 100px;
+
+    @media screen and (max-width: 992px) {
+        grid-template-columns: 100%;
+    }
 
     .sidebar {
+        @media screen and (max-width: 992px) {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            right: -100%;
+
+            width: 250px;
+            padding: 24px 10px;
+
+            overflow-y: auto;
+            background-color: $color-white;
+            box-shadow: $box-shadow-small;
+            z-index: 2;
+            transition: all 400ms ease-in;
+
+            &.active {
+                right: 0;
+
+                box-shadow: $box-shadow-large,
+                    0 0 0 100vw rgba(0, 0, 0, 0.3);
+            }
+        }
+
+        .side-times {
+            display: none;
+
+            @media screen and (max-width: 992px) {
+                display: block;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                font-size: $font-size-h5;
+                color: $color-warning;
+                padding: 2px 5px;
+                transition: all 200ms ease-in;
+
+                &:hover {
+                    color: $color-warning;
+                }
+            }
+        }
+
         h6 {
             font-size: $font-size-sm;
             line-height: $line-height-sm;
@@ -59,15 +106,16 @@
             align-items: center;
             justify-content: space-between;
 
-            font-size: $font-size-h5;
+            font-size: $font-size-lg;
             font-weight: $font-weight-regular;
-            line-height: $line-height-h5;
+            line-height: $line-height-lg;
             color: $color-black;
             padding-bottom: 10px;
             margin-bottom: 30px;
             border-bottom: 2px solid $color-gray-300;
 
             i {
+                font-size: $font-size-xs;
                 cursor: pointer;
                 transition: all 200ms ease-in;
 
@@ -88,6 +136,101 @@
             &.hide {
                 display: none;
                 transform: scale(0);
+            }
+        }
+    }
+
+    .list {
+        .navigation {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 90px;
+
+            .information {
+                display: flex;
+                align-items: center;
+
+                .side-bars {
+                    display: none;
+
+                    @media screen and (max-width: 992px) {
+                        display: inline-block;
+                        font-size: $font-size-h4;
+                        line-height: $line-height-h4;
+                        color: $color-gray-800;
+                        padding: 1px 5px;
+                        border: 2px solid $color-gray-500;
+                        margin-right: 10px;
+                    }
+                }
+            }
+
+            .quantity,
+            .sorted {
+                font-size: $font-size-sm;
+                line-height: $line-height-sm;
+                font-weight: $font-weight-bold;
+                color: $color-gray-500;
+            }
+
+            .sorted {
+                @media screen and (max-width: 480px) {
+                    text-align: center;
+                    width: 100%;
+                }
+            }
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 36px;
+            margin-bottom: 60px;
+
+            @media screen and (max-width: 750px) {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            @media screen and (max-width: 450px) {
+                grid-template-columns: 100%;
+            }
+        }
+
+        .pagination {
+            text-align: center;
+
+            span,
+            a {
+                padding: 5px 10px;
+                font-size: $font-size-sm;
+                font-weight: $font-weight-bold;
+                line-height: $line-height-sm;
+                color: $color-gray-500;
+            }
+
+            a {
+                transition: all 200ms ease-in;
+                border: 2px solid $color-gray-500;
+
+                &.active {
+                    color: $color-white;
+                    background-color: $color-warning;
+                    border-color: $color-warning;
+                }
+
+                &:hover {
+                    color: $color-white;
+                    background-color: $color-black;
+                    border-color: $color-black;
+                }
+            }
+
+            span,
+            a:not(:last-child) {
+                margin-right: 2px;
             }
         }
     }

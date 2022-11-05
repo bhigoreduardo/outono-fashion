@@ -13,6 +13,24 @@
     }
 }
 
+/* SELECT FORM */
+.custom-select {
+    appearance: none;
+    background: url(../assets/icons/polygon.svg);
+    background-repeat: no-repeat;
+    background-position-x: calc(100% - 10px);
+    background-position-y: center;
+
+    border: 1px solid $color-black;
+    color: $color-black;
+    margin-left: 10px;
+    padding: 5px 20px;
+
+    font-size: $font-size-sm;
+    line-height: $line-height-sm;
+    font-weight: $font-weight-bold;
+}
+
 /* BUTTONS COLOR */
 .button {
     border: 1px solid transparent;

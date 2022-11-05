@@ -1,0 +1,104 @@
+@import '../../../../styles.scss';
+
+.card {
+    position: relative;
+
+    .badge {
+        position: absolute;
+        top: -20px;
+        left: 20px;
+        padding: 8px;
+        background-color: $color-warning;
+        color: $color-white;
+        z-index: 1;
+
+        &::before {
+            content: "";
+            clip-path: polygon(100% 0, 0 50%, 100% 100%);
+            position: absolute;
+            bottom: -10px;
+            right: 0;
+            width: 20px;
+            height: 20px;
+            background-color: $color-warning;
+        }
+
+        small {
+            display: block;
+            font-size: $font-size-xs;
+            line-height: $line-height-xs;
+            margin-bottom: 2px;
+            font-weight: $font-weight-regular;
+        }
+
+        span {
+            font-size: $font-size-sm;
+            line-height: $line-height-sm;
+            margin-bottom: 2px;
+            font-weight: $font-weight-semi-bold;
+        }
+    }
+
+    .image {
+        position: relative;
+        overflow: hidden;
+        max-height: 370px;
+        margin-bottom: 15px;
+
+        a {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -100px;
+            transition: all 200ms ease-in;
+            text-align: center;
+            padding: 20px;
+        }
+
+        &:hover a {
+            bottom: 0;
+        }
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transition: all 200ms ease-in;
+        }
+
+        &:hover::before {
+            background-color: $color-black;
+            opacity: 0.4;
+        }
+
+        i {
+            font-size: $font-size-h5;
+            margin-right: 10px;
+        }
+    }
+
+    .description {
+        text-align: center;
+
+        p {
+            font-size: $font-size-base;
+            font-weight: $font-weight-semi-bold;
+            line-height: $line-height-base;
+            color: $color-gray-600;
+        }
+
+        span {
+            font-size: $font-size-lg;
+            font-weight: $font-weight-semi-bold;
+            line-height: $line-height-lg;
+            color: $color-black;
+
+            small {
+                font-size: $font-size-xs;
+            }
+        }
+    }
+}

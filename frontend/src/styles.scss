@@ -1,9 +1,10 @@
 /* IMPORT RESET COMPONENTS */
-@import './sass/reset';
+@import './scss/reset';
 
 /* IMPORT HELPERS COMPONENTS */
-@import "./sass/helpers";
+@import "./scss/helpers";
 
+/* SWIPER JS */
 @import 'swiper/scss';
 @import 'swiper/scss/navigation';
 @import 'swiper/scss/pagination';

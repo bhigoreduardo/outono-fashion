@@ -41,7 +41,9 @@
 <!-- CATALOG -->
 <section class="catalog container">
     <!-- SIDEBAR -->
-    <aside id="sidebar" class="sidebar">
+    <aside class="sidebar custom-scrollbar" [ngClass]="{active: sideBars == true}">
+        <button class="side-times" type="button" (click)="sideBars=!sideBars"><i class="fa fa-times"></i></button>
+
         <form class="search-sidebar">
             <h6>Filtro</h6>
 
@@ -277,5 +279,51 @@
         </form>
     </aside>
     <!-- / SIDEBAR -->
+
+    <!-- LIST -->
+    <section class="list">
+        <div class="navigation">
+            <div class="information">
+                <button class="side-bars" type="button" (click)="sideBars=!sideBars"><i class="fa fa-bars"></i></button>
+                <span class="quantity">3.564 Produtos</span>
+            </div>
+                
+            <form class="sorted">
+                ordernar por
+                <select name="ordem" class="custom-select">
+                    <option value="populares" selected>Mais populares</option>
+                    <option value="vendidos">Mais vendidos</option>
+                    <option value="lancamento">Lançamentos</option>
+                    <option value="ofertas">Ofertas</option>
+                    <option value="maior-preco">Maior Preço</option>
+                    <option value="menor-preco">Menor Preço</option>
+                </select>
+            </form>
+        </div>
+
+        <div class="card-container">
+            <app-card
+                *ngFor="let line of lines"
+                image="/assets/produtos/feminino/roupas/camisas/camisa-armadilho-manga-longa-algodao-branco-5-1.webp"
+                name="Blusa Canelada"
+                price="252,90"
+            ></app-card>
+        </div>
+
+        <div class="pagination">
+            <a><i class="fa fa-chevron-left"></i></a>
+            <a class="active">1</a>
+            <a>2</a>
+            <a>3</a>
+            <span>...</span>
+            <a>10</a>
+            <a><i class="fa fa-chevron-right"></i></a>
+        </div>
+    </section>
+    <!-- / LIST -->
 </section>
 <!-- / CATALOG -->
+
+<!-- FOOTER -->
+<app-footer></app-footer>
+<!-- / FOOTER -->
