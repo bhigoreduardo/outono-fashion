@@ -11,5 +11,6 @@ export class CheckboxComponent {
   @Input() placeholder?: string;
   @Input() valueCheckbox?: string;
   @Input() inputName?: string;
+  @Input() check?: string;
 
 }

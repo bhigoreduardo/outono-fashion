@@ -5,6 +5,8 @@ import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { CardComponent } from './components/card/card.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ReplacePipe } from '../replace.pipe';
+import { ComparePipe } from '../compare.pipe';
+import { PriceprodutoPipe } from '../pipes/priceproduto.pipe';
 
 @NgModule({
   declarations: [
@@ -12,7 +14,9 @@ import { ReplacePipe } from '../replace.pipe';
     CheckboxComponent,
     CardComponent,
     FooterComponent,
-    ReplacePipe
+    ReplacePipe,
+    ComparePipe,
+    PriceprodutoPipe
   ],
   imports: [
     CommonModule
@@ -22,7 +26,9 @@ import { ReplacePipe } from '../replace.pipe';
     CheckboxComponent,
     CardComponent,
     FooterComponent,
-    ReplacePipe
+    ReplacePipe,
+    ComparePipe,
+    PriceprodutoPipe
   ]
 })
 export class SharedModule { }

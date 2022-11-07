@@ -48,3 +48,10 @@ INSERT INTO imagem (nome, tipo, cor_id, produto_id) VALUES ('camisa-armadilho-ma
 INSERT INTO imagem (nome, tipo, cor_id, produto_id) VALUES ('camisa-facinelli-by-mooncity-amarracao-rosa-6-1', 'webp', 14, 6), ('camisa-facinelli-by-mooncity-amarracao-rosa-6-2', 'webp', 14, 6), ('camisa-facinelli-by-mooncity-amarracao-rosa-6-3', 'webp', 14, 6), ('camisa-facinelli-by-mooncity-amarracao-rosa-6-4', 'webp', 14, 6);
 
 INSERT INTO estoque (quantidade, preco, produto_id, cor_id, tamanho_id) VALUES (19, 280.90, 4, 14, 2), (20, 280.90, 4, 14, 3), (20, 280.90, 4, 14, 4), (20, 300.90, 5, 6, 2), (20, 300.90, 5, 6, 3), (20, 300.90, 5, 6, 4), (20, 300.90, 6, 14, 2), (20, 300.90, 6, 14, 3);
+
+-- Feminino -> Roupas -> Shorts
+INSERT INTO produto (nome, descricao, detalhe, largura, altura, comprimento, peso, data_cadastro, data_atualizacao, ativo, genero_id, categoria_id, tipo_id, marca_id) VALUES ('Short Feminino Fitness Amarração Marisa', 'Short Feminino Fitness Amarração Marisa Preto', 'Short Feminino Fitness Amarração Marisa<br>Short Feminino Fitness Amarração Marisa Preto<br>Short Feminino Fitness Amarração Marisa Short feminino moda fitness, confeccionado em tecido poliéster.<br> Possui cós com elástico e tira para amarração de ajuste, pequenos furos no tecido que auxiliam na ventilação, forro, acabamento e costura no tom.<br>Roupa Feminina - Moda Fitness - Bermudas e Shorts MODA FITNES.<br> Medidas da ModeloAltura: 1,79 Busto: 83cm Cintura: 64cmQuadril: 92cm Modelo veste tamanho: P', '18.00', '5.00', '28.00', '200.00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, true, 2, 2, 12, 1);
+
+INSERT INTO imagem (nome, tipo, cor_id, produto_id) VALUES ('short-feminino-fitness-amarracao-marisa-7-1', 'webp', 13, 7), ('short-feminino-fitness-amarracao-marisa-7-2', 'webp', 13, 7), ('short-feminino-fitness-amarracao-marisa-7-3', 'webp', 13, 7), ('short-feminino-fitness-amarracao-marisa-7-4', 'webp', 13, 7);
+
+INSERT INTO estoque (quantidade, preco, produto_id, cor_id, tamanho_id) VALUES (19, 80.90, 7, 13, 3), (19, 80.90, 7, 13, 4), (19, 80.90, 7, 13, 5);

@@ -9,7 +9,8 @@ export class CardComponent {
 
   @Input() image: string = '';
   @Input() name: string = '';
-  @Input() price: string = '';
+  @Input() priceMin: string = '';
+  @Input() priceMax: string = '';
   @Input() offer: string = '';
 
 }

@@ -658,6 +658,7 @@ SELECT NOW()
 
 Imagens Créditos:
     - Netshoes: https://www.netshoes.com.br/
+    - Dafiti: 
 
 ## 💼 Tecnologias utilizadas:
 

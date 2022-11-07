@@ -2,6 +2,7 @@
 
 .header {
     background-color: $color-white;
+    z-index: 2;
 
     .header--toolbar {
         color: $color-white;
@@ -271,7 +272,7 @@
                 box-shadow: $box-shadow-large,
                     0 0 0 100vw rgba(0, 0, 0, 0.3);
 
-                z-index: 3;
+                z-index: 4;
             }
         }
 
@@ -321,7 +322,7 @@
                         position: relative;
                         color: $color-black;
                         background-color: $color-white;
-                        z-index: 2;
+                        z-index: 5;
                     }
                 }
 
@@ -386,7 +387,7 @@
                 box-shadow: $box-shadow-large,
                     0 0 0 100vw rgba(0, 0, 0, 0.3);
 
-                z-index: 4;
+                z-index: 5;
             }
         }
 
@@ -404,7 +405,7 @@
                 line-height: $line-height-h5;
                 transition: all 200ms ease-in;
 
-                z-index: 4;
+                z-index: 3;
 
                 &:hover {
                     transform: rotate(360deg);

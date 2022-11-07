@@ -1,7 +1,7 @@
 <div class="checkbox">
     <label [title]="titleLabel" class="check-label">
         {{placeholder}}
-        <input type="checkbox" [name]="inputName" [value]="valueCheckbox" />
+        <input type="checkbox" [name]="inputName" [value]="valueCheckbox" [checked]="check == valueCheckbox" />
         <span class="check-span"></span>
     </label>
 </div>

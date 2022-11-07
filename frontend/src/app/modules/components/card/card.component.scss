@@ -90,14 +90,20 @@
             color: $color-gray-600;
         }
 
-        span {
-            font-size: $font-size-lg;
-            font-weight: $font-weight-semi-bold;
-            line-height: $line-height-lg;
-            color: $color-black;
+        .price-group {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
 
-            small {
-                font-size: $font-size-xs;
+            span {
+                font-size: $font-size-lg;
+                font-weight: $font-weight-semi-bold;
+                line-height: $line-height-lg;
+                color: $color-black;
+
+                small {
+                    font-size: $font-size-xs;
+                }
             }
         }
     }

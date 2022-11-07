@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import SwiperCore, { SwiperOptions } from 'swiper';
@@ -17,6 +18,12 @@ import { ProdutoService } from './service/produto.service';
   styleUrls: ['./produtos.component.scss']
 })
 export class ProdutosComponent implements OnInit {
+
+  showProdutos() {
+    console.log(this.produtos);
+  }
+  
+  // Produtos
   produtos: IProduto[] = [];
 
   generos: IGenero[] = [];
@@ -26,20 +33,59 @@ export class ProdutosComponent implements OnInit {
   tamanhos: ITamanho[] = [];
   marcas: IMarca[] = [];
 
-  sideGenero: boolean;
-  sideCategoria: boolean;
-  sideTipo: boolean;
-  sideTamanho: boolean;
-  sideCor: boolean;
-  sideMarca: boolean;
-  sidePreco: boolean;
+  // Toggle Side bar
+  sideGenero!: boolean;
+  sideCategoria!: boolean;
+  sideTipo!: boolean;
+  sideTamanho!: boolean;
+  sideCor!: boolean;
+  sideMarca!: boolean;
+  sidePreco!: boolean;
 
-  sideBars: boolean;
+  // Open Side bar
+  sideBars!: boolean;
 
+  // Loaded Produtos
   loaderGif: string = '/assets/icons/loader.gif';
-  loader: boolean;
+  loader!: boolean;
 
-  constructor(private produtoService: ProdutoService) {
+  // URL Values
+  genero: string[] = [];
+  categoria: string[] = [];
+  tipo: string[] = [];
+  cor: string[] = [];
+  tamanho: string[] = [];
+  marca: string[] = [];
+
+  constructor(
+    private produtoService: ProdutoService,
+    private activatedRoute: ActivatedRoute
+  ) { }
+
+  ngOnInit(): void {
+    this.initializeVars();
+
+    const queryParams = this.activatedRoute.snapshot.queryParamMap;
+
+    // Get URL and Replace Values
+    this.genero = queryParams.getAll('genero').map(value => this.replaceAll(value, '-', ' '));
+    this.categoria  = queryParams.getAll('categoria').map(value => this.replaceAll(value, '-', ' '));
+    this.tipo  = queryParams.getAll('tipo').map(value => this.replaceAll(value, '-', ' '));
+    this.cor  = queryParams.getAll('cor').map(value => this.replaceAll(value, '-', ' '));
+    this.tamanho  = queryParams.getAll('tamanho').map(value => this.replaceAll(value, '-', ' '));
+    this.marca  = queryParams.getAll('marca').map(value => this.replaceAll(value, '-', ' '));
+
+    this.findProdutos(this.genero, this.categoria, this.tipo, this.cor, this.tamanho, this.marca);
+
+  }
+
+  public replaceAll(str: string, find: string, replace: string) {
+    str = str.toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    return str.replace(new RegExp(find, 'g'), replace);
+  }
+
+  initializeVars() {
     this.sideGenero = false;
     this.sideCategoria = false;
     this.sideTipo = false;
@@ -51,28 +97,20 @@ export class ProdutosComponent implements OnInit {
     this.sideBars = false;
 
     this.loader = true;
-
-    this.findProdutos();
   }
 
-  ngOnInit(): void {
-  }
-
-  findProdutos() {
-    this.produtoService.findProdutos().subscribe(
+  findProdutos(genero?: string[], categoria?: string[], tipo?: string[],
+    cor?: string[], tamanho?: string[], marca?: string[]) {
+    this.produtoService.findProdutos(genero, categoria, tipo, cor, tamanho, marca).subscribe(
       produtos => this.produtos = produtos
     );
 
     setTimeout(() => {
 
       this.getCaracteristicaProdutos();
-
       this.loader = false;
-    }, 2000);
-  }
 
-  public replaceAll(str: string, find: string, replace: string) {
-    return str.replace(new RegExp(find, 'g'), replace);
+    }, 1000);
   }
 
   getCaracteristicaProdutos() {
@@ -111,6 +149,10 @@ export class ProdutosComponent implements OnInit {
     }
   }
 
+  clearQueries() {
+    
+  }
+
   // findProdutosPromise() {
   //   return new Promise(resolve => {
   //     this.findProdutos();
@@ -144,18 +186,20 @@ export class ProdutosComponent implements OnInit {
   //   console.log(this.produtos);
   // }
 
-  config: SwiperOptions = {
-    slidesPerView: 3,
-    spaceBetween: 50,
-    navigation: true,
-    pagination: { clickable: true },
-    scrollbar: { draggable: true },
-  };
-  onSwiper(swiper: any) {
-    console.log(swiper);
-  }
-  onSlideChange() {
-    console.log('slide change');
-  }
+
+
+  // config: SwiperOptions = {
+  //   slidesPerView: 3,
+  //   spaceBetween: 50,
+  //   navigation: true,
+  //   pagination: { clickable: true },
+  //   scrollbar: { draggable: true },
+  // };
+  // onSwiper(swiper: any) {
+  //   console.log(swiper);
+  // }
+  // onSlideChange() {
+  //   console.log('slide change');
+  // }
 
 }
