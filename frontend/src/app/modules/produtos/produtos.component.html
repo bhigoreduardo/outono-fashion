@@ -40,232 +40,74 @@
 
 <!-- CATALOG -->
 <section class="catalog container">
+    <div class="loader-produtos" [ngClass]="{active: loader == true}">
+        <img [src]="loaderGif" alt="Carregando produtos" />
+    </div>
+    
     <!-- SIDEBAR -->
     <aside class="sidebar custom-scrollbar" [ngClass]="{active: sideBars == true}">
         <button class="side-times" type="button" (click)="sideBars=!sideBars"><i class="fa fa-times"></i></button>
 
         <form class="search-sidebar">
             <h6>Filtro</h6>
-
+            
             <h5>Gênero<i class="fas fa-minus" (click)="sideGenero=!sideGenero" [ngClass]="{'fa-plus': sideGenero == true}"></i></h5>
             <div class="checkbox-container custom-scrollbar" [ngClass]="{hide: sideGenero == true}">
-                <app-checkbox
-                    titleLabel="Feminino"
-                    placeholder="Feminino"
+                <app-checkbox *ngFor="let genero of generos"
+                    titleLabel="{{genero.descricao}}"
+                    placeholder="{{genero.descricao}}"
                     inputName="genero"
-                    valueCheckbox="feminino"
-                ></app-checkbox>
-                <app-checkbox
-                    titleLabel="Masculino"
-                    placeholder="Masculino"
-                    inputName="genero"
-                    valueCheckbox="masculino"
-                ></app-checkbox>
-                <app-checkbox
-                    titleLabel="Menina"
-                    placeholder="Menina"
-                    inputName="genero"
-                    valueCheckbox="menina"
-                ></app-checkbox>
-                <app-checkbox
-                    titleLabel="Menino"
-                    placeholder="Menino"
-                    inputName="genero"
-                    valueCheckbox="menino"
-                ></app-checkbox>
-                <app-checkbox
-                    titleLabel="Unissex"
-                    placeholder="Unissex"
-                    inputName="genero"
-                    valueCheckbox="unissex"
+                    valueCheckbox="{{genero.descricao | replace}}"
                 ></app-checkbox>
             </div>
 
             <h5>Categoria<i class="fas fa-minus" (click)="sideCategoria=!sideCategoria" [ngClass]="{'fa-plus': sideCategoria == true}"></i></h5>
             <div class="checkbox-container custom-scrollbar" [ngClass]="{hide: sideCategoria == true}">
-                <app-checkbox
-                    titleLabel="Calçados"
-                    placeholder="Calçados"
+                <app-checkbox *ngFor="let categoria of categorias"
+                    titleLabel="{{categoria.descricao}}"
+                    placeholder="{{categoria.descricao}}"
                     inputName="categoria"
-                    valueCheckbox="calcados"
-                ></app-checkbox>
-                <app-checkbox
-                    titleLabel="Roupas"
-                    placeholder="Roupas"
-                    inputName="categoria"
-                    valueCheckbox="roupas"
-                ></app-checkbox>
-                <app-checkbox
-                    titleLabel="Acessórios"
-                    placeholder="Acessórios"
-                    inputName="categoria"
-                    valueCheckbox="acessorios"
+                    valueCheckbox="{{categoria.descricao | replace}}"
                 ></app-checkbox>
             </div>
 
             <h5>Tipo<i class="fas fa-minus" (click)="sideTipo=!sideTipo" [ngClass]="{'fa-plus': sideTipo == true}"></i></h5>
             <div class="checkbox-container custom-scrollbar" [ngClass]="{hide: sideTipo == true}">
-                <app-checkbox
-                    titleLabel="Bermudas"
-                    placeholder="Bermudas"
+                <app-checkbox *ngFor="let tipo of tipos"
+                    titleLabel="{{tipo.descricao}}"
+                    placeholder="{{tipo.descricao}}"
                     inputName="tipo"
-                    valueCheckbox="bermudas"
-                ></app-checkbox>
-                <app-checkbox
-                    titleLabel="Calças"
-                    placeholder="Calças"
-                    inputName="tipo"
-                    valueCheckbox="calcas"
-                ></app-checkbox>
-                <app-checkbox
-                    titleLabel="Camisas"
-                    placeholder="Camisas"
-                    inputName="tipo"
-                    valueCheckbox="camisas"
-                ></app-checkbox>
-                <app-checkbox
-                    titleLabel="Jaquetas"
-                    placeholder="Jaquetas"
-                    inputName="tipo"
-                    valueCheckbox="jaquetas"
-                ></app-checkbox>
-                <app-checkbox
-                    titleLabel="Moletons"
-                    placeholder="Moletons"
-                    inputName="tipo"
-                    valueCheckbox="moletons"
-                ></app-checkbox>
-                <app-checkbox
-                    titleLabel="Shorts"
-                    placeholder="Shorts"
-                    inputName="tipo"
-                    valueCheckbox="shorts"
-                ></app-checkbox>
-                <app-checkbox
-                    titleLabel="Vestidos"
-                    placeholder="Vestidos"
-                    inputName="tipo"
-                    valueCheckbox="estidos"
+                    valueCheckbox="{{tipo.descricao | replace}}"
                 ></app-checkbox>
             </div>
 
             <h5>Tamanho<i class="fas fa-minus" (click)="sideTamanho=!sideTamanho" [ngClass]="{'fa-plus': sideTamanho == true}"></i></h5>
             <div class="checkbox-container custom-scrollbar" [ngClass]="{hide: sideTamanho == true}">
-                <app-checkbox
-                    titleLabel="PP"
-                    placeholder="PP"
+                <app-checkbox *ngFor="let tamanho of tamanhos"
+                    titleLabel="{{tamanho.descricao}}"
+                    placeholder="{{tamanho.descricao}}"
                     inputName="tamanho"
-                    valueCheckbox="pp"
-                ></app-checkbox>
-                <app-checkbox
-                    titleLabel="P"
-                    placeholder="P"
-                    inputName="tamanho"
-                    valueCheckbox="p"
-                ></app-checkbox>
-                <app-checkbox
-                    titleLabel="M"
-                    placeholder="M"
-                    inputName="tamanho"
-                    valueCheckbox="m"
-                ></app-checkbox>
-                <app-checkbox
-                    titleLabel="G"
-                    placeholder="G"
-                    inputName="tamanho"
-                    valueCheckbox="g"
-                ></app-checkbox>
-                <app-checkbox
-                    titleLabel="GG"
-                    placeholder="GG"
-                    inputName="tamanho"
-                    valueCheckbox="gg"
-                ></app-checkbox>
-                <app-checkbox
-                    titleLabel="XG"
-                    placeholder="XG"
-                    inputName="tamanho"
-                    valueCheckbox="xg"
-                ></app-checkbox>
-                <app-checkbox
-                    titleLabel="20"
-                    placeholder="20"
-                    inputName="tamanho"
-                    valueCheckbox="20"
-                ></app-checkbox>
-                <app-checkbox
-                    titleLabel="50"
-                    placeholder="50"
-                    inputName="tamanho"
-                    valueCheckbox="50"
-                ></app-checkbox>
-                <app-checkbox
-                    titleLabel="Único"
-                    placeholder="Único"
-                    inputName="tamanho"
-                    valueCheckbox="unico"
+                    valueCheckbox="{{tamanho.descricao | replace}}"
                 ></app-checkbox>
             </div>
 
             <h5>Cor<i class="fas fa-minus" (click)="sideCor=!sideCor" [ngClass]="{'fa-plus': sideCor == true}"></i></h5>
             <div class="checkbox-container custom-scrollbar" [ngClass]="{hide: sideCor == true}">
-                <app-checkbox
-                    titleLabel="Amarelo"
-                    placeholder="Amarelo"
+                <app-checkbox *ngFor="let cor of cores"
+                    titleLabel="{{cor.descricao}}"
+                    placeholder="{{cor.descricao}}"
                     inputName="cor"
-                    valueCheckbox="amarelo"
-                ></app-checkbox>
-                <app-checkbox
-                    titleLabel="Azul Claro"
-                    placeholder="Azul Claro"
-                    inputName="cor"
-                    valueCheckbox="azul-claro"
-                ></app-checkbox>
-                <app-checkbox
-                    titleLabel="Azul Escuro"
-                    placeholder="Azul Escuro"
-                    inputName="cor"
-                    valueCheckbox="azul-escuro"
-                ></app-checkbox>
-                <app-checkbox
-                    titleLabel="Bege"
-                    placeholder="Bege"
-                    inputName="cor"
-                    valueCheckbox="bege"
+                    valueCheckbox="{{cor.descricao | replace:' ':'-'}}"
                 ></app-checkbox>
             </div>
 
             <h5>Marca<i class="fas fa-minus" (click)="sideMarca=!sideMarca" [ngClass]="{'fa-plus': sideMarca == true}"></i></h5>
             <div class="checkbox-container custom-scrollbar" [ngClass]="{hide: sideMarca == true}">
-                <app-checkbox
-                    titleLabel="Adidas"
-                    placeholder="Adidas"
+                <app-checkbox *ngFor="let marca of marcas"
+                    titleLabel="{{marca.descricao}}"
+                    placeholder="{{marca.descricao}}"
                     inputName="marca"
-                    valueCheckbox="adidas"
-                ></app-checkbox>
-                <app-checkbox
-                    titleLabel="Asics"
-                    placeholder="Asics"
-                    inputName="marca"
-                    valueCheckbox="asics"
-                ></app-checkbox>
-                <app-checkbox
-                    titleLabel="Fila"
-                    placeholder="Fila"
-                    inputName="marca"
-                    valueCheckbox="fila"
-                ></app-checkbox>
-                <app-checkbox
-                    titleLabel="Kappa"
-                    placeholder="Kappa"
-                    inputName="marca"
-                    valueCheckbox="kappa"
-                ></app-checkbox>
-                <app-checkbox
-                    titleLabel="Mizuno"
-                    placeholder="Mizuno"
-                    inputName="marca"
-                    valueCheckbox="mizuno"
+                    valueCheckbox="{{marca.descricao | replace}}"
                 ></app-checkbox>
             </div>
 
@@ -303,9 +145,9 @@
 
         <div class="card-container">
             <app-card
-                *ngFor="let line of lines"
-                image="/assets/produtos/feminino/roupas/camisas/camisa-armadilho-manga-longa-algodao-branco-5-1.webp"
-                name="Blusa Canelada"
+                *ngFor="let produto of produtos"
+                image="/assets/produtos/{{produto.genero.descricao | replace}}/{{produto.categoria.descricao | replace}}/{{produto.tipo.descricao | replace}}/{{produto.nome | replace:' ':'-'}}-{{produto.id}}-1.webp"
+                name="{{produto.nome}}"
                 price="252,90"
             ></app-card>
         </div>

@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @Entity
 public class Tipo {
-	
+
 	@EqualsAndHashCode.Include
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,5 +21,11 @@ public class Tipo {
 
 	@Column(nullable = false)
 	private String descricao;
-	
+
+	/*
+	@ManyToOne
+	@JoinColumn(nullable = false, foreignKey = @ForeignKey(name = "fk_tipo_categoria"))
+	private Categoria categoria;
+	*/
+
 }

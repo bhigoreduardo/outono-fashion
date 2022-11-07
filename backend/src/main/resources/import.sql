@@ -5,6 +5,7 @@ INSERT INTO genero (descricao) VALUES ('Masculino'), ('Feminino'), ('Menino'), (
 INSERT INTO categoria (descricao) VALUES ('Calçados'), ('Roupas'), ('Acessórios');
 
 -- Tipo
+-- INSERT INTO tipo (descricao, categoria_id) VALUES	('Botas', 1), ('Chinelos', 1), ('Chuteiras', 1), ('Crocs', 1), ('Sapatênis', 1), ('Tênis', 1), ('Bermudas', 2), ('Calças', 2), ('Camisas', 2), ('Jaquetas', 2), ('Moletons', 2), ('Shorts', 2), ('Vestidos', 2), ('Bonés', 3), ('Malas', 3), ('Meias', 3), ('Mochilas', 3), ('Óculos', 3), ('Relógios', 3);
 INSERT INTO tipo (descricao) VALUES	('Botas'), ('Chinelos'), ('Chuteiras'), ('Crocs'), ('Sapatênis'), ('Tênis'), ('Bermudas'), ('Calças'), ('Camisas'), ('Jaquetas'), ('Moletons'), ('Shorts'), ('Vestidos'), ('Bonés'), ('Malas'), ('Meias'), ('Mochilas'), ('Óculos'), ('Relógios');
 
 -- Tamanho
@@ -45,3 +46,5 @@ INSERT INTO imagem (nome, tipo, cor_id, produto_id) VALUES ('camisa-calvin-klein
 INSERT INTO imagem (nome, tipo, cor_id, produto_id) VALUES ('camisa-armadilho-manga-longa-algodao-branco-5-1', 'webp', 6, 5), ('camisa-armadilho-manga-longa-algodao-branco-5-2', 'webp', 6, 5), ('camisa-armadilho-manga-longa-algodao-branco-5-3', 'webp', 6, 5), ('camisa-armadilho-manga-longa-algodao-branco-5-4', 'webp', 6, 5);
 
 INSERT INTO imagem (nome, tipo, cor_id, produto_id) VALUES ('camisa-facinelli-by-mooncity-amarracao-rosa-6-1', 'webp', 14, 6), ('camisa-facinelli-by-mooncity-amarracao-rosa-6-2', 'webp', 14, 6), ('camisa-facinelli-by-mooncity-amarracao-rosa-6-3', 'webp', 14, 6), ('camisa-facinelli-by-mooncity-amarracao-rosa-6-4', 'webp', 14, 6);
+
+INSERT INTO estoque (quantidade, preco, produto_id, cor_id, tamanho_id) VALUES (19, 280.90, 4, 14, 2), (20, 280.90, 4, 14, 3), (20, 280.90, 4, 14, 4), (20, 300.90, 5, 6, 2), (20, 300.90, 5, 6, 3), (20, 300.90, 5, 6, 4), (20, 300.90, 6, 14, 2), (20, 300.90, 6, 14, 3);

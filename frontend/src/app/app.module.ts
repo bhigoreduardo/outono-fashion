@@ -5,16 +5,18 @@ import { AppComponent } from './app.component';
 import { ApiRoutingModule } from './api-routing.module';
 import { SharedModule } from './modules/shared.module';
 import { SwiperModule } from 'swiper/angular';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     ApiRoutingModule,
     SharedModule,
-    SwiperModule
+    SwiperModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

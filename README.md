@@ -163,15 +163,16 @@
 
 ### 1. Produtos
 - **Página Produtos:** Dedicada ao Gênero ou Categoria de produtos
-    - Página Produtos Unissex: `/produtos`
+    //- Página Produtos Unissex: `/produtos`
     - Página Produtos Masculino: `/masculino`
     - Página Produtos Feminino: `/feminino`
-    - Página Produtos Menino: `/menino`
-    - Página Produtos Menina: `/menina`
+    - Página Produtos Infantil: `/infantil`
+    //- Página Produtos Menino: `/menino`
+    //- Página Produtos Menina: `/menina`
 
     - Página Produtos Promoções (Unissex): `/promocoes`
-    - Página Produtos Calçados (Unissex): `/calcados`
-    - Página Produtos Roupas (Unissex): `/roupas`
+    //- Página Produtos Calçados (Unissex): `/calcados`
+    //- Página Produtos Roupas (Unissex): `/roupas`
     - Página Produtos Acessórios (Unissex): `/acessorios`
     - Página Produtos Marcas (Unissex): `/marcas`
 
@@ -655,6 +656,8 @@ SELECT CURRENT_TIMESTAMP
 
 SELECT NOW()
 
+Imagens Créditos:
+    - Netshoes: https://www.netshoes.com.br/
 
 ## 💼 Tecnologias utilizadas:
 

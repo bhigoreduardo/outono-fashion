@@ -4,13 +4,15 @@ import { HeaderComponent } from './components/header/header.component';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { CardComponent } from './components/card/card.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { ReplacePipe } from '../replace.pipe';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     CheckboxComponent,
     CardComponent,
-    FooterComponent
+    FooterComponent,
+    ReplacePipe
   ],
   imports: [
     CommonModule
@@ -19,7 +21,8 @@ import { FooterComponent } from './components/footer/footer.component';
     HeaderComponent,
     CheckboxComponent,
     CardComponent,
-    FooterComponent
+    FooterComponent,
+    ReplacePipe
   ]
 })
 export class SharedModule { }

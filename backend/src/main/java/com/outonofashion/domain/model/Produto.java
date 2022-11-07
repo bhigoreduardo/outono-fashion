@@ -73,28 +73,23 @@ public class Produto {
 	@Column(nullable = false)
 	private Boolean ativo;
 
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(nullable = false, foreignKey = @ForeignKey(name = "fk_produto_genero"))
 	private Genero genero;
 
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(nullable = false, foreignKey = @ForeignKey(name = "fk_produto_categoria"))
 	private Categoria categoria;
 
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(nullable = false, foreignKey = @ForeignKey(name = "fk_produto_tipo"))
 	private Tipo tipo;
 
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(nullable = false, foreignKey = @ForeignKey(name = "fk_produto_marca"))
 	private Marca marca;
 
 	// Estoque
-	@JsonIgnore
 	@OneToMany(mappedBy = "produto")
 	private List<Estoque> estoques = new ArrayList<>();
 
