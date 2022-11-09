@@ -322,7 +322,7 @@
                         position: relative;
                         color: $color-black;
                         background-color: $color-white;
-                        z-index: 5;
+                        z-index: 3;
                     }
                 }
 
@@ -351,13 +351,15 @@
         width: 100%;
         transition: all 400ms ease-in;
         background-color: transparent;
+        z-index: 2;
 
         @media screen and (min-width: 1100px) {
             display: none;
 
             &.active {
                 display: block;
-                position: fixed;
+                // position: fixed;
+                position: absolute;
                 left: 50%;
                 transform: scale(1) translateX(-50%);
 

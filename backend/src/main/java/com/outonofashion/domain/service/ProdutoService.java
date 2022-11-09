@@ -16,6 +16,9 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.outonofashion.domain.exception.produto.ProdutoNaoEncontradoException;
@@ -307,11 +310,19 @@ public class ProdutoService implements IProdutoService {
 		}
 
 		produtoQuery.where(predicates.toArray(new Predicate[0]));
-
+		
 		TypedQuery<Produto> query = entityManager.createQuery(produtoQuery);
+		
+		//Integer totalRows = query.getResultList().size();
+		
+		//query.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
+		//query.setMaxResults(pageable.getPageSize());
+		
+		//Page<Produto> result = new PageImpl<Produto>(query.getResultList(), pageable, totalRows);
+		//Page<Produto> result = new PageImpl<>(query.getResultList());
 
 		return query.getResultList();
-
+		
 	}
 
 	@Override

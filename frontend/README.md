@@ -4,10 +4,8 @@ ELEMENTOS GLOBAIS:
 
 TODO:
     - Slider price
-    - Clear Filter
-    - Order By
-    - Header: Obter informações e Sobrepor todo container
-    - Pageable List
+    - Order By: Ideia de ngChange no click order
+    - Header: Obter informações
 
 <!-- BANNER -->
 <div class="banner container">

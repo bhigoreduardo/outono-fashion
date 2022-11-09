@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, retry } from 'rxjs';
 
 import SwiperCore, { SwiperOptions } from 'swiper';
 import { ICategoria } from './model/ICategoria';
@@ -18,13 +18,9 @@ import { ProdutoService } from './service/produto.service';
   styleUrls: ['./produtos.component.scss']
 })
 export class ProdutosComponent implements OnInit {
-
-  showProdutos() {
-    console.log(this.produtos);
-  }
-  
   // Produtos
   produtos: IProduto[] = [];
+  produtosList: IProduto[] = [];
 
   generos: IGenero[] = [];
   categorias: ICategoria[] = [];
@@ -32,6 +28,16 @@ export class ProdutosComponent implements OnInit {
   cores: ICor[] = [];
   tamanhos: ITamanho[] = [];
   marcas: IMarca[] = [];
+
+  order: string = 'filtrar';
+
+  page!: number;
+  size!: number;
+  pages!: number;
+  arrPages: number[] = [];
+
+  begin!: number;
+  end!: number;
 
   // Toggle Side bar
   sideGenero!: boolean;
@@ -60,23 +66,31 @@ export class ProdutosComponent implements OnInit {
   constructor(
     private produtoService: ProdutoService,
     private activatedRoute: ActivatedRoute
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.initializeVars();
 
     const queryParams = this.activatedRoute.snapshot.queryParamMap;
 
-    // Get URL and Replace Values
+    // Get URL and Replace Queries Values
     this.genero = queryParams.getAll('genero').map(value => this.replaceAll(value, '-', ' '));
-    this.categoria  = queryParams.getAll('categoria').map(value => this.replaceAll(value, '-', ' '));
-    this.tipo  = queryParams.getAll('tipo').map(value => this.replaceAll(value, '-', ' '));
-    this.cor  = queryParams.getAll('cor').map(value => this.replaceAll(value, '-', ' '));
-    this.tamanho  = queryParams.getAll('tamanho').map(value => this.replaceAll(value, '-', ' '));
-    this.marca  = queryParams.getAll('marca').map(value => this.replaceAll(value, '-', ' '));
+    this.categoria = queryParams.getAll('categoria').map(value => this.replaceAll(value, '-', ' '));
+    this.tipo = queryParams.getAll('tipo').map(value => this.replaceAll(value, '-', ' '));
+    this.cor = queryParams.getAll('cor').map(value => this.replaceAll(value, '-', ' '));
+    this.tamanho = queryParams.getAll('tamanho').map(value => this.replaceAll(value, '-', ' '));
+    this.marca = queryParams.getAll('marca').map(value => this.replaceAll(value, '-', ' '));
 
+    // Get URL Page Values
+    this.page = (Number(queryParams.get('page')) == 0) ? 1 : Number(queryParams.get('page'));
+    this.size = (Number(queryParams.get('size')) == 0) ? 4 : Number(queryParams.get('size'));
+
+    this.begin = (this.page - 1) * this.size;
+    this.end = this.size + this.begin;
+
+    // Get All Produtos
     this.findProdutos(this.genero, this.categoria, this.tipo, this.cor, this.tamanho, this.marca);
-
   }
 
   public replaceAll(str: string, find: string, replace: string) {
@@ -102,7 +116,20 @@ export class ProdutosComponent implements OnInit {
   findProdutos(genero?: string[], categoria?: string[], tipo?: string[],
     cor?: string[], tamanho?: string[], marca?: string[]) {
     this.produtoService.findProdutos(genero, categoria, tipo, cor, tamanho, marca).subscribe(
-      produtos => this.produtos = produtos
+      data => {
+
+        this.produtos = data;
+        this.pages = Math.ceil(this.produtos.length / this.size);
+
+        for (let i = 1; i <= this.pages; i++) {
+          this.arrPages.push(i);
+        }
+
+        this.produtosList = this.produtos.filter((value, key) => key >= this.begin && key < this.end);
+
+      }, error => {
+        console.log(error.error.message);
+      }
     );
 
     setTimeout(() => {
@@ -150,7 +177,35 @@ export class ProdutosComponent implements OnInit {
   }
 
   clearQueries() {
-    
+    // Gênero
+    this.generos = [];
+
+    // Categoria
+    this.categorias = [];
+
+    // Tipo
+    this.tipos = [];
+
+    // Marca
+    this.marcas = [];
+
+    // Cor
+    this.cores = [];
+
+    // Tamanho
+    this.tamanhos = [];
+  }
+
+  pageUp() {
+    if (this.page < this.pages) {
+      this.page++;
+    }
+  }
+
+  pageDown() {
+    if (this.page > 1) {
+      this.page--;
+    }
   }
 
   // findProdutosPromise() {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -12,14 +12,19 @@ export class HeaderComponent implements OnInit {
   femininoHighlight = "/assets/images/feminino-highlights-drop-menu.webp";
 
   target: any;
-  isNavbar: boolean;
+  isNavbar!: boolean;
 
-  constructor() {
-    this.target = "";
-    this.isNavbar = false;
+  constructor(private renderer: Renderer2) {
+    this.renderer.listen('window', 'scroll', this.clearTarget.bind(this));
   }
 
   ngOnInit(): void {
+    this.clearTarget();
+  }
+
+  clearTarget() {
+    this.target = "";
+    this.isNavbar = false;
   }
 
 }

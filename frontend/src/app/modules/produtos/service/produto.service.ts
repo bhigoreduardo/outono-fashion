@@ -102,8 +102,6 @@ export class ProdutoService {
 
     }
 
-    console.log(url);
-
     return this.httpClient.get<IProduto[]>(url).pipe(map(res => res));
   }
 

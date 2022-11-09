@@ -72,29 +72,29 @@
         <a><i class="fas fa-times" (click)="isNavbar=false"></i></a>
 
         <div class="header--navbar-list-item">
-            <a title="Início" (mouseover)="target=''">Início</a>
+            <a title="Início" (mouseover)="clearTarget()">Início</a>
             <a title="Masculino" (mouseover)="target=masculino" [ngClass]="{active: target == masculino}">Masculino</a>
             <a title="Feminino" (mouseover)="target=feminino" [ngClass]="{active: target == feminino}">Feminino</a>
             <a title="Infantil" (mouseover)="target=infantil" [ngClass]="{active: target == infantil}">Infantil</a>
             <a title="Acessórios" (mouseover)="target=acessorio" [ngClass]="{active: target == acessorio}">Acessórios</a>
             <a title="Marcas" (mouseover)="target=marcas" [ngClass]="{active: target == marcas}">Marcas</a>
-            <a title="Promoções" (mouseover)="target=''"><i class="fas fa-tags"></i> Promoções</a>
+            <a title="Promoções" (mouseover)="clearTarget()"><i class="fas fa-tags"></i> Promoções</a>
         </div>
     </nav>
 
     <div class="header--drop-menu custom-scrollbar" [ngClass]="{active: target != ''}">
-        <a><i class="fas fa-arrow-left" (click)="target=''"></i></a>
+        <a><i class="fas fa-arrow-left" (click)="clearTarget()"></i></a>
 
         <div class="container">
             <div #masculino data-target="masculino"
-                (mouseout)="target=''"
+                (mouseout)="clearTarget()"
                 [ngClass]="{active: target == masculino}"
                 class="box-container">
                 Masculino
             </div>
 
             <div #feminino data-target="feminino"
-                (mouseover)="target=feminino" (mouseout)="target=''"
+                (mouseover)="target=feminino" (mouseout)="clearTarget()"
                 [ngClass]="{active: target == feminino}"
                 class="box-container">
                 <a class="button button-warning button-xs button-target" href="">Ir para Feminino</a>
@@ -160,21 +160,21 @@
             </div>
 
             <div #infantil data-target="infantil"
-                (mouseout)="target=''"
+                (mouseout)="clearTarget()"
                 [ngClass]="{active: target == infantil}"
                 class="box-container">
                 Infantil
             </div>
 
             <div #acessorio data-target="acessorio"
-                (mouseout)="target=''"
+                (mouseout)="clearTarget()"
                 [ngClass]="{active: target == acessorio}"
                 class="box-container">
                 Acessório
             </div>
 
             <div #marcas data-target="marcas"
-                (mouseout)="target=''"
+                (mouseout)="clearTarget()"
                 [ngClass]="{active: target == marcas}"
                 class="box-container">
                 Marcas
