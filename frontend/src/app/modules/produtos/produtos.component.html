@@ -2,18 +2,6 @@
 <app-header></app-header>
 <!-- / HEADER COMPONENT -->
 
-<!-- <swiper
-    [config]="config"
-    (swiper)="onSwiper($event)"
-    (slideChange)="onSlideChange()">
-    <ng-template swiperSlide>Slide 1</ng-template>
-    <ng-template swiperSlide>Slide 2</ng-template>
-    <ng-template swiperSlide>Slide 3</ng-template>
-    <ng-template swiperSlide>Slide 4</ng-template>
-    <ng-template swiperSlide>Slide 5</ng-template>
-    <ng-template swiperSlide>Slide 6</ng-template>
-</swiper> -->
-
 <!-- BANNER -->
 <div class="banner">
     <div class="container">
@@ -146,15 +134,17 @@
                 name="{{produto.nome}}"
                 priceMin="{{produto.estoques | priceproduto:'min'}}"
                 priceMax="{{produto.estoques | priceproduto:'max'}}"
+                nome="{{produto.nome | replace:' ':'-'}}"
+                id="{{produto.id}}"
             ></app-card>
         </div>
 
         <div class="pagination">
-            <button name="page" value="{{page}}" (click)="pageDown()"><i class="fa fa-chevron-left"></i></button>
+            <button [disabled]="page == 0" name="page" value="{{page}}" (click)="page=page-1"><i class="fa fa-chevron-left"></i></button>
 
             <button [ngClass]="{active: p == page}" *ngFor="let p of arrPages" name="page" value="{{p}}">{{p}}</button>
 
-            <button name="page" value="{{page}}" (click)="pageUp()"><i class="fa fa-chevron-right"></i></button>
+            <button [disabled]="page == pages + 1" name="page" value="{{page}}" (click)="page=page+1"><i class="fa fa-chevron-right"></i></button>
         </div>
     </section>
     <!-- / LIST -->

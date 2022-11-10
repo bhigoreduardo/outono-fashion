@@ -6,10 +6,12 @@ import { ProdutosComponent } from './produtos.component';
 import { SharedModule } from '../shared.module';
 import { FormsModule } from '@angular/forms';
 import { SwiperModule } from 'swiper/angular';
+import { IndividualComponent } from './components/individual/individual.component';
 
 @NgModule({
   declarations: [
-    ProdutosComponent
+    ProdutosComponent,
+    IndividualComponent
   ],
   imports: [
     CommonModule,

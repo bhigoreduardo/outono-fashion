@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { IEstoque } from '../modules/produtos/model/IEstoque';
+import { IEstoque } from '../produtos/model/IEstoque';
 
 @Pipe({
   name: 'priceproduto'

@@ -19,9 +19,9 @@ public class TipoController {
 	private TipoService tipoService;
 
 	@GetMapping
-	public List<Tipo> findByDescricaoAndGenero(@RequestParam String genero, @RequestParam String categoria) {
+	public List<Tipo> findByGeneroAndCategoria(@RequestParam String genero, @RequestParam String categoria) {
 		
-		return tipoService.findByDescricaoAndGenero(genero, categoria);
+		return tipoService.findByGeneroAndCategoria(genero, categoria);
 		
 	}
 

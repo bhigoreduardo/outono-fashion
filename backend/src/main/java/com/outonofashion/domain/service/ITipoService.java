@@ -9,6 +9,6 @@ import com.outonofashion.domain.model.Tipo;
 @Repository
 public interface ITipoService {
 	
-	public List<Tipo> findByDescricaoAndGenero(String genero, String categoria);
+	public List<Tipo> findByGeneroAndCategoria(String genero, String categoria);
 
 }

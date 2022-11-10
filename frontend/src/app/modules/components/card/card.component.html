@@ -6,7 +6,7 @@
 
     <div class="image">
         <img src="{{ image }}" />
-        <a class="button button-warning button-uppercase button-semi-bold button-xs">
+        <a (click)="goToProduto(nome, id)" class="button button-warning button-uppercase button-semi-bold button-xs">
             <i class="fa fa-cart-plus"></i>
             Comprar
         </a>
@@ -16,8 +16,8 @@
         <p>{{ name }}</p>
         <div class="price-group">
             <span><small>R$</small>{{ priceMin }}</span>
-            <span>-</span>
-            <span><small>R$</small>{{ priceMax }}</span>
+            <!-- <span>-</span>
+            <span><small>R$</small>{{ priceMax }}</span> -->
         </div>
     </div>
 </article>

@@ -55,3 +55,38 @@ INSERT INTO produto (nome, descricao, detalhe, largura, altura, comprimento, pes
 INSERT INTO imagem (nome, tipo, cor_id, produto_id) VALUES ('short-feminino-fitness-amarracao-marisa-7-1', 'webp', 13, 7), ('short-feminino-fitness-amarracao-marisa-7-2', 'webp', 13, 7), ('short-feminino-fitness-amarracao-marisa-7-3', 'webp', 13, 7), ('short-feminino-fitness-amarracao-marisa-7-4', 'webp', 13, 7);
 
 INSERT INTO estoque (quantidade, preco, produto_id, cor_id, tamanho_id) VALUES (19, 80.90, 7, 13, 3), (19, 80.90, 7, 13, 4), (19, 80.90, 7, 13, 5);
+
+-- Feminino -> Calçados -> Botas
+INSERT INTO produto (nome, descricao, detalhe, largura, altura, comprimento, peso, data_cadastro, data_atualizacao, ativo, genero_id, categoria_id, tipo_id, marca_id) VALUES ('Bota Coturno Feminino Tratorada City DUBUY', 'Bota Coturno Feminino Tratorada City DUBUY Preto', 'Bota Coturno Feminino Tratorada City DUBUY<br>Bota Coturno Feminino Tratorada City DUBUY Preto<br>Bota Coturno Feminino Tratorada City DUBUY 1105LI Marrom/Capuccino ou Preto Fosco <br> <br>Marca: DUBUY <br>Numerações: 33 ao 42 <br>Zíper lateral <br>Forro antibacteriano <br>Altura do Salto: 4,2 cm <br>Altura do cano: 15,5 cm <br>Forma do calçado: Normal <br>Material Interno: Cacharrel espumado (confort) <br>Solado: Micro Expandido - (Antiderrapante – Tratorado) <br>Reforço de costura lateral do cabedal (dando mais durabilidade). <br>Diferencial: Bota estilo coturno com sola tratorada, que garante durabilidade, praticidade e conforto.<br>90 dias de Garantia contra defeito de Fabricação (Garantia apenas do calçado)<br>Produto enviado com nota fiscal!', '18.00', '5.00', '28.00', '200.00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, true, 2, 1, 1, 2);
+
+INSERT INTO imagem (nome, tipo, cor_id, produto_id) VALUES ('bota-coturno-feminino-tratorada-city-dubuy-8-1', 'webp', 13, 8), ('bota-coturno-feminino-tratorada-city-dubuy-8-2', 'webp', 13, 8), ('bota-coturno-feminino-tratorada-city-dubuy-8-3', 'webp', 13, 8);
+
+INSERT INTO estoque (quantidade, preco, produto_id, cor_id, tamanho_id) VALUES (20, 89.90, 8, 13, 16), (20, 89.90, 8, 13, 17), (20, 99.90, 8, 13, 18);
+
+-- Feminino -> Calçados -> Chinelos
+INSERT INTO produto (nome, descricao, detalhe, largura, altura, comprimento, peso, data_cadastro, data_atualizacao, ativo, genero_id, categoria_id, tipo_id, marca_id) VALUES ('Chinelo Colcci Rio Branco', 'Chinelo Colcci Rio Branco Techfit', 'Chinelo Colcci Rio Branco<br>Chinelo Colcci Rio Branco Techfit<br>Tecnologia: Techfit - um composto tecnológico desenvolvido exclusivamente para a Colcci. Além de usarmos material 100% vegano, nossa matéria prima é 100% reciclável e ecologicamente correto, podendo ser reutilizado para a fabricação de novos produtos.<br><br>Há 30 anos a Colcci é considerada uma das marcas mais influentes da moda brasileira, graças aos seus produtos que aliam qualidade, sofisticação e informação de moda. A marca é um Must-Have de qualquer guarda-roupa, e conta com peças para todas as ocasiões.<br><br>Peças essenciais para arrematar um look, os calçados versáteis com suas combinações fáceis e estilosas, são os modelos que ficam bem com qualquer tipo de visual e, por isso, são indispensáveis<br>Produto enviado com nota fiscal!', '18.00', '5.00', '28.00', '200.00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, true, 2, 1, 2, 7);
+
+INSERT INTO imagem (nome, tipo, cor_id, produto_id) VALUES ('chinelo-colcci-rio-branco-9-1', 'webp', 6, 9), ('chinelo-colcci-rio-branco-9-2', 'webp', 6, 9), ('chinelo-colcci-rio-branco-9-3', 'webp', 6, 9), ('chinelo-colcci-rio-branco-9-4', 'webp', 6, 9); 
+
+INSERT INTO estoque (quantidade, preco, produto_id, cor_id, tamanho_id) VALUES (33, 79.90, 9, 13, 16), (20, 79.90, 9, 13, 17), (20, 99.90, 9, 13, 18);
+
+-- Feminino -> Calçados -> Crocs
+INSERT INTO produto (nome, descricao, detalhe, largura, altura, comprimento, peso, data_cadastro, data_atualizacao, ativo, genero_id, categoria_id, tipo_id, marca_id) VALUES ('Sandália Crocs Crocbrand', 'Sandália Crocs Crocbrand Azul-Marinho', 'Chinelo Colcci Rio Branco<br>Sandália Crocs Crocbrand Azul-Marinho<br>Bico: Redondo<br><br>Peças essenciais para arrematar um look, os calçados versáteis com suas combinações fáceis e estilosas, são os modelos que ficam bem com qualquer tipo de visual e, por isso, são indispensáveis.<br>Produto enviado com nota fiscal!', '18.00', '15.00', '28.00', '200.00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, true, 2, 1, 4, 20);
+
+INSERT INTO imagem (nome, tipo, cor_id, produto_id) VALUES ('sandalia-crocs-crocbrand-10-1', 'webp', 3, 10), ('sandalia-crocs-crocbrand-10-2', 'webp', 3, 10), ('sandalia-crocs-crocbrand-10-3', 'webp', 3, 10), ('sandalia-crocs-crocbrand-10-4', 'webp', 3, 10), ('sandalia-crocs-crocbrand-10-5', 'webp', 3, 10);
+
+INSERT INTO estoque (quantidade, preco, produto_id, cor_id, tamanho_id) VALUES (33, 79.90, 10, 3, 16), (33, 79.90, 10, 3, 17), (33, 79.90, 10, 3, 18), (33, 79.90, 10, 3, 19);
+
+-- Feminino -> Calçados -> Tênis
+INSERT INTO produto (nome, descricao, detalhe, largura, altura, comprimento, peso, data_cadastro, data_atualizacao, ativo, genero_id, categoria_id, tipo_id, marca_id) VALUES ('Tênis adidas Originals Superstar', 'Tênis adidas Originals Superstar Branco', 'Tênis adidas Originals Superstar<br>Tênis adidas Originals Superstar Branco<br>Tênis adidas Originals Superstar Branco/Preto<br>Bico: Redondo<br>Fechamento: Cadarço<br>Ocasião/Estilo: Casual<br>Material Externo: Couro<br>Material Interno: Têxtil<br>Material da Sola: Sintético<br>Produto enviado com nota fiscal!', '18.00', '15.00', '28.00', '200.00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, true, 2, 1, 6, 1);
+
+INSERT INTO imagem (nome, tipo, cor_id, produto_id) VALUES ('tenis-adidas-originals-superstar-11-1', 'webp', 6, 11), ('tenis-adidas-originals-superstar-11-2', 'webp', 6, 11), ('tenis-adidas-originals-superstar-11-3', 'webp', 6, 11), ('tenis-adidas-originals-superstar-11-4', 'webp', 6, 11), ('tenis-adidas-originals-superstar-11-5', 'webp', 6, 11), ('tenis-adidas-originals-superstar-11-6', 'webp', 6, 11);
+
+INSERT INTO estoque (quantidade, preco, produto_id, cor_id, tamanho_id) VALUES (33, 79.90, 11, 6, 16), (33, 79.90, 11, 6, 17), (33, 80.90, 11, 6, 19);
+
+-- Feminino -> Calçados -> Sapatênis
+INSERT INTO produto (nome, descricao, detalhe, largura, altura, comprimento, peso, data_cadastro, data_atualizacao, ativo, genero_id, categoria_id, tipo_id, marca_id) VALUES ('Tênis Game Advance', 'Tênis Game Advance em couro Branco', 'Tênis Game Advance<br>Tênis Game Advance em couro Branco<br>Cabedal em couro e tecido. Solado em borracha. Forro em tecido. Crocodilo verde bordado na lateralForro em material reciclado, para um modelo sustentável<br>Produto enviado com nota fiscal!', '18.00', '15.00', '28.00', '200.00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, true, 2, 1, 5, 19);
+
+INSERT INTO imagem (nome, tipo, cor_id, produto_id) VALUES ('tenis-game-advance-12-1', 'webp', 6, 12), ('tenis-game-advance-12-2', 'webp', 6, 12), ('tenis-game-advance-12-3', 'webp', 6, 12), ('tenis-game-advance-12-4', 'webp', 6, 12), ('tenis-game-advance-12-5', 'webp', 6, 12);
+
+INSERT INTO estoque (quantidade, preco, produto_id, cor_id, tamanho_id) VALUES (33, 79.90, 12, 6, 16), (33, 79.90, 12, 6, 17), (33, 80.90, 12, 6, 19);

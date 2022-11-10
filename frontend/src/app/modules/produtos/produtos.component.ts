@@ -197,15 +197,17 @@ export class ProdutosComponent implements OnInit {
   }
 
   pageUp() {
-    if (this.page < this.pages) {
-      this.page++;
-    }
+    this.page++;
+
+    if (this.page > this.pages) this.page = this.pages;
+
   }
 
   pageDown() {
-    if (this.page > 1) {
-      this.page--;
-    }
+    this.page--;
+    // if (this.page > 1) {
+    //   this.page--;
+    // }
   }
 
   // findProdutosPromise() {

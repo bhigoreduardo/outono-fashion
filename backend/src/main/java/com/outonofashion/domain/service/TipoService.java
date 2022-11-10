@@ -34,7 +34,7 @@ public class TipoService implements ITipoService {
 	private CategoriaRepository categoriaRepository;
 
 	@Override
-	public List<Tipo> findByDescricaoAndGenero(String genero, String categoria) {
+	public List<Tipo> findByGeneroAndCategoria(String genero, String categoria) {
 
 		// Created Query
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();

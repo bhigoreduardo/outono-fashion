@@ -102,13 +102,12 @@
                 <div class="box">
                     <h6>Calçados</h6>
                     <div class="list-item custom-scrollbar">
-                        <a href="">Botas</a>
-                        <a href="">Chinelos</a>
-                        <a href="">Crocs</a>
-                        <a href="">Sapatênis</a>
-                        <a href="">Tênis</a>
+                        <a 
+                            *ngFor="let femininoCalcado of femininoCalcados"
+                            (click)="goToProdutos('feminino', 'calcados', femininoCalcado.descricao)"
+                        >{{femininoCalcado.descricao}}</a>
                     </div>
-                    <a class="active" href="">Todos calçados</a>
+                    <a class="active" (click)="goToProdutos('feminino', 'calcados')">Todos calçados</a>
                 </div>
 
                 <div class="box">

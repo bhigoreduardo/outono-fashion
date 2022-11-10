@@ -1,3 +1,7 @@
+.gap-section {
+    margin-bottom: 150px;
+}
+
 /* EDIT SCROLLBAR */
 .custom-scrollbar {
     &::-webkit-scrollbar {
@@ -29,6 +33,83 @@
     font-size: $font-size-sm;
     line-height: $line-height-sm;
     font-weight: $font-weight-bold;
+}
+
+/* BREADCRUMB */
+.breadcrumb {
+    margin-bottom: 20px;
+
+    a {
+        font-size: $font-size-sm;
+        line-height: $line-height-sm;
+        color: $color-gray-700;
+        transition: all 200ms ease-in;
+
+        @media screen and (max-width: 580px) {
+            font-size: $font-size-xs;
+            line-height: $line-height-xs;
+        }
+
+        &:hover {
+            color: $color-warning;
+        }
+    }
+
+    i {
+        font-size: 10px;
+        color: $color-warning;
+        margin: 18px;
+    }
+}
+
+/* SLIDE CONTROLS */
+.slide-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin-top: 20px;
+
+    // position: absolute;
+    // bottom: 0;
+    // left: 50%;
+    // transform: translateX(-50%);
+
+    .prev-button,
+    .next-button {
+        padding: 5px 10px;
+        font-size: 20px;
+        background-color: $color-black;
+        color: $color-white;
+        border: none;
+        cursor: pointer;
+        transition: all 200ms ease-in-out;
+
+        &:hover {
+            background-color: $color-warning;
+        }
+    }
+}
+
+/* HEADLINE */
+.headline {
+    text-align: center;
+    margin-bottom: 60px;
+
+    .subtitle {
+        font-size: $font-size-sm;
+        line-height: $line-height-sm;
+        font-weight: $font-weight-semi-bold;
+        color: $color-warning;
+        text-transform: uppercase;
+        letter-spacing: 0.25em;
+    }
+
+    .title {
+        font-size: $font-size-h4;
+        font-weight: $font-weight-semi-bold;
+        color: $color-black;
+    }
 }
 
 /* BUTTONS COLOR */

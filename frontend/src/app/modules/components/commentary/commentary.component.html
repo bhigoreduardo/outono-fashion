@@ -1,0 +1,23 @@
+<article class="comentary">
+    <div class="client-identity">
+        <div class="date">
+            <i class="fas fa-calendar"></i>
+            <span>{{date}}</span>
+        </div>
+
+        <div class="author">
+            <i class="fas fa-user"></i>
+            <span>{{author}}</span>
+        </div>
+    </div>
+
+    <div class="client-testimonial">
+        <div class="stars">
+            <i class="fas fa-star" *ngFor="let s of stars"></i>
+        </div>
+
+        <p>
+            {{commentary}}
+        </p>
+    </div>
+</article>
