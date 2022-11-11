@@ -160,6 +160,17 @@
     background-color: $color-white !important;
 }
 
+.button-danger {
+    color: $color-white !important;
+    background-color: $color-red !important;
+    border-color: $color-red !important;
+}
+
+.button-danger:hover {
+    color: $color-red !important;
+    background-color: $color-white !important;
+}
+
 /* BUTTONS FORMAT */
 .button-center {
     position: relative;

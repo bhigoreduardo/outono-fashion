@@ -1,0 +1,73 @@
+<!-- HEADER COMPONENT -->
+<app-header></app-header>
+<!-- / HEADER COMPONENT -->
+
+<!-- CART -->
+<section class="cart container gap-section">
+    <h4 class="cart-title">Minha Sacola</h4>
+    <small class="quantity-products">2 produtos</small>
+
+    <div class="cart-header">
+        <span>Produto</span>
+        <span>Descrição</span>
+        <span>Quantidade</span>
+        <span>Valor Unitário</span>
+        <span>Subtotal</span>
+    </div>
+
+    <div class="cart-list">
+        <div class="product-cart">
+
+            <div class="image-box box">
+                <!-- image!: string, alt!: string -->
+                <img src="/assets/produtos/feminino/roupas/camisas/camisa-calvin-klein-reta-listrada-rosa-4-3.webp"
+                    alt="Camisa Longa Cinza" />
+            </div>
+
+            <div class="description-box box">
+                <!-- marca!:string, nome!: string -->
+                <span>Descrição</span>
+                <h6>Adidas</h6>
+                <p>Camisa Longa Cinza</p>
+            </div>
+
+            <div class="quantity-box box">
+                <span>Quantidade</span>
+                <div class="quantity-container">
+                    <label class="quantity-container">
+                        <input class="quantity" type="number" min="1" />
+                        <button class="upper">
+                            <svg width="12" height="12" viewBox="0 0 8 6" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 0L7.4641 6H0.535898L4 0Z" fill="#F29D36" />
+                            </svg>
+                        </button>
+                        <button class="down">
+                            <svg width="12" height="12" viewBox="0 0 8 6" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 0L7.4641 6H0.535898L4 0Z" fill="#F29D36" />
+                            </svg>
+                        </button>
+                    </label>
+                </div>
+            </div>
+
+            <div class="price-box box">
+                <!-- price!: number -->
+                <span>Valor</span>
+                <h5>R$252,90</h5>
+            </div>
+
+            <div class="subtotal-box box">
+                <!-- subtotal!: number -->
+                <span>Subtotal</span>
+                <h5>R$252,90</h5>
+            </div>
+
+            <div class="delete-box box">
+                <button class="button button-danger button-xxs"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- / CART -->
