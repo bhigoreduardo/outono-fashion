@@ -19,7 +19,10 @@ public class Cor {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true, length = 40)
 	private String descricao;
+	
+	@Column(nullable = false, unique = true, length = 10)
+	private String valor;
 
 }

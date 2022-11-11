@@ -1,7 +1,10 @@
-import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { SwiperOptions } from 'swiper';
-import { SwiperComponent } from 'swiper/angular';
+import { ICor } from '../../model/ICor';
+import { IProdutoDetalhe } from '../../model/IProdutoDetalhe';
+import { ProdutoService } from '../../service/produto.service';
 
 @Component({
   selector: 'app-individual',
@@ -9,53 +12,99 @@ import { SwiperComponent } from 'swiper/angular';
   styleUrls: ['./individual.component.scss']
 })
 export class IndividualComponent implements OnInit {
+  // Produto Vars
+  produto!: IProdutoDetalhe;
+  colors: ICor[] = [];
+  quantity!: number;
 
-  imgTest: string = 'assets/produtos/feminino/roupas/camisas/camisa-armadilho-manga-longa-algodao-branco-5-1.webp';
-  imgTest2: string = 'assets/produtos/feminino/roupas/camisas/camisa-armadilho-manga-longa-algodao-branco-5-2.webp';
-  imgTest3: string = 'assets/produtos/feminino/roupas/camisas/camisa-armadilho-manga-longa-algodao-branco-5-3.webp';
-  imgActive: string = 'assets/produtos/feminino/roupas/camisas/camisa-armadilho-manga-longa-algodao-branco-5-1.webp';
+  // Produto Values Checked
+  tamanhoSelected!: string;
+  corSelected!: string;
 
-  sideDescription?: boolean;
-  sideDetail?: boolean;
-
-  // thumbSlideDesktop!: SwiperOptions;
-  // thumbSlideMobile!: SwiperOptions;
-  // thumbMobile: boolean = false;
-
+  // Slides Vars
   thumbSlide!: SwiperOptions;
   commentaryGallery!: SwiperOptions;
   mostSaleSlide!: SwiperOptions;
 
-  // @ViewChild('customSwiperGender', { static: false }) customSwiperGender!: SwiperComponent;
+  // Image Active Vars
+  pathImage: string = 'assets/produtos/';
+  imageActive!: string;
+  fullPathImage!: string;
 
-  constructor() { }
+  // Toggle Info Produto Vars
+  sideDescription?: boolean;
+  sideDetail?: boolean;
+
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private produtoService: ProdutoService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
-    this.initializeVars();
-  }
+    this.getProdutoDescription();
+    this.initializeSlides();
 
-  initializeVars() {
     this.sideDescription = false;
     this.sideDetail = false;
+  }
 
-    // this.thumbSlideDesktop = {
-    //   direction: 'vertical',
-    //   slidesPerView: 3,
-    //   spaceBetween: 30,
-    //   scrollbar: { draggable: true },
-    // };
+  // Methods Get Produto Database
+  getProduto() {
+    const params = this.activatedRoute.snapshot.paramMap;
+    const nome = params.get('nome')!;
+    const id = Number(params.get('id'));
 
-    // this.thumbSlideMobile = {
-    //   direction: 'horizontal',
-    //   slidesPerView: 3,
-    //   spaceBetween: 10,
-    //   scrollbar: { draggable: true }
-    // }
+    return new Promise(resolve => {
+      this.produtoService.findProdutoByNomeAndId(nome, id).subscribe(
+        data => {
+          resolve(data);
+          console.log(data.comentarios.length)
+        }
+      )
+    })
+  }
 
-    // if (window.innerWidth <= 580) {
-    //   this.thumbMobile = true;
-    // }
+  async getProdutoDescription() {
+    // Get Produto
+    this.produto = <IProdutoDetalhe>await this.getProduto();
 
+    // Root Image
+    this.pathImage += this.replaceAll(this.produto.genero.descricao, ' ', '-') + '/';
+    this.pathImage += this.replaceAll(this.produto.categoria.descricao, ' ', '-') + '/';
+    this.pathImage += this.replaceAll(this.produto.tipo.descricao, ' ', '-') + '/';
+
+    // Name Image
+    this.changeImageActive(this.produto.imagens[0].nome, this.produto.imagens[0].tipo);
+
+    // Colors Produto
+    this.produto.estoques.forEach((value, index) => {
+
+      if (index == 0) {
+        this.colors.push(value.cor);
+      } else if (index < this.produto.estoques.length) {
+        if (!(this.produto.estoques[index].cor.descricao == this.produto.estoques[index++].cor.descricao)) {
+          this.colors.push(value.cor);
+        }
+      }
+
+    });
+  }
+
+  // Methods Manipulation Images
+  changeImageActive(nome: string, tipo: string) {
+    this.imageActive = nome + '.' + tipo;
+
+    this.fullPathImage = this.pathImage + this.imageActive;
+  }
+
+  isImageActive(nome: string, tipo: string): boolean {
+    return this.imageActive == (nome + '.' + tipo);
+  }
+
+  // Methods Slides
+  initializeSlides() {
+    // Slide Vars
     this.thumbSlide = {
       direction: 'horizontal',
       slidesPerView: 3,
@@ -102,22 +151,64 @@ export class IndividualComponent implements OnInit {
     }
   }
 
-  // @HostListener('window:resize', ['$event'])
-  // onWindowResize() {
-  //   if (window.innerWidth <= 580) {
-  //     this.thumbMobile = true;
-  //   } else {
-  //     this.thumbMobile = false;
-  //   }
-  // }
-
   prevSlide(target: any) {
     target.swiperRef.slidePrev();
-    // this.customSwiperGender.swiperRef.slidePrev();
   }
 
   nextSlide(target: any) {
     target.swiperRef.slideNext();
+  }
+
+  //Methods Choice Props Produto
+  getQuantity() {
+    if (this.tamanhoSelected != undefined && this.corSelected != undefined) {
+      this.produto.estoques.forEach(estoque => {
+        if (estoque.tamanho.descricao == this.tamanhoSelected && estoque.cor.descricao == this.corSelected) {
+          this.quantity = estoque.quantidade;
+        }
+      })
+    }
+  }
+
+  setTamanho(value: string) {
+    this.tamanhoSelected = value;
+  }
+
+  setCor(value: string) {
+    this.corSelected = value;
+  }
+
+  // Methods Breadcrumb
+  goToProdutos(genero: string, categoria?: string, tipo?: string, marca?: string) {
+    let query = {};
+    genero = this.replaceAll(genero, ' ', '-');
+
+    query = { ...query, genero: genero };
+
+    if (categoria != undefined) {
+      categoria = this.replaceAll(categoria, ' ', '-');
+      query = { ...query, categoria: categoria }
+    }
+
+    if (tipo != undefined) {
+      tipo = this.replaceAll(tipo, ' ', '-');
+      query = { ...query, tipo: tipo };
+    }
+
+    if (marca != undefined) {
+      marca = this.replaceAll(marca, ' ', '-');
+      query = { ...query, marca: marca }
+    }
+
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['produtos'], { queryParams: query });
+    });
+  }
+
+  replaceAll(str: string, find: string, replace: string) {
+    str = str.toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    return str.replace(new RegExp(find, 'g'), replace);
   }
 
 }

@@ -22,6 +22,7 @@ export class ProdutosComponent implements OnInit {
   produtos: IProduto[] = [];
   produtosList: IProduto[] = [];
 
+  // Sidebar Check Vars
   generos: IGenero[] = [];
   categorias: ICategoria[] = [];
   tipos: ITipo[] = [];
@@ -29,8 +30,10 @@ export class ProdutosComponent implements OnInit {
   tamanhos: ITamanho[] = [];
   marcas: IMarca[] = [];
 
+  // Order Filter
   order: string = 'filtrar';
 
+  // Navigation Vars
   page!: number;
   size!: number;
   pages!: number;
@@ -70,33 +73,12 @@ export class ProdutosComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getProdutos();
+
     this.initializeVars();
-
-    const queryParams = this.activatedRoute.snapshot.queryParamMap;
-
-    // Get URL and Replace Queries Values
-    this.genero = queryParams.getAll('genero').map(value => this.replaceAll(value, '-', ' '));
-    this.categoria = queryParams.getAll('categoria').map(value => this.replaceAll(value, '-', ' '));
-    this.tipo = queryParams.getAll('tipo').map(value => this.replaceAll(value, '-', ' '));
-    this.cor = queryParams.getAll('cor').map(value => this.replaceAll(value, '-', ' '));
-    this.tamanho = queryParams.getAll('tamanho').map(value => this.replaceAll(value, '-', ' '));
-    this.marca = queryParams.getAll('marca').map(value => this.replaceAll(value, '-', ' '));
-
-    // Get URL Page Values
-    this.page = (Number(queryParams.get('page')) == 0) ? 1 : Number(queryParams.get('page'));
-    this.size = (Number(queryParams.get('size')) == 0) ? 4 : Number(queryParams.get('size'));
 
     this.begin = (this.page - 1) * this.size;
     this.end = this.size + this.begin;
-
-    // Get All Produtos
-    this.findProdutos(this.genero, this.categoria, this.tipo, this.cor, this.tamanho, this.marca);
-  }
-
-  public replaceAll(str: string, find: string, replace: string) {
-    str = str.toLowerCase()
-      .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-    return str.replace(new RegExp(find, 'g'), replace);
   }
 
   initializeVars() {
@@ -111,6 +93,25 @@ export class ProdutosComponent implements OnInit {
     this.sideBars = false;
 
     this.loader = true;
+  }
+
+  getProdutos() {
+    const queryParams = this.activatedRoute.snapshot.queryParamMap;
+
+    // Get URL and Replace Queries Values
+    this.genero = queryParams.getAll('genero').map(value => this.replaceAll(value, '-', ' '));
+    this.categoria = queryParams.getAll('categoria').map(value => this.replaceAll(value, '-', ' '));
+    this.tipo = queryParams.getAll('tipo').map(value => this.replaceAll(value, '-', ' '));
+    this.cor = queryParams.getAll('cor').map(value => this.replaceAll(value, '-', ' '));
+    this.tamanho = queryParams.getAll('tamanho').map(value => this.replaceAll(value, '-', ' '));
+    this.marca = queryParams.getAll('marca').map(value => this.replaceAll(value, '-', ' '));
+
+    // Get URL Page Values
+    this.page = (Number(queryParams.get('page')) == 0) ? 1 : Number(queryParams.get('page'));
+    this.size = (Number(queryParams.get('size')) == 0) ? 4 : Number(queryParams.get('size'));
+
+    // Get All Produtos
+    this.findProdutos(this.genero, this.categoria, this.tipo, this.cor, this.tamanho, this.marca);
   }
 
   findProdutos(genero?: string[], categoria?: string[], tipo?: string[],
@@ -178,29 +179,28 @@ export class ProdutosComponent implements OnInit {
 
   clearQueries() {
     // Gênero
-    this.generos = [];
+    this.genero = [];
 
     // Categoria
-    this.categorias = [];
+    this.categoria = [];
 
     // Tipo
-    this.tipos = [];
+    this.tipo = [];
 
     // Marca
-    this.marcas = [];
+    this.marca = [];
 
     // Cor
-    this.cores = [];
+    this.cor = [];
 
     // Tamanho
-    this.tamanhos = [];
+    this.tamanho = [];
   }
 
   pageUp() {
     this.page++;
 
     if (this.page > this.pages) this.page = this.pages;
-
   }
 
   pageDown() {
@@ -210,53 +210,10 @@ export class ProdutosComponent implements OnInit {
     // }
   }
 
-  // findProdutosPromise() {
-  //   return new Promise(resolve => {
-  //     this.findProdutos();
-  //     resolve(this.produtos);
-  //   });
-  // }
-
-  // replaceValuesProdutosPromise() {
-  //   this.findProdutosPromise().then(produtos => {
-  //     this.replaceValuesProdutos();
-  //     console.log(this.produtos);
-  //   });
-  //   console.log('I will not wait until promise is resolved');
-  // }
-
-  // replaceValuesProdutos() {
-  //   this.produtos.map(produto => {
-  //     produto.genero.descricao = produto.genero.descricao
-  //       .toLowerCase()
-  //       .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-
-  //     produto.categoria.descricao = produto.categoria.descricao
-  //       .toLowerCase()
-  //       .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-
-  //     produto.tipo.descricao = produto.tipo.descricao
-  //       .toLowerCase()
-  //       .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-  //   });
-
-  //   console.log(this.produtos);
-  // }
-
-
-
-  // config: SwiperOptions = {
-  //   slidesPerView: 3,
-  //   spaceBetween: 50,
-  //   navigation: true,
-  //   pagination: { clickable: true },
-  //   scrollbar: { draggable: true },
-  // };
-  // onSwiper(swiper: any) {
-  //   console.log(swiper);
-  // }
-  // onSlideChange() {
-  //   console.log('slide change');
-  // }
+  public replaceAll(str: string, find: string, replace: string) {
+    str = str.toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    return str.replace(new RegExp(find, 'g'), replace);
+  }
 
 }

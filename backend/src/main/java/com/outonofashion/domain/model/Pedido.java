@@ -5,6 +5,7 @@ import java.time.OffsetDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -48,7 +49,7 @@ public class Pedido {
 	private OffsetDateTime dataDevolucao;
 	
 	@Column(nullable = false, length = 20)
-	private Status status;
+	private Status status = Status.AGUARDANDO_PAGAMENTO;
 	
 	@ManyToOne
 	private Cupom cupom;
@@ -56,7 +57,7 @@ public class Pedido {
 	@Column(length = 60)
 	private String rastreio;
 	
-	@JoinColumn(nullable = false)
+	@JoinColumn(nullable = false, foreignKey = @ForeignKey(name = "fk_pedido_pagamento"))
 	@ManyToOne
 	private Pagamento pagamento;
 	

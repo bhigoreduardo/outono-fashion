@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IProduto } from '../model/IProduto';
+import { IProdutoDetalhe } from '../model/IProdutoDetalhe';
 
 @Injectable({
   providedIn: 'root'
@@ -103,6 +104,12 @@ export class ProdutoService {
     }
 
     return this.httpClient.get<IProduto[]>(url).pipe(map(res => res));
+  }
+
+  findProdutoByNomeAndId(nome: string, produtoId: number): Observable<IProdutoDetalhe> {
+    let url = environment.domain + 'produtos/' + nome + '/' + produtoId;
+
+    return this.httpClient.get<IProdutoDetalhe>(url).pipe(map(res => res));
   }
 
   // findProdutos() {

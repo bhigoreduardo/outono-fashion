@@ -2,7 +2,9 @@ package com.outonofashion.domain.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import lombok.Data;
@@ -19,6 +21,7 @@ public class Telefone {
 	private String numero;
 	
 	@ManyToOne
+	@JoinColumn(foreignKey = @ForeignKey(name = "fk_telefone_usuario"))
 	private Usuario usuario;
 
 }

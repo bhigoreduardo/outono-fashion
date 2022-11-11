@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.outonofashion.api.assembler.produto.ProdutoModelAssembler;
+import com.outonofashion.api.model.produto.ProdutoDetalheModel;
 import com.outonofashion.api.model.produto.ProdutoModel;
 import com.outonofashion.domain.model.Produto;
 import com.outonofashion.domain.service.ProdutoService;
@@ -46,8 +47,8 @@ public class ProdutoController {
 	}
 
 	@GetMapping("{nome}/{produtoId}")
-	public Produto findProdutoByNomeAndId(@PathVariable String nome, @PathVariable Long produtoId) {
-		return produtoService.findByNomeAndId(nome, produtoId);
+	public ProdutoDetalheModel findProdutoByNomeAndId(@PathVariable String nome, @PathVariable Long produtoId) {		
+		return produtoModelAssembler.toDetalheModel(produtoService.findByNomeAndId(nome, produtoId));
 	}
 
 }

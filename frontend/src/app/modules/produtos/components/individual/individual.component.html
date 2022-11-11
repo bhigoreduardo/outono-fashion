@@ -8,134 +8,81 @@
         <a>Início</a>
         <i class="fa fa-chevron-right"></i>
         <!-- Gênero -->
-        <a>Feminino</a>
+        <a (click)="goToProdutos(produto.genero.descricao)">
+            {{produto.genero.descricao}}</a>
         <i class="fa fa-chevron-right"></i>
         <!-- Categoria -->
-        <a>Roupas</a>
+        <a (click)="goToProdutos(produto.genero.descricao, produto.categoria.descricao)">
+            {{produto.categoria.descricao}}</a>
         <i class="fa fa-chevron-right"></i>
         <!-- Tipo -->
-        <a>Camisas</a>
+        <a (click)="goToProdutos(produto.genero.descricao, produto.categoria.descricao, produto.tipo.descricao)">
+            {{produto.tipo.descricao}}</a>
         <i class="fa fa-chevron-right"></i>
         <!-- Marca -->
-        <a>Calvin Klein</a>
+        <a (click)="goToProdutos(produto.genero.descricao, produto.categoria.descricao, produto.tipo.descricao, produto.marca.descricao)">
+            {{produto.marca.descricao}}</a>
     </div>
 
     <div class="content">
-        <div class="thumb-container">
-            <swiper [config]="thumbSlide">
-                <ng-template swiperSlide>
-                    <div (click)="imgActive = imgTest" class="thumb-wrapper" [ngClass]="{active: imgActive == imgTest}">
-                        <img [src]="imgTest" />
-                    </div>
-                </ng-template>
-                <ng-template swiperSlide>
-                    <div (click)="imgActive = imgTest2" class="thumb-wrapper"
-                        [ngClass]="{active: imgActive == imgTest2}">
-                        <img [src]="imgTest2" />
-                    </div>
-                </ng-template>
-                <ng-template swiperSlide>
-                    <div (click)="imgActive = imgTest3" class="thumb-wrapper"
-                        [ngClass]="{active: imgActive == imgTest3}">
-                        <img [src]="imgTest3" />
-                    </div>
-                </ng-template>
-                <ng-template swiperSlide>
-                    <div (click)="imgActive = imgTest3" class="thumb-wrapper"
-                        [ngClass]="{active: imgActive == imgTest3}">
-                        <img [src]="imgTest3" />
-                    </div>
-                </ng-template>
-                <ng-template swiperSlide>
-                    <div (click)="imgActive = imgTest3" class="thumb-wrapper"
-                        [ngClass]="{active: imgActive == imgTest3}">
-                        <img [src]="imgTest3" />
+        <div class="thumb-container" style="display: flex; align-items: center;">
+            <swiper [config]="thumbSlide" >
+                <ng-template swiperSlide *ngFor="let imagem of produto.imagens" >
+                    <div (click)="changeImageActive(imagem.nome, imagem.tipo)"  class="thumb-wrapper" [ngClass]="{active: isImageActive(imagem.nome, imagem.tipo)}">
+                        <img src="/assets/produtos/{{produto.genero.descricao | replace:' ':'-'}}/{{produto.categoria.descricao | replace:' ':'-'}}/{{produto.tipo.descricao | replace:' ':'-'}}/{{imagem.nome | replace:' ':'-'}}.{{imagem.tipo}}" />                
                     </div>
                 </ng-template>
             </swiper>
-            <!-- <swiper *ngIf="thumbMobile == false" [config]="thumbSlideDesktop">
-                <ng-template swiperSlide>
-                    <div (click)="imgActive = imgTest" class="thumb-wrapper" [ngClass]="{active: imgActive == imgTest}">
-                        <img [src]="imgTest" />
-                    </div>
-                </ng-template>
-                <ng-template swiperSlide>
-                    <div (click)="imgActive = imgTest2" class="thumb-wrapper"
-                        [ngClass]="{active: imgActive == imgTest2}">
-                        <img [src]="imgTest2" />
-                    </div>
-                </ng-template>
-                <ng-template swiperSlide>
-                    <div (click)="imgActive = imgTest3" class="thumb-wrapper"
-                        [ngClass]="{active: imgActive == imgTest3}">
-                        <img [src]="imgTest3" />
-                    </div>
-                </ng-template>
-            </swiper>
-            <swiper *ngIf="thumbMobile == true" [config]="thumbSlideMobile">
-                <ng-template swiperSlide>
-                    <div (click)="imgActive = imgTest" class="thumb-wrapper" [ngClass]="{active: imgActive == imgTest}">
-                        <img [src]="imgTest" />
-                    </div>
-                </ng-template>
-                <ng-template swiperSlide>
-                    <div (click)="imgActive = imgTest2" class="thumb-wrapper"
-                        [ngClass]="{active: imgActive == imgTest2}">
-                        <img [src]="imgTest2" />
-                    </div>
-                </ng-template>
-                <ng-template swiperSlide>
-                    <div (click)="imgActive = imgTest3" class="thumb-wrapper"
-                        [ngClass]="{active: imgActive == imgTest3}">
-                        <img [src]="imgTest3" />
-                    </div>
-                </ng-template>
-            </swiper> -->
         </div>
 
         <div class="image-container">
-            <img class="active" [src]="imgActive" />
+            <img class="active" [src]="fullPathImage | replace:' ':'-'" title="{{produto.nome}}" />
         </div>
 
         <div class="description">
             <div class="product-information">
-                <h5 class="brand">Adidas</h5>
-                <h4 class="name">Blusa Feminina Canelada Jogger Preta</h4>
-                <span class="price"><small class="currency">R$</small>252,90</span>
-                <span class="installment">ou 12x de R$ 63,22</span>
+                <h5 class="brand">{{produto.marca.descricao}}</h5>
+                <h4 class="name">{{produto.nome}}</h4>
+                <span class="price">
+                    <small class="currency">R$</small>{{produto.estoques | priceproduto:'min'}}
+                    <span>
+                         Até <small class="currency">R$</small>{{produto.estoques | priceproduto:'max'}}</span>
+                </span>
+                <span class="installment">ou até 12x de R$ {{produto.estoques | priceproduto:'max'}}</span>
             </div>
-
-            <form class="product-choice">
+            
+            <div class="product-choice" (change)="getQuantity()">
                 <h6 class="title">Escolha o tamanho</h6>
                 <div class="radiobox-container">
-                    <app-radiobox titleLabel="P" placeholder="P" inputName="tamanho" valueRadioBox="p" check="''">
-                    </app-radiobox>
-                    <app-radiobox titleLabel="M" placeholder="M" inputName="tamanho" valueRadioBox="m" check="''">
-                    </app-radiobox>
-                    <app-radiobox titleLabel="G" placeholder="G" inputName="tamanho" valueRadioBox="g" check="''">
-                    </app-radiobox>
-                    <app-radiobox titleLabel="GG" placeholder="GG" inputName="tamanho" valueRadioBox="gg" check="''">
-                    </app-radiobox>
-                    <app-radiobox titleLabel="XG" placeholder="XG" inputName="tamanho" valueRadioBox="xg" check="''">
-                    </app-radiobox>
-                    <app-radiobox titleLabel="XLG" placeholder="XLG" inputName="tamanho" valueRadioBox="xlg" check="''">
+                    <app-radiobox *ngFor="let estoque of produto.estoques"
+                        (click)="setTamanho(estoque.tamanho.descricao)"
+                        title="{{estoque.tamanho.descricao}}"
+                        placeholder="{{estoque.tamanho.descricao}}"
+                        name="tamanho"
+                        value="{{estoque.tamanho.descricao | replace}}"
+                        check="''">
                     </app-radiobox>
                 </div>
 
                 <h6 class="title">Escolha a cor</h6>
                 <div class="radiobox-container">
-                    <app-radiobox titleLabel="azul" inputName="cor" valueRadioBox="azul" check="''" color="blue">
-                    </app-radiobox>
-                    <app-radiobox titleLabel="amarelo" inputName="cor" valueRadioBox="amarelo" check="''"
-                        color="yellow">
+                    <app-radiobox *ngFor="let color of colors"
+                        (click)="setCor(color.descricao)"
+                        title="{{color.descricao}}"
+                        name="color.descricao"
+                        value="{{color.descricao}}"
+                        check="''"
+                        color="{{color.valor}}">
                     </app-radiobox>
                 </div>
+
+                <span *ngIf="quantity" class="quantity">Quantidade estoque: {{quantity}} unid(s)</span>
 
                 <button type="button" class="button button-warning button-uppercase button-semi button-base">
                     <i class="fa fa-cart-plus"></i>
                     Comprar
                 </button>
-            </form>
+            </div>
 
             <div class="button-group">
                 <button><i class="fas fa-ruler-combined"></i>Medidas</button>
@@ -148,9 +95,7 @@
                 </h6>
                 <div class="description-container" [ngClass]="{hide: sideDescription == true}">
                     <p>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting
-                        industry. Lorem Ipsum has been the industry's standard dummy text ever
-                        since the 1500s
+                        {{produto.descricao}}
                     </p>
                 </div>
 
@@ -158,9 +103,7 @@
                         (click)="sideDetail=!sideDetail" [ngClass]="{'fa-plus': sideDetail == true}"></i></h6>
                 <div class="detail-container" [ngClass]="{hide: sideDetail == true}">
                     <p>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting
-                        industry. Lorem Ipsum has been the industry's standard dummy text ever
-                        since the 1500s
+                        {{produto.detalhe}}
                     </p>
                 </div>
             </div>
@@ -170,7 +113,7 @@
 <!-- / SINGLE PRODUCT -->
 
 <!-- COMMENTARY GALLERY -->
-<section class="commentary-gallery container gap-section">
+<section class="commentary-gallery container gap-section" *ngIf="produto.comentarios.length > 0; else emptyCommentary">
     <swiper [config]="commentaryGallery" #customSwiperCommentary>
         <ng-template swiperSlide>
             <app-commentary
@@ -224,6 +167,14 @@
         </button>
     </div>
 </section>
+<ng-template #emptyCommentary>
+    <section class="empty-commentary container gap-section">
+        <div class="client-testimonial">
+            <p>Nenhum comentário adicionado, já comprou e gostaria de deixar sua avaliação?</p>
+            <span class="login-comment"><i class="fas fa-user"></i><a>Faça o Login</a></span>
+        </div>
+    </section>
+</ng-template>
 <!-- / COMMENTARY GALLERY -->
 
 <!-- MOST SALE GENDER -->
@@ -231,7 +182,7 @@
     <div class="headline">
         <h6 class="subtitle">Aproveite</h6>
         <h4 class="title">Você também pode gostar</h4>
-      </div>
+    </div>
       
     <swiper [config]="mostSaleSlide" #customSwiperGender>
         <ng-template swiperSlide>

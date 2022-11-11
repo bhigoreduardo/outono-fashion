@@ -32,6 +32,9 @@ public class Cupom {
 
 	@Column(nullable = false)
 	private BigDecimal oferta;
+	
+	@Column(nullable = false)
+	private TipoCupom tipoCupom = TipoCupom.PROCENTAGEM;
 
 	@Column(nullable = false)
 	private Boolean ativo;

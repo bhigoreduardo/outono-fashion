@@ -4,12 +4,16 @@ import java.time.OffsetDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -27,16 +31,20 @@ public class Comentario {
 	@Column(nullable = false)
 	private Integer classificacao;
 	
+	@Column(length = 500)
 	private String descricao;
 	
 	@CreationTimestamp
 	@Column(nullable = false)
 	private OffsetDateTime dataComentario;
 	
+	@JsonIgnore
 	@ManyToOne
+	@JoinColumn(foreignKey = @ForeignKey(name = "fk_comentario_produto"))
 	private Produto produto;
 	
 	@ManyToOne
+	@JoinColumn(foreignKey = @ForeignKey(name = "fk_comentario_usuario"))
 	private Usuario usuario;
 
 }

@@ -35,27 +35,21 @@ public class Produto {
 	@Column(nullable = false, length = 120)
 	private String nome;
 
-	@JsonIgnore
 	@Column(nullable = false)
 	private String descricao;
 
-	@JsonIgnore
 	@Column(nullable = false, columnDefinition = "TEXT")
 	private String detalhe;
 
-	@JsonIgnore
 	@Column(nullable = false)
 	private Double largura;
 
-	@JsonIgnore
 	@Column(nullable = false)
 	private Double altura;
 
-	@JsonIgnore
 	@Column(nullable = false)
 	private Double comprimento;
 
-	@JsonIgnore
 	@Column(nullable = false)
 	private Double peso;
 
@@ -94,12 +88,10 @@ public class Produto {
 	private List<Estoque> estoques = new ArrayList<>();
 
 	// Imagem
-	@JsonIgnore
 	@OneToMany(mappedBy = "produto")
 	private List<Imagem> imagens = new ArrayList<>();
 
 	// Comentario
-	@JsonIgnore
 	@OneToMany(mappedBy = "produto")
 	private List<Comentario> comentarios = new ArrayList<>();
 

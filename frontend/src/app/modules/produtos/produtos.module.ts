@@ -1,12 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
+import { SwiperModule } from 'swiper/angular';
+import { SharedModule } from '../shared.module';
+import { IndividualComponent } from './components/individual/individual.component';
 import { ProdutosRoutingModule } from './produtos-routing.module';
 import { ProdutosComponent } from './produtos.component';
-import { SharedModule } from '../shared.module';
-import { FormsModule } from '@angular/forms';
-import { SwiperModule } from 'swiper/angular';
-import { IndividualComponent } from './components/individual/individual.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +16,7 @@ import { IndividualComponent } from './components/individual/individual.componen
     CommonModule,
     ProdutosRoutingModule,
     SharedModule,
-    SwiperModule
+    SwiperModule,
   ]
 })
 export class ProdutosModule { }

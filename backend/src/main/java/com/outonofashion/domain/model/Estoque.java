@@ -4,8 +4,10 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -29,15 +31,17 @@ public class Estoque {
 	@JsonIgnore
 	@Id
 	@ManyToOne
+	@JoinColumn(foreignKey = @ForeignKey(name = "fk_estoque_produto"))
 	private Produto produto;
 
 	@Id
 	@ManyToOne
+	@JoinColumn(foreignKey = @ForeignKey(name = "fk_estoque_cor"))
 	private Cor cor;
 
 	@Id
 	@ManyToOne
+	@JoinColumn(foreignKey = @ForeignKey(name = "fk_estoque_tamanho"))
 	private Tamanho tamanho;
-
 
 }

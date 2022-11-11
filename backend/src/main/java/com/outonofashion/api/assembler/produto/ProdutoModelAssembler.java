@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.outonofashion.api.model.produto.ProdutoDetalheModel;
 import com.outonofashion.api.model.produto.ProdutoModel;
 import com.outonofashion.domain.model.Produto;
 
@@ -15,6 +16,10 @@ public class ProdutoModelAssembler {
 
 	@Autowired
 	private ModelMapper modelMapper;
+	
+	public ProdutoDetalheModel toDetalheModel(Produto produto) {
+		return modelMapper.map(produto, ProdutoDetalheModel.class);
+	}
 
 	public ProdutoModel toModel(Produto produto) {
 		return modelMapper.map(produto, ProdutoModel.class);

@@ -19,7 +19,10 @@ public class Foto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(nullable = false)
-	private String url;
+	@Column(nullable = false, length = 150)
+	private String nome;
+	
+	@Column(nullable = false, length = 10)
+	private String tipo;
 
 }

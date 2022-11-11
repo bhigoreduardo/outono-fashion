@@ -26,10 +26,10 @@
             <h5>Gênero<i class="fas fa-minus" (click)="sideGenero=!sideGenero" [ngClass]="{'fa-plus': sideGenero == true}"></i></h5>
             <div class="checkbox-container custom-scrollbar" [ngClass]="{hide: sideGenero == true}">
                 <app-checkbox *ngFor="let g of generos"
-                    titleLabel="{{g.descricao}}"
+                    title="{{g.descricao}}"
                     placeholder="{{g.descricao}}"
-                    inputName="genero"
-                    valueCheckbox="{{g.descricao | replace:' ':'-'}}"
+                    name="genero"
+                    value="{{g.descricao | replace:' ':'-'}}"
                     check="{{genero | compare:g.descricao }}"
                 ></app-checkbox>
             </div>
@@ -37,10 +37,10 @@
             <h5>Categoria<i class="fas fa-minus" (click)="sideCategoria=!sideCategoria" [ngClass]="{'fa-plus': sideCategoria == true}"></i></h5>
             <div class="checkbox-container custom-scrollbar" [ngClass]="{hide: sideCategoria == true}">
                 <app-checkbox *ngFor="let c of categorias"
-                    titleLabel="{{c.descricao}}"
+                    title="{{c.descricao}}"
                     placeholder="{{c.descricao}}"
-                    inputName="categoria"
-                    valueCheckbox="{{c.descricao | replace:' ':'-'}}"
+                    name="categoria"
+                    value="{{c.descricao | replace:' ':'-'}}"
                     check="{{categoria | compare:c.descricao }}"
                 ></app-checkbox>
             </div>
@@ -48,10 +48,10 @@
             <h5>Tipo<i class="fas fa-minus" (click)="sideTipo=!sideTipo" [ngClass]="{'fa-plus': sideTipo == true}"></i></h5>
             <div class="checkbox-container custom-scrollbar" [ngClass]="{hide: sideTipo == true}">
                 <app-checkbox *ngFor="let t of tipos"
-                    titleLabel="{{t.descricao}}"
+                    title="{{t.descricao}}"
                     placeholder="{{t.descricao}}"
-                    inputName="tipo"
-                    valueCheckbox="{{t.descricao | replace:' ':'-'}}"
+                    name="tipo"
+                    value="{{t.descricao | replace:' ':'-'}}"
                     check="{{tipo | compare:t.descricao }}"
                 ></app-checkbox>
             </div>
@@ -59,10 +59,10 @@
             <h5>Tamanho<i class="fas fa-minus" (click)="sideTamanho=!sideTamanho" [ngClass]="{'fa-plus': sideTamanho == true}"></i></h5>
             <div class="checkbox-container custom-scrollbar" [ngClass]="{hide: sideTamanho == true}">
                 <app-checkbox *ngFor="let t of tamanhos"
-                    titleLabel="{{t.descricao}}"
+                    title="{{t.descricao}}"
                     placeholder="{{t.descricao}}"
-                    inputName="tamanho"
-                    valueCheckbox="{{t.descricao | replace:' ':'-'}}"
+                    name="tamanho"
+                    value="{{t.descricao | replace:' ':'-'}}"
                     check="{{tamanho | compare:t.descricao }}"
                 ></app-checkbox>
             </div>
@@ -70,10 +70,10 @@
             <h5>Cor<i class="fas fa-minus" (click)="sideCor=!sideCor" [ngClass]="{'fa-plus': sideCor == true}"></i></h5>
             <div class="checkbox-container custom-scrollbar" [ngClass]="{hide: sideCor == true}">
                 <app-checkbox *ngFor="let c of cores"
-                    titleLabel="{{c.descricao}}"
+                    title="{{c.descricao}}"
                     placeholder="{{c.descricao}}"
-                    inputName="cor"
-                    valueCheckbox="{{c.descricao | replace:' ':'-'}}"
+                    name="cor"
+                    value="{{c.descricao | replace:' ':'-'}}"
                     check="{{cor | compare:c.descricao }}"
                 ></app-checkbox>
             </div>
@@ -81,10 +81,10 @@
             <h5>Marca<i class="fas fa-minus" (click)="sideMarca=!sideMarca" [ngClass]="{'fa-plus': sideMarca == true}"></i></h5>
             <div class="checkbox-container custom-scrollbar" [ngClass]="{hide: sideMarca == true}">
                 <app-checkbox *ngFor="let m of marcas"
-                    titleLabel="{{m.descricao}}"
+                    title="{{m.descricao}}"
                     placeholder="{{m.descricao}}"
-                    inputName="marca"
-                    valueCheckbox="{{m.descricao | replace:' ':'-'}}"
+                    name="marca"
+                    value="{{m.descricao | replace:' ':'-'}}"
                     check="{{marca | compare:m.descricao }}"
                 ></app-checkbox>
             </div>
@@ -94,7 +94,7 @@
             </div>
 
             <div class="button-group">
-                <button type="submit" class="button button-black button-uppercase button-bold button-xs">
+                <button  class="button button-black button-uppercase button-bold button-xs">
                     Filtar
                 </button>
                 <button class="button button-white button-uppercase button-bold button-xs" (click)="clearQueries()">
@@ -130,7 +130,7 @@
         <div class="card-container">
             <app-card
                 *ngFor="let produto of produtosList"
-                image="/assets/produtos/{{produto.genero.descricao | replace}}/{{produto.categoria.descricao | replace}}/{{produto.tipo.descricao | replace}}/{{produto.nome | replace:' ':'-'}}-{{produto.id}}-1.webp"
+                image="/assets/produtos/{{produto.genero.descricao | replace:' ':'-'}}/{{produto.categoria.descricao | replace:' ':'-'}}/{{produto.tipo.descricao | replace:' ':'-'}}/{{produto.nome | replace:' ':'-'}}-{{produto.id}}-1.webp"
                 name="{{produto.nome}}"
                 priceMin="{{produto.estoques | priceproduto:'min'}}"
                 priceMax="{{produto.estoques | priceproduto:'max'}}"
