@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CarrinhoService } from 'src/app/modules/carrinho/service/carrinho.service';
 
 import { SwiperOptions } from 'swiper';
 import { ICor } from '../../model/ICor';
-import { IProdutoDetalhe } from '../../model/IProdutoDetalhe';
+import { IProdutoCarrinho, IProdutoDetalhe } from '../../model/IProduto';
+
 import { ProdutoService } from '../../service/produto.service';
 
 @Component({
@@ -16,10 +18,12 @@ export class IndividualComponent implements OnInit {
   produto!: IProdutoDetalhe;
   colors: ICor[] = [];
   quantity!: number;
+  quantidade: number = 1;
 
   // Produto Values Checked
   tamanhoSelected!: string;
   corSelected!: string;
+  precoSelected!: number;
 
   // Slides Vars
   thumbSlide!: SwiperOptions;
@@ -38,7 +42,8 @@ export class IndividualComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private produtoService: ProdutoService,
-    private router: Router
+    private router: Router,
+    private carrinhoService: CarrinhoService
   ) { }
 
   ngOnInit(): void {
@@ -59,7 +64,6 @@ export class IndividualComponent implements OnInit {
       this.produtoService.findProdutoByNomeAndId(nome, id).subscribe(
         data => {
           resolve(data);
-          console.log(data.comentarios.length)
         }
       )
     })
@@ -165,6 +169,7 @@ export class IndividualComponent implements OnInit {
       this.produto.estoques.forEach(estoque => {
         if (estoque.tamanho.descricao == this.tamanhoSelected && estoque.cor.descricao == this.corSelected) {
           this.quantity = estoque.quantidade;
+          this.precoSelected = estoque.preco;
         }
       })
     }
@@ -205,10 +210,26 @@ export class IndividualComponent implements OnInit {
     });
   }
 
+  // Methods Add Carrinho
+  addProdutoCart() {
+
+    if (this.tamanhoSelected != undefined && this.corSelected != undefined) {
+      const produtoCarrinho: IProdutoCarrinho = {
+        ...this.produto,
+        quantidade: this.quantidade,
+        tamanhoSelecionado: this.tamanhoSelected,
+        corSelecionado: this.corSelected,
+        precoSelecionado: this.precoSelected
+      }
+
+      this.carrinhoService.addProdutoCarrinho(produtoCarrinho);
+    }
+
+  }
+
   replaceAll(str: string, find: string, replace: string) {
     str = str.toLowerCase()
       .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     return str.replace(new RegExp(find, 'g'), replace);
   }
-
 }

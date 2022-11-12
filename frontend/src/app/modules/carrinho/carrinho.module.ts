@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { CarrinhoRoutingModule } from './carrinho-routing.module';
 import { CarrinhoComponent } from './carrinho.component';
 import { SharedModule } from '../shared.module';
+import { SwiperModule } from 'swiper/angular';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -13,7 +15,9 @@ import { SharedModule } from '../shared.module';
   imports: [
     CommonModule,
     CarrinhoRoutingModule,
-    SharedModule
+    SharedModule,
+    SwiperModule,
+    FormsModule
   ]
 })
 export class CarrinhoModule { }

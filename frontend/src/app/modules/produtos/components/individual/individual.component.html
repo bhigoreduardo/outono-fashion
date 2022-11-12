@@ -78,7 +78,7 @@
 
                 <span *ngIf="quantity" class="quantity">Quantidade estoque: {{quantity}} unid(s)</span>
 
-                <button type="button" class="button button-warning button-uppercase button-semi button-base">
+                <button (click)="addProdutoCart()" type="button" class="button button-warning button-uppercase button-semi button-base">
                     <i class="fa fa-cart-plus"></i>
                     Comprar
                 </button>
