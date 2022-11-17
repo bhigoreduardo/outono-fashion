@@ -9,6 +9,9 @@ import { ComparePipe } from './pipes/compare.pipe';
 import { PriceprodutoPipe } from './pipes/priceproduto.pipe';
 import { RadioboxComponent } from './components/radiobox/radiobox.component';
 import { CommentaryComponent } from './components/commentary/commentary.component';
+import { RadiolocationComponent } from './components/radiolocation/radiolocation.component';
+import { InputsmallComponent } from './components/inputsmall/inputsmall.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,10 +23,13 @@ import { CommentaryComponent } from './components/commentary/commentary.componen
     ComparePipe,
     PriceprodutoPipe,
     RadioboxComponent,
-    CommentaryComponent
+    CommentaryComponent,
+    RadiolocationComponent,
+    InputsmallComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule
   ],
   exports: [
     HeaderComponent,
@@ -34,7 +40,9 @@ import { CommentaryComponent } from './components/commentary/commentary.componen
     ComparePipe,
     PriceprodutoPipe,
     RadioboxComponent,
-    CommentaryComponent
+    CommentaryComponent,
+    RadiolocationComponent,
+    InputsmallComponent
   ]
 })
 export class SharedModule { }

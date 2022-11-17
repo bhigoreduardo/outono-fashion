@@ -64,6 +64,11 @@ public class ProdutoService implements IProdutoService {
 
 	@Autowired
 	private CorRepository corRepository;
+	
+	public Produto findById(Long produtoId) {
+		return produtoRepository.findById(produtoId)
+				.orElseThrow(() -> new ProdutoNaoEncontradoException(produtoId));
+	}
 
 	@Override
 	public List<Produto> findProdutos(String[] categoria, String[] tipo, String[] genero, String[] tamanho,

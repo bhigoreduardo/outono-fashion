@@ -12,12 +12,12 @@
 
 <!-- CATALOG -->
 <form class="catalog container">
-    <div class="loader-produtos" [ngClass]="{active: loader == true}">
+    <div class="catalog--loader-produtos" [ngClass]="{active: loader == true}">
         <img [src]="loaderGif" alt="Carregando produtos" />
     </div>
     
     <!-- SIDEBAR -->
-    <aside class="sidebar custom-scrollbar" [ngClass]="{active: sideBars == true}">
+    <aside class="catalog--sidebar custom-scrollbar" [ngClass]="{active: sideBars == true}">
         <button class="side-times" type="button" (click)="sideBars=!sideBars"><i class="fa fa-times"></i></button>
         
         <div class="search-sidebar">
@@ -106,7 +106,7 @@
     <!-- / SIDEBAR -->
 
     <!-- LIST -->
-    <section class="list">
+    <section class="catalog--list">
         <div class="navigation">
             <div class="information">
                 <button class="side-bars" type="button" (click)="sideBars=!sideBars"><i class="fa fa-bars"></i></button>
@@ -115,15 +115,17 @@
                 
             <div class="sorted">
                 ordernar por
-                <select name="order" class="custom-select">
-                    <option selected disabled>Filtrar por</option>
-                    <option value="populares">Mais populares</option>
-                    <option value="vendidos">Mais vendidos</option>
-                    <option value="lancamento">Lançamentos</option>
-                    <option value="ofertas">Ofertas</option>
-                    <option value="maior-preco">Maior Preço</option>
-                    <option value="menor-preco">Menor Preço</option>
-                </select>
+                <div class="select-box">
+                    <select name="order" id="order" class="select-field" required>
+                        <option selected disabled>Filtrar por</option>
+                        <option value="populares">Mais populares</option>
+                        <option value="vendidos">Mais vendidos</option>
+                        <option value="lancamento">Lançamentos</option>
+                        <option value="ofertas">Ofertas</option>
+                        <option value="maior-preco">Maior Preço</option>
+                        <option value="menor-preco">Menor Preço</option>
+                    </select>
+                </div>
             </div>
         </div>
 

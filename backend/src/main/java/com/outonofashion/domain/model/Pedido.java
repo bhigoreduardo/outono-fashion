@@ -2,6 +2,8 @@ package com.outonofashion.domain.model;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,8 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
-import org.hibernate.annotations.CreationTimestamp;
+import javax.persistence.OneToMany;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -36,8 +37,6 @@ public class Pedido {
 	@Column(nullable = false)
 	private BigDecimal valorTotal;
 	
-	@Column(nullable = false)
-	@CreationTimestamp
 	private OffsetDateTime dataPedido;
 	
 	private OffsetDateTime dataPagamento;
@@ -60,5 +59,12 @@ public class Pedido {
 	@JoinColumn(nullable = false, foreignKey = @ForeignKey(name = "fk_pedido_pagamento"))
 	@ManyToOne
 	private Pagamento pagamento;
+	
+	@JoinColumn(nullable = false, foreignKey = @ForeignKey(name = "fk_pedido_usuario"))
+	@ManyToOne
+	private Usuario usuario;
+	
+	@OneToMany(mappedBy = "pedido")
+	private List<ItemPedido> itensPedido = new ArrayList<>();
 	
 }

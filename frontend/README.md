@@ -7,3 +7,5 @@ card
     - Espiar produto
 header
     - Header: Obter informações => Seed Banco
+finalizar-compra:
+    - Pipe CEP

@@ -1,0 +1,48 @@
+@import '../../../../../styles.scss';
+
+.step {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    max-width: 400px;
+
+    margin: 0 auto;
+    margin-bottom: 50px;
+    padding: 10px;
+
+    background-color: $color-white-700;
+    box-shadow: $box-shadow-large;
+
+    >div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+
+        &.check {
+            svg circle {
+                stroke: $color-warning;
+                stroke-opacity: 1;
+            }
+
+            p {
+                font-weight: $font-weight-semi-bold;
+                color: $color-black;
+            }
+        }
+
+        p {
+            font-size: $font-size-sm;
+            line-height: $line-height-sm;
+            color: $color-gray-700;
+
+            @media screen and (max-width: 450px) {
+                font-size: $font-size-xs;
+                line-height: $line-height-xs;
+            }
+        }
+    }
+}

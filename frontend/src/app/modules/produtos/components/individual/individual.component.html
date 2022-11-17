@@ -20,16 +20,19 @@
             {{produto.tipo.descricao}}</a>
         <i class="fa fa-chevron-right"></i>
         <!-- Marca -->
-        <a (click)="goToProdutos(produto.genero.descricao, produto.categoria.descricao, produto.tipo.descricao, produto.marca.descricao)">
+        <a
+            (click)="goToProdutos(produto.genero.descricao, produto.categoria.descricao, produto.tipo.descricao, produto.marca.descricao)">
             {{produto.marca.descricao}}</a>
     </div>
 
-    <div class="content">
-        <div class="thumb-container" style="display: flex; align-items: center;">
-            <swiper [config]="thumbSlide" >
-                <ng-template swiperSlide *ngFor="let imagem of produto.imagens" >
-                    <div (click)="changeImageActive(imagem.nome, imagem.tipo)"  class="thumb-wrapper" [ngClass]="{active: isImageActive(imagem.nome, imagem.tipo)}">
-                        <img src="/assets/produtos/{{produto.genero.descricao | replace:' ':'-'}}/{{produto.categoria.descricao | replace:' ':'-'}}/{{produto.tipo.descricao | replace:' ':'-'}}/{{imagem.nome | replace:' ':'-'}}.{{imagem.tipo}}" />                
+    <div class="single-product--content">
+        <div class="thumb-container">
+            <swiper [config]="thumbSlide">
+                <ng-template swiperSlide *ngFor="let imagem of produto.imagens">
+                    <div (click)="changeImageActive(imagem.nome, imagem.tipo)" class="thumb-wrapper"
+                        [ngClass]="{active: isImageActive(imagem.nome, imagem.tipo)}">
+                        <img
+                            src="/assets/produtos/{{produto.genero.descricao | replace:' ':'-'}}/{{produto.categoria.descricao | replace:' ':'-'}}/{{produto.tipo.descricao | replace:' ':'-'}}/{{imagem.nome | replace:' ':'-'}}.{{imagem.tipo}}" />
                     </div>
                 </ng-template>
             </swiper>
@@ -43,42 +46,42 @@
             <div class="product-information">
                 <h5 class="brand">{{produto.marca.descricao}}</h5>
                 <h4 class="name">{{produto.nome}}</h4>
-                <span class="price">
-                    <small class="currency">R$</small>{{produto.estoques | priceproduto:'min'}}
-                    <span>
-                         Até <small class="currency">R$</small>{{produto.estoques | priceproduto:'max'}}</span>
-                </span>
-                <span class="installment">ou até 12x de R$ {{produto.estoques | priceproduto:'max'}}</span>
+                
+                <div *ngIf="precoSelected == undefined" class="price-box">
+                    <span class="price">
+                        <small class="currency">À partir de </small>{{price | currency: 'BRL'}}
+                    </span>
+                    <span class="installment">ou até {{installment}}x de {{price / installment | currency: 'BRL'}} sem juros</span>
+                </div>
+
+                <div *ngIf="precoSelected != undefined" class="price-box">
+                    <span class="price">{{precoSelected | currency: 'BRL'}}</span>
+                    <span class="installment">ou até {{installment}}x de {{precoSelected / installment | currency: 'BRL'}} sem juros</span>
+                </div>
             </div>
-            
+
             <div class="product-choice" (change)="getQuantity()">
                 <h6 class="title">Escolha o tamanho</h6>
                 <div class="radiobox-container">
                     <app-radiobox *ngFor="let estoque of produto.estoques"
-                        (click)="setTamanho(estoque.tamanho.descricao)"
-                        title="{{estoque.tamanho.descricao}}"
-                        placeholder="{{estoque.tamanho.descricao}}"
-                        name="tamanho"
-                        value="{{estoque.tamanho.descricao | replace}}"
-                        check="''">
+                        (click)="setTamanho(estoque.tamanho.descricao)" title="{{estoque.tamanho.descricao}}"
+                        placeholder="{{estoque.tamanho.descricao}}" name="tamanho"
+                        value="{{estoque.tamanho.descricao | replace}}" check="''">
                     </app-radiobox>
                 </div>
 
                 <h6 class="title">Escolha a cor</h6>
                 <div class="radiobox-container">
-                    <app-radiobox *ngFor="let color of colors"
-                        (click)="setCor(color.descricao)"
-                        title="{{color.descricao}}"
-                        name="color.descricao"
-                        value="{{color.descricao}}"
-                        check="''"
+                    <app-radiobox *ngFor="let color of colors" (click)="setCor(color.descricao)"
+                        title="{{color.descricao}}" name="color.descricao" value="{{color.descricao}}" check="''"
                         color="{{color.valor}}">
                     </app-radiobox>
                 </div>
 
-                <span *ngIf="quantity" class="quantity">Quantidade estoque: {{quantity}} unid(s)</span>
+                <span *ngIf="stockQuantity" class="quantity">Quantidade estoque: {{stockQuantity}} unid(s)</span>
 
-                <button (click)="addProdutoCart()" type="button" class="button button-warning button-uppercase button-semi button-base">
+                <button (click)="addProdutoCarrinho()" type="button"
+                    class="button button-warning button-uppercase button-semi button-base">
                     <i class="fa fa-cart-plus"></i>
                     Comprar
                 </button>
@@ -116,44 +119,29 @@
 <section class="commentary-gallery container gap-section" *ngIf="produto.comentarios.length > 0; else emptyCommentary">
     <swiper [config]="commentaryGallery" #customSwiperCommentary>
         <ng-template swiperSlide>
-            <app-commentary
-                date="21 Maio, 2022"
-                author="John Doe"
-                rate="4"
-                commentary="Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga, rerum. Alias saepe ea, quae molestias sunt enim, molestiae eveniet illum eligendi tempora incidunt reprehenderit cum?"
-            ></app-commentary>
+            <app-commentary date="21 Maio, 2022" author="John Doe" rate="4"
+                commentary="Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga, rerum. Alias saepe ea, quae molestias sunt enim, molestiae eveniet illum eligendi tempora incidunt reprehenderit cum?">
+            </app-commentary>
         </ng-template>
         <ng-template swiperSlide>
-            <app-commentary
-                date="21 Maio, 2022"
-                author="John Doe"
-                rate="4"
-                commentary="Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga, rerum. Alias saepe ea, quae molestias sunt enim, molestiae eveniet illum eligendi tempora incidunt reprehenderit cum?"
-            ></app-commentary>
+            <app-commentary date="21 Maio, 2022" author="John Doe" rate="4"
+                commentary="Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga, rerum. Alias saepe ea, quae molestias sunt enim, molestiae eveniet illum eligendi tempora incidunt reprehenderit cum?">
+            </app-commentary>
         </ng-template>
         <ng-template swiperSlide>
-            <app-commentary
-                date="21 Maio, 2022"
-                author="John Doe"
-                rate="4"
-                commentary="Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga, rerum. Alias saepe ea, quae molestias sunt enim, molestiae eveniet illum eligendi tempora incidunt reprehenderit cum?"
-            ></app-commentary>
+            <app-commentary date="21 Maio, 2022" author="John Doe" rate="4"
+                commentary="Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga, rerum. Alias saepe ea, quae molestias sunt enim, molestiae eveniet illum eligendi tempora incidunt reprehenderit cum?">
+            </app-commentary>
         </ng-template>
         <ng-template swiperSlide>
-            <app-commentary
-                date="21 Maio, 2022"
-                author="John Doe"
-                rate="4"
-                commentary="Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga, rerum. Alias saepe ea, quae molestias sunt enim, molestiae eveniet illum eligendi tempora incidunt reprehenderit cum?"
-            ></app-commentary>
+            <app-commentary date="21 Maio, 2022" author="John Doe" rate="4"
+                commentary="Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga, rerum. Alias saepe ea, quae molestias sunt enim, molestiae eveniet illum eligendi tempora incidunt reprehenderit cum?">
+            </app-commentary>
         </ng-template>
         <ng-template swiperSlide>
-            <app-commentary
-                date="21 Maio, 2022"
-                author="John Doe"
-                rate="4"
-                commentary="Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga, rerum. Alias saepe ea, quae molestias sunt enim, molestiae eveniet illum eligendi tempora incidunt reprehenderit cum?"
-            ></app-commentary>
+            <app-commentary date="21 Maio, 2022" author="John Doe" rate="4"
+                commentary="Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga, rerum. Alias saepe ea, quae molestias sunt enim, molestiae eveniet illum eligendi tempora incidunt reprehenderit cum?">
+            </app-commentary>
         </ng-template>
     </swiper>
 
@@ -183,60 +171,15 @@
         <h6 class="subtitle">Aproveite</h6>
         <h4 class="title">Você também pode gostar</h4>
     </div>
-      
+
     <swiper [config]="mostSaleSlide" #customSwiperGender>
-        <ng-template swiperSlide>
+        <ng-template swiperSlide *ngFor="let produto of produtosGenero">
             <app-card
-                image="/assets/produtos/feminino/roupas/camisas/camisa-calvin-klein-reta-listrada-rosa-4-3.webp"
-                name="Camisa Calvin Klein reta listrada"
-                priceMin="250,00"
-                nome="camisa-calvin-klein"
-                id="4"
-            ></app-card>
-        </ng-template>
-        <ng-template swiperSlide>
-            <app-card
-                image="/assets/produtos/feminino/roupas/camisas/camisa-calvin-klein-reta-listrada-rosa-4-3.webp"
-                name="Camisa Calvin Klein reta listrada"
-                priceMin="250,00"
-                nome="camisa-calvin-klein"
-                id="4"
-            ></app-card>
-        </ng-template>
-        <ng-template swiperSlide>
-            <app-card
-                image="/assets/produtos/feminino/roupas/camisas/camisa-calvin-klein-reta-listrada-rosa-4-3.webp"
-                name="Camisa Calvin Klein reta listrada"
-                priceMin="250,00"
-                nome="camisa-calvin-klein"
-                id="4"
-            ></app-card>
-        </ng-template>
-        <ng-template swiperSlide>
-            <app-card
-                image="/assets/produtos/feminino/roupas/camisas/camisa-calvin-klein-reta-listrada-rosa-4-3.webp"
-                name="Camisa Calvin Klein reta listrada"
-                priceMin="250,00"
-                nome="camisa-calvin-klein"
-                id="4"
-            ></app-card>
-        </ng-template>
-        <ng-template swiperSlide>
-            <app-card
-                image="/assets/produtos/feminino/roupas/camisas/camisa-calvin-klein-reta-listrada-rosa-4-3.webp"
-                name="Camisa Calvin Klein reta listrada"
-                priceMin="250,00"
-                nome="camisa-calvin-klein"
-                id="4"
-            ></app-card>
-        </ng-template>
-        <ng-template swiperSlide>
-            <app-card
-                image="/assets/produtos/feminino/roupas/camisas/camisa-calvin-klein-reta-listrada-rosa-4-3.webp"
-                name="Camisa Calvin Klein reta listrada"
-                priceMin="250,00"
-                nome="camisa-calvin-klein"
-                id="4"
+                image="/assets/produtos/{{produto.genero.descricao | replace:' ':'-'}}/{{produto.categoria.descricao | replace:' ':'-'}}/{{produto.tipo.descricao | replace:' ':'-'}}/{{produto.nome | replace:' ':'-'}}-{{produto.id}}-1.webp"
+                name="{{produto.nome}}"
+                priceMin="{{produto.estoques | priceproduto:'min'}}"
+                nome="{{produto.nome | replace:' ':'-'}}"
+                id="{{produto.id}}"
             ></app-card>
         </ng-template>
     </swiper>
@@ -258,61 +201,16 @@
     <div class="headline">
         <h6 class="subtitle">Aproveite</h6>
         <h4 class="title">Você também pode gostar</h4>
-      </div>
-      
+    </div>
+
     <swiper [config]="mostSaleSlide" #customSwiperCategory>
-        <ng-template swiperSlide>
+        <ng-template swiperSlide *ngFor="let produto of produtosCategoria">
             <app-card
-                image="/assets/produtos/feminino/roupas/camisas/camisa-calvin-klein-reta-listrada-rosa-4-3.webp"
-                name="Camisa Calvin Klein reta listrada"
-                priceMin="250,00"
-                nome="camisa-calvin-klein"
-                id="4"
-            ></app-card>
-        </ng-template>
-        <ng-template swiperSlide>
-            <app-card
-                image="/assets/produtos/feminino/roupas/camisas/camisa-calvin-klein-reta-listrada-rosa-4-3.webp"
-                name="Camisa Calvin Klein reta listrada"
-                priceMin="250,00"
-                nome="camisa-calvin-klein"
-                id="4"
-            ></app-card>
-        </ng-template>
-        <ng-template swiperSlide>
-            <app-card
-                image="/assets/produtos/feminino/roupas/camisas/camisa-calvin-klein-reta-listrada-rosa-4-3.webp"
-                name="Camisa Calvin Klein reta listrada"
-                priceMin="250,00"
-                nome="camisa-calvin-klein"
-                id="4"
-            ></app-card>
-        </ng-template>
-        <ng-template swiperSlide>
-            <app-card
-                image="/assets/produtos/feminino/roupas/camisas/camisa-calvin-klein-reta-listrada-rosa-4-3.webp"
-                name="Camisa Calvin Klein reta listrada"
-                priceMin="250,00"
-                nome="camisa-calvin-klein"
-                id="4"
-            ></app-card>
-        </ng-template>
-        <ng-template swiperSlide>
-            <app-card
-                image="/assets/produtos/feminino/roupas/camisas/camisa-calvin-klein-reta-listrada-rosa-4-3.webp"
-                name="Camisa Calvin Klein reta listrada"
-                priceMin="250,00"
-                nome="camisa-calvin-klein"
-                id="4"
-            ></app-card>
-        </ng-template>
-        <ng-template swiperSlide>
-            <app-card
-                image="/assets/produtos/feminino/roupas/camisas/camisa-calvin-klein-reta-listrada-rosa-4-3.webp"
-                name="Camisa Calvin Klein reta listrada"
-                priceMin="250,00"
-                nome="camisa-calvin-klein"
-                id="4"
+                image="/assets/produtos/{{produto.genero.descricao | replace:' ':'-'}}/{{produto.categoria.descricao | replace:' ':'-'}}/{{produto.tipo.descricao | replace:' ':'-'}}/{{produto.nome | replace:' ':'-'}}-{{produto.id}}-1.webp"
+                name="{{produto.nome}}"
+                priceMin="{{produto.estoques | priceproduto:'min'}}"
+                nome="{{produto.nome | replace:' ':'-'}}"
+                id="{{produto.id}}"
             ></app-card>
         </ng-template>
     </swiper>
@@ -327,7 +225,7 @@
         </button>
     </div>
 </section>
-<!-- / MOST SALE GENDER -->
+<!-- / MOST SALE CATEGORY -->
 
 <!-- FOOTER -->
 <app-footer></app-footer>

@@ -1,0 +1,17 @@
+@import '../../../../../styles.scss';
+
+.footer {
+    padding: 50px 0;
+
+    .footer--credit {
+        padding-top: 50px;
+        border-top: 1px solid $color-gray-500;
+        text-align: center;
+
+        p {
+            font-size: $font-size-sm;
+            line-height: $line-height-sm;
+            color: $color-gray-500;
+        }
+    }
+}

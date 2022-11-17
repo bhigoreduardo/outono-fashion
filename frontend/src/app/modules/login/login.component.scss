@@ -1,0 +1,31 @@
+@import '../../../styles.scss';
+
+.login {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    justify-content: space-between;
+    gap: 130px;
+
+    .login--content {
+        text-align: center;
+
+        .logo {
+            img {
+                max-width: 550px;
+            }
+        }
+
+        h6 {
+            font-size: $font-size-base;
+            line-height: $line-height-base;
+            color: $color-black;
+            font-weight: $font-weight-bold;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            margin-top: 30px;
+            margin-bottom: 40px;
+          }
+    }
+
+}

@@ -4,7 +4,7 @@ import { CarrinhoService } from 'src/app/modules/carrinho/service/carrinho.servi
 
 import { SwiperOptions } from 'swiper';
 import { ICor } from '../../model/ICor';
-import { IProdutoCarrinho, IProdutoDetalhe } from '../../model/IProduto';
+import { IProduto, IProdutoCarrinho, IProdutoDetalhe } from '../../model/IProduto';
 
 import { ProdutoService } from '../../service/produto.service';
 
@@ -14,16 +14,24 @@ import { ProdutoService } from '../../service/produto.service';
   styleUrls: ['./individual.component.scss']
 })
 export class IndividualComponent implements OnInit {
-  // Produto Vars
+  // Produto
   produto!: IProdutoDetalhe;
-  colors: ICor[] = [];
-  quantity!: number;
-  quantidade: number = 1;
 
-  // Produto Values Checked
+  // Produtos Slide
+  produtosGenero: IProduto[] = [];
+  produtosCategoria: IProduto[] = [];
+
+  // Produto Vars
+  price!: number;
+  colors: ICor[] = [];
+  stockQuantity!: number; // Stock Quantity
+  installment: number = 12;
+
+  // Produto Carrinho Vars
   tamanhoSelected!: string;
   corSelected!: string;
   precoSelected!: number;
+  quantidade: number = 1;
 
   // Slides Vars
   thumbSlide!: SwiperOptions;
@@ -69,9 +77,30 @@ export class IndividualComponent implements OnInit {
     })
   }
 
+  getProdutoGenero(genero: string[]) {
+    return new Promise(resolve => {
+      this.produtoService.findProdutos(genero).subscribe(
+        data => {
+          resolve(data)
+        }
+      )
+    })
+  }
+
+  getProdutosCategoria(genero: string[], categoria: string[]) {
+    return new Promise(resolve => {
+      this.produtoService.findProdutos(genero, categoria).subscribe(
+        data => {
+          resolve(data)
+        }
+      )
+    })
+  }
+
   async getProdutoDescription() {
-    // Get Produto
     this.produto = <IProdutoDetalhe>await this.getProduto();
+    this.produtosGenero = <IProduto[]>await this.getProdutoGenero([this.produto.genero.descricao]);
+    this.produtosCategoria = <IProduto[]>await this.getProdutosCategoria([this.produto.genero.descricao], [this.produto.categoria.descricao]);
 
     // Root Image
     this.pathImage += this.replaceAll(this.produto.genero.descricao, ' ', '-') + '/';
@@ -80,16 +109,20 @@ export class IndividualComponent implements OnInit {
 
     // Name Image
     this.changeImageActive(this.produto.imagens[0].nome, this.produto.imagens[0].tipo);
-
-    // Colors Produto
+    
+    // Colors Produto and Price Minimun Produto
     this.produto.estoques.forEach((value, index) => {
-
+      
       if (index == 0) {
         this.colors.push(value.cor);
       } else if (index < this.produto.estoques.length) {
         if (!(this.produto.estoques[index].cor.descricao == this.produto.estoques[index++].cor.descricao)) {
           this.colors.push(value.cor);
         }
+      }
+
+      if (index == 0 || this.price < value.preco) {
+        this.price = value.preco;
       }
 
     });
@@ -163,12 +196,12 @@ export class IndividualComponent implements OnInit {
     target.swiperRef.slideNext();
   }
 
-  //Methods Choice Props Produto
+  // Methods Produto Carrinho Vars
   getQuantity() {
     if (this.tamanhoSelected != undefined && this.corSelected != undefined) {
       this.produto.estoques.forEach(estoque => {
         if (estoque.tamanho.descricao == this.tamanhoSelected && estoque.cor.descricao == this.corSelected) {
-          this.quantity = estoque.quantidade;
+          this.stockQuantity = estoque.quantidade;
           this.precoSelected = estoque.preco;
         }
       })
@@ -211,11 +244,23 @@ export class IndividualComponent implements OnInit {
   }
 
   // Methods Add Carrinho
-  addProdutoCart() {
+  addProdutoCarrinho() {
 
     if (this.tamanhoSelected != undefined && this.corSelected != undefined) {
       const produtoCarrinho: IProdutoCarrinho = {
-        ...this.produto,
+        id: this.produto.id,
+        nome: this.produto.nome,
+        genero: this.produto.genero,
+        categoria: this.produto.categoria,
+        tipo: this.produto.tipo,
+        estoques: this.produto.estoques,
+        marca: this.produto.marca,
+
+        largura: this.produto.largura,
+        altura: this.produto.altura,
+        comprimento: this.produto.comprimento,
+        peso: this.produto.peso,
+
         quantidade: this.quantidade,
         tamanhoSelecionado: this.tamanhoSelected,
         corSelecionado: this.corSelected,

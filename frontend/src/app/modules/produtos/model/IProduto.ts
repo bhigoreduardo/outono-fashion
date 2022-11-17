@@ -27,7 +27,11 @@ export interface IProdutoDetalhe extends IProduto {
     comentarios: IComentario[];
 }
 
-export interface IProdutoCarrinho extends IProdutoDetalhe {
+export interface IProdutoCarrinho extends IProduto {
+    largura: number;
+    altura: number;
+    comprimento: number;
+    peso: number;
     quantidade: number;
     tamanhoSelecionado: string;
     corSelecionado: string;

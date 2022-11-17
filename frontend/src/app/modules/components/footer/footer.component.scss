@@ -1,14 +1,14 @@
 @import '../../../../styles.scss';
 
 .footer {
-    .box-container {
+    padding: 50px 0;
+
+    .footer--box-container {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
         gap: 36px;
 
         padding-bottom: 50px;
-        margin-bottom: 20px;
-        border-bottom: 2px solid $color-gray-300;
 
         .box {
             @media screen and (max-width: 510px) {
@@ -80,13 +80,13 @@
         }
     }
 
-    .credit {
+    .footer--credit {
+        padding-top: 50px;
+        border-top: 1px solid $color-gray-500;
         text-align: center;
-        padding-bottom: 20px;
 
         p {
             font-size: $font-size-sm;
-            font-weight: $font-weight-regular;
             line-height: $line-height-sm;
             color: $color-gray-500;
         }

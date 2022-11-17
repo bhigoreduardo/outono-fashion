@@ -1,7 +1,7 @@
 @import '../../../../../styles.scss';
 
 .single-product {
-    .content {
+    .single-product--content {
         display: grid;
         grid-template-columns: 160px auto 360px;
         gap: 30px;
@@ -39,7 +39,6 @@
             }
 
             .thumb-wrapper {
-                // width: 160px;
                 height: 225px;
                 overflow: hidden;
                 cursor: grab;
@@ -61,29 +60,6 @@
                 @media screen and (max-width: 430px) {
                     height: 120px;
                 }
-
-                // @media screen and (max-width: 580px) {
-                //     max-width: 150px;
-                //     height: 140px;
-                //     margin-bottom: 20px;
-                // }
-
-                // @media screen and (max-width: 530px) {
-                //     max-width: 130px;
-                // }
-
-                // @media screen and (max-width: 450px) {
-                //     max-width: 100px;
-                // }
-
-                // @media screen and (max-width: 370px) {
-                //     max-width: 90px;
-                //     height: 125px;
-                // }
-
-                // img {
-                //     padding: 0;
-                // }
             }
         }
 

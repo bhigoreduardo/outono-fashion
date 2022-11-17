@@ -1,0 +1,248 @@
+<!-- HEADER CHECKOUT -->
+<app-header-checkout></app-header-checkout>
+<!-- / HEADER CHECKOUT -->
+
+<!-- PAYMENT CHECKOUT -->
+<section class="payment-checkout">
+    <div class="container">
+        <app-step [identity]="true" [payment]="true"></app-step>
+
+        <div class="payment-checkout--payment-content">
+            <div class="user-information">
+                <div class="user-location">
+                    <h4 class="title">Endereço</h4>
+                    <span class="sub-title">Onde você deseja receber seu produto?</span>
+
+                    <div class="location-options custom-scrollbar">
+                        <app-radiolocation name="John Doe" nickname="Casa" street="Rua São João" streetNumber="987"
+                            neighborhood="Jd. Santa Mônica II" reference="Perto da Parque" complement="Sobrado Triplex"
+                            city="Londrina" state="PR" cep="86679-990"></app-radiolocation>
+
+                        <a class="new-address">
+                            <i class="fas fa-plus"></i>
+                            <p>Adicionar novo endereço</p>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="user-payment">
+                    <h4 class="title">Pagamento</h4>
+                    <span class="sub-title">Como você deseja pagar?</span>
+
+                    <div class="payment-choice">
+                        <label class="option-payment">
+                            <input type="radio" name="payment-method" value="1" [(ngModel)]="formaPagamento" />
+                            <span>
+                                <p><i class="fas fa-credit-card"></i>Cartão de Crédito</p>
+                            </span>
+                        </label>
+
+                        <label class="option-payment">
+                            <input type="radio" name="payment-method" value="2" [(ngModel)]="formaPagamento" />
+                            <span>
+                                <p><i class="fas fa-barcode"></i>Boleto Bancário</p>
+                            </span>
+                        </label>
+
+                        <label class="option-payment">
+                            <input type="radio" name="payment-method" value="3" [(ngModel)]="formaPagamento" />
+                            <span>
+                                <p><i class="fas fa-exchange-alt"></i>PIX</p>
+                            </span>
+                        </label>
+                    </div>
+
+                    <div *ngIf="formaPagamento != undefined" class="payment-method">
+                        <form *ngIf="formaPagamento == 1" class="credit-card" [formGroup]="formCreditCard">
+                            <div class="input-box"
+                                [ngClass]="{invalid: formCreditCard.controls['cardNumber'].invalid && (formCreditCard.controls['cardNumber'].touched || formCreditCard.controls['cardNumber'].dirty), valid: formCreditCard.valid}">
+                                <label class="input-label" for="card-number">Número do cartão</label>
+                                <input type="number" name="numero-cartao" id="card-number" class="input-field"
+                                    placeholder="Insira os números do cartão" required formControlName="cardNumber" />
+                                <div class="group-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-times-circle"></i>
+                                </div>
+                            </div>
+
+                            <div class="input-box"
+                                [ngClass]="{invalid: formCreditCard.controls['cardName'].invalid && (formCreditCard.controls['cardName'].touched || formCreditCard.controls['cardName'].dirty), valid: formCreditCard.valid}">
+                                <label class="input-label" for="card-name">Nome impresso no cartão</label>
+                                <input type="text" name="nome-cartao" id="card-name" class="input-field"
+                                    placeholder="Nome como escrito no cartão" formControlName="cardName" />
+                                <div class="group-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-times-circle"></i>
+                                </div>
+                            </div>
+
+                            <div class="box-wrapper">
+                                <div class="select-box"
+                                    [ngClass]="{invalid: formCreditCard.controls['cardMonth'].invalid && (formCreditCard.controls['cardMonth'].touched || formCreditCard.controls['cardMonth'].dirty), valid: formCreditCard.valid}">
+                                    <label class="select-label" for="card-month">Validade</label>
+                                    <select name="validade-mes" id="card-month" class="select-field"
+                                        formControlName="cardMonth">
+                                        <option selected disabled>Mês</option>
+                                        <option value="1">1</option>
+                                    </select>
+                                </div>
+
+                                <div class="select-box"
+                                    [ngClass]="{invalid: formCreditCard.controls['cardYear'].invalid && (formCreditCard.controls['cardYear'].touched || formCreditCard.controls['cardYear'].dirty), valid: formCreditCard.valid}">
+                                    <label class="select-label" for="card-year">Ano</label>
+                                    <select name="validade-ano" id="card-year" class="select-field"
+                                        formControlName="cardYear">
+                                        <option selected disabled>Ano</option>
+                                        <option value="22">22</option>
+                                    </select>
+                                </div>
+
+                                <div class="input-box"
+                                    [ngClass]="{invalid: formCreditCard.controls['cardCod'].invalid && (formCreditCard.controls['cardCod'].touched || formCreditCard.controls['cardCod'].dirty), valid: formCreditCard.valid}">
+                                    <label class="input-label" for="card-cod">Cód. segurança</label>
+                                    <input type="number" name="cod-cartao" id="card-cod" class="input-field"
+                                        placeholder="3 ou 4 dígitos" formControlName="cardCod" />
+                                    <div class="group-icon">
+                                        <i class="fas fa-check-circle"></i>
+                                        <i class="fas fa-times-circle"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="select-box"
+                                [ngClass]="{invalid: formCreditCard.controls['cardInstallment'].invalid && (formCreditCard.controls['cardInstallment'].touched || formCreditCard.controls['cardInstallment'].dirty), valid: formCreditCard.valid}">
+                                <label class="select-label" for="installment">Parcelamento</label>
+                                <select name="parcelas" id="installment" class="select-field"
+                                    formControlName="cardInstallment">
+                                    <option selected disabled>Parcelas</option>
+                                    <option value="1">1x de R$ 175,00 sem juros</option>
+                                </select>
+                            </div>
+
+                            <button *ngIf="formCreditCard.valid" id="finish-order"
+                                class="button button-warning button-uppercase button-semi button-base"
+                                (click)="finalizarCompra()">
+                                Finalizar compra
+                            </button>
+                        </form>
+
+                        <form *ngIf="formaPagamento == 2" class="bank-slip">
+                            <div class="content">
+                                <h5>Pagamento à vista no Boleto Bancário</h5>
+                                <p>
+                                    Você pode visualizar ou imprimir após a finalização do pedido. A
+                                    data de vencimento é de 2 dia(s) ocorridos após a conclusão do pedido.
+                                    Após esta data, ele perderá a validade.
+                                </p>
+                            </div>
+
+                            <button id="finish-order"
+                                class="button button-warning button-uppercase button-semi button-base"
+                                (click)="finalizarCompra()">
+                                Finalizar compra
+                            </button>
+                        </form>
+
+                        <div *ngIf="formaPagamento == 3" class="pix">
+                            <div class="content">
+                                <h5>Pagamento à vista no PIX</h5>
+                                <p>
+                                    Você pode visualizar a chave de transferência após a finalização do pedido. A
+                                    data de vencimento é de 45 minuto(s) ocorridos após a conclusão do pedido.
+                                    Após este período, ele perderá a validade.
+                                </p>
+                            </div>
+
+                            <button id="finish-order"
+                                class="button button-warning button-uppercase button-semi button-base"
+                                (click)="finalizarCompra()">
+                                Finalizar compra
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cart-information">
+                <div class="cart-header">
+                    <span>Produtos</span>
+                    <span>Descricão</span>
+                    <span>Valor</span>
+                </div>
+
+                <div class="cart-list">
+                    <div class="wrapper-products custom-scrollbar">
+                        <div class="product-description" *ngFor="let produto of produtosCarrinho">
+                            <div class="image-box">
+                                <img src="/assets/produtos/{{produto.genero.descricao | replace:' ':'-'}}/{{produto.categoria.descricao | replace:' ':'-'}}/{{produto.tipo.descricao | replace:' ':'-'}}/{{produto.nome | replace:' ':'-'}}-{{produto.id}}-1.webp"
+                                    alt="{{produto.nome}}" />
+                            </div>
+
+                            <div class="description-box">
+                                <h6>{{produto.marca.descricao}}</h6>
+                                <p>{{produto.nome}}</p>
+                                <small>Quantidade: {{produto.quantidade}}</small>
+                                <small>Tamanho: {{produto.tamanhoSelecionado}}</small>
+                                <small>Cor: {{produto.corSelecionado}}</small>
+                            </div>
+
+                            <div class="price-box">
+                                <h5>{{produto.precoSelecionado | currency:'BRL'}}</h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cart-footer">
+                        <div class="summary-top">
+                            <div class="value">
+                                <span>Subtotal</span>
+                                <span>{{subTotal | currency:'BRL'}}</span>
+                            </div>
+
+                            <div class="value">
+                                <span>Frete</span>
+                                <span>{{frete | currency:'BRL'}}</span>
+                            </div>
+                        </div>
+
+                        <div class="summary-middle">
+                            <div class="value">
+                                <span>Total</span>
+                                <div class="total">
+                                    <h5>{{total | currency:'BRL'}}</h5>
+                                    <small class="installment">ou em até {{prestacao}}x de {{total / prestacao |
+                                        currency:'BRL'}}</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="coupon">
+                            <p><i class="fa fa-gift"></i>Cupom de desconto</p>
+
+                            <div class="input-wrapper">
+                                <div class="input-box invalid">
+                                    <input type="text" name="cupom" id="coupon" class="input-field"
+                                        placeholder="Insira seu cupom" required />
+                                    <div class="group-icon">
+                                        <i class="fas fa-check-circle"></i>
+                                        <i class="fas fa-times-circle"></i>
+                                    </div>
+                                </div>
+
+                                <button type="button"
+                                    class="button button-warning button-uppercase button-semi button-sm">
+                                    Aplicar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /PAYMENT CHECKOUT -->
+
+<!-- FOOTER CHECKOUT -->
+<app-footer-checkout></app-footer-checkout>
+<!-- / FOOTER CHECKOUT -->

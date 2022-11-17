@@ -1,0 +1,13 @@
+<div class="input-small">
+    <!-- type!: string | name!: string | id!: string | placeholder!: string | required!: boolean | fieldLabel!: string | eyeButton!: boolean | formControlName -->
+    <label class="input-label" for="senha">
+        <input [type]="type" [name]="name" [id]="id" class="input-field" [placeholder]="placeholder" required [formControlName]="formControlName" />
+        <small class="small-label">{{fieldLabel}}</small>
+        <div class="group-icon">
+            <i *ngIf="eyeButton != undefined" [ngClass]="{active: eyeActive}" (click)="setEye('text')" class="fas fa-eye"></i>
+            <i *ngIf="eyeButton != undefined" [ngClass]="{active: !eyeActive}" (click)="setEye('password')" class="fas fa-eye-slash"></i>
+            <i class="fas fa-check-circle"></i>
+            <i class="fas fa-times-circle"></i>
+        </div>
+    </label>
+</div>

@@ -56,23 +56,15 @@ public class Usuario {
 	private OffsetDateTime dataAtualizacao;
 
 	@Column(nullable = false)
-	private Boolean ativo;
+	private Boolean ativo = true;
 
-	@Column(length = 30)
-	private String bancoConta;
-
-	@Column(length = 30)
-	private String agenciaBancaria;
-
-	@Column(length = 30)
-	private String contaBancaria;
+	// Banco
 
 	@JoinColumn(nullable = false)
 	@ManyToOne
 	private Genero genero;
 
-	@ManyToOne
-	private Foto foto;
+	// Foto
 
 	// Endereco
 

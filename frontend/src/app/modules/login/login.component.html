@@ -1,0 +1,45 @@
+<!-- LOGIN -->
+<section class="login container">
+    <div class="login--content">
+        <a title="Outono Fashion" class="logo"><img [src]="logo" alt="Outono Fashion" /></a>
+
+        <div class="form-login">
+            <h6>Já sou cadastrado</h6>
+
+            <form class="">
+                <div class="input-small" [ngClass]="{invalid: formLogin.controls['login'].invalid && (formLogin.controls['login'].touched || formLogin.controls['login'].dirty), valid: formLogin.valid}">
+                    <label class="input-label" for="login">
+                        <input type="text" name="login" id="login" class="input-field" placeholder="Informe seu e-mail"
+                            required formControlName="login" />
+                        <small class="small-label">E-mail</small>
+                        <div class="group-icon">
+                            <i class="fas fa-check-circle"></i>
+                            <i class="fas fa-times-circle"></i>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="input-small" [ngClass]="{invalid: formLogin.controls['senha'].invalid && (formLogin.controls['senha'].touched || formLogin.controls['senha'].dirty), valid: formLogin.valid}">
+                    <label class="input-label" for="senha">
+                        <input [type]="type" name="senha" id="senha" class="input-field" placeholder="Insira sua senha" required formControlName="senha" />
+                        <small class="small-label">Senha</small>
+                        <div class="group-icon">
+                            <i [ngClass]="{active: eyeActive}" (click)="setEye('text')" class="fas fa-eye"></i>
+                            <i [ngClass]="{active: !eyeActive}" (click)="setEye('password')" class="fas fa-eye-slash"></i>
+                            <i class="fas fa-check-circle"></i>
+                            <i class="fas fa-times-circle"></i>
+                        </div>
+                    </label>
+                </div>
+            </form>
+        </div>
+
+        <div class="form-register">
+
+        </div>
+
+    </div>
+
+    <img title="Outono Fashion" class="login--banner" [src]="banner" alt="Outono Fashion" />
+</section>
+<!-- / LOGIN -->

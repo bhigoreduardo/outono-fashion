@@ -22,7 +22,7 @@ public class Grupo {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(nullable = false, length = 60)
+	@Column(nullable = false, length = 40, unique = true)
 	private String descricao;
 	
 	@ManyToOne

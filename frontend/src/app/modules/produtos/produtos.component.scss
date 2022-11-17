@@ -31,7 +31,7 @@
         grid-template-columns: 100%;
     }
 
-    .loader-produtos {
+    .catalog--loader-produtos {
         position: absolute;
         top: 50%;
         left: 50%;
@@ -56,7 +56,7 @@
         }
     }
 
-    .sidebar {
+    .catalog--sidebar {
         @media screen and (max-width: 992px) {
             position: fixed;
             top: 0;
@@ -64,7 +64,6 @@
             right: -100%;
 
             width: 250px;
-            // padding: 24px 10px;
             padding: 30px;
 
             overflow-y: auto;
@@ -100,63 +99,65 @@
             }
         }
 
-        h6 {
-            font-size: $font-size-sm;
-            line-height: $line-height-sm;
-            font-weight: $font-weight-bold;
-            text-transform: uppercase;
-            letter-spacing: 0.25em;
-            color: $color-warning;
-            margin-bottom: 20px;
-        }
+        .search-sidebar {
+            h6 {
+                font-size: $font-size-sm;
+                line-height: $line-height-sm;
+                font-weight: $font-weight-bold;
+                text-transform: uppercase;
+                letter-spacing: 0.25em;
+                color: $color-warning;
+                margin-bottom: 20px;
+            }
 
-        h5 {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            h5 {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
 
-            font-size: $font-size-lg;
-            font-weight: $font-weight-regular;
-            line-height: $line-height-lg;
-            color: $color-black;
-            padding-bottom: 10px;
-            margin-bottom: 30px;
-            border-bottom: 2px solid $color-gray-300;
+                font-size: $font-size-lg;
+                font-weight: $font-weight-regular;
+                line-height: $line-height-lg;
+                color: $color-black;
+                padding-bottom: 10px;
+                margin-bottom: 30px;
+                border-bottom: 2px solid $color-gray-300;
 
-            i {
-                font-size: $font-size-xs;
-                cursor: pointer;
-                transition: all 200ms ease-in;
+                i {
+                    font-size: $font-size-xs;
+                    cursor: pointer;
+                    transition: all 200ms ease-in;
 
-                &:hover {
-                    color: $color-warning;
+                    &:hover {
+                        color: $color-warning;
+                    }
                 }
             }
-        }
 
-        .checkbox-container {
-            max-height: 105px;
-            overflow-y: scroll;
+            .checkbox-container {
+                max-height: 105px;
+                overflow-y: scroll;
 
-            &:not(:last-child) {
-                margin-bottom: 30px;
+                &:not(:last-child) {
+                    margin-bottom: 30px;
+                }
+
+                &.hide {
+                    display: none;
+                    transform: scale(0);
+                }
             }
 
-            &.hide {
-                display: none;
-                transform: scale(0);
+            .button-group {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 10px;
             }
-        }
-
-        .button-group {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
         }
     }
 
-    .list {
+    .catalog--list {
         .navigation {
             display: flex;
             flex-wrap: wrap;
@@ -193,6 +194,12 @@
             }
 
             .sorted {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .sorted {
                 @media screen and (max-width: 480px) {
                     text-align: center;
                     width: 100%;
@@ -203,7 +210,7 @@
         .card-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 36px;
+            gap: 30px;
             margin-bottom: 60px;
 
             @media screen and (max-width: 750px) {
