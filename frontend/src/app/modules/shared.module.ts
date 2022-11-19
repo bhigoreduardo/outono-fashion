@@ -12,6 +12,7 @@ import { CommentaryComponent } from './components/commentary/commentary.componen
 import { RadiolocationComponent } from './components/radiolocation/radiolocation.component';
 import { InputsmallComponent } from './components/inputsmall/inputsmall.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RangeboxComponent } from './components/rangebox/rangebox.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     RadioboxComponent,
     CommentaryComponent,
     RadiolocationComponent,
-    InputsmallComponent
+    InputsmallComponent,
+    RangeboxComponent
   ],
   imports: [
     CommonModule,
