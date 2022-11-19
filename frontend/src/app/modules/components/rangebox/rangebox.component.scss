@@ -5,7 +5,7 @@
 
     width: 100%;
     background-color: $color-white;
-    padding: 20px;
+    padding: 0 10px;
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -13,16 +13,23 @@
     .values {
         position: relative;
 
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        
         margin: 0 auto;
 
         background-color: $color-warning;
-        width: 120px;
-        padding: 4px 12px;
-        text-align: center;
+        padding: 5px 10px;
 
-        font-size: $font-size-base;
-        line-height: $line-height-base;
+        font-size: $font-size-sm;
+        line-height: $line-height-sm;
         color: $color-white;
+
+        i {
+            font-size: $font-size-xxs;
+        }
 
         &:before {
             content: "";
@@ -30,12 +37,12 @@
             width: 0;
             height: 0;
 
-            border-top: 10px solid $color-warning;
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
+            border-top: 8px solid $color-warning;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
 
             margin: 0 auto;
-            bottom: -10px;
+            bottom: -8px;
             left: 0;
             right: 0;
         }
@@ -55,7 +62,7 @@
             margin: 0 auto;
 
             width: 100%;
-            height: 5px;
+            height: 2px;
             background-color: $color-gray-500;
         }
 
@@ -78,23 +85,23 @@
 
                 &::-webkit-slider-runnable-track {
                     -webkit-appearance: none;
-                    height: 5px;
+                    height: 2px;
                 }
 
                 &::-moz-range-track {
                     -moz-appearance: none;
-                    height: 5px;
+                    height: 2px;
                 }
 
                 &::-ms-track {
                     appearance: none;
-                    height: 5px;
+                    height: 2px;
                 }
 
                 &::-webkit-slider-thumb {
                     -webkit-appearance: none;
-                    height: 15px;
-                    width: 15px;
+                    height: 10px;
+                    width: 10px;
                 
                     background-color: $color-warning;
                     cursor: pointer;
@@ -105,8 +112,8 @@
 
                 &::-moz-range-thumb {
                     -webkit-appearance: none;
-                    height: 15px;
-                    width: 15px;
+                    height: 10px;
+                    width: 10px;
                 
                     cursor: pointer;
                     border-radius: 50%;
@@ -116,8 +123,8 @@
 
                 &::-ms-thumb {
                     appearance: none;
-                    height: 15px;
-                    width: 15px;
+                    height: 10px;
+                    width: 10px;
                 
                     cursor: pointer;
                     border-radius: 50%;
@@ -137,7 +144,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        font-size: 12px;
-        color: $color-white-120;
+        font-size: $font-size-xs;
+        color: $color-gray-800;
     }
 }

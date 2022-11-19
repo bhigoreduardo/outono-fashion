@@ -44,7 +44,8 @@ import { RangeboxComponent } from './components/rangebox/rangebox.component';
     RadioboxComponent,
     CommentaryComponent,
     RadiolocationComponent,
-    InputsmallComponent
+    InputsmallComponent,
+    RangeboxComponent
   ]
 })
 export class SharedModule { }

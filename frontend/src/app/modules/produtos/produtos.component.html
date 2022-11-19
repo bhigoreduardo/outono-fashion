@@ -89,8 +89,14 @@
                 ></app-checkbox>
             </div>
 
-            <h5>Faixa de Preço<i class="fas fa-minus" (click)="sidePreco=!sidePreco" [ngClass]="{'fa-plus': sidePreco == true}"></i></h5>
-            <div class="checkbox-container custom-scrollbar" [ngClass]="{hide: sidePreco == true}">
+            <h5>Faixa de Preço<i class="fas fa-minus" (click)="sidePreco=!sidePreco" [ngClass]="{'fa-plus': sidePreco == false}"></i></h5>
+            <div class="checkbox-container custom-scrollbar" [ngClass]="{hide: sidePreco == false}">
+                <app-rangebox
+                    [min]=0
+                    [max]=200
+                    [minGap]=20
+                    [show]="sidePreco"
+                ></app-rangebox>
             </div>
 
             <div class="button-group">

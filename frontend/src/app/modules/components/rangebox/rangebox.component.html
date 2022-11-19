@@ -1,14 +1,14 @@
-<div class="rangebox">
+<div class="rangebox" *ngIf="show">
     <div class="values">
-        <span id="min-value">0</span>
-        <span>&dash;</span>
-        <span id="max-value">100</span>
+        <span id="min-value">{{minValue | currency:'BRL'}}</span>
+        <span><i class="fas fa-minus"></i></span>
+        <span id="max-value">{{maxValue | currency:'BRL'}}</span>
     </div>
 
     <label class="range-label">
-        <div class="slider-track"></div>
-        <input type="range" name="min" min="0" max="1526" value="30" id="min-scale" />
-        <input type="range" name="max" min="0" max="1526" value="70" id="max-scale" />
+        <div class="slider-track" #sliderTrack></div>
+        <input type="range" name="min" [min]="min" [max]="max" [value]="minValue" #minScale (input)="setMinScale()" />
+        <input type="range" name="max" [min]="min" [max]="max" [value]="maxValue" #maxScale (input)="setMaxScale()" />
     </label>
 
     <div class="label-text">
