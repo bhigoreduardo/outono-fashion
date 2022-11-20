@@ -13,7 +13,7 @@ export class ProdutoService {
   constructor(private httpClient: HttpClient) { }
 
   findProdutos(genero?: string[], categoria?: string[], tipo?: string[],
-    cor?: string[], tamanho?: string[], marca?: string[]): Observable<IProduto[]> {
+    cor?: string[], tamanho?: string[], marca?: string[], precoMin?: number, precoMax?: number, order?: string): Observable<IProduto[]> {
     let url = environment.domain + 'produtos';
 
     let operator: string = '?';
@@ -100,6 +100,18 @@ export class ProdutoService {
 
       });
 
+    }
+
+    if (precoMin != undefined && precoMax != undefined) {
+      url += operator + 'precoMin=' + precoMin + '&precoMax=' + precoMax;
+
+      if (operator == '?') {
+        operator = '&';
+      }
+    }
+
+    if (order != undefined) {
+      url += operator + 'order=' + order;
     }
 
     return this.httpClient.get<IProduto[]>(url).pipe(map(res => res));

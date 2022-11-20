@@ -133,7 +133,7 @@
                 }
 
                 &:active::-webkit-slider-thumb {
-                    background-color: #fff;
+                    background-color: $color-white;
                     border: 3px solid $color-warning;
                 }
             }

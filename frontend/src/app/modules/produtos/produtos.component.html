@@ -96,6 +96,8 @@
                     [max]=200
                     [minGap]=20
                     [show]="sidePreco"
+                    [minValue]="minValue"
+                    [maxValue]="maxValue"
                 ></app-rangebox>
             </div>
 
@@ -122,14 +124,14 @@
             <div class="sorted">
                 ordernar por
                 <div class="select-box">
-                    <select name="order" id="order" class="select-field" required>
+                    <select name="order" id="order" class="select-field">
                         <option selected disabled>Filtrar por</option>
-                        <option value="populares">Mais populares</option>
-                        <option value="vendidos">Mais vendidos</option>
-                        <option value="lancamento">Lançamentos</option>
+                        <option value="populares">Populares</option>
+                        <option value="mais-vendidos">Mais Vendidos</option>
+                        <option value="novos">Novos</option>
                         <option value="ofertas">Ofertas</option>
-                        <option value="maior-preco">Maior Preço</option>
-                        <option value="menor-preco">Menor Preço</option>
+                        <option value="mais-caro">Mais Caro</option>
+                        <option value="mais-barato">Mais Barato</option>
                     </select>
                 </div>
             </div>
@@ -148,11 +150,11 @@
         </div>
 
         <div class="pagination">
-            <button [disabled]="page == 0" name="page" value="{{page}}" (click)="page=page-1"><i class="fa fa-chevron-left"></i></button>
+            <!-- <button [disabled]="page == 0" name="page" value="{{page}}" (click)="page=page-1"><i class="fa fa-chevron-left"></i></button> -->
 
             <button [ngClass]="{active: p == page}" *ngFor="let p of arrPages" name="page" value="{{p}}">{{p}}</button>
 
-            <button [disabled]="page == pages + 1" name="page" value="{{page}}" (click)="page=page+1"><i class="fa fa-chevron-right"></i></button>
+            <!-- <button [disabled]="page == pages + 1" name="page" value="{{page}}" (click)="page=page+1"><i class="fa fa-chevron-right"></i></button> -->
         </div>
     </section>
     <!-- / LIST -->

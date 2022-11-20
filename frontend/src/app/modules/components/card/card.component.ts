@@ -27,10 +27,14 @@ export class CardComponent {
 
     console.log(nome + id);
 
-    this.router.navigate(['produtos', nome, id]);
+    // this.router.navigate(['produtos', nome, id]);
+
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['produtos', nome, id]);
+    });
 
     // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-    //   this.router.navigate(['produtos'], { queryParams: query });
+    //   this.router.navigate(['produtos', nome, id], { queryParams: query });
     // });
   }
 

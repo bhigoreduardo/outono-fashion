@@ -34,10 +34,11 @@ public class ProdutoController {
 			@RequestParam(defaultValue = "") String[] marca,
 			@RequestParam(defaultValue = "") String[] cor,
 			@RequestParam(defaultValue = "") String precoMin,
-			@RequestParam(defaultValue = "") String precoMax) {
+			@RequestParam(defaultValue = "") String precoMax,
+			@RequestParam(defaultValue = "") String order) {
 
 		return produtoModelAssembler.toCollectionModel(
-				produtoService.findProdutos(categoria, tipo, genero, tamanho, marca, cor, precoMin, precoMax));
+				produtoService.findProdutos(categoria, tipo, genero, tamanho, marca, cor, precoMin, precoMax, order));
 		
 	}
 	

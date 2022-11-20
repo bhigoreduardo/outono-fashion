@@ -64,15 +64,14 @@ public class ProdutoService implements IProdutoService {
 
 	@Autowired
 	private CorRepository corRepository;
-	
+
 	public Produto findById(Long produtoId) {
-		return produtoRepository.findById(produtoId)
-				.orElseThrow(() -> new ProdutoNaoEncontradoException(produtoId));
+		return produtoRepository.findById(produtoId).orElseThrow(() -> new ProdutoNaoEncontradoException(produtoId));
 	}
 
 	@Override
 	public List<Produto> findProdutos(String[] categoria, String[] tipo, String[] genero, String[] tamanho,
-			String[] marca, String[] cor, String precoMin, String precoMax) {
+			String[] marca, String[] cor, String precoMin, String precoMax, String order) {
 
 		// Created Query
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
@@ -306,28 +305,39 @@ public class ProdutoService implements IProdutoService {
 				predicates.add(produtoRoot.get("id").in(produtoIds));
 
 			} else {
-				
+
 				// Gambiarra
 				predicates.add(produtoRoot.get("nome").in("nenhum"));
-				
+
 			}
 
 		}
 
 		produtoQuery.where(predicates.toArray(new Predicate[0]));
-		
+
+		if (order.length() != 0) {
+			System.out.println(order);
+			if (order.equals("populares")) {
+				
+			} else if (order.equals("mais-vendidos")) {
+				
+			} else if (order.equals("novos")) {
+				produtoQuery.orderBy(criteriaBuilder.desc(produtoRoot.get("dataCadastro")));
+			} else if (order.equals("ofertas")) {
+				
+			} else if (order.equals("mais-caro")) {
+				
+			} else if (order.equals("mais-barato")) {
+				
+			}
+		} else {
+			produtoQuery.orderBy(criteriaBuilder.asc(produtoRoot.get("id")));
+		}
+
 		TypedQuery<Produto> query = entityManager.createQuery(produtoQuery);
-		
-		//Integer totalRows = query.getResultList().size();
-		
-		//query.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
-		//query.setMaxResults(pageable.getPageSize());
-		
-		//Page<Produto> result = new PageImpl<Produto>(query.getResultList(), pageable, totalRows);
-		//Page<Produto> result = new PageImpl<>(query.getResultList());
 
 		return query.getResultList();
-		
+
 	}
 
 	@Override

@@ -29,9 +29,9 @@ export class ProdutosComponent implements OnInit {
   cores: ICor[] = [];
   tamanhos: ITamanho[] = [];
   marcas: IMarca[] = [];
-
-  // Order Filter
-  order: string = 'filtrar';
+  minValue: number | undefined;
+  maxValue: number | undefined;
+  order!: string;
 
   // Navigation Vars
   page!: number;
@@ -88,7 +88,7 @@ export class ProdutosComponent implements OnInit {
     this.sideTamanho = false;
     this.sideCor = false;
     this.sideMarca = false;
-    this.sidePreco = false;
+    this.sidePreco = (this.minValue != undefined || this.maxValue != undefined);
 
     this.sideBars = false;
 
@@ -106,17 +106,29 @@ export class ProdutosComponent implements OnInit {
     this.tamanho = queryParams.getAll('tamanho').map(value => this.replaceAll(value, '-', ' '));
     this.marca = queryParams.getAll('marca').map(value => this.replaceAll(value, '-', ' '));
 
+    if (queryParams.get('min') != null) {
+      this.minValue = Number(queryParams.get('min'));
+    }
+
+    if (queryParams.get('max') != null) {
+      this.maxValue = Number(queryParams.get('max'));
+    }
+
+    if (queryParams.get('order') != null) {
+      this.order = queryParams.get('order')!;
+    }
+
     // Get URL Page Values
     this.page = (Number(queryParams.get('page')) == 0) ? 1 : Number(queryParams.get('page'));
     this.size = (Number(queryParams.get('size')) == 0) ? 4 : Number(queryParams.get('size'));
 
     // Get All Produtos
-    this.findProdutos(this.genero, this.categoria, this.tipo, this.cor, this.tamanho, this.marca);
+    this.findProdutos(this.genero, this.categoria, this.tipo, this.cor, this.tamanho, this.marca, this.minValue, this.maxValue, this.order);
   }
 
   findProdutos(genero?: string[], categoria?: string[], tipo?: string[],
-    cor?: string[], tamanho?: string[], marca?: string[]) {
-    this.produtoService.findProdutos(genero, categoria, tipo, cor, tamanho, marca).subscribe(
+    cor?: string[], tamanho?: string[], marca?: string[], precoMin?: number, precoMax?: number, order?: string) {
+    this.produtoService.findProdutos(genero, categoria, tipo, cor, tamanho, marca, precoMin, precoMax, order).subscribe(
       data => {
 
         this.produtos = data;
@@ -195,6 +207,9 @@ export class ProdutosComponent implements OnInit {
 
     // Tamanho
     this.tamanho = [];
+
+    // Preço
+    this.sidePreco = false;
   }
 
   pageUp() {

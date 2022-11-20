@@ -16,7 +16,7 @@ import { ProdutosComponent } from './produtos.component';
     CommonModule,
     ProdutosRoutingModule,
     SharedModule,
-    SwiperModule,
+    SwiperModule
   ]
 })
 export class ProdutosModule { }
