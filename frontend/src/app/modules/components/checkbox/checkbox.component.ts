@@ -7,6 +7,7 @@ import { Component, Input } from '@angular/core';
 })
 export class CheckboxComponent {
 
+  @Input() type: string = 'checkbox';
   @Input() title!: string;
   @Input() name!: string;
   @Input() value!: string;

@@ -5,10 +5,25 @@
     grid-template-columns: repeat(2, 1fr);
     align-items: center;
     justify-content: space-between;
-    gap: 130px;
+    gap: 100px;
+
+    @media screen and (max-width: 990px) {
+        gap: 20px;
+    }
+
+    @media screen and (max-width: 900px) {
+        grid-template-columns: 100%;
+    }
 
     .login--content {
+        max-height: 100vh;
+        padding: 50px 0;
+        overflow-y: auto;
         text-align: center;
+
+        &::-webkit-scrollbar {
+            appearance: none;
+        }
 
         .logo {
             img {
@@ -25,7 +40,89 @@
             text-transform: uppercase;
             margin-top: 30px;
             margin-bottom: 40px;
-          }
+        }
+
+        .form-data {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+
+            .input-wrapper {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .submit-wrapper {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+
+                .forget-password {
+                    font-size: $font-size-sm;
+                    line-height: $line-height-sm;
+                    color: $color-gray-700;
+                    text-align: end;
+                    margin-bottom: 40px;
+                    transition: all 200ms ease-in;
+
+                    &:hover {
+                        color: $color-warning;
+                    }
+                }
+            }
+        }
+
+        .form-register {
+            button {
+                margin-top: 20px;
+            }
+        }
+
+        button {
+            width: 100%;
+        }
+
+        .form-option {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+
+            @media screen and (max-width: 370px) {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        .terms {
+            display: block;
+            margin: 0 auto;
+            font-size: $font-size-sm;
+            line-height: $line-height-sm;
+            color: $color-gray-800;
+            font-weight: $font-weight-regular;
+            margin-bottom: 10px;
+
+            @media screen and (max-width: 370px) {
+                font-size: $font-size-xs;
+                line-height: $line-height-xs;
+            }
+
+            a {
+                display: inline-block;
+                color: $color-warning;
+            }
+        }
+    }
+
+    .login--banner {
+        max-height: 100vh;
+
+        @media screen and (max-width: 900px) {
+            display: none;
+        }
     }
 
 }

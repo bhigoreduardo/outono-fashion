@@ -56,7 +56,7 @@ public class Usuario {
 	private OffsetDateTime dataAtualizacao;
 
 	@Column(nullable = false)
-	private Boolean ativo = true;
+	private Boolean ativo = Boolean.TRUE;
 
 	// Banco
 
