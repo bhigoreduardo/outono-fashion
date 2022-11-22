@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IUsuarioSenhaInput } from 'src/app/model/IUsuario';
+import { IUsuarioLoginInput, IUsuarioSenhaInput } from 'src/app/model/IUsuario';
 import { IGenero } from '../../model/IGenero';
 import { LoginService } from './service/login.service';
 
@@ -108,6 +108,22 @@ export class LoginComponent implements OnInit {
   }
 
   sendLogin(values: any): void {
+    const usuarioLoginInput: IUsuarioLoginInput = {
+      email: values.email,
+      senha: values.senha
+    }
+
+    this.loginService.authLogin(usuarioLoginInput).subscribe(
+      res => {
+        localStorage.setItem('usuarioLoginModel', JSON.stringify(res));
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigate(['/conta']);
+        })
+      }, error => {
+        this.message = error.error.userMessage;
+      }
+    )
+
     console.log(values);
   }
 

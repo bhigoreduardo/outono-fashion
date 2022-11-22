@@ -1,7 +1,5 @@
 package com.outonofashion.api.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.outonofashion.api.assembler.UsuarioInputDisassembler;
 import com.outonofashion.api.assembler.UsuarioModelAssembler;
+import com.outonofashion.api.model.UsuarioLoginModel;
 import com.outonofashion.api.model.UsuarioModel;
 import com.outonofashion.api.model.input.SenhaInput;
 import com.outonofashion.api.model.input.UsuarioInput;
+import com.outonofashion.api.model.input.UsuarioLoginInput;
 import com.outonofashion.api.model.input.UsuarioSenhaInput;
 import com.outonofashion.domain.model.Usuario;
 import com.outonofashion.domain.service.UsuarioService;
@@ -38,9 +38,11 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioInputDisassembler usuarioInputDisassembler;
 	
-	@GetMapping
-	public List<UsuarioModel> findAll() {
-		return usuarioModelAssembler.toCollectionModel(usuarioService.findAll());
+	@PostMapping("/login")
+	public UsuarioLoginModel authLogin(@RequestBody @Valid UsuarioLoginInput usuarioLoginInput) {
+		Usuario usuario = usuarioService.authLogin(usuarioLoginInput.getEmail(), usuarioLoginInput.getSenha());
+		
+		return usuarioModelAssembler.toLoginModel(usuario);
 	}
 	
 	@GetMapping("/{usuarioId}")
@@ -75,5 +77,7 @@ public class UsuarioController {
 		usuarioService.setSenha(usuarioId, senha.getSenhaAtual(), senha.getNovaSenha());
 		return ResponseEntity.noContent().build();
 	}
+	
+	
 
 }

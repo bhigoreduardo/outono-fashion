@@ -1,6 +1,5 @@
 package com.outonofashion.domain.service;
 
-import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -18,6 +17,8 @@ import com.outonofashion.domain.repository.UsuarioRepository;
 @Service
 public class UsuarioService {
 
+	private final String USER_NAO_ENCONTRADO = "Usuário com E-mail: %s não foi encontrado.";
+	private final String SENHA_INCORRETA = "Senha informada etá incorreta";
 	private final String USER_EMAIL_CPFCNPJ = "Usuário com E-mail: %s e CPF-CNPJ: %s já cadastrado.";
 	private final String USER_EMAIL = "Usuário com E-mail: %s já cadastrado.";
 	private final String USER_CPFCNPJ = "Usuário com CPF-CNPJ: %s já cadastrado.";
@@ -31,8 +32,15 @@ public class UsuarioService {
 	@Autowired
 	private GrupoService grupoService;
 
-	public List<Usuario> findAll() {
-		return usuarioRepository.findAll();
+	public Usuario authLogin(String email, String senha) {
+		Usuario usuario = usuarioRepository.findByEmail(email)
+				.orElseThrow(() -> new UsuarioNaoEncontradoException(String.format(USER_NAO_ENCONTRADO, email)));
+		
+		if (passwordEncoder.matches(senha, usuario.getSenha())) {
+			return usuario;
+		}
+		
+		throw new NegocioException(SENHA_INCORRETA);
 	}
 
 	public Usuario findById(Long usuarioId) {

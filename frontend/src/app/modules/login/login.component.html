@@ -46,7 +46,7 @@
                 </div>
 
                 <div class="submit-wrapper">
-                    <button type="button" (click)="sendLogin(formLogin.value)"
+                    <button type="button" (click)="sendLogin(formLogin.value)" [disabled]="formLogin.invalid"
                         class="button button-warning button-uppercase button-semi button-base">
                         Entrar
                     </button>

@@ -10,3 +10,7 @@ export interface IGeneroInput {
 export interface IGeneroModel {
     descricao: string;
 }
+
+export interface IGeneroResumoModel {
+    descricao: string;
+}

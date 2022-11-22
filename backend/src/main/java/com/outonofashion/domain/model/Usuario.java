@@ -63,6 +63,9 @@ public class Usuario {
 
 	@Column(nullable = false)
 	private Boolean ativo = Boolean.TRUE;
+	
+	@Column(nullable = false)
+	private Boolean newsletter = Boolean.FALSE;
 
 	// Banco
 

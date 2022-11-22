@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.outonofashion.api.model.UsuarioLoginModel;
 import com.outonofashion.api.model.UsuarioModel;
 import com.outonofashion.domain.model.Usuario;
 
@@ -18,6 +19,10 @@ public class UsuarioModelAssembler {
 
 	public UsuarioModel toModel(Usuario usuario) {
 		return modelMapper.map(usuario, UsuarioModel.class);
+	}
+	
+	public UsuarioLoginModel toLoginModel(Usuario usuario) {
+		return modelMapper.map(usuario, UsuarioLoginModel.class);
 	}
 	
 	public List<UsuarioModel> toCollectionModel(List<Usuario> usuarios) {

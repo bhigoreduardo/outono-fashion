@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { IUsuarioModel, IUsuarioSenhaInput } from 'src/app/model/IUsuario';
+import { IUsuarioLoginInput, IUsuarioLoginModel, IUsuarioModel, IUsuarioSenhaInput } from 'src/app/model/IUsuario';
 import { environment } from 'src/environments/environment';
 import { IGenero } from '../../../model/IGenero';
 
@@ -11,6 +11,14 @@ import { IGenero } from '../../../model/IGenero';
 export class LoginService {
 
   constructor(private httpClient: HttpClient) { }
+
+  authLogin(usuarioLoginModel: IUsuarioLoginInput): Observable<IUsuarioLoginModel> {
+    let url = environment.domain + 'usuarios/login';
+
+    return this.httpClient
+      .post<IUsuarioLoginModel>(url, usuarioLoginModel)
+      .pipe(map(res => res));
+  }
 
   insert(usuarioInput: IUsuarioSenhaInput): Observable<IUsuarioModel> {
     let url = environment.domain + 'usuarios';
@@ -29,3 +37,13 @@ export class LoginService {
   }
 
 }
+
+// let headers = new HttpHeaders();
+    // let params = new HttpParams();
+
+    // params = params.append('email', usuarioLoginModel.email);
+    // params = params.append('senha', usuarioLoginModel.senha);
+
+    // return this.httpClient
+    //   .get<IUsuarioLoginModel>(url, { headers,  params})
+    //   .pipe(map(res => res));
