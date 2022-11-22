@@ -9,15 +9,16 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import com.outonofashion.domain.exception.genero.GeneroEmUsoException;
-import com.outonofashion.domain.exception.genero.GeneroJaCadastroException;
-import com.outonofashion.domain.exception.genero.GeneroNaoEncontradoException;
+import com.outonofashion.domain.exception.GeneroEmUsoException;
+import com.outonofashion.domain.exception.GeneroNaoEncontradoException;
+import com.outonofashion.domain.exception.NegocioException;
 import com.outonofashion.domain.model.Genero;
 import com.outonofashion.domain.repository.GeneroRepository;
 
 @Service
 public class GeneroService {
 	
+	private final String GENERO_JA_CADASTRADO = "Gênero descrição %s já foi cadastrado.";
 	private final String GENERO_EM_USO = "Gênero cód. %d está em uso.";
 	
 	@Autowired
@@ -40,7 +41,7 @@ public class GeneroService {
 			generoRepository.flush();
 			return genero;
 		} catch (DataIntegrityViolationException ex) {
-			throw new GeneroJaCadastroException(genero.getDescricao());
+			throw new NegocioException(String.format(GENERO_JA_CADASTRADO, genero.getDescricao()));
 		}
 		
 	}

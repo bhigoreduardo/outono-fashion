@@ -4,23 +4,20 @@ import java.io.Serializable;
 
 import javax.persistence.Embeddable;
 
-import com.outonofashion.domain.model.Cor;
-import com.outonofashion.domain.model.Produto;
-import com.outonofashion.domain.model.Tamanho;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
+@NoArgsConstructor
+@Embeddable
 public class EstoqueId implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
-	private Produto produto;
-	private Cor cor;
-	private Tamanho tamanho;
+	private static final long serialVersionUID = -96922390495200225L;
 
+	private Long produtoId;
+	private Long corId;
+	private Long tamanhoId;
+	
 }

@@ -19,13 +19,7 @@ public class Tipo {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private String descricao;
-
-	/*
-	@ManyToOne
-	@JoinColumn(nullable = false, foreignKey = @ForeignKey(name = "fk_tipo_categoria"))
-	private Categoria categoria;
-	*/
 
 }

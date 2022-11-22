@@ -3,8 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CarrinhoService } from 'src/app/modules/carrinho/service/carrinho.service';
 
 import { SwiperOptions } from 'swiper';
-import { ICor } from '../../model/ICor';
-import { IProduto, IProdutoCarrinho, IProdutoDetalhe } from '../../model/IProduto';
+import { ICorModel } from '../../../../model/ICor';
+import { IProdutoModel, IProdutoCarrinho, IProdutoDetalheModel } from '../../../../model/IProduto';
 
 import { ProdutoService } from '../../service/produto.service';
 
@@ -15,15 +15,15 @@ import { ProdutoService } from '../../service/produto.service';
 })
 export class IndividualComponent implements OnInit {
   // Produto
-  produto!: IProdutoDetalhe;
+  produto!: IProdutoDetalheModel;
 
   // Produtos Slide
-  produtosGenero: IProduto[] = [];
-  produtosCategoria: IProduto[] = [];
+  produtosGenero: IProdutoModel[] = [];
+  produtosCategoria: IProdutoModel[] = [];
 
   // Produto Vars
   price!: number;
-  colors: ICor[] = [];
+  colors: ICorModel[] = [];
   stockQuantity!: number; // Stock Quantity
   installment: number = 12;
 
@@ -98,9 +98,9 @@ export class IndividualComponent implements OnInit {
   }
 
   async getProdutoDescription() {
-    this.produto = <IProdutoDetalhe>await this.getProduto();
-    this.produtosGenero = <IProduto[]>await this.getProdutoGenero([this.produto.genero.descricao]);
-    this.produtosCategoria = <IProduto[]>await this.getProdutosCategoria([this.produto.genero.descricao], [this.produto.categoria.descricao]);
+    this.produto = <IProdutoDetalheModel>await this.getProduto();
+    this.produtosGenero = <IProdutoModel[]>await this.getProdutoGenero([this.produto.genero.descricao]);
+    this.produtosCategoria = <IProdutoModel[]>await this.getProdutosCategoria([this.produto.genero.descricao], [this.produto.categoria.descricao]);
 
     // Root Image
     this.pathImage += this.replaceAll(this.produto.genero.descricao, ' ', '-') + '/';

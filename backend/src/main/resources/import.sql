@@ -1,3 +1,22 @@
+
+-- Permissao Gerente
+INSERT INTO permissao (nome, descricao) VALUES ('EDITAR_USUARIOS', 'Permite criar ou editar usuário existente.'), ('EDITAR_PERMISSAO', 'Permite criar ou editar permissão existente.'), ('EDITAR_GRUPO', 'Permite criar ou editar grupo existente.'), ('CONSULTAR_USUARIOS', 'Permite consultar usuário existente.');
+
+-- Permissao Gerente/Cadastrador
+INSERT INTO permissao (nome, descricao) VALUES ('EDITAR_FORMA_PAGAMENTO', 'Permite criar ou editar forma de pagamento.'), ('EDITAR_PRODUTO', 'Permite criar ou editar produto cadastrado.');
+
+-- Permissao Gerente/Vendedor
+INSERT INTO permissao (nome, descricao) VALUES ('EDITAR_PEDIDO', 'Permite editar informações do pedido.'), ('GERAR_RELATORIOS', 'Permite gerar relatórios.');
+
+-- Permissao Gerente/Cadastrador/Vendedor/Cliente
+INSERT INTO permissao (nome, descricao) VALUES ('CONSULTAR PRODUTO', 'Permite visualizar informações do produto.'), ('EDITAR_DADOS', 'Permite criar ou editar dados individuais.'), ('CRIAR_PEDIDO', 'Permite criar novo pedido');
+
+-- Grupo
+INSERT INTO grupo (nome) VALUES ('Gerente'), ('Vendedor'), ('Cadastrador'), ('Cliente');
+
+-- Pagamento
+INSERT INTO pagamento (descricao, ativo, data_atualizacao) VALUES ('Cartão de crédito', true, now()), ('Cartão de débito', true, now()), ('Dinheiro', true, now()), ('PIX', true, now());
+
 -- Gênero
 INSERT INTO genero (descricao) VALUES ('Masculino'), ('Feminino'), ('Menino'), ('Menina'), ('Unissex');
 

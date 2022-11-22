@@ -1,15 +1,21 @@
 package com.outonofashion.domain.model;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -36,7 +42,7 @@ public class Usuario {
 	@Column(nullable = false, length = 120, unique = true)
 	private String email;
 
-	@Column(nullable = false, length = 20)
+	@Column(nullable = false)
 	private String senha;
 
 	@Column(nullable = false, length = 14, unique = true)
@@ -45,7 +51,7 @@ public class Usuario {
 	@Column(nullable = false, length = 14)
 	private String rgIe;
 
-	private Date dataNascimento;
+	private LocalDate dataNascimento;
 
 	@Column(nullable = false)
 	@CreationTimestamp
@@ -67,13 +73,39 @@ public class Usuario {
 	// Foto
 
 	// Endereco
+	@OneToMany(mappedBy = "usuario")
+	private Set<Endereco> enderecos = new HashSet<>();
 
-	// Cartao
+	@OneToMany(mappedBy = "usuario")
+	private Set<Cartao> cartoes = new HashSet<>();
 
 	@JoinColumn(nullable = false)
-	@ManyToOne
-	private Grupo grupo;
+	@ManyToMany
+	@JoinTable(name = "usuario_grupo",
+			joinColumns = @JoinColumn(name = "usuario_id", foreignKey = @ForeignKey(name = "fk_usuario_id")),
+			inverseJoinColumns = @JoinColumn(name = "grupo_id", foreignKey = @ForeignKey(name = "fk_grupo_id")))
+	private Set<Grupo> grupos = new HashSet<>();
 
 	// Telefone
+	
+	public boolean isSenhaCheck(String senha) {
+		return getSenha().equals(senha);
+	}
+	
+	public boolean isSenhaNotCheck(String senha) {
+		return !isSenhaCheck(senha);
+	}
+	
+	public boolean addGrupo(Grupo grupo) {
+		return getGrupos().add(grupo);
+	}
+	
+	public boolean removeGrupo(Grupo grupo) {
+		return getGrupos().remove(grupo);
+	}
+	
+	public boolean isNovoUsuario() {
+		return getId() == null;
+	}
 
 }

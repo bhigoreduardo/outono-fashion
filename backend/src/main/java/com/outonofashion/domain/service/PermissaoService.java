@@ -9,15 +9,16 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import com.outonofashion.domain.exception.permissao.PermissaoEmUsoException;
-import com.outonofashion.domain.exception.permissao.PermissaoJaCadastradoException;
-import com.outonofashion.domain.exception.permissao.PermissaoNaoEncontradaException;
+import com.outonofashion.domain.exception.NegocioException;
+import com.outonofashion.domain.exception.PermissaoEmUsoException;
+import com.outonofashion.domain.exception.PermissaoNaoEncontradaException;
 import com.outonofashion.domain.model.Permissao;
 import com.outonofashion.domain.repository.PermissaoRepository;
 
 @Service
 public class PermissaoService {
 
+	private final String PERMISSAO_JA_CADASTRADA = "Permissão cód. %d já foi cadastrada.";
 	private final String PERMISSAO_EM_USO = "Permissão cód. %d está em uso.";
 
 	@Autowired
@@ -41,7 +42,7 @@ public class PermissaoService {
 			
 			return permissao;
 		} catch (DataIntegrityViolationException ex) {
-			throw new PermissaoJaCadastradoException(permissao.getDescricao());
+			throw new NegocioException(String.format(PERMISSAO_JA_CADASTRADA, permissao.getNome()));
 		}
 
 	}

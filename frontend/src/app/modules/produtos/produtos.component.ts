@@ -3,13 +3,13 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, retry } from 'rxjs';
 
 import SwiperCore, { SwiperOptions } from 'swiper';
-import { ICategoria } from './model/ICategoria';
-import { ICor } from './model/ICor';
-import { IGenero } from './model/IGenero';
-import { IMarca } from './model/IMarca';
-import { IProduto } from './model/IProduto';
-import { ITamanho } from './model/ITamanho';
-import { ITipo } from './model/ITipo';
+import { ICategoriaModel } from '../../model/ICategoria';
+import { ICorModel } from '../../model/ICor';
+import { IGenero } from '../../model/IGenero';
+import { IMarcaModel } from '../../model/IMarca';
+import { IProdutoModel } from '../../model/IProduto';
+import { ITamanhoModel } from '../../model/ITamanho';
+import { ITipoModel } from '../../model/ITipo';
 import { ProdutoService } from './service/produto.service';
 
 @Component({
@@ -19,16 +19,16 @@ import { ProdutoService } from './service/produto.service';
 })
 export class ProdutosComponent implements OnInit {
   // Produtos
-  produtos: IProduto[] = [];
-  produtosList: IProduto[] = [];
+  produtos: IProdutoModel[] = [];
+  produtosList: IProdutoModel[] = [];
 
   // Sidebar Check Vars
   generos: IGenero[] = [];
-  categorias: ICategoria[] = [];
-  tipos: ITipo[] = [];
-  cores: ICor[] = [];
-  tamanhos: ITamanho[] = [];
-  marcas: IMarca[] = [];
+  categorias: ICategoriaModel[] = [];
+  tipos: ITipoModel[] = [];
+  cores: ICorModel[] = [];
+  tamanhos: ITamanhoModel[] = [];
+  marcas: IMarcaModel[] = [];
   minValue: number | undefined;
   maxValue: number | undefined;
   order!: string;
@@ -59,12 +59,12 @@ export class ProdutosComponent implements OnInit {
   loader!: boolean;
 
   // URL Values
-  genero: string[] = [];
-  categoria: string[] = [];
-  tipo: string[] = [];
-  cor: string[] = [];
-  tamanho: string[] = [];
-  marca: string[] = [];
+  generoURL: string[] = [];
+  categoriaURL: string[] = [];
+  tipoURL: string[] = [];
+  corURL: string[] = [];
+  tamanhoURL: string[] = [];
+  marcaURL: string[] = [];
 
   constructor(
     private produtoService: ProdutoService,
@@ -99,12 +99,12 @@ export class ProdutosComponent implements OnInit {
     const queryParams = this.activatedRoute.snapshot.queryParamMap;
 
     // Get URL and Replace Queries Values
-    this.genero = queryParams.getAll('genero').map(value => this.replaceAll(value, '-', ' '));
-    this.categoria = queryParams.getAll('categoria').map(value => this.replaceAll(value, '-', ' '));
-    this.tipo = queryParams.getAll('tipo').map(value => this.replaceAll(value, '-', ' '));
-    this.cor = queryParams.getAll('cor').map(value => this.replaceAll(value, '-', ' '));
-    this.tamanho = queryParams.getAll('tamanho').map(value => this.replaceAll(value, '-', ' '));
-    this.marca = queryParams.getAll('marca').map(value => this.replaceAll(value, '-', ' '));
+    this.generoURL = queryParams.getAll('genero').map(value => this.replaceAll(value, '-', ' '));
+    this.categoriaURL = queryParams.getAll('categoria').map(value => this.replaceAll(value, '-', ' '));
+    this.tipoURL = queryParams.getAll('tipo').map(value => this.replaceAll(value, '-', ' '));
+    this.corURL = queryParams.getAll('cor').map(value => this.replaceAll(value, '-', ' '));
+    this.tamanhoURL = queryParams.getAll('tamanho').map(value => this.replaceAll(value, '-', ' '));
+    this.marcaURL = queryParams.getAll('marca').map(value => this.replaceAll(value, '-', ' '));
 
     if (queryParams.get('min') != null) {
       this.minValue = Number(queryParams.get('min'));
@@ -123,7 +123,7 @@ export class ProdutosComponent implements OnInit {
     this.size = (Number(queryParams.get('size')) == 0) ? 4 : Number(queryParams.get('size'));
 
     // Get All Produtos
-    this.findProdutos(this.genero, this.categoria, this.tipo, this.cor, this.tamanho, this.marca, this.minValue, this.maxValue, this.order);
+    this.findProdutos(this.generoURL, this.categoriaURL, this.tipoURL, this.corURL, this.tamanhoURL, this.marcaURL, this.minValue, this.maxValue, this.order);
   }
 
   findProdutos(genero?: string[], categoria?: string[], tipo?: string[],
@@ -191,22 +191,22 @@ export class ProdutosComponent implements OnInit {
 
   clearQueries() {
     // Gênero
-    this.genero = [];
+    this.generoURL = [];
 
     // Categoria
-    this.categoria = [];
+    this.categoriaURL = [];
 
     // Tipo
-    this.tipo = [];
+    this.tipoURL = [];
 
     // Marca
-    this.marca = [];
+    this.marcaURL = [];
 
     // Cor
-    this.cor = [];
+    this.corURL = [];
 
     // Tamanho
-    this.tamanho = [];
+    this.tamanhoURL = [];
 
     // Preço
     this.sidePreco = false;

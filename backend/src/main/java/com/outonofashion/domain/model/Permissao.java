@@ -20,9 +20,9 @@ public class Permissao {
 	private Long id;
 	
 	@Column(nullable = false, length = 40, unique = true)
-	private String descricao;
+	private String nome;
 
 	@Column(nullable = false)
-	private Integer acesso;
+	private String descricao;
 
 }

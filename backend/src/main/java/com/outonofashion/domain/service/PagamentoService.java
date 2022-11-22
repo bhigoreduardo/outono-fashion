@@ -8,13 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import com.outonofashion.domain.exception.pagamento.PagamentoJaCadastradoException;
-import com.outonofashion.domain.exception.pagamento.PagamentoNaoEncontradoException;
+import com.outonofashion.domain.exception.NegocioException;
+import com.outonofashion.domain.exception.PagamentoNaoEncontradoException;
 import com.outonofashion.domain.model.Pagamento;
 import com.outonofashion.domain.repository.PagamentoRepository;
 
 @Service
 public class PagamentoService {
+	
+	private final String PAGAMENTO_JA_CADASTRADO = "Pagamento descrição %s já foi cadastrado.";
 
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
@@ -37,9 +39,21 @@ public class PagamentoService {
 			
 			return pagamento;		
 		} catch (DataIntegrityViolationException ex) {
-			throw new PagamentoJaCadastradoException(pagamento.getDescricao());
+			throw new NegocioException(String.format(PAGAMENTO_JA_CADASTRADO, pagamento.getDescricao()));
 		}
 		
+	}
+	
+	@Transactional
+	public void active(Long pagamentoId) {
+		Pagamento pagamento = findById(pagamentoId);
+		pagamento.active();
+	}
+	
+	@Transactional
+	public void inactive(Long pagamentoId) {
+		Pagamento pagamento = findById(pagamentoId);
+		pagamento.inactive();
 	}
 
 }

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { CarrinhoRoutingModule } from './carrinho-routing.module';
 import { CarrinhoComponent } from './carrinho.component';
-import { SharedModule } from '../shared.module';
+import { SharedModule } from '../../shared.module';
 import { SwiperModule } from 'swiper/angular';
 import { FormsModule } from '@angular/forms';
 

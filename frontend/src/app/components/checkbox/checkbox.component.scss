@@ -1,0 +1,63 @@
+@import '../../../styles.scss';
+
+.checkbox .check-label {
+    display: block;
+    position: relative;
+    padding-left: 20px;
+
+    font-size: $font-size-sm;
+    line-height: $line-height-sm;
+    color: $color-gray-500;
+
+    cursor: pointer;
+
+    &:hover {
+        transition: all 200ms ease-in;
+        color: $color-warning;
+
+        .check-span {
+            transition: all 200ms ease-in;
+            border-color: $color-warning;
+            opacity: 1;
+        }
+    }
+
+    input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+
+        &:checked~.check-span {
+            opacity: 1;
+            background-color: $color-warning;
+            border-color: $color-warning;
+
+            &:after {
+                display: block;
+            }
+        }
+    }
+
+    .check-span {
+        position: absolute;
+        width: 13.5px;
+        height: 13.5px;
+        border: 2px solid $color-gray-500;
+        top: 3px;
+        left: 0;
+        opacity: 0.7;
+
+        &:after {
+            content: "";
+            display: none;
+            position: absolute;
+            top: 0px;
+            left: 2.5px;
+            height: 7px;
+            width: 5px;
+            border: solid $color-white;
+            border-width: 0 3px 3px 0;
+            transform: rotate(45deg);
+        }
+    }
+}

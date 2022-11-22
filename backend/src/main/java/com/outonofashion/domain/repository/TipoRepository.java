@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.outonofashion.domain.model.Tipo;
 
 @Repository
-public interface TipoRepository extends JpaRepository<Tipo, Long> {
+public interface TipoRepository extends JpaRepository<Tipo, Long>, TipoRepositoryQueries {
 
 	@Query(nativeQuery = true, value = "SELECT * FROM Tipo t WHERE UNACCENT(LOWER(t.descricao)) = UNACCENT(LOWER(:descricao))")
 	public Optional<Tipo> findByDescricao(String descricao);

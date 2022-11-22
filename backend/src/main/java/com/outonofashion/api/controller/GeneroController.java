@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.outonofashion.api.assembler.genero.GeneroModelAssembler;
-import com.outonofashion.api.assembler.genero.GeneroModelDiassembler;
-import com.outonofashion.api.model.genero.GeneroModel;
-import com.outonofashion.api.model.genero.input.GeneroInput;
+import com.outonofashion.api.assembler.GeneroInputDisassembler;
+import com.outonofashion.api.assembler.GeneroModelAssembler;
+import com.outonofashion.api.model.GeneroModel;
+import com.outonofashion.api.model.input.GeneroInput;
 import com.outonofashion.domain.model.Genero;
 import com.outonofashion.domain.service.GeneroService;
 
@@ -34,7 +34,7 @@ public class GeneroController {
 	private GeneroModelAssembler generoModelAssembler;
 
 	@Autowired
-	private GeneroModelDiassembler generoModelDiassembler;
+	private GeneroInputDisassembler generoInputDisassembler;
 
 	@GetMapping
 	public List<GeneroModel> findAll() {
@@ -49,7 +49,7 @@ public class GeneroController {
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping
 	public GeneroModel insert(@RequestBody @Valid GeneroInput generoInput) {
-		Genero genero = generoService.save(generoModelDiassembler.toDomain(generoInput));
+		Genero genero = generoService.save(generoInputDisassembler.toDomain(generoInput));
 
 		return generoModelAssembler.toModel(genero);
 	}
@@ -58,7 +58,7 @@ public class GeneroController {
 	public GeneroModel update(@RequestBody @Valid GeneroInput generoInput, @PathVariable Long generoId) {
 		Genero generoCurrent = generoService.findById(generoId);
 		
-		generoModelDiassembler.copyToDomain(generoInput, generoCurrent);
+		generoInputDisassembler.copyToDomain(generoInput, generoCurrent);
 		
 		return generoModelAssembler.toModel(generoService.save(generoCurrent));
 	}

@@ -1,3 +1,9 @@
+<!-- MESSAGE -->
+<app-message
+    [message]="message"
+></app-message>
+<!-- / MESSAGE -->
+
 <!-- LOGIN -->
 <section class="login container">
     <div class="login--content">
@@ -6,12 +12,13 @@
         <div *ngIf="!register" class="form-login">
             <h6>Já sou cadastrado</h6>
 
-            <form class="form-data">
+            <form class="form-data" [formGroup]="formLogin">
                 <div class="input-wrapper">
-                    <div class="input-small" [ngClass]="{invalid: formLogin.controls['login'].invalid && (formLogin.controls['login'].touched || formLogin.controls['login'].dirty), valid: formLogin.valid}">
-                        <label class="input-label" for="login">
-                            <input type="text" name="login" id="login" class="input-field" placeholder="Informe seu e-mail"
-                                required formControlName="login" />
+                    <div class="input-small"
+                        [ngClass]="{invalid: formLogin.controls['email'].invalid && (formLogin.controls['email'].touched || formLogin.controls['email'].dirty), valid: formLogin.valid}">
+                        <label class="input-label">
+                            <input type="text" class="input-field" placeholder="Informe seu e-mail"
+                                formControlName="email" />
                             <small class="small-label">E-mail</small>
                             <div class="group-icon">
                                 <i class="fas fa-check-circle"></i>
@@ -20,28 +27,34 @@
                         </label>
                     </div>
 
-                    <div class="input-small" [ngClass]="{invalid: formLogin.controls['senha'].invalid && (formLogin.controls['senha'].touched || formLogin.controls['senha'].dirty), valid: formLogin.valid}">
-                        <label class="input-label" for="senha">
-                            <input [type]="type" name="senha" id="senha" class="input-field" placeholder="Insira sua senha" required formControlName="senha" />
+                    <div class="input-small"
+                        [ngClass]="{invalid: formLogin.controls['senha'].invalid && (formLogin.controls['senha'].touched || formLogin.controls['senha'].dirty), valid: formLogin.valid}">
+                        <label class="input-label">
+                            <input [type]="passwordLoginType" class="input-field" placeholder="Insira sua senha"
+                                formControlName="senha" />
                             <small class="small-label">Senha</small>
                             <div class="group-icon">
-                                <i [ngClass]="{active: eyeActive}" (click)="setEye('text')" class="fas fa-eye"></i>
-                                <i [ngClass]="{active: !eyeActive}" (click)="setEye('password')" class="fas fa-eye-slash"></i>
+                                <i [ngClass]="{active: passwordLoginBoolean}" (click)="setPasswordLogin()"
+                                    class="fas fa-eye"></i>
+                                <i [ngClass]="{active: !passwordLoginBoolean}" (click)="setPasswordLogin()"
+                                    class="fas fa-eye-slash"></i>
                                 <i class="fas fa-check-circle"></i>
                                 <i class="fas fa-times-circle"></i>
                             </div>
                         </label>
                     </div>
-                 </div>
+                </div>
 
                 <div class="submit-wrapper">
-                    <button type="submit" class="button button-warning button-uppercase button-semi button-base">
+                    <button type="button" (click)="sendLogin(formLogin.value)"
+                        class="button button-warning button-uppercase button-semi button-base">
                         Entrar
                     </button>
                     <a class="forget-password">Esqueceu a senha?</a>
                 </div>
-    
-                <button type="button" class="button button-white button-uppercase button-semi button-base" (click)="setRegister()">
+
+                <button type="button" class="button button-white button-uppercase button-semi button-base"
+                    (click)="setRegister()">
                     Criar conta
                 </button>
             </form>
@@ -51,38 +64,26 @@
             <h6>Quero me cadastrar</h6>
 
             <div class="form-option">
-                <app-checkbox
-                    type="radio"
-                    title="Pessoa Física"
-                    placeholder="Pessoa Física"
-                    name="pessoa"
-                    value="pf"
-                    (click)="setRegisterType('pf')"
-                    [check]="registerType"
-                ></app-checkbox>
-    
-                <app-checkbox
-                    type="radio"
-                    title="Pessoa Jurídica"
-                    placeholder="Pessoa Jurídica"
-                    name="pessoa"
-                    value="pj"
-                    (click)="setRegisterType('pj')"
-                    [check]="registerType"
-                ></app-checkbox>
+                <app-checkbox type="radio" title="Pessoa Física" placeholder="Pessoa Física" name="pessoa" value="pf"
+                    (click)="setRegisterType('pf')" [check]="registerType"></app-checkbox>
+
+                <app-checkbox type="radio" title="Pessoa Jurídica" placeholder="Pessoa Jurídica" name="pessoa"
+                    value="pj" (click)="setRegisterType('pj')" [check]="registerType"></app-checkbox>
             </div>
 
             <span class="terms">
                 Eu concordo com os <a>Termos de serviço</a> e as
                 <a>Políticas de privacidade</a>
             </span>
-            
-            <form *ngIf="registerType == 'pf'" class="form-data form-pf">
+
+            <form *ngIf="registerType == 'pf'" class="form-data form-pf" [formGroup]="formInsertPF">
                 <div class="input-wrapper">
-                    <div class="input-small" [ngClass]="{invalid: formRegisterPF.controls['nome'].invalid && (formRegisterPF.controls['nome'].touched || formRegisterPF.controls['nome'].dirty), valid: formRegisterPF.valid}">
-                        <label class="input-label" for="nome">
-                            <input type="text" name="nome" id="nome" class="input-field" placeholder="Informe seu nome"
-                                required formControlName="nome" />
+                    <!-- Nome -->
+                    <div class="input-small"
+                        [ngClass]="{invalid: formInsertPF.controls['nome'].invalid && (formInsertPF.controls['nome'].touched || formInsertPF.controls['nome'].dirty), valid: formInsertPF.valid}">
+                        <label class="input-label">
+                            <input type="text" class="input-field" placeholder="Informe seu nome"
+                                formControlName="nome" />
                             <small class="small-label">Nome</small>
                             <div class="group-icon">
                                 <i class="fas fa-check-circle"></i>
@@ -91,10 +92,12 @@
                         </label>
                     </div>
 
-                    <div class="input-small" [ngClass]="{invalid: formRegisterPF.controls['sobrenome'].invalid && (formRegisterPF.controls['sobrenome'].touched || formRegisterPF.controls['sobrenome'].dirty), valid: formRegisterPF.valid}">
-                        <label class="input-label" for="sobrenome">
-                            <input type="text" name="sobrenome" id="sobrenome" class="input-field" placeholder="Informe seu sobrenome"
-                                required formControlName="sobrenome" />
+                    <!-- Sobrenome -->
+                    <div class="input-small"
+                        [ngClass]="{invalid: formInsertPF.controls['sobrenome'].invalid && (formInsertPF.controls['sobrenome'].touched || formInsertPF.controls['sobrenome'].dirty), valid: formInsertPF.valid}">
+                        <label class="input-label">
+                            <input type="text" class="input-field" placeholder="Informe seu sobrenome"
+                                formControlName="sobrenome" />
                             <small class="small-label">Sobrenome</small>
                             <div class="group-icon">
                                 <i class="fas fa-check-circle"></i>
@@ -103,10 +106,12 @@
                         </label>
                     </div>
 
-                    <div class="input-small" [ngClass]="{invalid: formRegisterPF.controls['login'].invalid && (formRegisterPF.controls['login'].touched || formRegisterPF.controls['login'].dirty), valid: formRegisterPF.valid}">
-                        <label class="input-label" for="login-pf">
-                            <input type="text" name="login-pf" id="login-pf" class="input-field" placeholder="Informe seu e-mail"
-                                required formControlName="login" />
+                    <!-- E-mail -->
+                    <div class="input-small"
+                        [ngClass]="{invalid: formInsertPF.controls['email'].invalid && (formInsertPF.controls['email'].touched || formInsertPF.controls['email'].dirty), valid: formInsertPF.valid}">
+                        <label class="input-label">
+                            <input type="email" class="input-field" placeholder="Informe seu e-mail"
+                                formControlName="email" />
                             <small class="small-label">E-mail</small>
                             <div class="group-icon">
                                 <i class="fas fa-check-circle"></i>
@@ -115,10 +120,12 @@
                         </label>
                     </div>
 
-                    <div class="input-small" [ngClass]="{invalid: formRegisterPF.controls['cpf'].invalid && (formRegisterPF.controls['cpf'].touched || formRegisterPF.controls['cpf'].dirty), valid: formRegisterPF.valid}">
-                        <label class="input-label" for="cpf">
-                            <input type="text" name="cpf" id="cpf" class="input-field" placeholder="Informe seu CPF"
-                                required formControlName="cpf" />
+                    <!-- CPF -->
+                    <div class="input-small"
+                        [ngClass]="{invalid: formInsertPF.controls['cpfCnpj'].invalid && (formInsertPF.controls['cpfCnpj'].touched || formInsertPF.controls['cpfCnpj'].dirty), valid: formInsertPF.valid}">
+                        <label class="input-label">
+                            <input type="text" class="input-field" placeholder="Informe seu CPF"
+                                formControlName="cpfCnpj" />
                             <small class="small-label">CPF</small>
                             <div class="group-icon">
                                 <i class="fas fa-check-circle"></i>
@@ -127,10 +134,12 @@
                         </label>
                     </div>
 
-                    <div class="input-small" [ngClass]="{invalid: formRegisterPF.controls['rg'].invalid && (formRegisterPF.controls['rg'].touched || formRegisterPF.controls['rg'].dirty), valid: formRegisterPF.valid}">
-                        <label class="input-label" for="rg">
-                            <input type="text" name="rg" id="rg" class="input-field" placeholder="Informe seu RG"
-                                required formControlName="rg" />
+                    <!-- RG -->
+                    <div class="input-small"
+                        [ngClass]="{invalid: formInsertPF.controls['rgIe'].invalid && (formInsertPF.controls['rgIe'].touched || formInsertPF.controls['rgIe'].dirty), valid: formInsertPF.valid}">
+                        <label class="input-label">
+                            <input type="text" class="input-field" placeholder="Informe seu RG"
+                                formControlName="rgIe" />
                             <small class="small-label">RG</small>
                             <div class="group-icon">
                                 <i class="fas fa-check-circle"></i>
@@ -139,10 +148,12 @@
                         </label>
                     </div>
 
-                    <div class="input-small" [ngClass]="{invalid: formRegisterPF.controls['nascimento'].invalid && (formRegisterPF.controls['nascimento'].touched || formRegisterPF.controls['nascimento'].dirty), valid: formRegisterPF.valid}">
-                        <label class="input-label" for="nascimento">
-                            <input type="text" name="nascimento" id="nascimento" class="input-field" placeholder="Informe seu Nascimento"
-                                required formControlName="login" />
+                    <!-- Nascimento -->
+                    <div class="input-small"
+                        [ngClass]="{invalid: formInsertPF.controls['dataNascimento'].invalid && (formInsertPF.controls['dataNascimento'].touched || formInsertPF.controls['dataNascimento'].dirty), valid: formInsertPF.valid}">
+                        <label class="input-label">
+                            <input type="text" class="input-field" placeholder="Informe seu Nascimento"
+                                formControlName="dataNascimento" />
                             <small class="small-label">Nascimento</small>
                             <div class="group-icon">
                                 <i class="fas fa-check-circle"></i>
@@ -151,35 +162,46 @@
                         </label>
                     </div>
 
+                    <!-- Gênero -->
                     <div class="select-box"
-                        [ngClass]="{invalid: formRegisterPF.controls['genero'].invalid && (formRegisterPF.controls['genero'].touched || formRegisterPF.controls['genero'].dirty), valid: formRegisterPF.valid}">
-                        <select name="genero" id="genero" class="select-field"
-                            formControlName="genero">
+                        [ngClass]="{invalid: formInsertPF.controls['genero'].invalid && (formInsertPF.controls['genero'].touched || formInsertPF.controls['genero'].dirty), valid: formInsertPF.valid}">
+                        <select class="select-field" formControlName="genero">
                             <option selected disabled>Informe seu Gênero</option>
-                            <option value="masculino">Masculino</option>
+                            <option *ngFor="let genero of generos" value="{{genero.id}}">{{genero.descricao}}
+                            </option>
                         </select>
                     </div>
 
-                    <div class="input-small" [ngClass]="{invalid: formRegisterPF.controls['senha'].invalid && (formRegisterPF.controls['senha'].touched || formRegisterPF.controls['senha'].dirty), valid: formRegisterPF.valid}">
-                        <label class="input-label" for="senha-pf">
-                            <input [type]="type" name="senha-pf" id="senha-pf" class="input-field" placeholder="Insira sua senha" required formControlName="senha" />
+                    <!-- Senha -->
+                    <div class="input-small"
+                        [ngClass]="{invalid: formInsertPF.controls['senha'].invalid && (formInsertPF.controls['senha'].touched || formInsertPF.controls['senha'].dirty), valid: formInsertPF.valid}">
+                        <label class="input-label">
+                            <input [type]="passwordInsertPFType" class="input-field" placeholder="Insira sua senha"
+                                formControlName="senha" />
                             <small class="small-label">Senha</small>
                             <div class="group-icon">
-                                <i [ngClass]="{active: eyeActive}" (click)="setEye('text')" class="fas fa-eye"></i>
-                                <i [ngClass]="{active: !eyeActive}" (click)="setEye('password')" class="fas fa-eye-slash"></i>
+                                <i [ngClass]="{active: passwordInsertPFBoolean}" (click)="setPasswordInsertPF()"
+                                    class="fas fa-eye"></i>
+                                <i [ngClass]="{active: !passwordInsertPFBoolean}" (click)="setPasswordInsertPF()"
+                                    class="fas fa-eye-slash"></i>
                                 <i class="fas fa-check-circle"></i>
                                 <i class="fas fa-times-circle"></i>
                             </div>
                         </label>
                     </div>
 
-                    <div class="input-small" [ngClass]="{invalid: formRegisterPF.controls['senha'].invalid && (formRegisterPF.controls['senha'].touched || formRegisterPF.controls['senha'].dirty), valid: formRegisterPF.valid}">
-                        <label class="input-label" for="repetir-senha-pf">
-                            <input [type]="type" name="repetir-senha-pf" id="repetir-senha-pf" class="input-field" placeholder="Insira sua senha novamente" required formControlName="repetirSenha" />
+                    <!-- Repetir Senha -->
+                    <div class="input-small"
+                        [ngClass]="{invalid: formInsertPF.controls['repetirSenha'].invalid && (formInsertPF.controls['repetirSenha'].touched || formInsertPF.controls['repetirSenha'].dirty), valid: formInsertPF.valid}">
+                        <label class="input-label">
+                            <input [type]="passwordRepeatInsertPFType" class="input-field"
+                                placeholder="Insira sua senha novamente" formControlName="repetirSenha" />
                             <small class="small-label">Repetir Senha</small>
                             <div class="group-icon">
-                                <i [ngClass]="{active: eyeActive}" (click)="setEye('text')" class="fas fa-eye"></i>
-                                <i [ngClass]="{active: !eyeActive}" (click)="setEye('password')" class="fas fa-eye-slash"></i>
+                                <i [ngClass]="{active: passwordRepeatInsertPFBoolean}"
+                                    (click)="setPasswordRepeatInsertPF()" class="fas fa-eye"></i>
+                                <i [ngClass]="{active: !passwordRepeatInsertPFBoolean}"
+                                    (click)="setPasswordRepeatInsertPF()" class="fas fa-eye-slash"></i>
                                 <i class="fas fa-check-circle"></i>
                                 <i class="fas fa-times-circle"></i>
                             </div>
@@ -188,18 +210,21 @@
                 </div>
 
                 <div class="submit-wrapper">
-                    <button type="submit" class="button button-warning button-uppercase button-semi button-base">
+                    <button type="button" (click)="sendInsertPF(formInsertPF.value)"
+                        class="button button-warning button-uppercase button-semi button-base">
                         Cadastrar
                     </button>
                 </div>
             </form>
 
-            <form *ngIf="registerType == 'pj'" class="form-data form-pj">
+            <form *ngIf="registerType == 'pj'" class="form-data form-pj" [formGroup]="formInsertPJ">
                 <div class="input-wrapper">
-                    <div class="input-small" [ngClass]="{invalid: formRegisterPJ.controls['razaoSocial'].invalid && (formRegisterPJ.controls['razaoSocial'].touched || formRegisterPJ.controls['razaoSocial'].dirty), valid: formRegisterPJ.valid}">
-                        <label class="input-label" for="razao-social">
-                            <input type="text" name="razao-social" id="razao-social" class="input-field" placeholder="Informe sua razão social"
-                                required formControlName="razaoSocial" />
+                    <!-- Nome -->
+                    <div class="input-small"
+                        [ngClass]="{invalid: formInsertPJ.controls['nome'].invalid && (formInsertPJ.controls['nome'].touched || formInsertPJ.controls['nome'].dirty), valid: formInsertPJ.valid}">
+                        <label class="input-label">
+                            <input type="text" class="input-field" placeholder="Informe sua razão social"
+                                formControlName="nome" />
                             <small class="small-label">Razão Social</small>
                             <div class="group-icon">
                                 <i class="fas fa-check-circle"></i>
@@ -208,10 +233,12 @@
                         </label>
                     </div>
 
-                    <div class="input-small" [ngClass]="{invalid: formRegisterPJ.controls['login'].invalid && (formRegisterPJ.controls['login'].touched || formRegisterPJ.controls['login'].dirty), valid: formRegisterPJ.valid}">
-                        <label class="input-label" for="login-pf">
-                            <input type="text" name="login-pf" id="login-pf" class="input-field" placeholder="Informe seu e-mail"
-                                required formControlName="login" />
+                    <!-- E-mail -->
+                    <div class="input-small"
+                        [ngClass]="{invalid: formInsertPJ.controls['email'].invalid && (formInsertPJ.controls['email'].touched || formInsertPJ.controls['email'].dirty), valid: formInsertPJ.valid}">
+                        <label class="input-label">
+                            <input type="text" class="input-field" placeholder="Informe seu e-mail"
+                                formControlName="email" />
                             <small class="small-label">E-mail</small>
                             <div class="group-icon">
                                 <i class="fas fa-check-circle"></i>
@@ -220,10 +247,12 @@
                         </label>
                     </div>
 
-                    <div class="input-small" [ngClass]="{invalid: formRegisterPJ.controls['cnpj'].invalid && (formRegisterPJ.controls['cnpj'].touched || formRegisterPJ.controls['cnpj'].dirty), valid: formRegisterPJ.valid}">
-                        <label class="input-label" for="cnpj">
-                            <input type="text" name="cnpj" id="cnpj" class="input-field" placeholder="Informe seu CNPJ"
-                                required formControlName="cnpj" />
+                    <!-- CNPJ -->
+                    <div class="input-small"
+                        [ngClass]="{invalid: formInsertPJ.controls['cpfCnpj'].invalid && (formInsertPJ.controls['cpfCnpj'].touched || formInsertPJ.controls['cpfCnpj'].dirty), valid: formInsertPJ.valid}">
+                        <label class="input-label">
+                            <input type="text" class="input-field" placeholder="Informe seu CNPJ"
+                                formControlName="cpfCnpj" />
                             <small class="small-label">CNPJ</small>
                             <div class="group-icon">
                                 <i class="fas fa-check-circle"></i>
@@ -232,10 +261,12 @@
                         </label>
                     </div>
 
-                    <div class="input-small" [ngClass]="{invalid: formRegisterPJ.controls['ie'].invalid && (formRegisterPJ.controls['ie'].touched || formRegisterPJ.controls['ie'].dirty), valid: formRegisterPJ.valid}">
-                        <label class="input-label" for="ie">
-                            <input type="text" name="ie" id="ie" class="input-field" placeholder="Informe sua IE"
-                                required formControlName="ie" />
+                    <!-- IE -->
+                    <div class="input-small"
+                        [ngClass]="{invalid: formInsertPJ.controls['rgIe'].invalid && (formInsertPJ.controls['rgIe'].touched || formInsertPJ.controls['rgIe'].dirty), valid: formInsertPJ.valid}">
+                        <label class="input-label">
+                            <input type="text" class="input-field" placeholder="Informe sua IE"
+                                formControlName="rgIe" />
                             <small class="small-label">IE</small>
                             <div class="group-icon">
                                 <i class="fas fa-check-circle"></i>
@@ -244,28 +275,36 @@
                         </label>
                     </div>
 
-                    <input type="hidden" name="genero" value="Unissex" formControlName="genero" />
-
-                    <div class="input-small" [ngClass]="{invalid: formRegisterPJ.controls['senha'].invalid && (formRegisterPJ.controls['senha'].touched || formRegisterPJ.controls['senha'].dirty), valid: formRegisterPJ.valid}">
-                        <label class="input-label" for="senha-pj">
-                            <input [type]="type" name="senha-pj" id="senha-pj" class="input-field" placeholder="Insira sua senha" required formControlName="senha" />
+                    <!-- Senha -->
+                    <div class="input-small"
+                        [ngClass]="{invalid: formInsertPJ.controls['senha'].invalid && (formInsertPJ.controls['senha'].touched || formInsertPJ.controls['senha'].dirty), valid: formInsertPJ.valid}">
+                        <label class="input-label">
+                            <input [type]="passwordInsertPJType" class="input-field" placeholder="Insira sua senha"
+                                formControlName="senha" />
                             <small class="small-label">Senha</small>
                             <div class="group-icon">
-                                <i [ngClass]="{active: eyeActive}" (click)="setEye('text')" class="fas fa-eye"></i>
-                                <i [ngClass]="{active: !eyeActive}" (click)="setEye('password')" class="fas fa-eye-slash"></i>
+                                <i [ngClass]="{active: passwordInsertPJBoolean}" (click)="setPasswordInsertPJ()"
+                                    class="fas fa-eye"></i>
+                                <i [ngClass]="{active: !passwordInsertPJBoolean}" (click)="setPasswordInsertPJ()"
+                                    class="fas fa-eye-slash"></i>
                                 <i class="fas fa-check-circle"></i>
                                 <i class="fas fa-times-circle"></i>
                             </div>
                         </label>
                     </div>
 
-                    <div class="input-small" [ngClass]="{invalid: formRegisterPJ.controls['repetirSenha'].invalid && (formRegisterPJ.controls['repetirSenha'].touched || formRegisterPJ.controls['repetirSenha'].dirty), valid: formRegisterPJ.valid}">
-                        <label class="input-label" for="repetir-senha-pj">
-                            <input [type]="type" name="repetir-senha-pj" id="repetir-senha-pj" class="input-field" placeholder="Insira sua senha novamente" required formControlName="repetirSenha" />
+                    <!-- Repetir Senha -->
+                    <div class="input-small"
+                        [ngClass]="{invalid: formInsertPJ.controls['repetirSenha'].invalid && (formInsertPJ.controls['repetirSenha'].touched || formInsertPJ.controls['repetirSenha'].dirty), valid: formInsertPJ.valid}">
+                        <label class="input-label">
+                            <input [type]="passwordRepeatInsertPJType" class="input-field"
+                                placeholder="Insira sua senha novamente" formControlName="repetirSenha" />
                             <small class="small-label">Repetir Senha</small>
                             <div class="group-icon">
-                                <i [ngClass]="{active: eyeActive}" (click)="setEye('text')" class="fas fa-eye"></i>
-                                <i [ngClass]="{active: !eyeActive}" (click)="setEye('password')" class="fas fa-eye-slash"></i>
+                                <i [ngClass]="{active: passwordRepeatInsertPJBoolean}"
+                                    (click)="setPasswordRepeatInsertPJ()" class="fas fa-eye"></i>
+                                <i [ngClass]="{active: !passwordRepeatInsertPJBoolean}"
+                                    (click)="setPasswordRepeatInsertPJ()" class="fas fa-eye-slash"></i>
                                 <i class="fas fa-check-circle"></i>
                                 <i class="fas fa-times-circle"></i>
                             </div>
@@ -274,13 +313,15 @@
                 </div>
 
                 <div class="submit-wrapper">
-                    <button type="submit" class="button button-warning button-uppercase button-semi button-base">
+                    <button type="button" (click)="sendInsertPJ(formInsertPJ.value)"
+                        class="button button-warning button-uppercase button-semi button-base">
                         Cadastrar
                     </button>
                 </div>
             </form>
 
-            <button type="button" class="button button-white button-uppercase button-semi button-base" (click)="setRegister()">
+            <button type="button" class="button button-white button-uppercase button-semi button-base"
+                (click)="setRegister()">
                 Fazer Login
             </button>
         </div>

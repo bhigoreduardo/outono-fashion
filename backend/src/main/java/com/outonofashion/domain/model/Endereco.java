@@ -1,25 +1,27 @@
 package com.outonofashion.domain.model;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 
 import com.outonofashion.domain.model.id.EnderecoId;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
-@IdClass(EnderecoId.class)
+@NoArgsConstructor
 public class Endereco {
 	
-	@Id
-	@Column(length = 60)
-	private String enderecoApelido;
+	@EmbeddedId
+	private EnderecoId id;
 	
 	@Column(nullable = false, length = 8)
 	private String enderecoCep;
@@ -40,11 +42,25 @@ public class Endereco {
 	private String enderecoReferencia;
 	
 	@Column(nullable = false)
-	private Boolean enderecoAtivo;
+	private Boolean enderecoAtivo = Boolean.TRUE;
 	
-	@Id
+	@Column(nullable = false, length = 2)
+	private String enderecoUf;
+	
+	@Column(nullable = false, length = 120)
+	private String enderecoCidade;
+	
+	@MapsId("usuarioId")
 	@ManyToOne
 	@JoinColumn(foreignKey = @ForeignKey(name = "fk_endereco_usuario"))
 	private Usuario usuario;
+	
+	public void active() {
+		setEnderecoAtivo(true);
+	}
+	
+	public void inactive() {
+		setEnderecoAtivo(false);
+	}
 
 }

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.outonofashion.domain.model.Produto;
 
 @Repository
-public interface ProdutoRepository extends JpaRepository<Produto, Long> {
+public interface ProdutoRepository extends JpaRepository<Produto, Long>, ProdutoRepositoryQueries {
 
 	@Query(nativeQuery = true, value = "SELECT * FROM Produto p WHERE UNACCENT(LOWER(p.nome)) = UNACCENT(LOWER(REPLACE(:nome, '-', ' '))) AND id = :produtoId")
 	public Optional<Produto> findByNomeAndId(String nome, Long produtoId);

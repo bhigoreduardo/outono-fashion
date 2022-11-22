@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-checkout',
@@ -18,7 +19,8 @@ export class LoginCheckoutComponent implements OnInit {
   // eyeButton: boolean = true;
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -27,6 +29,16 @@ export class LoginCheckoutComponent implements OnInit {
   setEye(type: string) {
     this.type = type;
     this.eyeActive = !this.eyeActive;
+  }
+
+  createdAccount() {
+    const query = {
+      "cadastrar": "1"
+    }
+    
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['login'], { queryParams: query });
+    });
   }
 
 }

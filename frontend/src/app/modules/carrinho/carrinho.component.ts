@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SwiperOptions } from 'swiper';
-import { IProdutoCarrinho } from '../produtos/model/IProduto';
+import { IProdutoCarrinho } from '../../model/IProduto';
 import { CarrinhoService } from './service/carrinho.service';
 
 @Component({

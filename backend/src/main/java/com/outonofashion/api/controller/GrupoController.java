@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.outonofashion.api.assembler.grupo.GrupoModelAssembler;
-import com.outonofashion.api.assembler.grupo.GrupoModelDiassembler;
-import com.outonofashion.api.model.grupo.GrupoModel;
-import com.outonofashion.api.model.grupo.input.GrupoInput;
+import com.outonofashion.api.assembler.GrupoInputDisassembler;
+import com.outonofashion.api.assembler.GrupoModelAssembler;
+import com.outonofashion.api.model.GrupoModel;
+import com.outonofashion.api.model.input.GrupoInput;
 import com.outonofashion.domain.model.Grupo;
 import com.outonofashion.domain.service.GrupoService;
 
@@ -34,7 +34,7 @@ public class GrupoController {
 	private GrupoModelAssembler grupoModelAssembler;
 
 	@Autowired
-	private GrupoModelDiassembler grupoModelDiassembler;
+	private GrupoInputDisassembler grupoInputDisassembler;
 
 	@GetMapping
 	public List<GrupoModel> findAll() {
@@ -51,7 +51,7 @@ public class GrupoController {
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping
 	public GrupoModel insert(@RequestBody @Valid GrupoInput grupoInput) {
-		Grupo grupo = grupoModelDiassembler.toDomain(grupoInput);
+		Grupo grupo = grupoInputDisassembler.toDomain(grupoInput);
 
 		return grupoModelAssembler.toModel(grupoService.save(grupo));
 	}
@@ -60,7 +60,7 @@ public class GrupoController {
 	public GrupoModel update(@RequestBody @Valid GrupoInput grupoInput, @PathVariable Long grupoId) {
 		Grupo grupoCurrent = grupoService.findById(grupoId);
 
-		grupoModelDiassembler.copyToDomain(grupoInput, grupoCurrent);
+		grupoInputDisassembler.copyToDomain(grupoInput, grupoCurrent);
 
 		return grupoModelAssembler.toModel(grupoService.save(grupoCurrent));
 	}
@@ -70,5 +70,7 @@ public class GrupoController {
 	public void deleteById(@PathVariable Long grupoId) {
 		grupoService.deleteById(grupoId);
 	}
+	
+	
 
 }

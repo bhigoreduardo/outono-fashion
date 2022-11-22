@@ -25,67 +25,67 @@
             
             <h5>Gênero<i class="fas fa-minus" (click)="sideGenero=!sideGenero" [ngClass]="{'fa-plus': sideGenero == true}"></i></h5>
             <div class="checkbox-container custom-scrollbar" [ngClass]="{hide: sideGenero == true}">
-                <app-checkbox *ngFor="let g of generos"
-                    title="{{g.descricao}}"
-                    placeholder="{{g.descricao}}"
+                <app-checkbox *ngFor="let genero of generos"
+                    title="{{genero.descricao}}"
+                    placeholder="{{genero.descricao}}"
                     name="genero"
-                    value="{{g.descricao | replace:' ':'-'}}"
-                    check="{{genero | compare:g.descricao }}"
+                    value="{{genero.descricao | replace:' ':'-'}}"
+                    check="{{generoURL | compare:genero.descricao }}"
                 ></app-checkbox>
             </div>
 
             <h5>Categoria<i class="fas fa-minus" (click)="sideCategoria=!sideCategoria" [ngClass]="{'fa-plus': sideCategoria == true}"></i></h5>
             <div class="checkbox-container custom-scrollbar" [ngClass]="{hide: sideCategoria == true}">
-                <app-checkbox *ngFor="let c of categorias"
-                    title="{{c.descricao}}"
-                    placeholder="{{c.descricao}}"
+                <app-checkbox *ngFor="let categoria of categorias"
+                    title="{{categoria.descricao}}"
+                    placeholder="{{categoria.descricao}}"
                     name="categoria"
-                    value="{{c.descricao | replace:' ':'-'}}"
-                    check="{{categoria | compare:c.descricao }}"
+                    value="{{categoria.descricao | replace:' ':'-'}}"
+                    check="{{categoriaURL | compare:categoria.descricao }}"
                 ></app-checkbox>
             </div>
 
             <h5>Tipo<i class="fas fa-minus" (click)="sideTipo=!sideTipo" [ngClass]="{'fa-plus': sideTipo == true}"></i></h5>
             <div class="checkbox-container custom-scrollbar" [ngClass]="{hide: sideTipo == true}">
-                <app-checkbox *ngFor="let t of tipos"
-                    title="{{t.descricao}}"
-                    placeholder="{{t.descricao}}"
+                <app-checkbox *ngFor="let tipo of tipos"
+                    title="{{tipo.descricao}}"
+                    placeholder="{{tipo.descricao}}"
                     name="tipo"
-                    value="{{t.descricao | replace:' ':'-'}}"
-                    check="{{tipo | compare:t.descricao }}"
+                    value="{{tipo.descricao | replace:' ':'-'}}"
+                    check="{{tipoURL | compare:tipo.descricao }}"
                 ></app-checkbox>
             </div>
 
             <h5>Tamanho<i class="fas fa-minus" (click)="sideTamanho=!sideTamanho" [ngClass]="{'fa-plus': sideTamanho == true}"></i></h5>
             <div class="checkbox-container custom-scrollbar" [ngClass]="{hide: sideTamanho == true}">
-                <app-checkbox *ngFor="let t of tamanhos"
-                    title="{{t.descricao}}"
-                    placeholder="{{t.descricao}}"
+                <app-checkbox *ngFor="let tamanho of tamanhos"
+                    title="{{tamanho.descricao}}"
+                    placeholder="{{tamanho.descricao}}"
                     name="tamanho"
-                    value="{{t.descricao | replace:' ':'-'}}"
-                    check="{{tamanho | compare:t.descricao }}"
+                    value="{{tamanho.descricao | replace:' ':'-'}}"
+                    check="{{tamanhoURL | compare:tamanho.descricao }}"
                 ></app-checkbox>
             </div>
 
             <h5>Cor<i class="fas fa-minus" (click)="sideCor=!sideCor" [ngClass]="{'fa-plus': sideCor == true}"></i></h5>
             <div class="checkbox-container custom-scrollbar" [ngClass]="{hide: sideCor == true}">
-                <app-checkbox *ngFor="let c of cores"
-                    title="{{c.descricao}}"
-                    placeholder="{{c.descricao}}"
+                <app-checkbox *ngFor="let cor of cores"
+                    title="{{cor.descricao}}"
+                    placeholder="{{cor.descricao}}"
                     name="cor"
-                    value="{{c.descricao | replace:' ':'-'}}"
-                    check="{{cor | compare:c.descricao }}"
+                    value="{{cor.descricao | replace:' ':'-'}}"
+                    check="{{corURL | compare:cor.descricao }}"
                 ></app-checkbox>
             </div>
 
             <h5>Marca<i class="fas fa-minus" (click)="sideMarca=!sideMarca" [ngClass]="{'fa-plus': sideMarca == true}"></i></h5>
             <div class="checkbox-container custom-scrollbar" [ngClass]="{hide: sideMarca == true}">
-                <app-checkbox *ngFor="let m of marcas"
-                    title="{{m.descricao}}"
-                    placeholder="{{m.descricao}}"
+                <app-checkbox *ngFor="let marca of marcas"
+                    title="{{marca.descricao}}"
+                    placeholder="{{marca.descricao}}"
                     name="marca"
-                    value="{{m.descricao | replace:' ':'-'}}"
-                    check="{{marca | compare:m.descricao }}"
+                    value="{{marca.descricao | replace:' ':'-'}}"
+                    check="{{marcaURL | compare:marca.descricao }}"
                 ></app-checkbox>
             </div>
 

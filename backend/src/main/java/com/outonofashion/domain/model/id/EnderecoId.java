@@ -2,17 +2,21 @@ package com.outonofashion.domain.model.id;
 
 import java.io.Serializable;
 
-import com.outonofashion.domain.model.Usuario;
+import javax.persistence.Embeddable;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
+@NoArgsConstructor
+@Embeddable
 public class EnderecoId implements Serializable {
+
+	private static final long serialVersionUID = -982009941858908729L;
 	
-	private static final long serialVersionUID = 1L;
 	private String enderecoApelido;
-	private Usuario usuario;
+	private Long usuarioId;
 	
 }

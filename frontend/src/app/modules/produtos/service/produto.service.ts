@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { IProduto, IProdutoDetalhe } from '../model/IProduto';
+import { IProdutoModel, IProdutoDetalheModel } from '../../../model/IProduto';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class ProdutoService {
   constructor(private httpClient: HttpClient) { }
 
   findProdutos(genero?: string[], categoria?: string[], tipo?: string[],
-    cor?: string[], tamanho?: string[], marca?: string[], precoMin?: number, precoMax?: number, order?: string): Observable<IProduto[]> {
+    cor?: string[], tamanho?: string[], marca?: string[], precoMin?: number, precoMax?: number, order?: string): Observable<IProdutoModel[]> {
     let url = environment.domain + 'produtos';
 
     let operator: string = '?';
@@ -114,18 +114,12 @@ export class ProdutoService {
       url += operator + 'order=' + order;
     }
 
-    return this.httpClient.get<IProduto[]>(url).pipe(map(res => res));
+    return this.httpClient.get<IProdutoModel[]>(url).pipe(map(res => res));
   }
 
-  findProdutoByNomeAndId(nome: string, produtoId: number): Observable<IProdutoDetalhe> {
+  findProdutoByNomeAndId(nome: string, produtoId: number): Observable<IProdutoDetalheModel> {
     let url = environment.domain + 'produtos/' + nome + '/' + produtoId;
 
-    return this.httpClient.get<IProdutoDetalhe>(url).pipe(map(res => res));
+    return this.httpClient.get<IProdutoDetalheModel>(url).pipe(map(res => res));
   }
-
-  // findProdutos() {
-  //   const url = environment.domain + 'produtos';
-  //   return this.httpClient.get<IProduto[]>(url)
-  //     .pipe(tap());
-  // }
 }

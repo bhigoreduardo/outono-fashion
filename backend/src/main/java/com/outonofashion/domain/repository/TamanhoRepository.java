@@ -13,4 +13,5 @@ public interface TamanhoRepository extends JpaRepository<Tamanho, Long> {
 
 	@Query(nativeQuery = true, value = "SELECT * FROM Tamanho t WHERE UNACCENT(LOWER(descricao)) = UNACCENT(LOWER(:descricao))")
 	public Optional<Tamanho> findByDescricao(String descricao);
+	
 }

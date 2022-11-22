@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CarrinhoService } from '../carrinho/service/carrinho.service';
-import { IProdutoCarrinho } from '../produtos/model/IProduto';
-import { IPedido } from './model/IPedido';
+import { IProdutoCarrinho } from '../../model/IProduto';
+import { IPedidoInput } from '../../model/IPedido';
 
 @Component({
   selector: 'app-finalizar-compra',
@@ -30,7 +30,7 @@ export class FinalizarCompraComponent implements OnInit {
   prestacao: number = 12;
 
   // Pedido Vars
-  pedido!: IPedido;
+  pedido!: IPedidoInput;
 
   constructor(
     private carrinhoService: CarrinhoService,
@@ -55,12 +55,12 @@ export class FinalizarCompraComponent implements OnInit {
   }
 
   finalizarCompra() {
-    this.pedido = {
-      taxaEntrega: this.frete,
-      pagamento: { id: this.formaPagamento },
-      usuario: { id: 1 },
-      itensPedido: []
-    }
+    // this.pedido = {
+    //   taxaEntrega: this.frete,
+    //   pagamento: { id: this.formaPagamento },
+    //   usuario: { id: 1 },
+    //   itensPedido: []
+    // }
   }
 
 }

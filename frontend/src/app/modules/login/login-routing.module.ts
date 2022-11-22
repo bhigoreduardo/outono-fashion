@@ -1,8 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ConfirmacaoComponent } from './components/confirmacao/confirmacao.component';
 import { LoginComponent } from './login.component';
 
-const routes: Routes = [{ path: '', component: LoginComponent }];
+const routes: Routes = [
+  { path: '', component: LoginComponent },
+  { path: 'confirmacao', component: ConfirmacaoComponent }
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

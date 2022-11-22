@@ -1,16 +1,13 @@
 package com.outonofashion.domain.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -40,10 +37,8 @@ public class Cartao {
 	@Column(nullable = false, length = 3)
 	private String cvv;
 	
-	@ManyToMany
-	@JoinTable(name = "usuario_cartao",
-			  joinColumns = @JoinColumn(name = "cartao_id"),
-			  inverseJoinColumns = @JoinColumn(name = "usuario_id"))
-	private List<Usuario> usuarios = new ArrayList<>();
+	@ManyToOne
+	@JoinColumn(foreignKey = @ForeignKey(name = "fk_cartao_usuario"))
+	private Usuario usuario;
 
 }

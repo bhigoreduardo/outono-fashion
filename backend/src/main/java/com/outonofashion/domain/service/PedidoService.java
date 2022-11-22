@@ -1,24 +1,28 @@
 package com.outonofashion.domain.service;
 
 import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
-import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.outonofashion.domain.exception.pedido.PedidoNaoEncontradoException;
+import com.outonofashion.domain.exception.NegocioException;
+import com.outonofashion.domain.exception.PedidoNaoEncontradoException;
+import com.outonofashion.domain.model.Cor;
 import com.outonofashion.domain.model.Cupom;
+import com.outonofashion.domain.model.Estoque;
 import com.outonofashion.domain.model.Pagamento;
 import com.outonofashion.domain.model.Pedido;
 import com.outonofashion.domain.model.Produto;
+import com.outonofashion.domain.model.Tamanho;
 import com.outonofashion.domain.model.Usuario;
 import com.outonofashion.domain.repository.PedidoRepository;
 
 @Service
 public class PedidoService {
+
+	private final String CUPOM_INVALIDO = "Cupom %s é inválido.";
 
 	@Autowired
 	private PedidoRepository pedidoRepository;
@@ -33,67 +37,69 @@ public class PedidoService {
 	private UsuarioService usuarioService;
 
 	@Autowired
-	private ItemPedidoService itemPedidoService;
-	
-	@Autowired
 	private ProdutoService produtoService;
-	
-	public List<Pedido> findAll() {
-		return pedidoRepository.findAll();
-	}
-	
-	public Pedido findById(Long pedidoId) {
-		return pedidoRepository.findById(pedidoId)
-				.orElseThrow(() -> new PedidoNaoEncontradoException(pedidoId));
+
+	@Autowired
+	private TamanhoService tamanhoService;
+
+	@Autowired
+	private EstoqueService estoqueService;
+
+	@Autowired
+	private CorService corService;
+
+	public Pedido findByCodigoPedido(String codigoPedido) {
+		return pedidoRepository.findByCodigoPedido(codigoPedido)
+				.orElseThrow(() -> new PedidoNaoEncontradoException(codigoPedido));
 	}
 
 	@Transactional
 	public Pedido save(Pedido pedido) {
+
+		validatePedido(pedido);
+		validateItensPedido(pedido);
 		
-		validarPedido(pedido);
-		
-		if (pedido.getDataPedido() == null) {
-			
-			//pedido = pedidoRepository.save(pedido);
-			validarItens(pedido);
-			//return pedido;
-			
-		}
+		pedido.calculateValorTotal();
 
 		return pedidoRepository.save(pedido);
-
 	}
-	
-	private void validarPedido(Pedido pedido) {
-		
+
+	private void validatePedido(Pedido pedido) {
 		if (pedido.getCupom() != null) {
-			Long cupomId = pedido.getCupom().getId();
-			Cupom cupom = cupomService.findById(cupomId);
-			
-			pedido.setCupom(cupom);
+			Cupom cupom = cupomService.findById(pedido.getCupom().getId());
+
+			if (cupom.getAtivo() && cupom.getDataEncerramento().compareTo(OffsetDateTime.now()) > 0) {
+				pedido.setCupom(cupom);
+			} else {
+				throw new NegocioException(String.format(CUPOM_INVALIDO, cupom.getNome()));
+			}
 		}
 
-		Long pagamentoId = pedido.getPagamento().getId();
-		Pagamento pagamento = pagamentoService.findById(pagamentoId);
+		Pagamento pagamento = pagamentoService.findById(pedido.getPagamento().getId());
+		Usuario usuario = usuarioService.findById(pedido.getUsuario().getId());
 
-		Long usuarioId = pedido.getUsuario().getId();
-		Usuario usuario = usuarioService.findById(usuarioId);
-		
 		pedido.setPagamento(pagamento);
 		pedido.setUsuario(usuario);
 	}
 
-	private void validarItens(Pedido pedido) {
-		pedido.setDataPedido(OffsetDateTime.now(ZoneOffset.UTC));
-		
+	private void validateItensPedido(Pedido pedido) {
 		pedido.getItensPedido().forEach(item -> {
 			Produto produto = produtoService.findById(item.getProduto().getId());
+			Cor cor = corService.findById(item.getCor().getId());
+			Tamanho tamanho = tamanhoService.findById(item.getTamanho().getId());
 			
+			Estoque estoque = estoqueService.findByProdutoAndCorAndTamanho(item.getProduto().getId(),
+					item.getCor().getId(), item.getTamanho().getId());
+
 			item.setProduto(produto);
+			item.setCor(cor);
+			item.setTamanho(tamanho);
+			
+			item.setPrecoUnitario(estoque.getPreco());
+			item.setOferta(estoque.getOferta());
+			
 			item.setPedido(pedido);
-			itemPedidoService.save(item);
 		});
-		
 	}
-	
+
 }

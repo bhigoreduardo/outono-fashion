@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FinalizarCompraRoutingModule } from './finalizar-compra-routing.module';
 import { FinalizarCompraComponent } from './finalizar-compra.component';
 import { StepComponent } from './components/step/step.component';
-import { SharedModule } from '../shared.module';
+import { SharedModule } from '../../shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderCheckoutComponent } from './components/header-checkout/header-checkout.component';
 import { FooterCheckoutComponent } from './components/footer-checkout/footer-checkout.component';

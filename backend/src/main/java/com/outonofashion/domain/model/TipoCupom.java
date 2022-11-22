@@ -1,13 +1,18 @@
 package com.outonofashion.domain.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
-@AllArgsConstructor
-@Getter
 public enum TipoCupom {
 	
-	PROCENTAGEM,
-	FIXO
+	PORCENTAGEM("Porcentagem"),
+	FIXO("Valor Fixo");
+	
+	private String descricao;
+	
+	TipoCupom(String descricao) {
+		this.descricao = descricao;
+	}
+	
+	public String getDescricao() {
+		return descricao;
+	}
 	
 }

@@ -13,8 +13,6 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -38,7 +36,6 @@ public class Comentario {
 	@Column(nullable = false)
 	private OffsetDateTime dataComentario;
 	
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(foreignKey = @ForeignKey(name = "fk_comentario_produto"))
 	private Produto produto;

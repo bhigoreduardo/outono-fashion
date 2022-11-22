@@ -9,8 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -30,7 +28,6 @@ public class Imagem {
 	@Column(nullable = false, length = 10)
 	private String tipo;
 	
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(foreignKey = @ForeignKey(name = "fk_imagem_produto"))
 	private Produto produto;

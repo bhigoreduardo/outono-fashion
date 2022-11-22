@@ -3,22 +3,27 @@ package com.outonofashion.domain.model;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.outonofashion.domain.model.id.EstoqueId;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
-@Data
-@IdClass(EstoqueId.class)
+@NoArgsConstructor
 public class Estoque {
+
+	@EmbeddedId
+	private EstoqueId id;
 
 	@Column(nullable = false)
 	private Integer quantidade;
@@ -28,18 +33,17 @@ public class Estoque {
 
 	private BigDecimal oferta;
 
-	@JsonIgnore
-	@Id
+	@MapsId("produtoId")
 	@ManyToOne
 	@JoinColumn(foreignKey = @ForeignKey(name = "fk_estoque_produto"))
 	private Produto produto;
 
-	@Id
+	@MapsId("corId")
 	@ManyToOne
 	@JoinColumn(foreignKey = @ForeignKey(name = "fk_estoque_cor"))
 	private Cor cor;
 
-	@Id
+	@MapsId("tamanhoId")
 	@ManyToOne
 	@JoinColumn(foreignKey = @ForeignKey(name = "fk_estoque_tamanho"))
 	private Tamanho tamanho;

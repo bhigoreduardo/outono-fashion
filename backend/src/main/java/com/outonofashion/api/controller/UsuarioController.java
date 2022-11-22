@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.outonofashion.api.assembler.usuario.UsuarioModelAssembler;
-import com.outonofashion.api.assembler.usuario.UsuarioModelDiassembler;
-import com.outonofashion.api.model.usuario.UsuarioModel;
-import com.outonofashion.api.model.usuario.input.UsuarioInput;
+import com.outonofashion.api.assembler.UsuarioInputDisassembler;
+import com.outonofashion.api.assembler.UsuarioModelAssembler;
+import com.outonofashion.api.model.UsuarioModel;
+import com.outonofashion.api.model.input.SenhaInput;
+import com.outonofashion.api.model.input.UsuarioInput;
+import com.outonofashion.api.model.input.UsuarioSenhaInput;
 import com.outonofashion.domain.model.Usuario;
 import com.outonofashion.domain.service.UsuarioService;
 
@@ -33,7 +36,7 @@ public class UsuarioController {
 	private UsuarioModelAssembler usuarioModelAssembler;
 	
 	@Autowired
-	private UsuarioModelDiassembler usuarioModelDiassembler;
+	private UsuarioInputDisassembler usuarioInputDisassembler;
 	
 	@GetMapping
 	public List<UsuarioModel> findAll() {
@@ -49,19 +52,28 @@ public class UsuarioController {
 	
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping
-	public UsuarioModel insert(@RequestBody @Valid UsuarioInput usuarioInput) {
-		Usuario usuario = usuarioModelDiassembler.toDomain(usuarioInput);
+	public UsuarioModel insert(@RequestBody @Valid UsuarioSenhaInput usuarioInput) {
+		Usuario usuario = usuarioInputDisassembler.toDomain(usuarioInput);
 		
-		return usuarioModelAssembler.toModel(usuarioService.save(usuario));
+		usuario = usuarioService.save(usuario);
+		usuarioService.addGrupo(Long.parseLong("1"), usuario.getId());
+		
+		return usuarioModelAssembler.toModel(usuario);
 	}
 	
 	@PutMapping("/{usuarioId}")
 	public UsuarioModel update(@RequestBody @Valid UsuarioInput usuarioInput, @PathVariable Long usuarioId) {
 		Usuario usuarioCurrent = usuarioService.findById(usuarioId);
 		
-		usuarioModelDiassembler.copyToDomain(usuarioInput, usuarioCurrent);
+		usuarioInputDisassembler.copyToDomain(usuarioInput, usuarioCurrent);
 		
 		return usuarioModelAssembler.toModel(usuarioService.save(usuarioCurrent));
+	}
+	
+	@PutMapping("/{usuarioId}/senha")
+	public ResponseEntity<Void> setSenha(@PathVariable Long usuarioId, @RequestBody SenhaInput senha) {
+		usuarioService.setSenha(usuarioId, senha.getSenhaAtual(), senha.getNovaSenha());
+		return ResponseEntity.noContent().build();
 	}
 
 }

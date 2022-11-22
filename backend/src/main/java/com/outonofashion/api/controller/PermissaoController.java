@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.outonofashion.api.assembler.permissao.PermissaoModelAssembler;
-import com.outonofashion.api.assembler.permissao.PermissaoModelDiassembler;
-import com.outonofashion.api.model.permissao.PermissaoModel;
-import com.outonofashion.api.model.permissao.input.PermissaoInput;
+import com.outonofashion.api.assembler.PermissaoModelAssembler;
+import com.outonofashion.api.assembler.PermissaoInputDisassembler;
+import com.outonofashion.api.model.PermissaoModel;
+import com.outonofashion.api.model.input.PermissaoInput;
 import com.outonofashion.domain.model.Permissao;
 import com.outonofashion.domain.service.PermissaoService;
 
@@ -34,13 +34,13 @@ public class PermissaoController {
 	private PermissaoModelAssembler permissaoModelAssembler;
 
 	@Autowired
-	private PermissaoModelDiassembler permissaoModelDiassembler;
-
+	private PermissaoInputDisassembler permissaoInputDisassembler;
+	
 	@GetMapping
 	public List<PermissaoModel> findAll() {
 		return permissaoModelAssembler.toCollectionModel(permissaoService.findAll());
 	}
-
+	
 	@GetMapping("/{permissaoId}")
 	public PermissaoModel findById(@PathVariable Long permissaoId) {
 		Permissao permissaoCurrent = permissaoService.findById(permissaoId);
@@ -51,7 +51,7 @@ public class PermissaoController {
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping
 	public PermissaoModel insert(@RequestBody @Valid PermissaoInput permissaoInput) {
-		Permissao permissao = permissaoModelDiassembler.toDomain(permissaoInput);
+		Permissao permissao = permissaoInputDisassembler.toDomain(permissaoInput);
 
 		return permissaoModelAssembler.toModel(permissaoService.save(permissao));
 	}
@@ -60,7 +60,7 @@ public class PermissaoController {
 	public PermissaoModel update(@RequestBody @Valid PermissaoInput permissaoInput, @PathVariable Long permissaoId) {
 		Permissao permissaoCurrent = permissaoService.findById(permissaoId);
 
-		permissaoModelDiassembler.copyToDomain(permissaoInput, permissaoCurrent);
+		permissaoInputDisassembler.copyToDomain(permissaoInput, permissaoCurrent);
 
 		return permissaoModelAssembler.toModel(permissaoService.save(permissaoCurrent));
 	}

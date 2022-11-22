@@ -16,7 +16,6 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
-//@IdClass(ItemPedidoId.class)
 public class ItemPedido {
 
 	@EqualsAndHashCode.Include
@@ -29,6 +28,11 @@ public class ItemPedido {
 
 	@Column(nullable = false)
 	private BigDecimal precoUnitario;
+	
+	private BigDecimal oferta;
+
+	@Column(nullable = false)
+	private BigDecimal precoTotal;
 
 	@Column(length = 120)
 	private String observacao;
@@ -40,5 +44,33 @@ public class ItemPedido {
 	@ManyToOne
 	@JoinColumn(foreignKey = @ForeignKey(name = "fk_itempedido_produto"))
 	private Produto produto;
+	
+	@ManyToOne
+	@JoinColumn(foreignKey = @ForeignKey(name = "fk_itempedido_tamanho"))
+	private Tamanho tamanho;
+	
+	@ManyToOne
+	@JoinColumn(foreignKey = @ForeignKey(name = "fk_itempedido_cor"))
+	private Cor cor;
+
+	public void calculatePrecoTotal() {
+		BigDecimal precoUnitario = this.getPrecoUnitario();
+		Integer quantidade = this.getQuantidade();
+
+		if (precoUnitario == null) {
+			precoUnitario = BigDecimal.ZERO;
+		}
+
+		if (quantidade == null) {
+			quantidade = 0;
+		}
+		
+		if (oferta != null) {
+			setPrecoTotal(precoUnitario.subtract(oferta).multiply(new BigDecimal(quantidade)));
+		} else {
+			setPrecoTotal(precoUnitario.multiply(new BigDecimal(quantidade)));
+		}
+
+	}
 
 }

@@ -17,8 +17,6 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -53,19 +51,16 @@ public class Produto {
 	@Column(nullable = false)
 	private Double peso;
 
-	@JsonIgnore
 	@CreationTimestamp
 	@Column(nullable = false)
 	private OffsetDateTime dataCadastro;
 
-	@JsonIgnore
 	@UpdateTimestamp
 	@Column(nullable = false)
 	private OffsetDateTime dataAtualizacao;
 
-	@JsonIgnore
 	@Column(nullable = false)
-	private Boolean ativo;
+	private Boolean ativo = Boolean.TRUE;
 
 	@ManyToOne
 	@JoinColumn(nullable = false, foreignKey = @ForeignKey(name = "fk_produto_genero"))
@@ -94,5 +89,13 @@ public class Produto {
 	// Comentario
 	@OneToMany(mappedBy = "produto")
 	private List<Comentario> comentarios = new ArrayList<>();
+	
+	public void active() {
+		setAtivo(true);
+	}
+	
+	public void inactive() {
+		setAtivo(false);
+	}
 
 }
