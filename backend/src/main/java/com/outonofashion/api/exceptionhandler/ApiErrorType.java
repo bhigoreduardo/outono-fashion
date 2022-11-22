@@ -7,7 +7,6 @@ public enum ApiErrorType {
 
 	FALHA_REQUISICAO("/falha-requisicao", "Falha na requisição."),
 	RECURSO_NAO_ENCONTRADO("/recurso-nao-encontrado", "Recurso não encontrado."),
-	ENTIDADE_JA_CADASTRADA("/entidade-ja-cadastrada", "Entidade já cadastrada."),
 	ENTIDADE_EM_USO("/entidade-em-uso", "Entidade em uso."),
 	
 	CONTEUDO_INVALIDO("/conteudo-invalido", "Conteúdo inválido."),
@@ -17,7 +16,8 @@ public enum ApiErrorType {
 	CAMPOS_INVALIDOS("/campos-invalidos", "Campos inválidos."),
 	
 	PARAMETRO_INVALIDO("/parametro-invalido", "Parâmetro da URL inválido."),
-	ERRO_INTERNO("/erro-interno", "Erro interno.");
+	ERRO_INTERNO("/erro-interno", "Erro interno."),
+	ACESSO_NEGADO("/acesso-negado", "Aceso negado");
 
 	private String uri;
 	private String title;
