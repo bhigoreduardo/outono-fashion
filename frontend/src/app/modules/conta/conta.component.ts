@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { IEnderecoInput, IEnderecoModel } from 'src/app/model/IEndereco';
 import { ISenhaInput } from 'src/app/model/ISenha';
 import { ITelefoneInput, ITelefoneModel } from 'src/app/model/ITelefone';
 import { IUsuarioInput, IUsuarioModel } from 'src/app/model/IUsuario';
@@ -13,6 +14,26 @@ import { ContaService } from './service/conta.service';
 })
 export class ContaComponent implements OnInit {
   array: string[] = ['1', '2', '3', '4'];
+
+  activeEnderecoApelido(enderecoApelido: string) {
+    const enderecoModel = this.enderecosModel.filter(endereco => endereco.id.enderecoApelido == enderecoApelido)[0];
+ 
+    const enderecoInput: IEnderecoInput = {
+      id: { enderecoApelido: enderecoModel.id.enderecoApelido },
+      usuario: { id: this.usuarioModel.id },
+      enderecoCep: enderecoModel.enderecoCep,
+      enderecoBairro: enderecoModel.enderecoBairro,
+      enderecoLogradouro: enderecoModel.enderecoLogradouro,
+      enderecoNumero: enderecoModel.enderecoNumero,
+      enderecoComplemento: enderecoModel.enderecoComplemento,
+      enderecoReferencia: enderecoModel.enderecoReferencia,
+      enderecoUf: enderecoModel.enderecoUf,
+      enderecoCidade: enderecoModel.enderecoCidade,
+      enderecoAtivo: enderecoModel.enderecoAtivo
+    }
+
+    this.contaService.activeEndereco(enderecoInput);
+  }
 
   // User Vars
   usuarioModel!: IUsuarioModel;
@@ -34,6 +55,7 @@ export class ContaComponent implements OnInit {
   formSetPassword!: FormGroup;
   formInsertTelefone!: FormGroup;
   formMessage!: FormGroup;
+  formInsertAddress!: FormGroup;
 
   message: string | undefined;
 
@@ -55,6 +77,25 @@ export class ContaComponent implements OnInit {
   // Slider Order
   orderSlider!: SwiperOptions;
 
+  // Address Vars
+  addressApiRes!: any;
+  addressAdd!: Boolean;
+  enderecosModel: IEnderecoModel[] = [];
+
+  findEnderecosByUsuario(usuarioId: number) {
+    return new Promise(resolve => {
+      this.contaService.findEnderecosByUsuario(usuarioId).subscribe(
+        res => {
+          resolve(res);
+        }
+      );
+    });
+  }
+
+  async findEnderecosByUsuarioAsync() {
+    this.enderecosModel = <IEnderecoModel[]>await this.findEnderecosByUsuario(this.usuarioModel.id);
+  }
+
   constructor(
     private formBuilder: FormBuilder,
     private contaService: ContaService
@@ -64,6 +105,8 @@ export class ContaComponent implements OnInit {
     this.getUsuarioLoginModel();
     this.initializeVars();
     this.initializeSlides();
+
+    this.findEnderecosByUsuarioAsync();
   }
 
   getUsuarioLoginModel(): void {
@@ -76,6 +119,7 @@ export class ContaComponent implements OnInit {
     this.setPassword = false;
     this.setTelefone = false;
     this.newTelefone = false
+    this.addressAdd = false;
 
     this.radioBoxes = [
       {
@@ -136,6 +180,24 @@ export class ContaComponent implements OnInit {
       assunto: new FormControl(null, [Validators.required, Validators.maxLength(60)]),
       mensagem: new FormControl(null, [Validators.required, Validators.maxLength(500)])
     });
+
+    this.formInsertAddress = this.formBuilder.group({
+      enderecoCep: new FormControl(null, [Validators.required, Validators.maxLength(8)]),
+      enderecoBairro: new FormControl(),
+      enderecoLogradouro: new FormControl(null, [Validators.required, Validators.maxLength(60)]),
+      enderecoNumero: new FormControl(null, [Validators.required, Validators.maxLength(6)]),
+      enderecoComplemento: new FormControl(null, Validators.maxLength(60)),
+      enderecoReferencia: new FormControl(null, [Validators.maxLength(60)]),
+      enderecoUf: new FormControl(null, [Validators.required, Validators.maxLength(2)]),
+      enderecoCidade: new FormControl(null, [Validators.required, Validators.maxLength(120)]),
+      enderecoApelido: new FormControl(null, [Validators.required, Validators.maxLength(60)]),
+      enderecoAtivo: new FormControl(null)
+    });
+  }
+
+  updateFormInsertAddress(addressApiRes: any) {
+    this.formInsertAddress.patchValue({ enderecoBairro: addressApiRes.bairro, enderecoLogradouro: addressApiRes.logradouro, enderecoUf: addressApiRes.uf, enderecoCidade: addressApiRes.localidade });
+    // this.formInsertAddress.setValue({enderecoBairro: addressApiRes.bairro, enderecoLogradouro: addressApiRes.logradouro});
   }
 
   sendUsuarioLogin(values: any): void {
@@ -250,6 +312,42 @@ export class ContaComponent implements OnInit {
       spaceBetween: 0,
       scrollbar: { draggable: true }
     }
+  }
+
+  searchCep(values: any) {
+    this.contaService.searchCep(values.enderecoCep).subscribe(
+      res => {
+        this.addressApiRes = res;
+        this.updateFormInsertAddress(this.addressApiRes);
+      }, error => {
+        this.message = error.error.message;
+      }
+    )
+  }
+
+  // POST Methods
+  insertAddress(values: any) {
+    const enderecoInput: IEnderecoInput = {
+      id: { enderecoApelido: values.enderecoApelido },
+      usuario: { id: this.usuarioModel.id },
+      enderecoCep: values.enderecoCep,
+      enderecoBairro: values.enderecoBairro,
+      enderecoLogradouro: values.enderecoLogradouro,
+      enderecoNumero: values.enderecoNumero,
+      enderecoComplemento: values.enderecoComplemento,
+      enderecoReferencia: values.enderecoReferencia,
+      enderecoUf: values.enderecoUf,
+      enderecoCidade: values.enderecoCidade,
+      enderecoAtivo: values.enderecoAtivo
+    }
+
+    this.contaService.insertAddress(enderecoInput).subscribe(
+      res => {
+        this.message = 'Endereço cadastrado com sucesso!';
+      }, error => {
+        this.message = error.userMessage;
+      }
+    );
   }
 
 }

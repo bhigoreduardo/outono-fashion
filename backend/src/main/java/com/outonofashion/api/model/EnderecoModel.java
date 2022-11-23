@@ -16,5 +16,6 @@ public class EnderecoModel {
 	private String enderecoReferencia;
 	private String enderecoUf;
 	private String enderecoCidade;
+	private Boolean enderecoAtivo;
 
 }

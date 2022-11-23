@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
+import { IEnderecoInput, IEnderecoModel } from 'src/app/model/IEndereco';
 import { ISenhaInput } from 'src/app/model/ISenha';
 import { ITelefoneInput, ITelefoneModel } from 'src/app/model/ITelefone';
 import { IUserMessage } from 'src/app/model/IUserMessage';
@@ -51,6 +52,37 @@ export class ContaService {
 
     return this.httpClient
       .delete<IUserMessage>(url)
+      .pipe(map(res => res));
+  }
+
+  searchCep(cep: string): Observable<any> {
+    let url = 'https://viacep.com.br/ws/' + cep + '/json/';
+
+    return this.httpClient.get<any>(url).pipe(map(res => res));
+  }
+
+  insertAddress(enderecoInput: IEnderecoInput): Observable<IEnderecoModel> {
+    let url = environment.domain + 'enderecos';
+
+    return this.httpClient
+      .post<IEnderecoModel>(url, enderecoInput)
+      .pipe(map(res => res));
+  }
+
+  findEnderecosByUsuario(usuarioId: number): Observable<IEnderecoModel[]> {
+    let url = environment.domain + 'enderecos/' + usuarioId;
+
+    return this.httpClient
+      .get<IEnderecoModel[]>(url)
+      .pipe(map(res => res));
+  }
+
+  activeEndereco(enderecoInput: IEnderecoInput): Observable<IUserMessage> {
+    let url = environment.domain + 'enderecos/ativo';
+    console.log(url)
+
+    return this.httpClient
+      .put<IUserMessage>(url, enderecoInput)
       .pipe(map(res => res));
   }
 }

@@ -57,9 +57,14 @@ public class EnderecoController {
 		return enderecoModelAssembler.toModel(enderecoService.save(enderecoCurrent));
 	}
 
-	@PutMapping("/{enderecoApelido}/{usuarioId}/ativo")
-	public ResponseEntity<Void> active(@PathVariable String enderecoApelido, @PathVariable Long usuarioId) {
-		enderecoService.active(enderecoApelido, usuarioId);
+	@PutMapping("/ativo")
+	public ResponseEntity<Void> active(@RequestBody @Valid EnderecoInput enderecoInput) {
+		Endereco enderecoCurrent = enderecoService.findByIdEnderecoApelidoAndUsuario(
+				enderecoInput.getId().getEnderecoApelido(), enderecoInput.getUsuario().getId());
+		
+		System.out.println(enderecoCurrent.toString());
+		
+		enderecoService.active(enderecoCurrent.getId().getEnderecoApelido(), enderecoCurrent.getUsuario().getId());
 		return ResponseEntity.noContent().build();
 	}
 

@@ -2,6 +2,7 @@
 <app-header></app-header>
 <!-- / HEADER COMPONENT -->
 
+
 <!-- MESSAGE -->
 <app-message [message]="message"></app-message>
 <!-- / MESSAGE -->
@@ -85,6 +86,100 @@
     </div>
 </div>
 <!-- / SET TELEFONE -->
+
+<!-- ADD ENDEREÇO -->
+<div class="address--add" [ngClass]="{active: addressAdd}">
+    <form class="address--add-form form-group" [formGroup]="formInsertAddress">
+        <div class="input-update"
+            [ngClass]="{invalid: formInsertAddress.controls['enderecoApelido'].invalid && (formInsertAddress.controls['enderecoApelido'].touched || formInsertAddress.controls['enderecoApelido'].dirty), valid: formInsertAddress.valid}">
+            <label for="enderecoApelido">Endereço apelido</label>
+            <input type="text" id="enderecoApelido" placeholder="Insira apelido do endereço"
+                formControlName="enderecoApelido" />
+        </div>
+
+        <div class="input-update"
+            [ngClass]="{invalid: formInsertAddress.controls['enderecoCep'].invalid && (formInsertAddress.controls['enderecoCep'].touched || formInsertAddress.controls['enderecoCep'].dirty), valid: formInsertAddress.valid}">
+            <label for="enderecoCep">CEP</label>
+            <div class="wrapper-input">
+                <input type="text" id="enderecoCep" placeholder="Insira seu CEP" formControlName="enderecoCep" />
+                <button type="button" (click)="searchCep(formInsertAddress.value)">Pesquisar</button>
+            </div>
+        </div>
+
+        <div class="wrapper-input">
+            <div class="input-update"
+                [ngClass]="{invalid: formInsertAddress.controls['enderecoUf'].invalid && (formInsertAddress.controls['enderecoUf'].touched || formInsertAddress.controls['enderecoUf'].dirty), valid: formInsertAddress.valid}">
+                <label for="enderecoUf">Estado</label>
+                <input type="text" id="enderecoUf" placeholder="Insira seu estado" formControlName="enderecoUf" />
+            </div>
+
+            <div class="input-update"
+                [ngClass]="{invalid: formInsertAddress.controls['enderecoCidade'].invalid && (formInsertAddress.controls['enderecoCidade'].touched || formInsertAddress.controls['enderecoCidade'].dirty), valid: formInsertAddress.valid}">
+                <label for="enderecoCidade">Cidade</label>
+                <input type="text" id="enderecoCidade" placeholder="Insira sua cidade"
+                    formControlName="enderecoCidade" />
+            </div>
+        </div>
+
+        <div class="input-update"
+            [ngClass]="{invalid: formInsertAddress.controls['enderecoBairro'].invalid && (formInsertAddress.controls['enderecoBairro'].touched || formInsertAddress.controls['enderecoBairro'].dirty), valid: formInsertAddress.valid}">
+            <label for="enderecoBairro">Bairro</label>
+            <input type="text" id="enderecoBairro" placeholder="Insira seu bairro" formControlName="enderecoBairro" />
+        </div>
+
+        <div class="input-update"
+            [ngClass]="{invalid: formInsertAddress.controls['enderecoLogradouro'].invalid && (formInsertAddress.controls['enderecoLogradouro'].touched || formInsertAddress.controls['enderecoLogradouro'].dirty), valid: formInsertAddress.valid}">
+            <label for="enderecoLogradouro">Logradouro</label>
+            <input type="text" id="enderecoLogradouro" placeholder="Insira seu logradouro"
+                formControlName="enderecoLogradouro" />
+        </div>
+
+        <div class="wrapper-input">
+            <div class="input-update"
+                [ngClass]="{invalid: formInsertAddress.controls['enderecoNumero'].invalid && (formInsertAddress.controls['enderecoNumero'].touched || formInsertAddress.controls['enderecoNumero'].dirty), valid: formInsertAddress.valid}">
+                <label for="enderecoNumero">Número</label>
+                <input type="text" id="enderecoNumero" placeholder="Insira seu número"
+                    formControlName="enderecoNumero" />
+            </div>
+
+            <div class="input-update"
+                [ngClass]="{invalid: formInsertAddress.controls['enderecoComplemento'].invalid && (formInsertAddress.controls['enderecoComplemento'].touched || formInsertAddress.controls['enderecoComplemento'].dirty), valid: formInsertAddress.valid}">
+                <label for="enderecoComplemento">Complemento</label>
+                <input type="text" id="enderecoComplemento" placeholder="Insira seu complemento"
+                    formControlName="enderecoComplemento" />
+            </div>
+
+            <div class="input-update"
+                [ngClass]="{invalid: formInsertAddress.controls['enderecoReferencia'].invalid && (formInsertAddress.controls['enderecoReferencia'].touched || formInsertAddress.controls['enderecoReferencia'].dirty), valid: formInsertAddress.valid}">
+                <label for="enderecoReferencia">Referência</label>
+                <input type="text" id="enderecoReferencia" placeholder="Insira sua referência"
+                    formControlName="enderecoReferencia" />
+            </div>
+        </div>
+
+        <div class="input-update" style="border: none;">
+            <label for="enderecoAtivo">Endereço ativo</label>
+            <div class="checkbox">
+                <label title="Endereço ativo" class="check-label">
+                    Sim, quero este endereço ativo.
+                    <input type="checkbox" formControlName="enderecoAtivo" />
+                    <span class="check-span"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="wrapper-button">
+            <button type="button" class="button button-warning button-semi button-uppercase button-sm"
+                (click)="insertAddress(formInsertAddress.value)">Adicionar endereço</button>
+            <button type="button" class="button button-white button-uppercase button-semi button-sm"
+                (click)="addressAdd = false">
+                Cancelar
+            </button>
+        </div>
+    </form>
+</div>
+<!-- / ADD ENDEREÇO -->
+
 
 <!-- ACCOUNT -->
 <section class="account container gap-section">
@@ -226,11 +321,17 @@
                 <small class="small-title">Mantenha sempre seus endereços atualizados</small>
 
                 <div class="location-options">
-                    <app-radiolocation name="John Doe" nickname="Casa" street="Rua São João" streetNumber="987"
-                        neighborhood="Jd. Santa Mônica II" reference="Perto da Parque" complement="Sobrado Triplex"
-                        city="Londrina" state="PR" cep="86679-990"></app-radiolocation>
+                    <app-radiolocation *ngFor="let endereco of enderecosModel" (active)="activeEnderecoApelido($event)"
+                        enderecoApelido="{{endereco.id.enderecoApelido}}"
+                        enderecoLogradouro="{{endereco.enderecoLogradouro}}"
+                        enderecoNumero="{{endereco.enderecoNumero}}" enderecoBairro="{{endereco.enderecoBairro}}"
+                        enderecoReferencia="{{endereco.enderecoReferencia}}"
+                        enderecoComplemento="{{endereco.enderecoComplemento}}"
+                        enderecoCidade="{{endereco.enderecoCidade}}" enderecoUf="{{endereco.enderecoUf}}"
+                        enderecoCep="{{endereco.enderecoCep}}" [enderecoAtivo]="endereco.enderecoAtivo">
+                    </app-radiolocation>
 
-                    <a class="new-address">
+                    <a class="new-address" (click)="addressAdd = true">
                         <i class="fas fa-plus"></i>
                         <p>Adicionar novo endereço</p>
                     </a>

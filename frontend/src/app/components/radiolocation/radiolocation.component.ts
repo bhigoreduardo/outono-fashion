@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-radiolocation',
@@ -7,15 +7,17 @@ import { Component, Input } from '@angular/core';
 })
 export class RadiolocationComponent {
 
-  @Input() name!: string;
-  @Input() nickname!: string;
-  @Input() street!: string;
-  @Input() streetNumber!: string;
-  @Input() neighborhood!: string;
-  @Input() complement!: string;
-  @Input() reference!: string;
-  @Input() state!: string;
-  @Input() city!: string;
-  @Input() cep!: string;
+  @Input() enderecoApelido!: string;
+  @Input() enderecoLogradouro!: string;
+  @Input() enderecoNumero!: string;
+  @Input() enderecoBairro!: string;
+  @Input() enderecoComplemento!: string;
+  @Input() enderecoReferencia!: string;
+  @Input() enderecoUf!: string;
+  @Input() enderecoCidade!: string;
+  @Input() enderecoCep!: string;
+  @Input() enderecoAtivo!: Boolean;
+
+  @Output() active = new EventEmitter();
 
 }

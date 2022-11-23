@@ -31,10 +31,7 @@ public class EnderecoInput {
 	@NotBlank
 	private String enderecoNumero;
 	
-	@NotBlank
 	private String enderecoComplemento;
-	
-	@NotBlank
 	private String enderecoReferencia;
 	
 	@NotBlank
@@ -42,5 +39,7 @@ public class EnderecoInput {
 	
 	@NotBlank
 	private String enderecoCidade;
+	
+	private Boolean enderecoAtivo;
 
 }
