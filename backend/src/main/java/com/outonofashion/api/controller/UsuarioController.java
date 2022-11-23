@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.outonofashion.api.assembler.UsuarioInputDisassembler;
 import com.outonofashion.api.assembler.UsuarioModelAssembler;
-import com.outonofashion.api.model.UsuarioLoginModel;
 import com.outonofashion.api.model.UsuarioModel;
 import com.outonofashion.api.model.input.SenhaInput;
 import com.outonofashion.api.model.input.UsuarioInput;
@@ -39,10 +38,10 @@ public class UsuarioController {
 	private UsuarioInputDisassembler usuarioInputDisassembler;
 	
 	@PostMapping("/login")
-	public UsuarioLoginModel authLogin(@RequestBody @Valid UsuarioLoginInput usuarioLoginInput) {
+	public UsuarioModel authLogin(@RequestBody @Valid UsuarioLoginInput usuarioLoginInput) {
 		Usuario usuario = usuarioService.authLogin(usuarioLoginInput.getEmail(), usuarioLoginInput.getSenha());
 		
-		return usuarioModelAssembler.toLoginModel(usuario);
+		return usuarioModelAssembler.toModel(usuario);
 	}
 	
 	@GetMapping("/{usuarioId}")
@@ -77,7 +76,5 @@ public class UsuarioController {
 		usuarioService.setSenha(usuarioId, senha.getSenhaAtual(), senha.getNovaSenha());
 		return ResponseEntity.noContent().build();
 	}
-	
-	
 
 }

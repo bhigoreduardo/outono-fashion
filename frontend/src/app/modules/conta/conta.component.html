@@ -1,0 +1,336 @@
+<!-- HEADER COMPONENT -->
+<app-header></app-header>
+<!-- / HEADER COMPONENT -->
+
+<!-- MESSAGE -->
+<app-message [message]="message"></app-message>
+<!-- / MESSAGE -->
+
+<!-- SET PASSWORD -->
+<div class="user-data--password" [ngClass]="{active: setPassword}">
+    <form class="user-data--password-form form-group" [formGroup]="formSetPassword">
+        <div class="input-update"
+            [ngClass]="{invalid: formSetPassword.controls['senhaAtual'].invalid && (formSetPassword.controls['senhaAtual'].touched || formSetPassword.controls['senhaAtual'].dirty), valid: formSetPassword.valid}">
+            <label for="senha-atual">Senha atual</label>
+            <div class="wrapper-input">
+                <input [type]="passwordCurrentType" id="senha-atual" placeholder="Insira sua senha atual"
+                    formControlName="senhaAtual" />
+                <i [ngClass]="{active: passwordCurrentBoolean}" (click)="setPasswordCurrent()" class="fas fa-eye"></i>
+                <i [ngClass]="{active: !passwordCurrentBoolean}" (click)="setPasswordCurrent()"
+                    class="fas fa-eye-slash"></i>
+            </div>
+        </div>
+
+        <div class="input-update"
+            [ngClass]="{invalid: formSetPassword.controls['novaSenha'].invalid && (formSetPassword.controls['novaSenha'].touched || formSetPassword.controls['novaSenha'].dirty), valid: formSetPassword.valid}">
+            <label for="nova-senha">Nova senha</label>
+            <div class="wrapper-input">
+                <input [type]="passwordNewType" id="nova-senha" placeholder="Insira sua nova senha"
+                    formControlName="novaSenha" />
+                <i [ngClass]="{active: passwordNewBoolean}" (click)="setPasswordNew()" class="fas fa-eye"></i>
+                <i [ngClass]="{active: !passwordNewBoolean}" (click)="setPasswordNew()" class="fas fa-eye-slash"></i>
+            </div>
+        </div>
+
+        <div class="wrapper-button">
+            <button type="button" class="button button-warning button-semi button-uppercase button-sm"
+                (click)="sendSetPassword(formSetPassword.value)">Salvar alterações</button>
+            <button type="button" class="button button-white button-uppercase button-semi button-sm"
+                (click)="setPassword = !setPassword">
+                Cancelar
+            </button>
+        </div>
+    </form>
+</div>
+<!-- / SET PASSWORD -->
+
+<!-- SET TELEFONE -->
+<div class="user-data--phone" [ngClass]="{active: setTelefone}">
+    <form class="user-data--phone-form form-group" [formGroup]="formInsertTelefone" [ngClass]="{active: newTelefone}">
+        <div class="input-update"
+            [ngClass]="{invalid: formInsertTelefone.controls['numero'].invalid && (formInsertTelefone.controls['numero'].touched || formInsertTelefone.controls['numero'].dirty), valid: formInsertTelefone.valid}">
+            <label for="numero">Telefone</label>
+            <input type="phone" id="numero" placeholder="Insira seu número de telefone" formControlName="numero" />
+        </div>
+
+        <div class="wrapper-button">
+            <button type="button" class="button button-warning button-semi button-uppercase button-sm"
+                (click)="sendInsertTelefone(formInsertTelefone.value)">Adicionar número</button>
+            <button type="button" class="button button-white button-uppercase button-semi button-sm"
+                (click)="newTelefone = false">
+                Cancelar
+            </button>
+        </div>
+    </form>
+
+    <div class="user-data--phone-list" *ngIf="telefonesModel.length > 0; else emptyTelefone">
+        <div class="wrapper-phone" *ngFor="let telefone of telefonesModel">
+            <span>{{telefone.numero}}</span>
+            <button class="button button-sm" (click)="deleteTelefoneByNumero(telefone.numero)"><i
+                    class="fas fa-trash"></i>Excluir</button>
+        </div>
+    </div>
+    <ng-template #emptyTelefone>
+        <span class="empty-phone">Nenhum telefone adicionado!</span>
+    </ng-template>
+
+    <div class="wrapper-button">
+        <button type="button" class="button button-warning button-semi button-uppercase button-sm"
+            (click)="newTelefone = true">Novo
+            número</button>
+        <button type="button" class="button button-white button-uppercase button-semi button-sm"
+            (click)="setTelefone = !setTelefone">
+            Cancelar
+        </button>
+    </div>
+</div>
+<!-- / SET TELEFONE -->
+
+<!-- ACCOUNT -->
+<section class="account container gap-section">
+    <div class="breadcrumb">
+        <a routerLink="/">Início</a>
+        <i class="fa fa-chevron-right"></i>
+        <!-- Conta -->
+        <a routerLink="/conta">Minha conta</a>
+    </div>
+
+    <div class="hello-user">
+        <div class="user-name">
+            <small>Olá</small>
+            <p>{{usuarioModel.nome}} {{usuarioModel.sobrenome}}</p>
+        </div>
+        <a class="button button-warning button-uppercase button-semi button-xs">Sair</a>
+    </div>
+
+    <div class="user-container">
+        <div class="user-header">
+            <app-radioaccount *ngFor="let radioBox of radioBoxes" title="{{radioBox.title}}" name="{{radioBox.name}}"
+                value="{{radioBox.value}}" icon="{{radioBox.icon}}" placeholder="{{radioBox.placeholder}}"
+                [check]="valueSelected" (click)="setValue(radioBox.value)">
+            </app-radioaccount>
+        </div>
+
+        <div class="user-content">
+            <div class="box user-data" *ngIf="valueSelected == 'dados-pessoais'">
+                <form class="user-data--form" [formGroup]="formUsuarioModel">
+
+                    <div class="input-update"
+                        [ngClass]="{invalid: formUsuarioModel.controls['nome'].invalid && (formUsuarioModel.controls['nome'].touched || formUsuarioModel.controls['nome'].dirty), valid: formUsuarioModel.valid}">
+                        <label for="nome">Nome</label>
+                        <input type="text" id="nome" placeholder="Insira seu nome" formControlName="nome" />
+                    </div>
+
+                    <div class="input-update"
+                        [ngClass]="{invalid: formUsuarioModel.controls['sobrenome'].invalid && (formUsuarioModel.controls['sobrenome'].touched || formUsuarioModel.controls['sobrenome'].dirty), valid: formUsuarioModel.valid}">
+                        <label for="sobrenome">Sobrenome</label>
+                        <input type="text" id="sobrenome" placeholder="Insira seu sobrenome"
+                            formControlName="sobrenome" />
+                    </div>
+
+                    <div class="input-update">
+                        <label for="email">E-mail</label>
+                        <input type="text" id="email" placeholder="Insira seu email" formControlName="email" readonly />
+                    </div>
+
+                    <div class="input-update">
+                        <label for="senha">Senha</label>
+                        <div class="wrapper-input">
+                            <input type="text" id="senha" placeholder="********" value="********" readonly />
+                            <button type="button" (click)="setPassword = !setPassword">Alterar senha</button>
+                        </div>
+                    </div>
+
+                    <div class="input-update">
+                        <label for="cpfCnpj">CPF</label>
+                        <input type="text" id="cpfCnpj" placeholder="Insira seu CPF" formControlName="cpfCnpj"
+                            readonly />
+                    </div>
+
+                    <div class="input-update">
+                        <label for="rgIe">RG</label>
+                        <input type="text" id="rgIe" placeholder="Insira seu RG" formControlName="rgIe" readonly />
+                    </div>
+
+                    <div class="input-update">
+                        <label for="dataNascimento">Data Nascimento</label>
+                        <input type="text" id="dataNascimento" placeholder="Insira sua data de nascimento"
+                            formControlName="dataNascimento" readonly />
+                    </div>
+
+                    <div class="input-update">
+                        <label for="telefone">Telefone</label>
+                        <div class="wrapper-input">
+                            <input type="text" id="telefone" placeholder="Número de contato" readonly />
+                            <button type="button" (click)="setTelefone = !setTelefone && findTelefones()">Editar
+                                contato</button>
+                        </div>
+                    </div>
+
+                    <div class="input-update">
+                        <label for="genero">Gênero</label>
+                        <input type="text" id="genero" placeholder="Insira seu genero" formControlName="genero"
+                            readonly />
+                    </div>
+
+                    <div class="input-update" style="border: none;">
+                        <label for="newsletter">Newsletter</label>
+                        <div class="checkbox">
+                            <label title="Assinar newsletter" class="check-label">
+                                Sim, quero receber ofertas por e-mail
+                                <input type="checkbox" formControlName="newsletter" />
+                                <span class="check-span"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button class="button button-warning button-semi button-uppercase button-base"
+                        (click)="sendUsuarioLogin(formUsuarioModel.value)">Salvar alterações</button>
+                </form>
+            </div>
+
+            <div class="box order" *ngIf="valueSelected == 'meus-pedidos'">
+                <span class="span-title">Pedidos</span>
+                <small class="small-title">Confira os detalhes de seus pedidos</small>
+
+                <div class="order-list">
+                    <div class="order-detail" *ngFor="let arr of array">
+                        <div class="order-images">
+                            <swiper [config]="orderSlider">
+                                <ng-template swiperSlide *ngFor="let arr of array">
+                                    <img
+                                        src="/assets/produtos/feminino/calcados/botas/bota-coturno-feminino-tratorada-city-dubuy-8-1.webp" />
+                                </ng-template>
+                            </swiper>
+                        </div>
+
+                        <div class="order-info">
+                            <span>Nº do pedido</span>
+                            <h6>7894948</h6>
+                            <p>Data do pedido:<span>12.07.2018</span></p>
+                            <p>Valor do pedido:<span>R$87,90</span></p>
+                        </div>
+
+                        <div class="order-status">
+                            <span>Previsão de entrega</span>
+                            <h6>Aguardando pagamento</h6>
+                        </div>
+
+                        <a class="button button-warning button-uppercase button-semi button-xs">Ver detalhes</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box address" *ngIf="valueSelected == 'enderecos'">
+                <span class="span-title">Endereços</span>
+                <small class="small-title">Mantenha sempre seus endereços atualizados</small>
+
+                <div class="location-options">
+                    <app-radiolocation name="John Doe" nickname="Casa" street="Rua São João" streetNumber="987"
+                        neighborhood="Jd. Santa Mônica II" reference="Perto da Parque" complement="Sobrado Triplex"
+                        city="Londrina" state="PR" cep="86679-990"></app-radiolocation>
+
+                    <a class="new-address">
+                        <i class="fas fa-plus"></i>
+                        <p>Adicionar novo endereço</p>
+                    </a>
+                </div>
+            </div>
+
+            <div class="contact" *ngIf="valueSelected == 'atendimentos'">
+                <div class="contact-info">
+                    <h4>Entre em contato</h4>
+
+                    <div class="contact-box">
+                        <i class="fas fa-mobile-alt"></i>
+                        <div class="details">
+                            <small>Telefone</small>
+                            <a>+55 (00) 0 0000-0000</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-box">
+                        <i class="fas fa-mail-bulk"></i>
+                        <div class="details">
+                            <small>E-mail</small>
+                            <a>contato@outonofashion.com.br</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-box">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div class="details">
+                            <small>Endereço</small>
+                            <a>
+                                <p>Rua Max Dietz, 188</p>
+                                <p>Jd. José de Paula</p>
+                                <p>Londrina - PR</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-message">
+                    <span class="span-title">Abrir solicitação</span>
+                    <small class="small-title">Teve algum problema com seu pedido? Abra uma solicitação.</small>
+
+                    <form class="contact-form" [formGroup]="formMessage">
+                        <div class="wrapper-input">
+                            <div class="input-box"
+                                [ngClass]="{invalid: formMessage.controls['tipoSolicitacao'].invalid && (formMessage.controls['tipoSolicitacao'].touched || formMessage.controls['tipoSolicitacao'].dirty), valid: formMessage.valid}">
+                                <label class="input-label" for="tipo-solicitacao">Tipo de Solicitação</label>
+                                <input type="text" id="tipo-solicitacao" class="input-field"
+                                    placeholder="Insira o tipo de sua solicitação" formControlName="tipoSolicitacao" />
+                                <div class="group-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-times-circle"></i>
+                                </div>
+                            </div>
+
+                            <div class="input-box"
+                                [ngClass]="{invalid: formMessage.controls['numeroPedido'].invalid && (formMessage.controls['numeroPedido'].touched || formMessage.controls['numeroPedido'].dirty), valid: formMessage.valid}">
+                                <label class="input-label" for="numero-pedido">Número do Pedido</label>
+                                <input type="text" id="numero-pedido" class="input-field"
+                                    placeholder="Insira o número do pedido" formControlName="numeroPedido" />
+                                <div class="group-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-times-circle"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-box"
+                            [ngClass]="{invalid: formMessage.controls['assunto'].invalid && (formMessage.controls['assunto'].touched || formMessage.controls['assunto'].dirty), valid: formMessage.valid}">
+                            <label class="input-label" for="assunto">Assunto</label>
+                            <input type="text" id="assunto" class="input-field"
+                                placeholder="Insira o assunto da mensagem" formControlName="assunto" />
+                            <div class="group-icon">
+                                <i class="fas fa-check-circle"></i>
+                                <i class="fas fa-times-circle"></i>
+                            </div>
+                        </div>
+
+                        <div class="input-box"
+                            [ngClass]="{invalid: formMessage.controls['mensagem'].invalid && (formMessage.controls['mensagem'].touched || formMessage.controls['mensagem'].dirty), valid: formMessage.valid}">
+                            <textarea class="text-field" cols="30" rows="10" formControlName="mensagem"
+                                placeholder="Insira sua mensagem"></textarea>
+                            <div class="group-icon">
+                                <i class="fas fa-check-circle"></i>
+                                <i class="fas fa-times-circle"></i>
+                            </div>
+                        </div>
+
+                        <button class="button button-warning button-uppercase button-semi button-sm">
+                            Enviar mensagem
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- / ACCOUNT -->
+
+<!-- FOOTER -->
+<app-footer></app-footer>
+<!-- / FOOTER -->

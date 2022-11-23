@@ -69,7 +69,6 @@ export class LoginComponent implements OnInit {
       this.loginService.findAllGenero().subscribe(
         data => {
           resolve(data);
-          console.log(data)
         }
       )
     })
@@ -115,7 +114,7 @@ export class LoginComponent implements OnInit {
 
     this.loginService.authLogin(usuarioLoginInput).subscribe(
       res => {
-        localStorage.setItem('usuarioLoginModel', JSON.stringify(res));
+        localStorage.setItem('usuarioModel', JSON.stringify(res));
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
           this.router.navigate(['/conta']);
         })
@@ -123,8 +122,6 @@ export class LoginComponent implements OnInit {
         this.message = error.error.userMessage;
       }
     )
-
-    console.log(values);
   }
 
   sendInsertPF(values: any): void {

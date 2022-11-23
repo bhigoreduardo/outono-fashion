@@ -1,4 +1,4 @@
-import { IGeneroInput, IGeneroModel, IGeneroResumoModel } from "./IGenero";
+import { IGeneroInput, IGeneroModel } from "./IGenero";
 
 export interface IUsuario {
     nome: string;
@@ -11,9 +11,11 @@ export interface IUsuario {
 
 export interface IUsuarioInput extends IUsuario {
     genero: IGeneroInput
+    newsletter: Boolean | null;
 }
 
-export interface IUsuarioSenhaInput extends IUsuarioInput {
+export interface IUsuarioSenhaInput extends IUsuario {
+    genero: IGeneroInput
     senha: string;
 }
 
@@ -27,6 +29,7 @@ export interface IUsuarioModel extends IUsuario {
 	dataCadastro: Date;
 	dataAtualizacao: Date;
     genero: IGeneroModel;
+    newsletter: Boolean;
 }
 
 export interface IUsuarioPublicoModel {
@@ -40,21 +43,10 @@ export interface IUsuarioResumoModel {
     sobrenome: string | null;
     email: string;
     cpfCnpj: string;
+    
 }
 
 export interface IUsuarioLoginInput {
     email: string;
     senha: string;
-}
-
-export interface IUsuarioLoginModel {
-    nome: string;
-	sobrenome: string;
-	email: string;
-	cpfCnpj: string;
-	genero: IGeneroResumoModel;
-	dataNascimento: Date;
-	newsletter: Boolean;
-	dataCadastro: Date;
-	dataAtualizacao: Date;
 }

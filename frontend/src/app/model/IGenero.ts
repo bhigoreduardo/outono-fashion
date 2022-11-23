@@ -8,6 +8,7 @@ export interface IGeneroInput {
 }
 
 export interface IGeneroModel {
+    id: number;
     descricao: string;
 }
 

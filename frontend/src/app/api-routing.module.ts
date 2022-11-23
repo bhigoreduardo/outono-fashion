@@ -8,7 +8,8 @@ const routes: Routes = [
   { path: 'carrinho', loadChildren: () => import('./modules/carrinho/carrinho.module').then(m => m.CarrinhoModule) },
   { path: 'finalizar-compra', loadChildren: () => import('./modules/finalizar-compra/finalizar-compra.module').then(m => m.FinalizarCompraModule) },
   { path: 'login', loadChildren: () => import('./modules/login/login.module').then(m => m.LoginModule) },
-  { path: 'inicio', loadChildren: () => import('./modules/inicio/inicio.module').then(m => m.InicioModule) }
+  { path: 'inicio', loadChildren: () => import('./modules/inicio/inicio.module').then(m => m.InicioModule) },
+  { path: 'conta', loadChildren: () => import('./modules/conta/conta.module').then(m => m.ContaModule) }
 ]
 
 @NgModule({

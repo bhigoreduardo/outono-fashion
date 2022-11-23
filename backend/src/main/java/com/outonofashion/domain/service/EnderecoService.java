@@ -1,5 +1,7 @@
 package com.outonofashion.domain.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,12 @@ public class EnderecoService {
 		
 		return enderecoRepository.findByIdEnderecoApelidoAndUsuario(enderecoApelido, usuario)
 				.orElseThrow(() -> new EnderecoNaoEncontradoException(enderecoApelido, usuario.getNome()));
+	}
+	
+	public List<Endereco> findByUsuario(Long usuarioId) {
+		Usuario usuario = usuarioService.findById(usuarioId);
+		
+		return enderecoRepository.findByUsuario(usuario);
 	}
 	
 	@Transactional

@@ -1,0 +1,67 @@
+@import '../../../styles.scss';
+
+label {
+    position: relative;
+    cursor: pointer;
+
+    input {
+        position: absolute;
+        opacity: 0;
+
+        &:checked~span {
+            color: $color-black;
+            border-bottom-color: $color-warning;
+            background-color: $color-gray-100;
+
+            i {
+                color: $color-warning;
+            }
+        }
+    }
+
+    span {
+        font-size: $font-size-h5;
+        line-height: $line-height-h5;
+        font-weight: $font-weight-semi-bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        padding: 20px 0;
+        color: $color-gray-700;
+        border-bottom: 2px solid transparent;
+
+        @media screen and (max-width: 890px) {
+            font-size: $font-size-lg;
+            gap: 10px;
+        }
+
+        @media screen and (max-width: 600px) {
+            font-size: $font-size-base;
+            gap: 10px;
+        }
+
+        i {
+            font-size: $font-size-h4;
+            color: $color-black;
+
+            @media screen and (max-width: 890px) {
+                font-size: $font-size-h5;
+            }
+
+            // @media screen and (max-width: 620px) {
+            //     font-size: $font-size-h4;
+            // }
+
+            @media screen and (max-width: 660px) {
+                font-size: $font-size-lg;
+            }
+        }
+
+        h5 {
+            @media screen and (max-width: 700px) {
+                display: none;
+            }
+        }
+    }
+}

@@ -135,6 +135,7 @@
     position: relative;
 
     &.valid {
+        .text-field,
         .input-field {
             border: 1px solid $color-warning;
         }
@@ -148,6 +149,7 @@
     }
 
     &.invalid {
+        .text-field,
         .input-field {
             border: 1px solid $color-red;
         }
@@ -177,6 +179,15 @@
         border: 1px solid $color-gray-500;
         font-size: $font-size-base;
         line-height: $line-height-base;
+    }
+
+    .text-field {
+        padding: 10px 20px;
+        width: 100%;
+        border: 1px solid $color-gray-500;
+        font-size: $font-size-base;
+        line-height: $line-height-base;
+        font-family: inherit;
     }
 
     input[type="number"]::-webkit-inner-spin-button {

@@ -32,5 +32,7 @@ public class UsuarioInput {
 	@Valid
 	@NotNull
 	private GeneroIdInput genero;
+	
+	private Boolean newsletter;
 
 }

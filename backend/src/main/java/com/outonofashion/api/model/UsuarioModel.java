@@ -14,12 +14,12 @@ public class UsuarioModel {
 	private String nome;
 	private String sobrenome;
 	private String email;
-	private String senha;
 	private String cpfCnpj;
 	private String rgIe;
 	private LocalDate dataNascimento;
 	private OffsetDateTime dataCadastro;
 	private OffsetDateTime dataAtualizacao;
-	private UsuarioModelGenero genero;
+	private GeneroModel genero;
+	private Boolean newsletter;
 
 }

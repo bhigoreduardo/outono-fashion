@@ -1,0 +1,39 @@
+@import '../../../styles.scss';
+
+.input-update {
+    padding-bottom: 10px;
+    border-bottom: 1px solid $color-gray-400;
+
+    &.invalid {
+        border-color: $color-red;
+
+        label {
+            color: $color-red;
+        }
+    }
+
+    &.valid {
+        border-color: $color-gray-400;
+
+        label {
+            color: $color-black;
+        }
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-size: $font-size-xs;
+        line-height: $line-height-xs;
+        color: $color-black;
+        font-weight: $font-weight-semi-bold;
+    }
+
+    input {
+        font-size: $font-size-sm;
+        line-height: $line-height-sm;
+        font-weight: $font-weight-regular;
+        color: $color-gray-700;
+        width: 100%;
+    }
+}

@@ -17,7 +17,7 @@ public class Telefone {
 	
 	@EqualsAndHashCode.Include
 	@Id
-	@Column(length = 11)
+	@Column(length = 11, unique = true)
 	private String numero;
 	
 	@ManyToOne

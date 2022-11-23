@@ -10,11 +10,13 @@ import { RadioboxComponent } from './components/radiobox/radiobox.component';
 import { CommentaryComponent } from './components/commentary/commentary.component';
 import { RadiolocationComponent } from './components/radiolocation/radiolocation.component';
 import { InputsmallComponent } from './components/inputsmall/inputsmall.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RangeboxComponent } from './components/rangebox/rangebox.component';
 import { MessageComponent } from './components/message/message.component';
 import { CardComponent } from './components/card/card.component';
 import { HeaderComponent } from './components/header/header.component';
+import { RadioaccountComponent } from './components/radioaccount/radioaccount.component';
+import { InputupdateComponent } from './components/inputupdate/inputupdate.component';
 
 @NgModule({
   declarations: [
@@ -30,11 +32,14 @@ import { HeaderComponent } from './components/header/header.component';
     RadiolocationComponent,
     InputsmallComponent,
     RangeboxComponent,
-    MessageComponent
+    MessageComponent,
+    RadioaccountComponent,
+    InputupdateComponent
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   exports: [
     HeaderComponent,
@@ -49,7 +54,9 @@ import { HeaderComponent } from './components/header/header.component';
     RadiolocationComponent,
     InputsmallComponent,
     RangeboxComponent,
-    MessageComponent
+    MessageComponent,
+    RadioaccountComponent,
+    InputupdateComponent
   ]
 })
 export class SharedModule { }
