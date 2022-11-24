@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IComentarioModel } from 'src/app/model/IComentario';
+import { ICorModel } from 'src/app/model/ICor';
+import { IEstoqueModel } from 'src/app/model/IEstoque';
+import { IImagemModel } from 'src/app/model/IImagem';
+import { IItemPedidoInput } from 'src/app/model/IItemPedido';
+import { IProdutoDetalheModel, IProdutoModel } from 'src/app/model/IProduto';
 import { CarrinhoService } from 'src/app/modules/carrinho/service/carrinho.service';
-
 import { SwiperOptions } from 'swiper';
-import { ICorModel } from '../../../../model/ICor';
-import { IProdutoModel, IProdutoCarrinho, IProdutoDetalheModel } from '../../../../model/IProduto';
+
 
 import { ProdutoService } from '../../service/produto.service';
 
@@ -14,38 +18,48 @@ import { ProdutoService } from '../../service/produto.service';
   styleUrls: ['./individual.component.scss']
 })
 export class IndividualComponent implements OnInit {
-  // Produto
-  produto!: IProdutoDetalheModel;
 
-  // Produtos Slide
+  // Produto Vars
+  produto!: IProdutoDetalheModel;
   produtosGenero: IProdutoModel[] = [];
   produtosCategoria: IProdutoModel[] = [];
 
-  // Produto Vars
-  price!: number;
-  colors: ICorModel[] = [];
-  stockQuantity!: number; // Stock Quantity
-  installment: number = 12;
-
-  // Produto Carrinho Vars
-  tamanhoSelected!: string;
-  corSelected!: string;
+  // Produto Props
+  genero!: string;
+  categoria!: string;
+  tipo!: string;
+  marca!: string;
+  imagens: IImagemModel[] = [];
+  nome!: string;
+  estoques: IEstoqueModel[] = [];
+  descricao!: string;
+  detalhe!: string;
+  cores: ICorModel[] = [];
+  quantidadeEstoque!: number;
+  preco!: number;
   precoSelected!: number;
+  parcela: number = 12;
+  comentarios: IComentarioModel[] = [];
+
+  // Image Vars
+  pathImage: string = 'assets/produtos/';
+  imageActive!: string;
+  fullPathImage: string = '';
+
+  // Item Pedido Vars
+  tamanhoId!: number;
+  corId!: number;
   quantidade: number = 1;
+  message!: string;
+
+  // Toggle Info Produto Vars
+  sideDescription!: boolean;
+  sideDetail!: boolean;
 
   // Slides Vars
   thumbSlide!: SwiperOptions;
   commentaryGallery!: SwiperOptions;
   mostSaleSlide!: SwiperOptions;
-
-  // Image Active Vars
-  pathImage: string = 'assets/produtos/';
-  imageActive!: string;
-  fullPathImage!: string;
-
-  // Toggle Info Produto Vars
-  sideDescription?: boolean;
-  sideDetail?: boolean;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -55,92 +69,27 @@ export class IndividualComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getProdutoDescription();
-    this.initializeSlides();
-
     this.sideDescription = false;
     this.sideDetail = false;
+    this.findProdutos();
+    this.initializeSlides();
   }
 
-  // Methods Get Produto Database
-  getProduto() {
-    const params = this.activatedRoute.snapshot.paramMap;
-    const nome = params.get('nome')!;
-    const id = Number(params.get('id'));
-
-    return new Promise(resolve => {
-      this.produtoService.findProdutoByNomeAndId(nome, id).subscribe(
-        data => {
-          resolve(data);
-        }
-      )
-    })
+  replaceAll(str: string, find: string, replace: string): string {
+    str = str.toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    return str.replace(new RegExp(find, 'g'), replace);
   }
 
-  getProdutoGenero(genero: string[]) {
-    return new Promise(resolve => {
-      this.produtoService.findProdutos(genero).subscribe(
-        data => {
-          resolve(data)
-        }
-      )
-    })
+  prevSlide(target: any): void {
+    target.swiperRef.slidePrev();
   }
 
-  getProdutosCategoria(genero: string[], categoria: string[]) {
-    return new Promise(resolve => {
-      this.produtoService.findProdutos(genero, categoria).subscribe(
-        data => {
-          resolve(data)
-        }
-      )
-    })
+  nextSlide(target: any): void {
+    target.swiperRef.slideNext();
   }
 
-  async getProdutoDescription() {
-    this.produto = <IProdutoDetalheModel>await this.getProduto();
-    this.produtosGenero = <IProdutoModel[]>await this.getProdutoGenero([this.produto.genero.descricao]);
-    this.produtosCategoria = <IProdutoModel[]>await this.getProdutosCategoria([this.produto.genero.descricao], [this.produto.categoria.descricao]);
-
-    // Root Image
-    this.pathImage += this.replaceAll(this.produto.genero.descricao, ' ', '-') + '/';
-    this.pathImage += this.replaceAll(this.produto.categoria.descricao, ' ', '-') + '/';
-    this.pathImage += this.replaceAll(this.produto.tipo.descricao, ' ', '-') + '/';
-
-    // Name Image
-    this.changeImageActive(this.produto.imagens[0].nome, this.produto.imagens[0].tipo);
-    
-    // Colors Produto and Price Minimun Produto
-    this.produto.estoques.forEach((value, index) => {
-      
-      if (index == 0) {
-        this.colors.push(value.cor);
-      } else if (index < this.produto.estoques.length) {
-        if (!(this.produto.estoques[index].cor.descricao == this.produto.estoques[index++].cor.descricao)) {
-          this.colors.push(value.cor);
-        }
-      }
-
-      if (index == 0 || this.price < value.preco) {
-        this.price = value.preco;
-      }
-
-    });
-  }
-
-  // Methods Manipulation Images
-  changeImageActive(nome: string, tipo: string) {
-    this.imageActive = nome + '.' + tipo;
-
-    this.fullPathImage = this.pathImage + this.imageActive;
-  }
-
-  isImageActive(nome: string, tipo: string): boolean {
-    return this.imageActive == (nome + '.' + tipo);
-  }
-
-  // Methods Slides
-  initializeSlides() {
+  initializeSlides(): void {
     // Slide Vars
     this.thumbSlide = {
       direction: 'horizontal',
@@ -188,36 +137,99 @@ export class IndividualComponent implements OnInit {
     }
   }
 
-  prevSlide(target: any) {
-    target.swiperRef.slidePrev();
-  }
+  findProduto() {
+    const params = this.activatedRoute.snapshot.paramMap;
+    const nome = params.get('nome')!;
+    const id = Number(params.get('id'));
 
-  nextSlide(target: any) {
-    target.swiperRef.slideNext();
-  }
-
-  // Methods Produto Carrinho Vars
-  getQuantity() {
-    if (this.tamanhoSelected != undefined && this.corSelected != undefined) {
-      this.produto.estoques.forEach(estoque => {
-        if (estoque.tamanho.descricao == this.tamanhoSelected && estoque.cor.descricao == this.corSelected) {
-          this.stockQuantity = estoque.quantidade;
-          this.precoSelected = estoque.preco;
+    return new Promise(resolve => {
+      this.produtoService.findProdutoByNomeAndId(nome, id).subscribe(
+        data => {
+          resolve(data);
         }
-      })
-    }
+      )
+    })
   }
 
-  setTamanho(value: string) {
-    this.tamanhoSelected = value;
+  findProdutosGenero(genero: string[]) {
+    return new Promise(resolve => {
+      this.produtoService.findProdutos(genero).subscribe(
+        data => {
+          resolve(data)
+        }
+      )
+    })
   }
 
-  setCor(value: string) {
-    this.corSelected = value;
+  findProdutosCategoria(genero: string[], categoria: string[]) {
+    return new Promise(resolve => {
+      this.produtoService.findProdutos(genero, categoria).subscribe(
+        data => {
+          resolve(data)
+        }
+      )
+    })
   }
 
-  // Methods Breadcrumb
-  goToProdutos(genero: string, categoria?: string, tipo?: string, marca?: string) {
+  async findProdutos() {
+    this.produto = <IProdutoDetalheModel>await this.findProduto();
+    this.produtosGenero = <IProdutoModel[]>await this.findProdutosGenero([this.produto.genero.descricao]);
+    this.produtosCategoria = <IProdutoModel[]>await this.findProdutosCategoria([this.produto.genero.descricao], [this.produto.categoria.descricao]);
+
+    this.initializeImage();
+    this.initializeProdutoProps();
+  }
+
+  isImageActive(nome: string, tipo: string): boolean {
+    return this.imageActive == (nome + '.' + tipo);
+  }
+
+  changeImageActive(nome: string, tipo: string): void {
+    this.imageActive = nome + '.' + tipo;
+
+    this.fullPathImage = this.pathImage + this.imageActive;
+  }
+
+  initializeImage(): void {
+    // Root Image
+    this.pathImage += this.replaceAll(this.produto.genero.descricao, ' ', '-') + '/';
+    this.pathImage += this.replaceAll(this.produto.categoria.descricao, ' ', '-') + '/';
+    this.pathImage += this.replaceAll(this.produto.tipo.descricao, ' ', '-') + '/';
+
+    // Name Image
+    this.changeImageActive(this.produto.imagens[0].nome, this.produto.imagens[0].tipo);
+  }
+
+  initializeProdutoProps(): void {
+    this.produto!.estoques.forEach((value, index) => {
+
+      if (index == 0) {
+        this.cores.push(value.cor);
+      } else if (index < this.produto.estoques.length) {
+        if (!(this.produto.estoques[index].cor.descricao == this.produto.estoques[index++].cor.descricao)) {
+          this.cores.push(value.cor);
+        }
+      }
+
+      if (index == 0 || this.preco < value.preco) {
+        this.preco = value.preco;
+      }
+
+    });
+
+    this.genero = this.produto.genero.descricao;
+    this.categoria = this.produto.categoria.descricao;
+    this.tipo = this.produto.tipo.descricao;
+    this.marca = this.produto.marca.descricao;
+    this.imagens = this.produto.imagens;
+    this.nome = this.produto.nome;
+    this.estoques = this.produto.estoques;
+    this.descricao = this.produto.descricao;
+    this.detalhe = this.produto.detalhe;
+    this.comentarios = this.produto.comentarios;
+  }
+
+  goToProdutos(genero: string, categoria?: string, tipo?: string, marca?: string): void {
     let query = {};
     genero = this.replaceAll(genero, ' ', '-');
 
@@ -243,38 +255,40 @@ export class IndividualComponent implements OnInit {
     });
   }
 
-  // Methods Add Carrinho
-  addProdutoCarrinho() {
+  setTamanho(tamanhoId: number): void {
+    this.tamanhoId = tamanhoId;
+  }
 
-    if (this.tamanhoSelected != undefined && this.corSelected != undefined) {
-      const produtoCarrinho: IProdutoCarrinho = {
-        id: this.produto.id,
-        nome: this.produto.nome,
-        genero: this.produto.genero,
-        categoria: this.produto.categoria,
-        tipo: this.produto.tipo,
-        estoques: this.produto.estoques,
-        marca: this.produto.marca,
+  setCor(corId: number): void {
+    this.corId = corId;
+  }
 
-        largura: this.produto.largura,
-        altura: this.produto.altura,
-        comprimento: this.produto.comprimento,
-        peso: this.produto.peso,
+  setQuantidadeEstoque(): void {
+    if (this.tamanhoId != undefined && this.corId != undefined) {
+      this.produto.estoques.forEach(estoque => {
+        if (estoque.tamanho.id == this.tamanhoId && estoque.cor.id == this.corId) {
+          this.quantidadeEstoque = estoque.quantidade;
+          this.precoSelected = estoque.preco;
+        }
+      })
+    }
+  }
 
+  addItemPedido(): void {
+
+    if (this.tamanhoId != undefined && this.corId != undefined) {
+      const itemPedidoInput: IItemPedidoInput = {
+        produto: { id: this.produto.id },
+        tamanho: { id: this.tamanhoId },
+        cor: { id: this.corId },
         quantidade: this.quantidade,
-        tamanhoSelecionado: this.tamanhoSelected,
-        corSelecionado: this.corSelected,
-        precoSelecionado: this.precoSelected
+        observacao: ''
       }
 
-      this.carrinhoService.addProdutoCarrinho(produtoCarrinho);
+      this.carrinhoService.addItemPedido(itemPedidoInput);
+      this.message = "Produto adicionado ao carrinho";
     }
 
   }
 
-  replaceAll(str: string, find: string, replace: string) {
-    str = str.toLowerCase()
-      .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-    return str.replace(new RegExp(find, 'g'), replace);
-  }
 }

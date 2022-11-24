@@ -3,5 +3,6 @@ export interface ITamanhoIdInput {
 }
 
 export interface ITamanhoModel {
+    id: number;
     descricao: string;
 }

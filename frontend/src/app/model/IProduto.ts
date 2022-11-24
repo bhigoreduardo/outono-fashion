@@ -1,7 +1,7 @@
 import { ICategoriaModel } from "./ICategoria";
 import { IComentarioModel } from "./IComentario";
 import { IEstoqueModel } from "./IEstoque";
-import { IGenero } from "./IGenero";
+import { IGeneroModel } from "./IGenero";
 import { IImagemModel } from "./IImagem";
 import { IMarcaModel } from "./IMarca";
 import { ITipoModel } from "./ITipo";
@@ -10,14 +10,15 @@ export interface IProdutoIdInput {
     id: number;
 }
 
+// Model
 export interface IProdutoModel {
     id: number;
     nome: string;
-    genero: IGenero;
+    genero: IGeneroModel;
     categoria: ICategoriaModel;
     tipo: ITipoModel;
-    estoques: IEstoqueModel[];
     marca: IMarcaModel;
+    estoques: IEstoqueModel[];
 }
 
 export interface IProdutoDetalheModel extends IProdutoModel {

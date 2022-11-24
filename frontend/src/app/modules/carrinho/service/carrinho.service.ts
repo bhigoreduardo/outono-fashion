@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { IItemPedidoInput } from 'src/app/model/IItemPedido';
 import { IProdutoCarrinho } from '../../../model/IProduto';
 
 @Injectable({
@@ -6,8 +7,37 @@ import { IProdutoCarrinho } from '../../../model/IProduto';
 })
 export class CarrinhoService {
   produtosCarrinho: IProdutoCarrinho[] = [];
+  itensPedido: IItemPedidoInput[] = [];
 
   constructor() { }
+
+  addItemPedido(itemPedidoInput: IItemPedidoInput): void {
+    // Get Session
+    if (localStorage.getItem('itensPedido')) {
+      this.itensPedido = JSON.parse(localStorage.getItem('itensPedido')!);
+
+      let index = -1;
+
+      this.itensPedido.forEach((itemPedido, i) => {
+        if (itemPedido.produto.id == itemPedidoInput.produto.id
+          && itemPedido.tamanho.id == itemPedidoInput.tamanho.id
+          && itemPedido.cor.id == itemPedidoInput.cor.id) {
+          index = i;
+        }
+      });
+
+      if (index != -1) {
+        this.itensPedido[index].quantidade += itemPedidoInput.quantidade;
+      } else {
+        this.itensPedido.push(itemPedidoInput);
+      }
+    } else {
+      this.itensPedido.push(itemPedidoInput);
+    }
+
+    // Set Session
+    localStorage.setItem('itensPedido', JSON.stringify(this.itensPedido));
+  }
 
   addProdutoCarrinho(produto: IProdutoCarrinho) {
     // Get Session

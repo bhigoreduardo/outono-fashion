@@ -3,15 +3,17 @@ import { IItemPedidoInput, IItemPedidoModel } from './IItemPedido';
 import { IPagamentoIdInput, IPagamentoResumoModel } from './IPagamento';
 import { IUsuarioIdInput, IUsuarioResumoModel } from './IUsuario';
 
+// Input
 export interface IPedidoInput {
     taxaEntrega: number;
-    pagamento: IPagamentoIdInput;
+	pagamento: IPagamentoIdInput;
     enderecoApelido: string;
-    usuario: IUsuarioIdInput;
-    itensPedido: IItemPedidoInput[];
-    cupom: ICupomIdInput;
+	usuario: IUsuarioIdInput;
+	itensPedido: IItemPedidoInput[];
+	cupom: ICupomIdInput;
 }
 
+// Output
 export interface IPedidoModel {
     codigoPedido: string;
     subTotal: number;

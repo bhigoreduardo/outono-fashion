@@ -3,6 +3,7 @@ export interface ICorIdInput {
 }
 
 export interface ICorModel {
+    id: number;
     descricao: string;
     valor: string;
 }

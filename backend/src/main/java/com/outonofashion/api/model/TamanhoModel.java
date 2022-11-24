@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 public class TamanhoModel {
 	
+	private Long id;
 	private String descricao;
 
 }
