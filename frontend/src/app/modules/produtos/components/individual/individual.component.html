@@ -52,7 +52,7 @@
                 <h5 class="brand">{{marca}}</h5>
                 <h4 class="name">{{nome}}</h4>
 
-                <div *ngIf="precoSelected == undefined" class="price-box">
+                <div *ngIf="precoSelecionado == undefined" class="price-box">
                     <span class="price">
                         <small class="currency">À partir de </small>{{preco | currency: 'BRL'}}
                     </span>
@@ -60,9 +60,9 @@
                         juros</span>
                 </div>
 
-                <div *ngIf="precoSelected != undefined" class="price-box">
-                    <span class="price">{{precoSelected | currency: 'BRL'}}</span>
-                    <span class="installment">ou até {{parcela}}x de {{precoSelected / parcela | currency:
+                <div *ngIf="precoSelecionado != undefined" class="price-box">
+                    <span class="price">{{precoSelecionado | currency: 'BRL'}}</span>
+                    <span class="installment">ou até {{parcela}}x de {{precoSelecionado / parcela | currency:
                         'BRL'}} sem juros</span>
                 </div>
             </div>
@@ -70,7 +70,7 @@
             <div class="product-choice" (change)="setQuantidadeEstoque()">
                 <h6 class="title">Escolha o tamanho</h6>
                 <div class="radiobox-container">
-                    <app-radiobox *ngFor="let estoque of estoques" (click)="setTamanho(estoque.tamanho.id)"
+                    <app-radiobox *ngFor="let estoque of estoques" (click)="setTamanho(estoque.tamanho.descricao)"
                         title="{{estoque.tamanho.descricao}}" placeholder="{{estoque.tamanho.descricao}}" name="tamanho"
                         value="{{estoque.tamanho.descricao | replace}}" check="''">
                     </app-radiobox>
@@ -78,7 +78,7 @@
 
                 <h6 class="title">Escolha a cor</h6>
                 <div class="radiobox-container">
-                    <app-radiobox *ngFor="let cor of cores" (click)="setCor(cor.id)" title="{{cor.descricao}}"
+                    <app-radiobox *ngFor="let cor of cores" (click)="setCor(cor.descricao)" title="{{cor.descricao}}"
                         name="cor.descricao" value="{{cor.descricao}}" check="''" color="{{cor.valor}}">
                     </app-radiobox>
                 </div>

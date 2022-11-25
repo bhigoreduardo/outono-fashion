@@ -4,8 +4,7 @@ import { IComentarioModel } from 'src/app/model/IComentario';
 import { ICorModel } from 'src/app/model/ICor';
 import { IEstoqueModel } from 'src/app/model/IEstoque';
 import { IImagemModel } from 'src/app/model/IImagem';
-import { IItemPedidoInput } from 'src/app/model/IItemPedido';
-import { IProdutoDetalheModel, IProdutoModel } from 'src/app/model/IProduto';
+import { IProdutoCarrinho, IProdutoDetalheModel, IProdutoModel } from 'src/app/model/IProduto';
 import { CarrinhoService } from 'src/app/modules/carrinho/service/carrinho.service';
 import { SwiperOptions } from 'swiper';
 
@@ -37,7 +36,7 @@ export class IndividualComponent implements OnInit {
   cores: ICorModel[] = [];
   quantidadeEstoque!: number;
   preco!: number;
-  precoSelected!: number;
+  precoSelecionado!: number;
   parcela: number = 12;
   comentarios: IComentarioModel[] = [];
 
@@ -46,9 +45,13 @@ export class IndividualComponent implements OnInit {
   imageActive!: string;
   fullPathImage: string = '';
 
-  // Item Pedido Vars
+  // Carrinho Vars
   tamanhoId!: number;
   corId!: number;
+
+  tamanhoDescricao!: string;
+  corDescricao!: string;
+
   quantidade: number = 1;
   message!: string;
 
@@ -255,20 +258,22 @@ export class IndividualComponent implements OnInit {
     });
   }
 
-  setTamanho(tamanhoId: number): void {
-    this.tamanhoId = tamanhoId;
+  setTamanho(tamanhoDescricao: string): void {
+    // this.tamanhoId = tamanhoId;
+    this.tamanhoDescricao = tamanhoDescricao;
   }
 
-  setCor(corId: number): void {
-    this.corId = corId;
+  setCor(corDescricao: string): void {
+    // this.corId = corId;
+    this.corDescricao = corDescricao;
   }
 
   setQuantidadeEstoque(): void {
-    if (this.tamanhoId != undefined && this.corId != undefined) {
+    if (this.tamanhoDescricao != undefined && this.corDescricao != undefined) {
       this.produto.estoques.forEach(estoque => {
-        if (estoque.tamanho.id == this.tamanhoId && estoque.cor.id == this.corId) {
+        if (estoque.tamanho.descricao == this.tamanhoDescricao && estoque.cor.descricao == this.corDescricao) {
           this.quantidadeEstoque = estoque.quantidade;
-          this.precoSelected = estoque.preco;
+          this.precoSelecionado = estoque.preco;
         }
       })
     }
@@ -276,16 +281,31 @@ export class IndividualComponent implements OnInit {
 
   addItemPedido(): void {
 
-    if (this.tamanhoId != undefined && this.corId != undefined) {
-      const itemPedidoInput: IItemPedidoInput = {
-        produto: { id: this.produto.id },
-        tamanho: { id: this.tamanhoId },
-        cor: { id: this.corId },
+    if (this.tamanhoDescricao != undefined && this.corDescricao != undefined) {
+
+      const produtoCarrinho: IProdutoCarrinho = {
+
+        id: this.produto.id,
+        nome: this.produto.nome,
+        genero: this.produto.genero,
+        categoria: this.produto.categoria,
+        tipo: this.produto.tipo,
+        marca: this.produto.marca,
+        estoques: this.produto.estoques,
+
+        largura: this.produto.largura,
+        altura: this.produto.altura,
+        comprimento: this.produto.comprimento,
+        peso: this.produto.peso,
+
         quantidade: this.quantidade,
-        observacao: ''
+        tamanhoDescricao: this.tamanhoDescricao,
+        corDescricao: this.corDescricao,
+        precoSelecionado: this.precoSelecionado
+
       }
 
-      this.carrinhoService.addItemPedido(itemPedidoInput);
+      this.carrinhoService.addProdutoCarrinho(produtoCarrinho);
       this.message = "Produto adicionado ao carrinho";
     }
 

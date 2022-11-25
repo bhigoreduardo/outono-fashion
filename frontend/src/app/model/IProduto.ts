@@ -43,7 +43,8 @@ export interface IProdutoCarrinho extends IProdutoModel {
     comprimento: number;
     peso: number;
     quantidade: number;
-    tamanhoSelecionado: string;
-    corSelecionado: string;
+
+    tamanhoDescricao: string;
+    corDescricao: string;
     precoSelecionado: number;
 }

@@ -7,9 +7,87 @@ import { IProdutoCarrinho } from '../../../model/IProduto';
 })
 export class CarrinhoService {
   produtosCarrinho: IProdutoCarrinho[] = [];
-  itensPedido: IItemPedidoInput[] = [];
-
+  
   constructor() { }
+
+  addProdutoCarrinho(produto: IProdutoCarrinho) {
+    // Get Session
+    if (localStorage.getItem('carrinho')) {
+      this.produtosCarrinho = JSON.parse(localStorage.getItem('carrinho')!);
+
+      let index = -1;
+
+      this.produtosCarrinho.forEach((produtoCarrinho, i) => {
+        if (produtoCarrinho.id == produto.id
+          && produtoCarrinho.tamanhoDescricao == produto.tamanhoDescricao
+          && produtoCarrinho.corDescricao == produto.corDescricao) {
+          index = i;
+        }
+      });
+
+
+      if (index != -1) {
+        this.produtosCarrinho[index].quantidade += produto.quantidade;
+      } else {
+        this.produtosCarrinho.push(produto);
+      }
+
+    } else {
+      this.produtosCarrinho.push(produto);
+    }
+
+    // Set Session
+    localStorage.setItem('carrinho', JSON.stringify(this.produtosCarrinho));
+  }
+
+  getQuantidadeProdutos(): number {
+    if (localStorage.getItem('carrinho')) {
+      this.produtosCarrinho = JSON.parse(localStorage.getItem('carrinho')!);
+
+      return this.produtosCarrinho
+        .reduce((prev, currProduto) => prev + currProduto.quantidade, 0);
+    }
+
+    return -1;
+  }
+
+  getProdutosCarrinho(): IProdutoCarrinho[] {
+    // Get Session
+    if (localStorage.getItem('carrinho')) {
+      this.produtosCarrinho = JSON.parse(localStorage.getItem('carrinho')!);
+    }
+
+    return this.produtosCarrinho;
+  }
+
+  refreshProdutosCarrinho(produtos: IProdutoCarrinho[]) {
+    this.produtosCarrinho = produtos;
+
+    localStorage.setItem('carrinho', JSON.stringify(this.produtosCarrinho));
+  }
+
+  deleteProdutoCarrinho(produto: IProdutoCarrinho) {
+    if (localStorage.getItem('carrinho')) {
+      this.produtosCarrinho = JSON.parse(localStorage.getItem('carrinho')!);
+    }
+
+    this.produtosCarrinho = this.produtosCarrinho.filter(
+      (produtoCarrinho) => {
+        return !(produtoCarrinho.id == produto.id
+          && produtoCarrinho.tamanhoDescricao == produto.tamanhoDescricao
+          && produtoCarrinho.corDescricao == produto.corDescricao)
+      }
+    );
+
+    localStorage.setItem('carrinho', JSON.stringify(this.produtosCarrinho));
+  }
+
+  setTaxaEntrega(cep: string) {
+
+  }
+
+  // Pedido
+  itensPedido: IItemPedidoInput[] = [];
 
   addItemPedido(itemPedidoInput: IItemPedidoInput): void {
     // Get Session
@@ -37,73 +115,6 @@ export class CarrinhoService {
 
     // Set Session
     localStorage.setItem('itensPedido', JSON.stringify(this.itensPedido));
-  }
-
-  addProdutoCarrinho(produto: IProdutoCarrinho) {
-    // Get Session
-    if (localStorage.getItem('carrinho')) {
-      this.produtosCarrinho = JSON.parse(localStorage.getItem('carrinho')!);
-    }
-
-    // Add Cart
-    if (this.produtosCarrinho.find(
-      (produtoCarrinho) => {
-        produtoCarrinho.id == produto.id
-          && produtoCarrinho.tamanhoSelecionado == produto.tamanhoSelecionado
-          && produtoCarrinho.corSelecionado == produto.corSelecionado
-      })) {
-
-      this.produtosCarrinho.map(
-        (produtoCarrinho) => {
-          produtoCarrinho.id == produto.id
-            && produtoCarrinho.tamanhoSelecionado == produto.tamanhoSelecionado
-            && produtoCarrinho.corSelecionado == produto.corSelecionado
-            ? produtoCarrinho.quantidade += produto.quantidade : '';
-        });
-
-    } else {
-      this.produtosCarrinho.push(produto);
-    }
-
-    // Set Session
-    localStorage.setItem('carrinho', JSON.stringify(this.produtosCarrinho));
-  }
-
-  getProdutosCarrinho(): IProdutoCarrinho[] {
-    // Get Session
-    if (localStorage.getItem('carrinho')) {
-      this.produtosCarrinho = JSON.parse(localStorage.getItem('carrinho')!);
-    }
-
-    return this.produtosCarrinho;
-  }
-
-  refreshProdutosCarrinho(produtos: IProdutoCarrinho[]) {
-    this.produtosCarrinho = produtos;
-
-    localStorage.setItem('carrinho', JSON.stringify(this.produtosCarrinho));
-  }
-
-  deleteProdutoCarrinho(produto: IProdutoCarrinho) {
-    if (localStorage.getItem('carrinho')) {
-      this.produtosCarrinho = JSON.parse(localStorage.getItem('carrinho')!);
-    }
-
-    this.produtosCarrinho = this.produtosCarrinho.filter(
-      (produtoCarrinho) => {
-        return !(produtoCarrinho.id == produto.id
-          && produtoCarrinho.tamanhoSelecionado == produto.tamanhoSelecionado
-          && produtoCarrinho.corSelecionado == produto.corSelecionado)
-      }
-    );
-
-    console.log(this.produtosCarrinho)
-
-    localStorage.setItem('carrinho', JSON.stringify(this.produtosCarrinho));
-  }
-
-  getFrete(cep: string) {
-
   }
 
 }

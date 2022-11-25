@@ -9,23 +9,26 @@ import { CarrinhoService } from './service/carrinho.service';
   styleUrls: ['./carrinho.component.scss']
 })
 export class CarrinhoComponent implements OnInit {
-  // Produtos Carrinho Vars
+
+  // Produto Vars
   produtosCarrinho: IProdutoCarrinho[] = [];
+
+  // Carrinho Props
+  quantidadeProdutos!: number;
   subTotal!: number;
-  frete!: number;
+
+  cep!: string;
+  taxaEntrega!: number;
   total!: number;
-  prestacao: number = 12;
+  parcela: number = 12;
 
   // Slides Vars
-  imageSlide: SwiperOptions = {
-    direction: 'horizontal',
-    slidesPerView: 1,
-    spaceBetween: 0,
-    scrollbar: { draggable: true }
-  }
-
-  // CEP Vars
-  cep!: string;
+  // imageSlide: SwiperOptions = {
+  //   direction: 'horizontal',
+  //   slidesPerView: 1,
+  //   spaceBetween: 0,
+  //   scrollbar: { draggable: true }
+  // }
 
   constructor(
     private carrinhoService: CarrinhoService
@@ -33,6 +36,10 @@ export class CarrinhoComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProdutosCarrinho();
+  }
+
+  getQuantidadeProdutos(): number {
+    return this.carrinhoService.getQuantidadeProdutos();
   }
 
   getProdutosCarrinho() {
@@ -44,11 +51,7 @@ export class CarrinhoComponent implements OnInit {
     this.subTotal = this.produtosCarrinho.reduce(
       (prev, currProduto) => prev + currProduto.quantidade * currProduto.precoSelecionado, 0
     )
-  }
-
-  deleteProdutoCarrinho(produto: IProdutoCarrinho) {
-    this.carrinhoService.deleteProdutoCarrinho(produto);
-    this.getProdutosCarrinho();
+    this.total = this.subTotal + this.taxaEntrega;
   }
 
   refreshProdutosCarrinho() {
@@ -59,7 +62,7 @@ export class CarrinhoComponent implements OnInit {
   upper(produtoId: number) {
     this.produtosCarrinho.filter((produtoCarrinho) => {
       produtoCarrinho.estoques.forEach(value => {
-        if (value.tamanho.descricao == produtoCarrinho.tamanhoSelecionado && value.cor.descricao == produtoCarrinho.corSelecionado) {
+        if (value.tamanho.descricao == produtoCarrinho.tamanhoDescricao && value.cor.descricao == produtoCarrinho.corDescricao) {
           produtoCarrinho.id == produtoId
             ? produtoCarrinho.quantidade >= value.quantidade
               ? produtoCarrinho.quantidade = value.quantidade : produtoCarrinho.quantidade++
@@ -82,9 +85,15 @@ export class CarrinhoComponent implements OnInit {
     this.refreshProdutosCarrinho();
   }
 
-  getFrete(cep: string) {
-    // Implements Get Frete and Prazo API Correios
-    this.frete = 10.9;
-    this.total = this.subTotal + this.frete;
+  deleteProdutoCarrinho(produto: IProdutoCarrinho) {
+    this.carrinhoService.deleteProdutoCarrinho(produto);
+    this.getProdutosCarrinho();
   }
+
+  setTaxaEntrega(cep: string) {
+    // Implements Get Frete and Prazo API Correios
+    this.taxaEntrega = 10.9;
+    this.getSubTotal();
+  }
+
 }

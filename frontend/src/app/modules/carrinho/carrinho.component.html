@@ -5,7 +5,7 @@
 <!-- CART -->
 <section class="cart container gap-section">
     <h4 class="cart-title">Minha Sacola</h4>
-    <small class="quantity-products">2 produtos</small>
+    <small class="quantity-products">{{getQuantidadeProdutos()}} produtos</small>
 
     <div class="cart-header">
         <span>Produto</span>
@@ -18,11 +18,8 @@
     <div class="cart-list">
         <div class="product-cart" *ngFor="let produto of produtosCarrinho">
             <div class="image-box">
-                <!-- image!: string, alt!: string -->
-                <img 
-                    src="/assets/produtos/{{produto.genero.descricao | replace:' ':'-'}}/{{produto.categoria.descricao | replace:' ':'-'}}/{{produto.tipo.descricao | replace:' ':'-'}}/{{produto.nome | replace:' ':'-'}}-{{produto.id}}-1.webp"
-                    alt="{{produto.nome}}"
-                />
+                <img src="/assets/produtos/{{produto.genero.descricao | replace:' ':'-'}}/{{produto.categoria.descricao | replace:' ':'-'}}/{{produto.tipo.descricao | replace:' ':'-'}}/{{produto.nome | replace:' ':'-'}}-{{produto.id}}-1.webp"
+                    alt="{{produto.nome}}" />
                 <!-- <swiper [config]="imageSlide" >
                     <ng-template swiperSlide *ngFor="let imagem of produto.imagens" >
                         <div class="image-wrapper">
@@ -33,24 +30,18 @@
             </div>
 
             <div class="description-box">
-                <!-- marca!:string, nome!: string -->
                 <span>Descrição</span>
                 <h6>{{produto.marca.descricao}}</h6>
                 <p>{{produto.nome}}</p>
-                <small>Tamanho: {{produto.tamanhoSelecionado}}</small>
-                <small>Cor: {{produto.corSelecionado}}</small>
+                <small>Tamanho: {{produto.tamanhoDescricao}}</small>
+                <small>Cor: {{produto.corDescricao}}</small>
             </div>
 
             <div class="quantity-box">
                 <span>Quantidade</span>
 
                 <label class="quantity-container">
-                    <input
-                        class="quantity"
-                        type="number"
-                        min="1"
-                        [(ngModel)]="produto.quantidade"
-                    />
+                    <input class="quantity" type="number" min="1" [(ngModel)]="produto.quantidade" />
                     <button class="upper" (click)="upper(produto.id)">
                         <svg width="12" height="12" viewBox="0 0 8 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M4 0L7.4641 6H0.535898L4 0Z" fill="#F29D36" />
@@ -65,28 +56,27 @@
             </div>
 
             <div class="price-box">
-                <!-- price!: number -->
                 <span>Valor</span>
                 <h5>{{produto.precoSelecionado | currency:'BRL'}}</h5>
             </div>
 
             <div class="subtotal-box">
-                <!-- subtotal!: number -->
                 <span>Subtotal</span>
                 <h5>{{produto.precoSelecionado * produto.quantidade | currency:'BRL'}}</h5>
             </div>
 
             <div class="delete-box">
-                <button (click)="deleteProdutoCarrinho(produto)" class="button button-danger button-xxs"><i class="fas fa-times"></i></button>
+                <button (click)="deleteProdutoCarrinho(produto)" class="button button-danger button-xxs"><i
+                        class="fas fa-times"></i></button>
             </div>
         </div>
     </div>
 
     <div class="cart-footer">
         <div class="shipping">
-            <p>Simule o prazo de entrega e o frete para seu CEP abaixo:</p>
+            <p>Simule o prazo de entrega e o taxa de entrega para seu CEP abaixo:</p>
 
-            <div *ngIf="frete != undefined" class="result-shipping">
+            <div *ngIf="taxaEntrega != undefined" class="result-shipping">
                 <div class="location">
                     <small><span>Localização:</span> São Paulo, SP</small>
                     <small><span>Endereço:</span> Rua das Laranjeiras, Bairro Cascata</small>
@@ -94,17 +84,14 @@
 
                 <div class="values">
                     <small><span>Prazo:</span> 10 dia(s)</small>
-                    <small><span>Frete:</span> R$10,90</small>
+                    <small><span>Taxa de entrega:</span> R$10,90</small>
                 </div>
             </div>
 
             <div class="input-cep">
                 <input type="text" [(ngModel)]="cep" />
-                <button
-                    type="button"
-                    class="button button-warning button-uppercase button-semi button-base"
-                    (click)="getFrete(cep)"
-                >Ok</button>
+                <button type="button" class="button button-warning button-uppercase button-semi button-base"
+                    (click)="setTaxaEntrega(cep)">Ok</button>
             </div>
         </div>
 
@@ -115,38 +102,41 @@
                     <span>Subtotal</span>
                     <span>{{subTotal | currency:'BRL'}}</span>
                 </div>
-        
-                <div class="value" >
-                    <span>Frete</span>
-                    <span *ngIf="frete == undefined">à Calcular</span>
-                    <span *ngIf="frete != undefined">R$10,90</span>
+
+                <div class="value">
+                    <span>Taxa de entrega</span>
+                    <span *ngIf="taxaEntrega == undefined">à Calcular</span>
+                    <span *ngIf="taxaEntrega != undefined">R$10,90</span>
                 </div>
             </div>
 
             <div class="summary-middle">
                 <div class="value">
-                  <span>Total</span>
-                  <span *ngIf="frete == undefined">à Calcular</span>
-                  <div *ngIf="frete != undefined" class="total">
-                    <h5>{{total | currency:'BRL'}}</h5>
-                    <small class="installment">ou em até {{prestacao}}x de {{total / prestacao | currency:'BRL'}}</small>
-                  </div>
+                    <span>Total</span>
+                    <span *ngIf="taxaEntrega == undefined">à Calcular</span>
+                    <div *ngIf="taxaEntrega != undefined" class="total">
+                        <h5>{{total | currency:'BRL'}}</h5>
+                        <small class="installment">ou em até {{parcela}}x de {{total / parcela |
+                            currency:'BRL'}}</small>
+                    </div>
                 </div>
             </div>
 
             <div class="coupon">
                 <i class="fa fa-gift"></i>
                 <span>
-                  <p>Possui cupom de desconto?</p>
-                  <p>Use na etapa de pagamento</p>
+                    <p>Possui cupom de desconto?</p>
+                    <p>Use na etapa de pagamento</p>
                 </span>
             </div>
 
-            <button
-                type="button"
-                class="button button-warning button-uppercase button-semi button-sm"
-            >Finalizar pedido</button>
+            <button type="button" class="button button-warning button-uppercase button-semi button-sm">Finalizar
+                pedido</button>
         </div>
     </div>
 </section>
 <!-- / CART -->
+
+<!-- FOOTER -->
+<app-footer></app-footer>
+<!-- / FOOTER -->
