@@ -24,7 +24,5 @@ public class ItemPedidoInput {
 	@NotNull
 	@Positive
 	private Integer quantidade;
-		
-	private String observacao;
 
 }

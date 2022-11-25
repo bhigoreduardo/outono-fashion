@@ -43,6 +43,7 @@ public class PedidoController {
 	@PostMapping
 	public PedidoModel insert(@RequestBody @Valid PedidoInput pedidoInput) {
 		Pedido pedido = pedidoInputDisassembler.toDomain(pedidoInput);
+
 		return pedidoModelAssembler.toModel(pedidoService.save(pedido));
 	}
 

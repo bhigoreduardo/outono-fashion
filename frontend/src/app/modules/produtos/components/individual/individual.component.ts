@@ -48,12 +48,9 @@ export class IndividualComponent implements OnInit {
   // Carrinho Vars
   tamanhoId!: number;
   corId!: number;
-
   tamanhoDescricao!: string;
   corDescricao!: string;
-
   quantidade: number = 1;
-  message!: string;
 
   // Toggle Info Produto Vars
   sideDescription!: boolean;
@@ -63,6 +60,9 @@ export class IndividualComponent implements OnInit {
   thumbSlide!: SwiperOptions;
   commentaryGallery!: SwiperOptions;
   mostSaleSlide!: SwiperOptions;
+
+  // Message
+  message: string | undefined;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -258,14 +258,14 @@ export class IndividualComponent implements OnInit {
     });
   }
 
-  setTamanho(tamanhoDescricao: string): void {
-    // this.tamanhoId = tamanhoId;
+  setTamanho(tamanhoDescricao: string, tamanhoId: number): void {
     this.tamanhoDescricao = tamanhoDescricao;
+    this.tamanhoId = tamanhoId;
   }
 
-  setCor(corDescricao: string): void {
-    // this.corId = corId;
+  setCor(corDescricao: string, corId: number): void {
     this.corDescricao = corDescricao;
+    this.corId = corId;
   }
 
   setQuantidadeEstoque(): void {
@@ -299,7 +299,9 @@ export class IndividualComponent implements OnInit {
         peso: this.produto.peso,
 
         quantidade: this.quantidade,
+        tamanhoId: this.tamanhoId,
         tamanhoDescricao: this.tamanhoDescricao,
+        corId: this.corId,
         corDescricao: this.corDescricao,
         precoSelecionado: this.precoSelecionado
 
@@ -309,6 +311,10 @@ export class IndividualComponent implements OnInit {
       this.message = "Produto adicionado ao carrinho";
     }
 
+  }
+
+  clearMessage(value: any): void {
+    this.message = undefined;
   }
 
 }

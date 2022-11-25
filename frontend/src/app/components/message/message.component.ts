@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-message',
@@ -12,6 +12,8 @@ export class MessageComponent implements OnInit, OnChanges {
   scale!: string;
   opacity!: string;
   transition!: string;
+
+  @Output() clearMessage = new EventEmitter();
 
   constructor() { }
 
@@ -40,6 +42,8 @@ export class MessageComponent implements OnInit, OnChanges {
     this.scale = 'scale(0)';
     this.opacity = '0';
     this.message = undefined;
+
+    this.clearMessage.emit();
   }
 
 }

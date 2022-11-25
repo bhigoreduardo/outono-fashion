@@ -85,4 +85,8 @@ export class ContaService {
       .put<IUserMessage>(url, enderecoInput)
       .pipe(map(res => res));
   }
+
+  getUsuarioModel(): IUsuarioModel {
+    return JSON.parse(localStorage.getItem('usuarioModel')!);
+  }
 }

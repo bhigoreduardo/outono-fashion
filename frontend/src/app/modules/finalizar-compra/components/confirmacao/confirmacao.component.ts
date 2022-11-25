@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConfirmacaoComponent implements OnInit {
 
+  codigoPedido!: string;
+
   constructor() { }
 
   ngOnInit(): void {
+    this.codigoPedido = localStorage.getItem('codigoPedido')!;
   }
 
 }

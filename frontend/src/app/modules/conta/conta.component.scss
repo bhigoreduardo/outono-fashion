@@ -3,7 +3,7 @@
 .address--add,
 .user-data--phone,
 .user-data--password {
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0);

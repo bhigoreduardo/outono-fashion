@@ -34,7 +34,7 @@ public class Cartao {
 	@Column(nullable = false, length = 2)
 	private String anoValidade;
 
-	@Column(nullable = false, length = 3)
+	@Column(nullable = false, length = 4)
 	private String cvv;
 	
 	@ManyToOne

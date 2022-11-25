@@ -1,9 +1,13 @@
+<!-- MESSAGE -->
+<app-message [message]="message" (clearMessage)="clearMessage($event)"></app-message>
+<!-- / MESSAGE -->
+
 <!-- HEADER CHECKOUT -->
 <app-header-checkout></app-header-checkout>
 <!-- / HEADER CHECKOUT -->
 
 <!-- PAYMENT CHECKOUT -->
-<!-- <section class="payment-checkout">
+<section class="payment-checkout">
     <div class="container">
         <app-step [identity]="true" [payment]="true"></app-step>
 
@@ -14,14 +18,20 @@
                     <span class="sub-title">Onde você deseja receber seu produto?</span>
 
                     <div class="location-options custom-scrollbar">
-                        <app-radiolocation name="John Doe" nickname="Casa" street="Rua São João" streetNumber="987"
-                            neighborhood="Jd. Santa Mônica II" reference="Perto da Parque" complement="Sobrado Triplex"
-                            city="Londrina" state="PR" cep="86679-990"></app-radiolocation>
+                        <app-radiolocation *ngFor="let endereco of enderecosModel"
+                            (active)="activeEnderecoApelido($event)" enderecoApelido="{{endereco.id.enderecoApelido}}"
+                            enderecoLogradouro="{{endereco.enderecoLogradouro}}"
+                            enderecoNumero="{{endereco.enderecoNumero}}" enderecoBairro="{{endereco.enderecoBairro}}"
+                            enderecoReferencia="{{endereco.enderecoReferencia}}"
+                            enderecoComplemento="{{endereco.enderecoComplemento}}"
+                            enderecoCidade="{{endereco.enderecoCidade}}" enderecoUf="{{endereco.enderecoUf}}"
+                            enderecoCep="{{endereco.enderecoCep}}" [enderecoAtivo]="endereco.enderecoAtivo">
+                        </app-radiolocation>
 
-                        <a class="new-address">
+                        <!-- <a class="new-address">
                             <i class="fas fa-plus"></i>
                             <p>Adicionar novo endereço</p>
-                        </a>
+                        </a> -->
                     </div>
                 </div>
 
@@ -30,7 +40,7 @@
                     <span class="sub-title">Como você deseja pagar?</span>
 
                     <div class="payment-choice">
-                        <label class="option-payment">
+                        <label class="option-payment" (click)="createFormCartaoCredito()">
                             <input type="radio" name="payment-method" value="1" [(ngModel)]="formaPagamento" />
                             <span>
                                 <p><i class="fas fa-credit-card"></i>Cartão de Crédito</p>
@@ -53,12 +63,12 @@
                     </div>
 
                     <div *ngIf="formaPagamento != undefined" class="payment-method">
-                        <form *ngIf="formaPagamento == 1" class="credit-card" [formGroup]="formCreditCard">
+                        <div *ngIf="formaPagamento == 1" class="credit-card" [formGroup]="formCartaoCredito">
                             <div class="input-box"
-                                [ngClass]="{invalid: formCreditCard.controls['cardNumber'].invalid && (formCreditCard.controls['cardNumber'].touched || formCreditCard.controls['cardNumber'].dirty), valid: formCreditCard.valid}">
-                                <label class="input-label" for="card-number">Número do cartão</label>
-                                <input type="number" name="numero-cartao" id="card-number" class="input-field"
-                                    placeholder="Insira os números do cartão" required formControlName="cardNumber" />
+                                [ngClass]="{invalid: formCartaoCredito.controls['numero'].invalid && (formCartaoCredito.controls['numero'].touched || formCartaoCredito.controls['numero'].dirty), valid: formCartaoCredito.valid}">
+                                <label class="input-label" for="numero">Número do cartão</label>
+                                <input type="text" id="numero" class="input-field"
+                                    placeholder="Insira os números do cartão" required formControlName="numero" />
                                 <div class="group-icon">
                                     <i class="fas fa-check-circle"></i>
                                     <i class="fas fa-times-circle"></i>
@@ -66,10 +76,10 @@
                             </div>
 
                             <div class="input-box"
-                                [ngClass]="{invalid: formCreditCard.controls['cardName'].invalid && (formCreditCard.controls['cardName'].touched || formCreditCard.controls['cardName'].dirty), valid: formCreditCard.valid}">
-                                <label class="input-label" for="card-name">Nome impresso no cartão</label>
-                                <input type="text" name="nome-cartao" id="card-name" class="input-field"
-                                    placeholder="Nome como escrito no cartão" formControlName="cardName" />
+                                [ngClass]="{invalid: formCartaoCredito.controls['nomeImpresso'].invalid && (formCartaoCredito.controls['nomeImpresso'].touched || formCartaoCredito.controls['nomeImpresso'].dirty), valid: formCartaoCredito.valid}">
+                                <label class="input-label" for="nome-impresso">Nome impresso no cartão</label>
+                                <input type="text" id="nome-impresso" class="input-field"
+                                    placeholder="Nome como escrito no cartão" formControlName="nomeImpresso" />
                                 <div class="group-icon">
                                     <i class="fas fa-check-circle"></i>
                                     <i class="fas fa-times-circle"></i>
@@ -78,30 +88,28 @@
 
                             <div class="box-wrapper">
                                 <div class="select-box"
-                                    [ngClass]="{invalid: formCreditCard.controls['cardMonth'].invalid && (formCreditCard.controls['cardMonth'].touched || formCreditCard.controls['cardMonth'].dirty), valid: formCreditCard.valid}">
-                                    <label class="select-label" for="card-month">Validade</label>
-                                    <select name="validade-mes" id="card-month" class="select-field"
-                                        formControlName="cardMonth">
+                                    [ngClass]="{invalid: formCartaoCredito.controls['mesValidade'].invalid && (formCartaoCredito.controls['mesValidade'].touched || formCartaoCredito.controls['mesValidade'].dirty), valid: formCartaoCredito.valid}">
+                                    <label class="select-label" for="mes-validade">Validade</label>
+                                    <select id="mes-validade" class="select-field" formControlName="mesValidade">
                                         <option selected disabled>Mês</option>
-                                        <option value="1">1</option>
+                                        <option *ngFor="let mes of meses" [value]="mes">{{mes}}</option>
                                     </select>
                                 </div>
 
                                 <div class="select-box"
-                                    [ngClass]="{invalid: formCreditCard.controls['cardYear'].invalid && (formCreditCard.controls['cardYear'].touched || formCreditCard.controls['cardYear'].dirty), valid: formCreditCard.valid}">
-                                    <label class="select-label" for="card-year">Ano</label>
-                                    <select name="validade-ano" id="card-year" class="select-field"
-                                        formControlName="cardYear">
+                                    [ngClass]="{invalid: formCartaoCredito.controls['anoValidade'].invalid && (formCartaoCredito.controls['anoValidade'].touched || formCartaoCredito.controls['anoValidade'].dirty), valid: formCartaoCredito.valid}">
+                                    <label class="select-label" for="ano-validade">Ano</label>
+                                    <select id="ano-validade" class="select-field" formControlName="anoValidade">
                                         <option selected disabled>Ano</option>
-                                        <option value="22">22</option>
+                                        <option *ngFor="let ano of anos" [value]="ano">{{ano}}</option>
                                     </select>
                                 </div>
 
                                 <div class="input-box"
-                                    [ngClass]="{invalid: formCreditCard.controls['cardCod'].invalid && (formCreditCard.controls['cardCod'].touched || formCreditCard.controls['cardCod'].dirty), valid: formCreditCard.valid}">
-                                    <label class="input-label" for="card-cod">Cód. segurança</label>
-                                    <input type="number" name="cod-cartao" id="card-cod" class="input-field"
-                                        placeholder="3 ou 4 dígitos" formControlName="cardCod" />
+                                    [ngClass]="{invalid: formCartaoCredito.controls['cvv'].invalid && (formCartaoCredito.controls['cvv'].touched || formCartaoCredito.controls['cvv'].dirty), valid: formCartaoCredito.valid}">
+                                    <label class="input-label" for="cvv">Cód. segurança</label>
+                                    <input type="text" id="cvv" class="input-field" placeholder="3 ou 4 dígitos"
+                                        formControlName="cvv" />
                                     <div class="group-icon">
                                         <i class="fas fa-check-circle"></i>
                                         <i class="fas fa-times-circle"></i>
@@ -110,23 +118,22 @@
                             </div>
 
                             <div class="select-box"
-                                [ngClass]="{invalid: formCreditCard.controls['cardInstallment'].invalid && (formCreditCard.controls['cardInstallment'].touched || formCreditCard.controls['cardInstallment'].dirty), valid: formCreditCard.valid}">
-                                <label class="select-label" for="installment">Parcelamento</label>
-                                <select name="parcelas" id="installment" class="select-field"
-                                    formControlName="cardInstallment">
+                                [ngClass]="{invalid: formCartaoCredito.controls['parcela'].invalid && (formCartaoCredito.controls['parcela'].touched || formCartaoCredito.controls['parcela'].dirty), valid: formCartaoCredito.valid}">
+                                <label class="select-label" for="parcela">Parcelamento</label>
+                                <select id="parcela" class="select-field" formControlName="parcela">
                                     <option selected disabled>Parcelas</option>
-                                    <option value="1">1x de R$ 175,00 sem juros</option>
+                                    <option *ngFor="let parcela of parcelas" [value]="parcela">{{parcela}}x de {{total /
+                                        parcela | currency:'BRL'}} sem juros</option>
                                 </select>
                             </div>
 
-                            <button *ngIf="formCreditCard.valid" id="finish-order"
-                                class="button button-warning button-uppercase button-semi button-base"
-                                (click)="finalizarCompra()">
+                            <button *ngIf="formCartaoCredito.valid" (click)="finalizarCompra()"
+                                class="button button-warning button-uppercase button-semi button-base">
                                 Finalizar compra
                             </button>
-                        </form>
+                        </div>
 
-                        <form *ngIf="formaPagamento == 2" class="bank-slip">
+                        <div *ngIf="formaPagamento == 2" class="bank-slip">
                             <div class="content">
                                 <h5>Pagamento à vista no Boleto Bancário</h5>
                                 <p>
@@ -136,12 +143,10 @@
                                 </p>
                             </div>
 
-                            <button id="finish-order"
-                                class="button button-warning button-uppercase button-semi button-base"
-                                (click)="finalizarCompra()">
+                            <button (click)="finalizarCompra()" class="button button-warning button-uppercase button-semi button-base">
                                 Finalizar compra
                             </button>
-                        </form>
+                        </div>
 
                         <div *ngIf="formaPagamento == 3" class="pix">
                             <div class="content">
@@ -153,9 +158,7 @@
                                 </p>
                             </div>
 
-                            <button id="finish-order"
-                                class="button button-warning button-uppercase button-semi button-base"
-                                (click)="finalizarCompra()">
+                            <button (click)="finalizarCompra()" class="button button-warning button-uppercase button-semi button-base">
                                 Finalizar compra
                             </button>
                         </div>
@@ -182,8 +185,8 @@
                                 <h6>{{produto.marca.descricao}}</h6>
                                 <p>{{produto.nome}}</p>
                                 <small>Quantidade: {{produto.quantidade}}</small>
-                                <small>Tamanho: {{produto.tamanhoSelecionado}}</small>
-                                <small>Cor: {{produto.corSelecionado}}</small>
+                                <small>Tamanho: {{produto.tamanhoDescricao}}</small>
+                                <small>Cor: {{produto.corDescricao}}</small>
                             </div>
 
                             <div class="price-box">
@@ -200,8 +203,8 @@
                             </div>
 
                             <div class="value">
-                                <span>Frete</span>
-                                <span>{{frete | currency:'BRL'}}</span>
+                                <span>Taxa de entrega</span>
+                                <span>{{taxaEntrega | currency:'BRL'}}</span>
                             </div>
                         </div>
 
@@ -210,7 +213,7 @@
                                 <span>Total</span>
                                 <div class="total">
                                     <h5>{{total | currency:'BRL'}}</h5>
-                                    <small class="installment">ou em até {{prestacao}}x de {{total / prestacao |
+                                    <small class="installment">ou em até {{parcela}}x de {{total / parcela |
                                         currency:'BRL'}}</small>
                                 </div>
                             </div>
@@ -219,17 +222,18 @@
                         <div class="coupon">
                             <p><i class="fa fa-gift"></i>Cupom de desconto</p>
 
-                            <div class="input-wrapper">
-                                <div class="input-box invalid">
-                                    <input type="text" name="cupom" id="coupon" class="input-field"
-                                        placeholder="Insira seu cupom" required />
+                            <div class="input-wrapper" [formGroup]="formCupom">
+                                <div class="input-box"
+                                    [ngClass]="{invalid: formCupom.controls['cupom'].invalid && (formCupom.controls['cupom'].touched || formCupom.controls['cupom'].dirty), valid: formCupom.valid}">
+                                    <input type="text" class="input-field" placeholder="Insira seu cupom"
+                                        formControlName="cupom" />
                                     <div class="group-icon">
                                         <i class="fas fa-check-circle"></i>
                                         <i class="fas fa-times-circle"></i>
                                     </div>
                                 </div>
 
-                                <button type="button"
+                                <button type="button" (click)="findCupomByNomeAsync(formCupom.value)"
                                     class="button button-warning button-uppercase button-semi button-sm">
                                     Aplicar
                                 </button>
@@ -240,7 +244,7 @@
             </div>
         </div>
     </div>
-</section> -->
+</section>
 <!-- /PAYMENT CHECKOUT -->
 
 <!-- FOOTER CHECKOUT -->

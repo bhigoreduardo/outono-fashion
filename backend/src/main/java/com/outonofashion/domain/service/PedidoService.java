@@ -1,13 +1,13 @@
 package com.outonofashion.domain.service;
 
-import java.time.OffsetDateTime;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
-import com.outonofashion.domain.exception.NegocioException;
 import com.outonofashion.domain.exception.PedidoNaoEncontradoException;
 import com.outonofashion.domain.model.Cor;
 import com.outonofashion.domain.model.Cupom;
@@ -22,12 +22,12 @@ import com.outonofashion.domain.repository.PedidoRepository;
 @Service
 public class PedidoService {
 
-	private final String CUPOM_INVALIDO = "Cupom %s é inválido.";
+	//private final String CUPOM_INVALIDO = "Cupom %s é inválido.";
 
 	@Autowired
 	private PedidoRepository pedidoRepository;
-
-	@Autowired
+	
+	@Autowired @Lazy
 	private CupomService cupomService;
 
 	@Autowired
@@ -65,6 +65,7 @@ public class PedidoService {
 	}
 
 	private void validatePedido(Pedido pedido) {
+		/*
 		if (pedido.getCupom() != null) {
 			Cupom cupom = cupomService.findById(pedido.getCupom().getId());
 
@@ -74,9 +75,17 @@ public class PedidoService {
 				throw new NegocioException(String.format(CUPOM_INVALIDO, cupom.getNome()));
 			}
 		}
+		*/
+		
+		if (pedido.getCupom() != null) {
+			Cupom cupom = cupomService.findById(pedido.getCupom().getId());
+			pedido.setCupom(cupom);
+		}
 
 		Pagamento pagamento = pagamentoService.findById(pedido.getPagamento().getId());
 		Usuario usuario = usuarioService.findById(pedido.getUsuario().getId());
+
+		
 
 		pedido.setPagamento(pagamento);
 		pedido.setUsuario(usuario);
@@ -100,6 +109,12 @@ public class PedidoService {
 			
 			item.setPedido(pedido);
 		});
+	}
+	
+	public Optional<Pedido> findByUsuarioAndCupom(Long usuarioId, Cupom cupom) {
+		Usuario usuario = usuarioService.findById(usuarioId);
+		
+		return pedidoRepository.findByUsuarioAndCupom(usuario, cupom);
 	}
 
 }

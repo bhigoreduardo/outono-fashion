@@ -1,7 +1,5 @@
 <!-- MESSAGE -->
-<app-message
-    [message]="message"
-></app-message>
+<app-message [message]="message" (clearMessage)="clearMessage($event)"></app-message>
 <!-- / MESSAGE -->
 
 <!-- HEADER COMPONENT -->
@@ -70,7 +68,8 @@
             <div class="product-choice" (change)="setQuantidadeEstoque()">
                 <h6 class="title">Escolha o tamanho</h6>
                 <div class="radiobox-container">
-                    <app-radiobox *ngFor="let estoque of estoques" (click)="setTamanho(estoque.tamanho.descricao)"
+                    <app-radiobox *ngFor="let estoque of estoques"
+                        (click)="setTamanho(estoque.tamanho.descricao, estoque.tamanho.id)"
                         title="{{estoque.tamanho.descricao}}" placeholder="{{estoque.tamanho.descricao}}" name="tamanho"
                         value="{{estoque.tamanho.descricao | replace}}" check="''">
                     </app-radiobox>
@@ -78,8 +77,9 @@
 
                 <h6 class="title">Escolha a cor</h6>
                 <div class="radiobox-container">
-                    <app-radiobox *ngFor="let cor of cores" (click)="setCor(cor.descricao)" title="{{cor.descricao}}"
-                        name="cor.descricao" value="{{cor.descricao}}" check="''" color="{{cor.valor}}">
+                    <app-radiobox *ngFor="let cor of cores" (click)="setCor(cor.descricao, cor.id)"
+                        title="{{cor.descricao}}" name="cor.descricao" value="{{cor.descricao}}" check="''"
+                        color="{{cor.valor}}">
                     </app-radiobox>
                 </div>
 

@@ -46,6 +46,11 @@ public class CupomController {
 	public CupomModel findById(@PathVariable Long cupomId) {
 		return cupomModelAssembler.toModel(cupomService.findById(cupomId));
 	}
+	
+	@GetMapping("{cupomNome}/{usuarioId}")
+	public CupomModel findByNome(@PathVariable String cupomNome, @PathVariable Long usuarioId) {
+		return cupomModelAssembler.toModel(cupomService.findByNome(cupomNome, usuarioId));
+	}
 
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping

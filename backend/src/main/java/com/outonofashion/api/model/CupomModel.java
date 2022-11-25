@@ -12,6 +12,7 @@ import lombok.Setter;
 @Setter
 public class CupomModel {
 
+	private Long id;
 	private String nome;
 	private String descricao;
 	private BigDecimal oferta;

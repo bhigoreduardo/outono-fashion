@@ -433,8 +433,13 @@
                 }
             }
 
-            button {
+            button,
+            .order-button {
                 width: 100%;
+            }
+
+            .order-button {
+                text-align: center;
             }
         }
     }

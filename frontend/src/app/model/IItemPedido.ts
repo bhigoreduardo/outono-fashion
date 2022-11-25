@@ -7,7 +7,7 @@ export interface IItemPedidoInput {
     tamanho: ITamanhoIdInput;
     cor: ICorIdInput;
     quantidade: number;
-    observacao: string;
+    // observacao: string;
 }
 
 export interface IItemPedidoModel {
@@ -17,5 +17,5 @@ export interface IItemPedidoModel {
     quantidade: number;
     precoUnitario: number;
     precoTotal: number;
-    observacao: string;
+    // observacao: string;
 }
