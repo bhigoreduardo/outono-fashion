@@ -10,7 +10,7 @@ export interface IPedidoInput {
     enderecoApelido: string;
 	usuario: IUsuarioIdInput;
 	itensPedido: IItemPedidoInput[];
-	cupom: ICupomIdInput;
+	cupom?: ICupomIdInput;
 }
 
 // Output

@@ -1,5 +1,132 @@
 @import '../../../../../styles.scss';
 
+.ruler,
+.shipping {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 100%;
+    max-width: 600px;
+    background-color: $color-white;
+    padding: 20px;
+    z-index: 4;
+    border: 1px solid $color-gray-400;
+    transition: all 200ms ease-in;
+
+    &.active {
+        transform: translate(-50%, -50%) scale(1);
+        box-shadow: $box-shadow-large,
+            0 0 0 100vw rgba(0, 0, 0, 0.3);
+    }
+
+    .fa-times {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: $font-size-sm;
+        line-height: $line-height-sm;
+        transition: all 200ms ease-in;
+
+        &:hover {
+            color: $color-warning;
+        }
+    }
+}
+
+.ruler {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    h5 {
+        font-size: $font-size-h5;
+        line-height: $line-height-h5;
+    }
+
+    p {
+        font-size: $font-size-xs;
+        line-height: $line-height-xs;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: $font-size-xs;
+        line-height: $line-height-xs;
+
+        thead {
+            background-color: $color-black;
+            color: $color-white;
+        }
+
+        th,
+        td {
+            padding: 5px 0;
+            font-weight: $font-weight-regular;
+            text-transform: uppercase;
+            text-align: center;
+        }
+    }
+}
+
+.shipping {
+    padding: 30px;
+    border: 1px solid $color-gray-500;
+    text-align: center;
+
+    .result-shipping {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 10px;
+
+        >div {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        small {
+            font-size: $font-size-xs;
+            line-height: $line-height-xs;
+
+            span {
+                font-weight: $font-weight-semi-bold;
+            }
+        }
+    }
+
+    input,
+    p {
+        font-size: $font-size-base;
+        font-weight: $font-weight-semi-bold;
+        line-height: $line-height-base;
+    }
+
+    p {
+        color: $color-gray-700;
+        margin-bottom: 30px;
+    }
+
+    input {
+        border: 1px solid $color-gray-500;
+        padding: 9px 20px;
+        margin-right: 10px;
+        color: $color-black;
+
+        @media screen and (max-width: 480px) {
+            margin-bottom: 10px;
+        }
+    }
+
+    input,
+    button {
+        @media screen and (max-width: 480px) {
+            width: 100%;
+        }
+    }
+}
+
 .single-product {
     .single-product--content {
         display: grid;
@@ -242,48 +369,6 @@
                         display: none;
                         transform: scale(0);
                     }
-                }
-            }
-        }
-    }
-}
-
-.empty-commentary {
-    .client-testimonial {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        // justify-content: space-between;
-
-        background-color: $color-gray-100;
-        padding: 20px;
-        box-shadow: $box-shadow-small;
-        border: 1px solid $color-gray-800;
-
-        p {
-            font-size: $font-size-xs;
-            color: $color-gray-900;
-            line-height: 1.5;
-            margin-bottom: 1rem;
-        }
-
-        span {
-            font-size: $font-size-xs;
-            line-height: $line-height-xs;
-            color: $color-black;
-
-            i {
-                font-size: $font-size-xxs;
-                line-height: $line-height-xxs;
-                color: $color-warning;
-                margin-right: 10px;
-            }
-
-            a {
-                transition: all 200ms ease-in;
-
-                &:hover {
-                    color: $color-warning;
                 }
             }
         }

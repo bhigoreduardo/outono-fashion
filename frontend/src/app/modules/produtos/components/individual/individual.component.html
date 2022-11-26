@@ -2,6 +2,55 @@
 <app-message [message]="message" (clearMessage)="clearMessage($event)"></app-message>
 <!-- / MESSAGE -->
 
+<!-- RULER -->
+<div class="ruler" [ngClass]="{active: setRuler}">
+    <a><i class="fas fa-times" (click)="setRuler = false"></i></a>
+    <h5>Confira as medidas de nossos produtos.</h5>
+    <p>Tira suas medidas com auxílio de uma pessoa e compare com nossa tabela a qual você se encaixar.</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Tamanho</th>
+                <th>Polegadas</th>
+                <th>Centímetros</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let medida of medidas">
+                <td>{{medida.tamanho}}</td>
+                <td>{{medida.polegadas}}</td>
+                <td>{{medida.centimetros}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<!-- / RULER -->
+
+<!-- SHIPPING -->
+<div class="shipping" [ngClass]="{active: setShipping}">
+    <a><i class="fas fa-times" (click)="setShipping = false"></i></a>
+
+    <p>Simule o prazo de entrega e o taxa de entrega para seu CEP abaixo:</p>
+
+    <div class="result-shipping" *ngIf="taxaEntrega != undefined">
+        <div class="location">
+            <small><span>Localização:</span> São Paulo, SP</small>
+            <small><span>Endereço:</span> Rua das Laranjeiras, Bairro Cascata</small>
+        </div>
+
+        <div class="values">
+            <small><span>Prazo:</span> 10 dia(s)</small>
+            <small><span>Taxa de entrega:</span> R$10,90</small>
+        </div>
+    </div>
+
+    <div class="input-cep">
+        <input type="text" />
+        <button type="button" class="button button-warning button-uppercase button-semi button-base">Ok</button>
+    </div>
+</div>
+<!-- / SHIPPING -->
+
 <!-- HEADER COMPONENT -->
 <app-header></app-header>
 <!-- / HEADER COMPONENT -->
@@ -86,7 +135,7 @@
                 <span *ngIf="quantidadeEstoque" class="quantity">Quantidade estoque: {{quantidadeEstoque}}
                     unid(s)</span>
 
-                <button (click)="addItemPedido()" type="button"
+                <button (click)="addProdutoCarrinho()" type="button"
                     class="button button-warning button-uppercase button-semi button-base">
                     <i class="fa fa-cart-plus"></i>
                     Comprar
@@ -94,8 +143,8 @@
             </div>
 
             <div class="button-group">
-                <button><i class="fas fa-ruler-combined"></i>Medidas</button>
-                <button><i class="fa fa-truck"></i>Frete</button>
+                <button><i class="fas fa-ruler-combined" (click)="setRuler = true"></i>Medidas</button>
+                <button><i class="fa fa-truck" (click)="setShipping = true"></i>Frete</button>
             </div>
 
             <div class="add-information">
@@ -143,12 +192,10 @@
     </div>
 </section>
 <ng-template #emptyCommentary>
-    <section class="empty-commentary container gap-section">
-        <div class="client-testimonial">
-            <p>Nenhum comentário adicionado, já comprou e gostaria de deixar sua avaliação?</p>
-            <span class="login-comment"><i class="fas fa-user"></i><a>Faça o Login</a></span>
-        </div>
-    </section>
+    <div class="container gap-section">
+        <app-emptymessage message="Nenhum comentário adicionado, já comprou e gostaria de deixar sua avaliação?"
+            routerLink="/comentarios" icon="fas fa-user" link="Faça o Login"></app-emptymessage>
+    </div>
 </ng-template>
 <!-- / COMMENTARY GALLERY -->
 

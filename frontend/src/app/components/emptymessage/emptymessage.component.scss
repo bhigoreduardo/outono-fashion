@@ -1,0 +1,42 @@
+@import '../../../styles.scss';
+
+.empty-container {
+    .message {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        background-color: $color-gray-100;
+        padding: 20px;
+        box-shadow: $box-shadow-small;
+        border: 1px solid $color-gray-800;
+
+        p {
+            font-size: $font-size-xs;
+            color: $color-gray-900;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        span {
+            font-size: $font-size-xs;
+            line-height: $line-height-xs;
+            color: $color-black;
+
+            i {
+                font-size: $font-size-xxs;
+                line-height: $line-height-xxs;
+                color: $color-warning;
+                margin-right: 10px;
+            }
+
+            a {
+                transition: all 200ms ease-in;
+
+                &:hover {
+                    color: $color-warning;
+                }
+            }
+        }
+    }
+}

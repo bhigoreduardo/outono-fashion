@@ -1,5 +1,6 @@
 package com.outonofashion.domain.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -51,6 +52,12 @@ public class PedidoService {
 	public Pedido findByCodigoPedido(String codigoPedido) {
 		return pedidoRepository.findByCodigoPedido(codigoPedido)
 				.orElseThrow(() -> new PedidoNaoEncontradoException(codigoPedido));
+	}
+	
+	public List<Pedido> findByUsuario(Long usuarioId) {
+		Usuario usuario = usuarioService.findById(usuarioId);
+		
+		return pedidoRepository.findByUsuario(usuario);
 	}
 
 	@Transactional

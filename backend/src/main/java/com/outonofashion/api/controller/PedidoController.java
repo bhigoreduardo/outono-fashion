@@ -1,5 +1,7 @@
 package com.outonofashion.api.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,11 @@ public class PedidoController {
 		Pedido pedido = pedidoService.findByCodigoPedido(codigoPedido);
 
 		return pedidoModelAssembler.toModel(pedido);
+	}
+	
+	@GetMapping("/usuarios/{usuarioId}")
+	public List<PedidoModel> findByUsuario(@PathVariable Long usuarioId) {
+		return pedidoModelAssembler.toCollectionModel(pedidoService.findByUsuario(usuarioId));
 	}
 
 	@ResponseStatus(HttpStatus.CREATED)

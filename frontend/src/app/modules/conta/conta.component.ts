@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { IEnderecoInput, IEnderecoModel } from 'src/app/model/IEndereco';
+import { IPedidoModel } from 'src/app/model/IPedido';
 import { ISenhaInput } from 'src/app/model/ISenha';
 import { ITelefoneInput, ITelefoneModel } from 'src/app/model/ITelefone';
 import { IUsuarioInput, IUsuarioModel } from 'src/app/model/IUsuario';
@@ -13,11 +14,49 @@ import { ContaService } from './service/conta.service';
   styleUrls: ['./conta.component.scss']
 })
 export class ContaComponent implements OnInit {
+
+  // Pedido Vars
+  pedidosModel: IPedidoModel[] = [];
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private contaService: ContaService
+  ) { }
+
+  ngOnInit(): void {
+    this.getUsuarioLoginModel();
+    this.initializeVars();
+    this.initializeSlides();
+
+    this.findEnderecosByUsuarioAsync();
+
+    this.findPedidosByUsuarioAsync();
+  }
+
+  findPedidosByUsuario(usuarioId: number) {
+    return new Promise(resolve => {
+      this.contaService.findPedidosByUsuario(usuarioId).subscribe(
+        res => {
+          resolve(res);
+        }
+      )
+    });
+  }
+
+  async findPedidosByUsuarioAsync() {
+    this.pedidosModel = <IPedidoModel[]>await this.findPedidosByUsuario(this.usuarioModel.id);
+    this.pedidosModel.forEach(pedido => {
+      pedido.itensPedido.forEach(itemPedido => {
+        console.log(itemPedido.produto)
+      })
+    })
+  }
+
   array: string[] = ['1', '2', '3', '4'];
 
   activeEnderecoApelido(enderecoApelido: string) {
     const enderecoModel = this.enderecosModel.filter(endereco => endereco.id.enderecoApelido == enderecoApelido)[0];
- 
+
     const enderecoInput: IEnderecoInput = {
       id: { enderecoApelido: enderecoModel.id.enderecoApelido },
       usuario: { id: this.usuarioModel.id },
@@ -96,18 +135,7 @@ export class ContaComponent implements OnInit {
     this.enderecosModel = <IEnderecoModel[]>await this.findEnderecosByUsuario(this.usuarioModel.id);
   }
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private contaService: ContaService
-  ) { }
 
-  ngOnInit(): void {
-    this.getUsuarioLoginModel();
-    this.initializeVars();
-    this.initializeSlides();
-
-    this.findEnderecosByUsuarioAsync();
-  }
 
   getUsuarioLoginModel(): void {
     this.usuarioModel = JSON.parse(localStorage.getItem('usuarioModel')!);

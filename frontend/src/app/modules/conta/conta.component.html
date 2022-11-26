@@ -2,7 +2,6 @@
 <app-header></app-header>
 <!-- / HEADER COMPONENT -->
 
-
 <!-- MESSAGE -->
 <app-message [message]="message"></app-message>
 <!-- / MESSAGE -->
@@ -180,7 +179,6 @@
 </div>
 <!-- / ADD ENDEREÇO -->
 
-
 <!-- ACCOUNT -->
 <section class="account container gap-section">
     <div class="breadcrumb">
@@ -288,32 +286,40 @@
                 <span class="span-title">Pedidos</span>
                 <small class="small-title">Confira os detalhes de seus pedidos</small>
 
-                <div class="order-list">
-                    <div class="order-detail" *ngFor="let arr of array">
+                <div class="order-list" *ngIf="pedidosModel.length > 0; else emptyOrder">
+                    <div class="order-detail" *ngFor="let pedido of pedidosModel">
                         <div class="order-images">
                             <swiper [config]="orderSlider">
-                                <ng-template swiperSlide *ngFor="let arr of array">
+                                <ng-template swiperSlide *ngFor="let itemPedido of pedido.itensPedido">
                                     <img
-                                        src="/assets/produtos/feminino/calcados/botas/bota-coturno-feminino-tratorada-city-dubuy-8-1.webp" />
+                                        src="/assets/produtos/{{itemPedido.produto.genero.descricao | replace:' ':'-'}}/{{itemPedido.produto.categoria.descricao | replace:' ':'-'}}/{{itemPedido.produto.tipo.descricao | replace:' ':'-'}}/{{itemPedido.produto.nome | replace:' ':'-'}}-{{itemPedido.produto.id}}-1.webp" />
                                 </ng-template>
                             </swiper>
                         </div>
 
                         <div class="order-info">
-                            <span>Nº do pedido</span>
-                            <h6>7894948</h6>
-                            <p>Data do pedido:<span>12.07.2018</span></p>
-                            <p>Valor do pedido:<span>R$87,90</span></p>
+                            <span>Cód. do pedido</span>
+                            <h6 class="cod-order">{{pedido.codigoPedido}}</h6>
+                            <p>Data do pedido:<span>{{pedido.dataPedido | date:'dd.MM.yyyy'}}</span></p>
+                            <p>Valor do pedido:<span>{{pedido.valorTotal | currency:'BRL'}}</span></p>
                         </div>
 
                         <div class="order-status">
                             <span>Previsão de entrega</span>
-                            <h6>Aguardando pagamento</h6>
+                            <h6>{{pedido.status | replace:'_':' ' | uppercase}}</h6>
                         </div>
 
                         <a class="button button-warning button-uppercase button-semi button-xs">Ver detalhes</a>
                     </div>
                 </div>
+                <ng-template #emptyOrder>
+                    <app-emptymessage
+                        message="Nenhum pedido ainda registrado, realize sua primeira compra, veja nosso catálogo de produtos."
+                        routerLink="/produtos"
+                        icon="fas fa-shopping-cart"
+                        link="Ir ao cátalogo"
+                    ></app-emptymessage>
+                </ng-template>
             </div>
 
             <div class="box address" *ngIf="valueSelected == 'enderecos'">

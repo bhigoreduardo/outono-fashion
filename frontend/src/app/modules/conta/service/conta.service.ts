@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { IEnderecoInput, IEnderecoModel } from 'src/app/model/IEndereco';
+import { IPedidoModel } from 'src/app/model/IPedido';
 import { ISenhaInput } from 'src/app/model/ISenha';
 import { ITelefoneInput, ITelefoneModel } from 'src/app/model/ITelefone';
 import { IUserMessage } from 'src/app/model/IUserMessage';
@@ -14,6 +15,21 @@ import { environment } from 'src/environments/environment';
 export class ContaService {
 
   constructor(private httpClient: HttpClient) { }
+
+  findPedidosByUsuario(usuarioId: number): Observable<IPedidoModel[]> {
+    let url = environment.domain + 'pedidos/usuarios/' + usuarioId;
+
+    return this.httpClient
+      .get<IPedidoModel[]>(url)
+      .pipe(map(res => res));
+  }
+
+
+
+
+
+
+
 
   update(usuarioInput: IUsuarioInput, usuarioId: number): Observable<IUsuarioModel> {
     let url = environment.domain + 'usuarios/' + usuarioId;

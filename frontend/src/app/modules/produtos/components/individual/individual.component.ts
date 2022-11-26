@@ -64,6 +64,11 @@ export class IndividualComponent implements OnInit {
   // Message
   message: string | undefined;
 
+  taxaEntrega!: number;
+  setShipping: Boolean = false;
+  setRuler: Boolean = false;
+  medidas: any[] = [];
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private produtoService: ProdutoService,
@@ -72,8 +77,7 @@ export class IndividualComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.sideDescription = false;
-    this.sideDetail = false;
+    this.initializeVars();
     this.findProdutos();
     this.initializeSlides();
   }
@@ -82,6 +86,21 @@ export class IndividualComponent implements OnInit {
     str = str.toLowerCase()
       .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     return str.replace(new RegExp(find, 'g'), replace);
+  }
+
+  initializeVars(): void {
+    this.sideDescription = false;
+    this.sideDetail = false;
+
+    this.medidas.push(
+      { tamanho: 'pp', polegadas: '32-34', centimetros: '76-81' },
+      { tamanho: 'p', polegadas: '34-36', centimetros: '81-86' },
+      { tamanho: 'm', polegadas: '36-38', centimetros: '86-91' },
+      { tamanho: 'g', polegadas: '38-40', centimetros: '91-96' },
+      { tamanho: 'gg', polegadas: '40-42', centimetros: '96-101' },
+      { tamanho: 'xg', polegadas: '42-44', centimetros: '101-106' }
+    );
+
   }
 
   prevSlide(target: any): void {
@@ -279,7 +298,7 @@ export class IndividualComponent implements OnInit {
     }
   }
 
-  addItemPedido(): void {
+  addProdutoCarrinho(): void {
 
     if (this.tamanhoDescricao != undefined && this.corDescricao != undefined) {
 

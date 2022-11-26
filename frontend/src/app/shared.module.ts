@@ -17,6 +17,7 @@ import { CardComponent } from './components/card/card.component';
 import { HeaderComponent } from './components/header/header.component';
 import { RadioaccountComponent } from './components/radioaccount/radioaccount.component';
 import { InputupdateComponent } from './components/inputupdate/inputupdate.component';
+import { EmptymessageComponent } from './components/emptymessage/emptymessage.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { InputupdateComponent } from './components/inputupdate/inputupdate.compo
     RangeboxComponent,
     MessageComponent,
     RadioaccountComponent,
-    InputupdateComponent
+    InputupdateComponent,
+    EmptymessageComponent
   ],
   imports: [
     CommonModule,
@@ -56,7 +58,8 @@ import { InputupdateComponent } from './components/inputupdate/inputupdate.compo
     RangeboxComponent,
     MessageComponent,
     RadioaccountComponent,
-    InputupdateComponent
+    InputupdateComponent,
+    EmptymessageComponent
   ]
 })
 export class SharedModule { }

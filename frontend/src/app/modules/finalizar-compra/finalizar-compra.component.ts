@@ -179,13 +179,19 @@ export class FinalizarCompraComponent implements OnInit {
       }
     });
 
-    const pedidoInput: IPedidoInput = {
+    let pedidoInput: IPedidoInput = {
       taxaEntrega: this.taxaEntrega,
       pagamento: { id: this.formaPagamento },
       enderecoApelido: this.enderecoApelido,
       usuario: { id: this.usuarioModel.id },
-      itensPedido: itensPedidoInput,
-      cupom: { id: this.cupomModel.id },
+      itensPedido: itensPedidoInput,      
+    }
+
+    if (this.cupomModel != undefined) {
+      pedidoInput = {
+        ...pedidoInput,
+        cupom: { id: this.cupomModel.id }
+      }
     }
 
     this.checkoutService.insertPedido(pedidoInput).subscribe(
