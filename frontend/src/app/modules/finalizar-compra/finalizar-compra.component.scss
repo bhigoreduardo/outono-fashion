@@ -1,5 +1,198 @@
 @import '../../../styles.scss';
 
+.address--add {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 100%;
+    max-width: 600px;
+    background-color: $color-white;
+    padding: 20px;
+    z-index: 4;
+    border: 1px solid $color-gray-400;
+    transition: all 200ms ease-in;
+
+    &.active {
+        transform: translate(-50%, -50%) scale(1);
+        box-shadow: $box-shadow-large,
+            0 0 0 100vw rgba(0, 0, 0, 0.3);
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .wrapper-button {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+
+        button {
+            width: 100%;
+        }
+    }
+
+    .wrapper-input {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 20px;
+    }
+}
+
+.input-update {
+    padding-bottom: 10px;
+    border-bottom: 1px solid $color-gray-400;
+
+    &.invalid {
+        border-color: $color-red;
+
+        label {
+            color: $color-red;
+        }
+    }
+
+    &.valid {
+        border-color: $color-gray-400;
+
+        label {
+            color: $color-black;
+        }
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-size: $font-size-xs;
+        line-height: $line-height-xs;
+        color: $color-black;
+        font-weight: $font-weight-semi-bold;
+    }
+
+    input {
+        font-size: $font-size-sm;
+        line-height: $line-height-sm;
+        font-weight: $font-weight-regular;
+        color: $color-gray-700;
+        width: 100%;
+    }
+
+    .wrapper-input {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        button {
+            font-size: $font-size-xs;
+            line-height: $line-height-xs;
+            background-color: $color-white;
+            border: 2px solid $color-gray-500;
+            color: $color-gray-500;
+            padding: 5px 10px;
+            width: 130px;
+            transition: all 200ms ease-in;
+
+            &:hover {
+                background-color: $color-black;
+                color: $color-white;
+            }
+        }
+
+        .fas {
+            display: none;
+            font-size: $font-size-sm;
+            transition: all 200ms ease-in;
+
+            &.active {
+                display: block;
+            }
+
+            &.fa-eye {
+                color: $color-warning;
+                cursor: pointer;
+
+                &:hover {
+                    color: $color-black;
+                }
+            }
+
+            &.fa-eye-slash {
+                cursor: pointer;
+
+                &:hover {
+                    color: $color-warning;
+                }
+            }
+        }
+    }
+}
+
+.checkbox .check-label {
+    display: block;
+    position: relative;
+    padding-left: 20px;
+
+    font-size: $font-size-sm;
+    font-weight: $font-weight-regular;
+    line-height: $line-height-sm;
+    color: $color-gray-500;
+
+    cursor: pointer;
+
+    &:hover {
+        transition: all 200ms ease-in;
+        color: $color-warning;
+
+        .check-span {
+            transition: all 200ms ease-in;
+            border-color: $color-warning;
+            opacity: 1;
+        }
+    }
+
+    input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+
+        &:checked~.check-span {
+            opacity: 1;
+            background-color: $color-warning;
+            border-color: $color-warning;
+
+            &:after {
+                display: block;
+            }
+        }
+    }
+
+    .check-span {
+        position: absolute;
+        width: 13.5px;
+        height: 13.5px;
+        border: 2px solid $color-gray-500;
+        top: 3px;
+        left: 0;
+        opacity: 0.7;
+
+        &:after {
+            content: "";
+            display: none;
+            position: absolute;
+            top: 0px;
+            left: 2.5px;
+            height: 7px;
+            width: 5px;
+            border: solid $color-white;
+            border-width: 0 3px 3px 0;
+            transform: rotate(45deg);
+        }
+    }
+}
+
 .payment-checkout {
     padding: 50px 0;
 

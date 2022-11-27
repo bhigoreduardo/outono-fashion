@@ -55,10 +55,11 @@ label {
 
         font-size: $font-size-sm;
         line-height: $line-height-sm;
+        color: $color-red;
         transition: all 200ms ease-in;
 
         &:hover {
-            color: $color-red;
+            color: $color-warning;
         }
     }
 }

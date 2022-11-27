@@ -22,6 +22,9 @@ export class FinalizarCompraComponent implements OnInit {
   usuarioModel!: IUsuarioModel;
   enderecosModel: IEnderecoModel[] = [];
   enderecoApelido!: string;
+  addressApiRes!: any;
+  addressAdd!: Boolean;
+  formInsertEndereco!: FormGroup;
 
   // Produto Vars
   produtosCarrinho: IProdutoCarrinho[] = [];
@@ -55,6 +58,7 @@ export class FinalizarCompraComponent implements OnInit {
     this.getUsuarioModel();
     this.getProdutosCarrinho();
     this.initializeVars();
+    this.createFormInsertEndereco();
   }
 
   getUsuarioModel(): void {
@@ -76,7 +80,19 @@ export class FinalizarCompraComponent implements OnInit {
     this.enderecosModel = <IEnderecoModel[]>await this.findEnderecosByUsuario(this.usuarioModel.id);
   }
 
-  activeEnderecoApelido(enderecoApelido: string): void {
+  activeEnderecoApelido(enderecoInput: IEnderecoInput) {
+    return new Promise(resolve => {
+      this.contaService.activeEndereco(enderecoInput).subscribe(
+        res => {
+          this.findEnderecosByUsuarioAsync();
+        }, error => {
+          this.message = error.userMessage;
+        }
+      );
+    });
+  }
+
+  async activeEnderecoApelidoAsync(enderecoApelido: string) {
     const enderecoModel = this.enderecosModel.filter(endereco => endereco.id.enderecoApelido == enderecoApelido)[0];
 
     const enderecoInput: IEnderecoInput = {
@@ -93,7 +109,7 @@ export class FinalizarCompraComponent implements OnInit {
       enderecoAtivo: enderecoModel.enderecoAtivo
     }
 
-    this.contaService.activeEndereco(enderecoInput);
+    await this.activeEnderecoApelido(enderecoInput);
   }
 
   getProdutosCarrinho(): void {
@@ -136,6 +152,81 @@ export class FinalizarCompraComponent implements OnInit {
       cvv: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(4)]),
       parcela: new FormControl('Parcelamento', Validators.required)
     });
+  }
+
+  createFormInsertEndereco(): void {
+    this.formInsertEndereco = this.formBuilder.group({
+      enderecoCep: new FormControl(null, [Validators.required, Validators.maxLength(8)]),
+      enderecoBairro: new FormControl(),
+      enderecoLogradouro: new FormControl(null, [Validators.required, Validators.maxLength(60)]),
+      enderecoNumero: new FormControl(null, [Validators.required, Validators.maxLength(6)]),
+      enderecoComplemento: new FormControl(null, Validators.maxLength(60)),
+      enderecoReferencia: new FormControl(null, [Validators.maxLength(60)]),
+      enderecoUf: new FormControl(null, [Validators.required, Validators.maxLength(2)]),
+      enderecoCidade: new FormControl(null, [Validators.required, Validators.maxLength(120)]),
+      enderecoApelido: new FormControl(null, [Validators.required, Validators.maxLength(60)]),
+      enderecoAtivo: new FormControl(null)
+    });
+  }
+
+  patchFormInsertEndereco(addressApiRes: any) {
+    this.formInsertEndereco.patchValue({
+      enderecoBairro: addressApiRes.bairro,
+      enderecoLogradouro: addressApiRes.logradouro,
+      enderecoUf: addressApiRes.uf,
+      enderecoCidade: addressApiRes.localidade
+    });
+  }
+
+  searchCep(values: any) {
+    return new Promise(resolve => {
+      this.contaService.searchCep(values.enderecoCep).subscribe(
+        res => {
+          this.addressApiRes = res;
+          this.patchFormInsertEndereco(this.addressApiRes);
+        }, error => {
+          this.message = error.error.message;
+        }
+      )
+    });
+  }
+
+  async searchCepAsync(values: any) {
+    await this.searchCep(values);
+  }
+
+  insertEndereco(enderecoInput: IEnderecoInput) {
+    return new Promise(resolve => {
+      this.contaService.insertEndereco(enderecoInput).subscribe(
+        res => {
+          this.findEnderecosByUsuarioAsync();
+          this.formInsertEndereco.reset();
+          this.addressAdd = false;
+
+          this.message = 'Endereço cadastrado com sucesso!';
+        }, error => {
+          this.message = error.userMessage;
+        }
+      );
+    });
+  }
+
+  async insertEnderecoAsync(values: any) {
+    const enderecoInput: IEnderecoInput = {
+      id: { enderecoApelido: values.enderecoApelido },
+      usuario: { id: this.usuarioModel.id },
+      enderecoCep: values.enderecoCep,
+      enderecoBairro: values.enderecoBairro,
+      enderecoLogradouro: values.enderecoLogradouro,
+      enderecoNumero: values.enderecoNumero,
+      enderecoComplemento: values.enderecoComplemento,
+      enderecoReferencia: values.enderecoReferencia,
+      enderecoUf: values.enderecoUf,
+      enderecoCidade: values.enderecoCidade,
+      enderecoAtivo: values.enderecoAtivo
+    }
+
+    await this.insertEndereco(enderecoInput);
   }
 
   findCupomByNome(cupomNome: string, usuarioId: number) {

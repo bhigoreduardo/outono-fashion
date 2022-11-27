@@ -3,7 +3,7 @@
 <!-- / HEADER COMPONENT -->
 
 <!-- CART -->
-<section class="cart container gap-section">
+<section class="cart container gap-section" *ngIf="produtosCarrinho.length > 0; else emptyCart">
     <h4 class="cart-title">Minha Sacola</h4>
     <small class="quantity-products">{{getQuantidadeProdutos()}} produtos</small>
 
@@ -130,11 +130,18 @@
                 </span>
             </div>
 
-            <a routerLink="/finalizar-compra" class="button button-warning button-uppercase button-semi button-sm order-button">Finalizar
+            <a routerLink="/finalizar-compra"
+                class="button button-warning button-uppercase button-semi button-sm order-button">Finalizar
                 pedido</a>
         </div>
     </div>
 </section>
+<ng-template #emptyCart>
+    <div class="container">
+        <app-emptymessage message="Nenhum produto adicionado ao carrinho, veja nosso catálogo de produtos."
+            routerLink="/produtos" icon="fas fa-shopping-cart" link="Ir ao cátalogo"></app-emptymessage>
+    </div>
+</ng-template>
 <!-- / CART -->
 
 <!-- FOOTER -->
