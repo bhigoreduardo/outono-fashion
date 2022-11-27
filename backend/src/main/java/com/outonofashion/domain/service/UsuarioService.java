@@ -1,6 +1,5 @@
 package com.outonofashion.domain.service;
 
-import java.time.LocalDate;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -68,10 +67,12 @@ public class UsuarioService {
 
 			usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
 
-		} else {
-			LocalDate dataNascimento = findById(usuario.getId()).getDataNascimento();
-			usuario.setDataNascimento(dataNascimento);
 		}
+		/*
+		 * else { LocalDate dataNascimento =
+		 * findById(usuario.getId()).getDataNascimento();
+		 * usuario.setDataNascimento(dataNascimento); }
+		 */
 
 		return usuarioRepository.save(usuario);
 

@@ -87,34 +87,34 @@ export class CarrinhoService {
   }
 
   // Pedido
-  itensPedido: IItemPedidoInput[] = [];
+  // itensPedido: IItemPedidoInput[] = [];
 
-  addItemPedido(itemPedidoInput: IItemPedidoInput): void {
-    // Get Session
-    if (localStorage.getItem('itensPedido')) {
-      this.itensPedido = JSON.parse(localStorage.getItem('itensPedido')!);
+  // addItemPedido(itemPedidoInput: IItemPedidoInput): void {
+  //   // Get Session
+  //   if (localStorage.getItem('itensPedido')) {
+  //     this.itensPedido = JSON.parse(localStorage.getItem('itensPedido')!);
 
-      let index = -1;
+  //     let index = -1;
 
-      this.itensPedido.forEach((itemPedido, i) => {
-        if (itemPedido.produto.id == itemPedidoInput.produto.id
-          && itemPedido.tamanho.id == itemPedidoInput.tamanho.id
-          && itemPedido.cor.id == itemPedidoInput.cor.id) {
-          index = i;
-        }
-      });
+  //     this.itensPedido.forEach((itemPedido, i) => {
+  //       if (itemPedido.produto.id == itemPedidoInput.produto.id
+  //         && itemPedido.tamanho.id == itemPedidoInput.tamanho.id
+  //         && itemPedido.cor.id == itemPedidoInput.cor.id) {
+  //         index = i;
+  //       }
+  //     });
 
-      if (index != -1) {
-        this.itensPedido[index].quantidade += itemPedidoInput.quantidade;
-      } else {
-        this.itensPedido.push(itemPedidoInput);
-      }
-    } else {
-      this.itensPedido.push(itemPedidoInput);
-    }
+  //     if (index != -1) {
+  //       this.itensPedido[index].quantidade += itemPedidoInput.quantidade;
+  //     } else {
+  //       this.itensPedido.push(itemPedidoInput);
+  //     }
+  //   } else {
+  //     this.itensPedido.push(itemPedidoInput);
+  //   }
 
-    // Set Session
-    localStorage.setItem('itensPedido', JSON.stringify(this.itensPedido));
-  }
+  //   // Set Session
+  //   localStorage.setItem('itensPedido', JSON.stringify(this.itensPedido));
+  // }
 
 }

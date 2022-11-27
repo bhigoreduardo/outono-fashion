@@ -270,7 +270,6 @@ export class ContaComponent implements OnInit {
       this.contaService.findTelefonesByUsuario(usuarioId).subscribe(
         data => {
           resolve(data);
-          console.log(data)
         }
       )
     })

@@ -1,6 +1,9 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { ITipoModel } from 'src/app/model/ITipo';
+import { IUsuarioModel } from 'src/app/model/IUsuario';
+import { CarrinhoService } from 'src/app/modules/carrinho/service/carrinho.service';
+import { LoginService } from 'src/app/modules/login/service/login.service';
 import { HeaderService } from './service/header.service';
 
 @Component({
@@ -12,15 +15,22 @@ export class HeaderComponent implements OnInit {
 
   logo: string = "/assets/images/logo.svg";
 
-  femininoHighlight = "/assets/images/feminino-highlights-drop-menu.webp";
+  // Usuário Vars
+  login!: Boolean;
+  userInfoDropBoolean!: Boolean;
+  usuarioModel!: IUsuarioModel;
 
+  // Navbar Vars
+  navbarToggleBoolean!: boolean;
   target: any;
-  isNavbar!: boolean;
 
-  // Feminino Calçados
-  femininoCalcados: ITipoModel[] = [];
+  // Drop Vars
+  femininoHighlight = "/assets/images/feminino-highlights-drop-menu.webp";
+  calcadosFeminino: ITipoModel[] = [];
 
   constructor(
+    private loginService: LoginService,
+    private carrinhoService: CarrinhoService,
     private renderer: Renderer2,
     private headerService: HeaderService,
     private router: Router
@@ -30,22 +40,33 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.initializeVars();
     this.clearTarget();
-
-    this.initializeTiposVars();
+    this.initializeDropVars();
   }
 
-  clearTarget() {
-    this.target = "";
-    this.isNavbar = false;
+  public replaceAll(str: string, find: string, replace: string) {
+    str = str.toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    return str.replace(new RegExp(find, 'g'), replace);
   }
 
-  initializeTiposVars() {
-    // Feminino Calçados
-    this.headerService.findByGeneroAndCategoria('feminino', 'calcados').subscribe(
-      data => { this.femininoCalcados = data },
-      error => { console.log(error.error.message) }
-    );
+  initializeVars(): void {
+    this.login = this.loginService.islogin();
+    this.usuarioModel = JSON.parse(localStorage.getItem('usuarioModel')!);
+  }
+
+  loggout(): void {
+    this.loginService.loggout();
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([]);
+    });
+  }
+
+  redirectTo(link: string): void {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([link]);
+    });
   }
 
   goToProdutos(genero: string, categoria: string, tipo?: string) {
@@ -63,10 +84,27 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  public replaceAll(str: string, find: string, replace: string) {
-    str = str.toLowerCase()
-      .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-    return str.replace(new RegExp(find, 'g'), replace);
+  getQuantidadeProdutos(): number {
+    return this.carrinhoService.getQuantidadeProdutos();
+  }
+
+  clearTarget(): void {
+    this.target = "";
+    this.navbarToggleBoolean = false;
+  }
+
+  findByGeneroAndCategoria(genero: string, categoria: string) {
+    return new Promise(resolve => {
+      this.headerService.findByGeneroAndCategoria(genero, categoria).subscribe(
+        data => {
+          resolve(data);
+        }
+      )
+    })
+  }
+
+  async initializeDropVars() {
+    this.calcadosFeminino = <ITipoModel[]>await this.findByGeneroAndCategoria('feminino', 'calcados');
   }
 
 }

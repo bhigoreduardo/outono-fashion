@@ -20,6 +20,14 @@ export class LoginService {
       .pipe(map(res => res));
   }
 
+  islogin(): Boolean {
+    return !!localStorage.getItem('usuarioModel');
+  }
+
+  loggout(): void {
+    localStorage.removeItem('usuarioModel');
+  }
+
   insert(usuarioInput: IUsuarioSenhaInput): Observable<IUsuarioModel> {
     let url = environment.domain + 'usuarios';
 

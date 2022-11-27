@@ -26,7 +26,7 @@ export class CheckoutService {
     let url = environment.domain + 'pedidos';
 
     return this.httpClient
-      .post<IPedidoModel>("http://127.0.0.1:8080/pedidos", pedidoInput, {
+      .post<IPedidoModel>(url, pedidoInput, {
         headers: new HttpHeaders().set('Content-Type', 'application/json')
       })
       .pipe(map(res => res));

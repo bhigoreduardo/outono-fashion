@@ -150,13 +150,15 @@
             }
 
             .header-login {
+                position: relative;
+
                 display: flex;
                 align-items: center;
                 gap: 5px;
 
                 .fa-user-circle {
-                    font-size: $font-size-h3;
-                    line-height: $line-height-h3;
+                    font-size: $font-size-h4;
+                    line-height: $line-height-h4;
                     color: $color-black;
                 }
 
@@ -191,6 +193,52 @@
                         .fa-angle-down {
                             color: $color-warning;
                             transition: all 200ms ease-in;
+                        }
+                    }
+                }
+
+                .user-info--drop-box {
+                    position: absolute;
+
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+
+                    background-color: $color-white;
+
+                    top: 100%;
+                    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+
+                    &.active {
+                        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+                        border: 1px solid $color-gray-400;
+
+                        z-index: 4;
+                    }
+
+                    a {
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                        font-size: $font-size-xs;
+                        line-height: $line-height-xs;
+                        color: $color-gray-800;
+                        padding: 5px 10px;
+                        transition: all 200ms ease-in;
+
+                        i {
+                            font-size: $font-size-base;
+                            line-height: $line-height-base;
+                            color: $color-gray-800;
+                        }
+
+                        &:hover {
+                            background-color: $color-warning;
+                            color: $color-white;
+
+                            i {
+                                color: $color-white;
+                            }
                         }
                     }
                 }
