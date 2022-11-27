@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IUsuarioLoginInput, IUsuarioSenhaInput } from 'src/app/model/IUsuario';
+import { IUsuarioLoginInput, IUsuarioModel, IUsuarioSenhaInput } from 'src/app/model/IUsuario';
 import { IGenero } from '../../model/IGenero';
 import { LoginService } from './service/login.service';
 
@@ -41,30 +41,129 @@ export class LoginComponent implements OnInit {
   banner: string = "/assets/images/login.png";
 
   // Message
-  message!: string;
+  message: string | undefined;
 
   constructor(
     private formBuilder: FormBuilder,
+    private loginService: LoginService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private loginService: LoginService
   ) { }
 
   ngOnInit(): void {
-    this.findQueryParams();
-    this.findAllGenero();
     this.createForms();
+    this.findAllGeneroAsync();
+    this.findQueryParams();
   }
 
-  findQueryParams() {
-    const queryParams = this.activatedRoute.snapshot.queryParamMap;
+  createForms(): void {
+    this.formLogin = this.formBuilder.group({
+      email: new FormControl(null, [Validators.email, Validators.required, Validators.minLength(10), Validators.maxLength(120)]),
+      senha: new FormControl(null, [Validators.required, Validators.minLength(5), Validators.maxLength(20)])
+    });
 
-    if (queryParams.get('cadastrar') == '1') {
-      this.setRegister();
+    this.formInsertPF = this.formBuilder.group({
+      nome: new FormControl(null, [Validators.required, Validators.minLength(5), Validators.maxLength(60)]),
+      sobrenome: new FormControl(null, [Validators.required, Validators.minLength(5), Validators.maxLength(60)]),
+      email: new FormControl(null, [Validators.email, Validators.required, Validators.minLength(10), Validators.maxLength(120)]),
+      cpfCnpj: new FormControl(null, [Validators.required, Validators.minLength(11), Validators.maxLength(14)]),
+      rgIe: new FormControl(null, [Validators.required, Validators.minLength(7), Validators.maxLength(7)]),
+      dataNascimento: new FormControl(null, Validators.required),
+      genero: new FormControl('Informe seu Gênero', Validators.required),
+      senha: new FormControl(null, [Validators.required, Validators.minLength(5), Validators.maxLength(20)]),
+      repetirSenha: new FormControl(null, [Validators.required, Validators.minLength(5), Validators.maxLength(20)])
+    });
+
+    this.formInsertPJ = this.formBuilder.group({
+      nome: new FormControl(null, [Validators.required, Validators.minLength(5), Validators.maxLength(120)]),
+      email: new FormControl(null, [Validators.email, Validators.required, Validators.minLength(10), Validators.maxLength(120)]),
+      cpfCnpj: new FormControl(null, [Validators.required, Validators.minLength(14), Validators.maxLength(14)]),
+      rgIe: new FormControl(null, [Validators.required, Validators.maxLength(14)]),
+      senha: new FormControl(null, [Validators.required, Validators.minLength(5), Validators.maxLength(20)]),
+      repetirSenha: new FormControl(null, [Validators.required, Validators.minLength(5), Validators.maxLength(20)])
+    });
+  }
+
+  login(usuarioLoginInput: IUsuarioLoginInput) {
+    return new Promise(resolve => {
+      this.loginService.login(usuarioLoginInput).subscribe(
+        res => {
+          localStorage.setItem('usuarioModel', JSON.stringify(res));
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.router.navigate(['/conta']);
+          });
+        }, error => {
+          this.message = error.error.userMessage;
+        }
+      );
+    });
+  }
+
+  async loginAsync(values: any) {
+    const usuarioLoginInput: IUsuarioLoginInput = {
+      email: values.email,
+      senha: values.senha
     }
+
+    await this.login(usuarioLoginInput);
   }
 
-  findAllGeneroPromise() {
+  insert(usuarioSenhaInput: IUsuarioSenhaInput) {
+    return new Promise(resolve => {
+      this.loginService.insert(usuarioSenhaInput).subscribe(
+        res => {
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.router.navigate(['login/confirmacao']);
+          });
+        }, error => {
+          this.message = error.error.userMessage;
+        });
+    })
+  }
+
+  async insertPFAsync(values: any) {
+    if (values.senha === values.repetirSenha) {
+      const usuarioSenhaInput: IUsuarioSenhaInput = {
+        nome: values.nome,
+        sobrenome: values.sobrenome,
+        email: values.email,
+        cpfCnpj: values.cpfCnpj,
+        rgIe: values.rgIe,
+        dataNascimento: values.dataNascimento,
+        genero: {
+          id: values.genero
+        },
+        senha: values.senha
+      }
+
+      await this.insert(usuarioSenhaInput);
+      return;
+    }
+
+    this.message = 'Senhas diferentes digitadas nos campo.';
+  }
+
+  async insertPJAsync(values: any) {
+    if (values.senha === values.repetirSenha) {
+      const usuarioSenhaInput: IUsuarioSenhaInput = {
+        nome: values.nome,
+        email: values.email,
+        cpfCnpj: values.cpfCnpj,
+        rgIe: values.rgIe,
+        genero: {
+          id: 5
+        },
+        senha: values.senha
+      }
+
+      await this.insert(usuarioSenhaInput);
+      return;
+    }
+
+    this.message = 'Senhas diferentes digitadas nos campo.';
+  }
+
+  findAllGenero() {
     return new Promise(resolve => {
       this.loginService.findAllGenero().subscribe(
         data => {
@@ -74,102 +173,16 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  async findAllGenero() {
-    this.generos = <IGenero[]>await this.findAllGeneroPromise();
+  async findAllGeneroAsync() {
+    this.generos = <IGenero[]>await this.findAllGenero();
   }
 
-  createForms(): void {
-    this.formLogin = this.formBuilder.group({
-      email: [null, [Validators.email, Validators.required, Validators.minLength(10), Validators.maxLength(120)]],
-      senha: [null, [Validators.required, Validators.minLength(5), Validators.maxLength(20)]]
-    });
+  findQueryParams() {
+    const queryParams = this.activatedRoute.snapshot.queryParamMap;
 
-    this.formInsertPF = this.formBuilder.group({
-      nome: [null, Validators.required, Validators.minLength(5), Validators.maxLength(60)],
-      sobrenome: [null, Validators.required, Validators.minLength(5), Validators.maxLength(60)],
-      email: [null, [Validators.email, Validators.required, Validators.minLength(10), Validators.maxLength(120)]],
-      cpfCnpj: [null, [Validators.required, Validators.minLength(14), Validators.maxLength(14)]],
-      rgIe: [null, [Validators.required, Validators.minLength(7), Validators.maxLength(14)]],
-      dataNascimento: [null, Validators.required],
-      genero: ['Informe seu Gênero', Validators.required],
-      senha: [null, [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
-      repetirSenha: [null, [Validators.required, Validators.minLength(5), Validators.maxLength(20)]]
-    });
-
-    this.formInsertPJ = this.formBuilder.group({
-      nome: [null, Validators.required, Validators.minLength(5), Validators.maxLength(120)],
-      email: [null, [Validators.email, Validators.required, Validators.minLength(10), Validators.maxLength(120)]],
-      cpfCnpj: [null, [Validators.required, Validators.maxLength(14)]],
-      rgIe: [null, [Validators.required, Validators.maxLength(14)]],
-      senha: [null, [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
-      repetirSenha: [null, [Validators.required, Validators.minLength(5), Validators.maxLength(20)]]
-    });
-  }
-
-  sendLogin(values: any): void {
-    const usuarioLoginInput: IUsuarioLoginInput = {
-      email: values.email,
-      senha: values.senha
+    if (queryParams.get('cadastrar') == '1') {
+      this.setRegister();
     }
-
-    this.loginService.authLogin(usuarioLoginInput).subscribe(
-      res => {
-        localStorage.setItem('usuarioModel', JSON.stringify(res));
-        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-          this.router.navigate(['/conta']);
-        })
-      }, error => {
-        this.message = error.error.userMessage;
-      }
-    )
-  }
-
-  sendInsertPF(values: any): void {
-    const usuarioSenhaInput: IUsuarioSenhaInput = {
-      nome: values.nome,
-      sobrenome: values.sobrenome,
-      email: values.email,
-      cpfCnpj: values.cpfCnpj,
-      rgIe: values.rgIe,
-      dataNascimento: new Date(),
-      genero: {
-        id: values.genero
-      },
-      senha: values.senha
-    }
-
-    this.loginService.insert(usuarioSenhaInput).subscribe(
-      res => {
-        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-          this.router.navigate(['login/confirmacao']);
-        });
-      }, error => {
-        this.message = error.error.userMessage;
-      });
-  }
-
-  sendInsertPJ(values: any): void {
-    const usuarioSenhaInput: IUsuarioSenhaInput = {
-      nome: values.nome,
-      sobrenome: null,
-      email: values.email,
-      cpfCnpj: values.cpfCnpj,
-      rgIe: values.rgIe,
-      dataNascimento: null,
-      genero: {
-        id: 5
-      },
-      senha: values.senha
-    }
-
-    this.loginService.insert(usuarioSenhaInput).subscribe(
-      res => {
-        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-          this.router.navigate(['login/confirmacao']);
-        });
-      }, error => {
-        this.message = error.error.userMessage;
-      });
   }
 
   setPasswordLogin(): void {
@@ -203,6 +216,10 @@ export class LoginComponent implements OnInit {
 
   setRegisterType(type: string) {
     this.registerType = type;
+  }
+
+  clearMessage(value: any): void {
+    this.message = undefined;
   }
 
 }

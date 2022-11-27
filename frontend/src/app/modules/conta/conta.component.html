@@ -3,14 +3,14 @@
 <!-- / HEADER COMPONENT -->
 
 <!-- MESSAGE -->
-<app-message [message]="message"></app-message>
+<app-message [message]="message" (clearMessage)="clearMessage($event)"></app-message>
 <!-- / MESSAGE -->
 
 <!-- SET PASSWORD -->
 <div class="user-data--password" [ngClass]="{active: setPassword}">
-    <form class="user-data--password-form form-group" [formGroup]="formSetPassword">
+    <form class="user-data--password-form form-group" [formGroup]="formSetSenha">
         <div class="input-update"
-            [ngClass]="{invalid: formSetPassword.controls['senhaAtual'].invalid && (formSetPassword.controls['senhaAtual'].touched || formSetPassword.controls['senhaAtual'].dirty), valid: formSetPassword.valid}">
+            [ngClass]="{invalid: formSetSenha.controls['senhaAtual'].invalid && (formSetSenha.controls['senhaAtual'].touched || formSetSenha.controls['senhaAtual'].dirty), valid: formSetSenha.valid}">
             <label for="senha-atual">Senha atual</label>
             <div class="wrapper-input">
                 <input [type]="passwordCurrentType" id="senha-atual" placeholder="Insira sua senha atual"
@@ -22,7 +22,7 @@
         </div>
 
         <div class="input-update"
-            [ngClass]="{invalid: formSetPassword.controls['novaSenha'].invalid && (formSetPassword.controls['novaSenha'].touched || formSetPassword.controls['novaSenha'].dirty), valid: formSetPassword.valid}">
+            [ngClass]="{invalid: formSetSenha.controls['novaSenha'].invalid && (formSetSenha.controls['novaSenha'].touched || formSetSenha.controls['novaSenha'].dirty), valid: formSetSenha.valid}">
             <label for="nova-senha">Nova senha</label>
             <div class="wrapper-input">
                 <input [type]="passwordNewType" id="nova-senha" placeholder="Insira sua nova senha"
@@ -34,7 +34,7 @@
 
         <div class="wrapper-button">
             <button type="button" class="button button-warning button-semi button-uppercase button-sm"
-                (click)="sendSetPassword(formSetPassword.value)">Salvar alterações</button>
+                (click)="setSenhaAsync(formSetSenha.value)">Salvar alterações</button>
             <button type="button" class="button button-white button-uppercase button-semi button-sm"
                 (click)="setPassword = !setPassword">
                 Cancelar
@@ -50,12 +50,13 @@
         <div class="input-update"
             [ngClass]="{invalid: formInsertTelefone.controls['numero'].invalid && (formInsertTelefone.controls['numero'].touched || formInsertTelefone.controls['numero'].dirty), valid: formInsertTelefone.valid}">
             <label for="numero">Telefone</label>
-            <input type="phone" id="numero" placeholder="Insira seu número de telefone" formControlName="numero" />
+            <input type="phone" id="numero" placeholder="Insira seu número de telefone" formControlName="numero"
+                mask="(00) 0 0000-0000" />
         </div>
 
         <div class="wrapper-button">
             <button type="button" class="button button-warning button-semi button-uppercase button-sm"
-                (click)="sendInsertTelefone(formInsertTelefone.value)">Adicionar número</button>
+                (click)="insertTelefoneAsync(formInsertTelefone.value)">Adicionar número</button>
             <button type="button" class="button button-white button-uppercase button-semi button-sm"
                 (click)="newTelefone = false">
                 Cancelar
@@ -65,8 +66,8 @@
 
     <div class="user-data--phone-list" *ngIf="telefonesModel.length > 0; else emptyTelefone">
         <div class="wrapper-phone" *ngFor="let telefone of telefonesModel">
-            <span>{{telefone.numero}}</span>
-            <button class="button button-sm" (click)="deleteTelefoneByNumero(telefone.numero)"><i
+            <span>{{telefone.numero | mask:'(00) 0 0000-0000'}}</span>
+            <button class="button button-sm" (click)="deleteTelefoneByNumeroAsync(telefone.numero)"><i
                     class="fas fa-trash"></i>Excluir</button>
         </div>
     </div>
@@ -88,32 +89,32 @@
 
 <!-- ADD ENDEREÇO -->
 <div class="address--add" [ngClass]="{active: addressAdd}">
-    <form class="address--add-form form-group" [formGroup]="formInsertAddress">
+    <form class="address--add-form form-group" [formGroup]="formInsertEndereco">
         <div class="input-update"
-            [ngClass]="{invalid: formInsertAddress.controls['enderecoApelido'].invalid && (formInsertAddress.controls['enderecoApelido'].touched || formInsertAddress.controls['enderecoApelido'].dirty), valid: formInsertAddress.valid}">
+            [ngClass]="{invalid: formInsertEndereco.controls['enderecoApelido'].invalid && (formInsertEndereco.controls['enderecoApelido'].touched || formInsertEndereco.controls['enderecoApelido'].dirty), valid: formInsertEndereco.valid}">
             <label for="enderecoApelido">Endereço apelido</label>
             <input type="text" id="enderecoApelido" placeholder="Insira apelido do endereço"
                 formControlName="enderecoApelido" />
         </div>
 
         <div class="input-update"
-            [ngClass]="{invalid: formInsertAddress.controls['enderecoCep'].invalid && (formInsertAddress.controls['enderecoCep'].touched || formInsertAddress.controls['enderecoCep'].dirty), valid: formInsertAddress.valid}">
+            [ngClass]="{invalid: formInsertEndereco.controls['enderecoCep'].invalid && (formInsertEndereco.controls['enderecoCep'].touched || formInsertEndereco.controls['enderecoCep'].dirty), valid: formInsertEndereco.valid}">
             <label for="enderecoCep">CEP</label>
             <div class="wrapper-input">
                 <input type="text" id="enderecoCep" placeholder="Insira seu CEP" formControlName="enderecoCep" />
-                <button type="button" (click)="searchCep(formInsertAddress.value)">Pesquisar</button>
+                <button type="button" (click)="searchCepAsync(formInsertEndereco.value)">Pesquisar</button>
             </div>
         </div>
 
         <div class="wrapper-input">
             <div class="input-update"
-                [ngClass]="{invalid: formInsertAddress.controls['enderecoUf'].invalid && (formInsertAddress.controls['enderecoUf'].touched || formInsertAddress.controls['enderecoUf'].dirty), valid: formInsertAddress.valid}">
+                [ngClass]="{invalid: formInsertEndereco.controls['enderecoUf'].invalid && (formInsertEndereco.controls['enderecoUf'].touched || formInsertEndereco.controls['enderecoUf'].dirty), valid: formInsertEndereco.valid}">
                 <label for="enderecoUf">Estado</label>
                 <input type="text" id="enderecoUf" placeholder="Insira seu estado" formControlName="enderecoUf" />
             </div>
 
             <div class="input-update"
-                [ngClass]="{invalid: formInsertAddress.controls['enderecoCidade'].invalid && (formInsertAddress.controls['enderecoCidade'].touched || formInsertAddress.controls['enderecoCidade'].dirty), valid: formInsertAddress.valid}">
+                [ngClass]="{invalid: formInsertEndereco.controls['enderecoCidade'].invalid && (formInsertEndereco.controls['enderecoCidade'].touched || formInsertEndereco.controls['enderecoCidade'].dirty), valid: formInsertEndereco.valid}">
                 <label for="enderecoCidade">Cidade</label>
                 <input type="text" id="enderecoCidade" placeholder="Insira sua cidade"
                     formControlName="enderecoCidade" />
@@ -121,13 +122,13 @@
         </div>
 
         <div class="input-update"
-            [ngClass]="{invalid: formInsertAddress.controls['enderecoBairro'].invalid && (formInsertAddress.controls['enderecoBairro'].touched || formInsertAddress.controls['enderecoBairro'].dirty), valid: formInsertAddress.valid}">
+            [ngClass]="{invalid: formInsertEndereco.controls['enderecoBairro'].invalid && (formInsertEndereco.controls['enderecoBairro'].touched || formInsertEndereco.controls['enderecoBairro'].dirty), valid: formInsertEndereco.valid}">
             <label for="enderecoBairro">Bairro</label>
             <input type="text" id="enderecoBairro" placeholder="Insira seu bairro" formControlName="enderecoBairro" />
         </div>
 
         <div class="input-update"
-            [ngClass]="{invalid: formInsertAddress.controls['enderecoLogradouro'].invalid && (formInsertAddress.controls['enderecoLogradouro'].touched || formInsertAddress.controls['enderecoLogradouro'].dirty), valid: formInsertAddress.valid}">
+            [ngClass]="{invalid: formInsertEndereco.controls['enderecoLogradouro'].invalid && (formInsertEndereco.controls['enderecoLogradouro'].touched || formInsertEndereco.controls['enderecoLogradouro'].dirty), valid: formInsertEndereco.valid}">
             <label for="enderecoLogradouro">Logradouro</label>
             <input type="text" id="enderecoLogradouro" placeholder="Insira seu logradouro"
                 formControlName="enderecoLogradouro" />
@@ -135,21 +136,21 @@
 
         <div class="wrapper-input">
             <div class="input-update"
-                [ngClass]="{invalid: formInsertAddress.controls['enderecoNumero'].invalid && (formInsertAddress.controls['enderecoNumero'].touched || formInsertAddress.controls['enderecoNumero'].dirty), valid: formInsertAddress.valid}">
+                [ngClass]="{invalid: formInsertEndereco.controls['enderecoNumero'].invalid && (formInsertEndereco.controls['enderecoNumero'].touched || formInsertEndereco.controls['enderecoNumero'].dirty), valid: formInsertEndereco.valid}">
                 <label for="enderecoNumero">Número</label>
                 <input type="text" id="enderecoNumero" placeholder="Insira seu número"
                     formControlName="enderecoNumero" />
             </div>
 
             <div class="input-update"
-                [ngClass]="{invalid: formInsertAddress.controls['enderecoComplemento'].invalid && (formInsertAddress.controls['enderecoComplemento'].touched || formInsertAddress.controls['enderecoComplemento'].dirty), valid: formInsertAddress.valid}">
+                [ngClass]="{invalid: formInsertEndereco.controls['enderecoComplemento'].invalid && (formInsertEndereco.controls['enderecoComplemento'].touched || formInsertEndereco.controls['enderecoComplemento'].dirty), valid: formInsertEndereco.valid}">
                 <label for="enderecoComplemento">Complemento</label>
                 <input type="text" id="enderecoComplemento" placeholder="Insira seu complemento"
                     formControlName="enderecoComplemento" />
             </div>
 
             <div class="input-update"
-                [ngClass]="{invalid: formInsertAddress.controls['enderecoReferencia'].invalid && (formInsertAddress.controls['enderecoReferencia'].touched || formInsertAddress.controls['enderecoReferencia'].dirty), valid: formInsertAddress.valid}">
+                [ngClass]="{invalid: formInsertEndereco.controls['enderecoReferencia'].invalid && (formInsertEndereco.controls['enderecoReferencia'].touched || formInsertEndereco.controls['enderecoReferencia'].dirty), valid: formInsertEndereco.valid}">
                 <label for="enderecoReferencia">Referência</label>
                 <input type="text" id="enderecoReferencia" placeholder="Insira sua referência"
                     formControlName="enderecoReferencia" />
@@ -169,7 +170,7 @@
 
         <div class="wrapper-button">
             <button type="button" class="button button-warning button-semi button-uppercase button-sm"
-                (click)="insertAddress(formInsertAddress.value)">Adicionar endereço</button>
+                (click)="insertEnderecoAsync(formInsertEndereco.value)">Adicionar endereço</button>
             <button type="button" class="button button-white button-uppercase button-semi button-sm"
                 (click)="addressAdd = false">
                 Cancelar
@@ -200,20 +201,22 @@
         <div class="user-header">
             <app-radioaccount *ngFor="let radioBox of radioBoxes" title="{{radioBox.title}}" name="{{radioBox.name}}"
                 value="{{radioBox.value}}" icon="{{radioBox.icon}}" placeholder="{{radioBox.placeholder}}"
-                [check]="valueSelected" (click)="setValue(radioBox.value)">
+                [check]="valueRadioBoxSelected" (click)="setValue(radioBox.value)">
             </app-radioaccount>
         </div>
 
         <div class="user-content">
-            <div class="box user-data" *ngIf="valueSelected == 'dados-pessoais'">
+            <div class="box user-data" *ngIf="valueRadioBoxSelected == 'dados-pessoais'">
                 <form class="user-data--form" [formGroup]="formUsuarioModel">
 
+                    <!-- Nome -->
                     <div class="input-update"
                         [ngClass]="{invalid: formUsuarioModel.controls['nome'].invalid && (formUsuarioModel.controls['nome'].touched || formUsuarioModel.controls['nome'].dirty), valid: formUsuarioModel.valid}">
                         <label for="nome">Nome</label>
                         <input type="text" id="nome" placeholder="Insira seu nome" formControlName="nome" />
                     </div>
 
+                    <!-- Sobrenome -->
                     <div class="input-update"
                         [ngClass]="{invalid: formUsuarioModel.controls['sobrenome'].invalid && (formUsuarioModel.controls['sobrenome'].touched || formUsuarioModel.controls['sobrenome'].dirty), valid: formUsuarioModel.valid}">
                         <label for="sobrenome">Sobrenome</label>
@@ -221,11 +224,13 @@
                             formControlName="sobrenome" />
                     </div>
 
+                    <!-- E-mail -->
                     <div class="input-update">
                         <label for="email">E-mail</label>
                         <input type="text" id="email" placeholder="Insira seu email" formControlName="email" readonly />
                     </div>
 
+                    <!-- Senha -->
                     <div class="input-update">
                         <label for="senha">Senha</label>
                         <div class="wrapper-input">
@@ -234,38 +239,46 @@
                         </div>
                     </div>
 
+                    <!-- CPF/CNPJ -->
                     <div class="input-update">
-                        <label for="cpfCnpj">CPF</label>
+                        <label for="cpfCnpj">CPF/CNPJ</label>
                         <input type="text" id="cpfCnpj" placeholder="Insira seu CPF" formControlName="cpfCnpj"
-                            readonly />
+                            mask="000.000.000-00||00.000.000/0000-00" readonly />
                     </div>
 
+                    <!-- RG/IE -->
                     <div class="input-update">
-                        <label for="rgIe">RG</label>
-                        <input type="text" id="rgIe" placeholder="Insira seu RG" formControlName="rgIe" readonly />
+                        <label for="rgIe">RG/IE</label>
+                        <input type="text" id="rgIe" placeholder="Insira seu RG" formControlName="rgIe" readonly
+                            mask="0.000.000||000.000.000.000" />
                     </div>
 
+                    <!-- Data nascimento -->
                     <div class="input-update">
                         <label for="dataNascimento">Data Nascimento</label>
                         <input type="text" id="dataNascimento" placeholder="Insira sua data de nascimento"
                             formControlName="dataNascimento" readonly />
                     </div>
 
+                    <!-- Telefone -->
                     <div class="input-update">
                         <label for="telefone">Telefone</label>
                         <div class="wrapper-input">
                             <input type="text" id="telefone" placeholder="Número de contato" readonly />
-                            <button type="button" (click)="setTelefone = !setTelefone && findTelefones()">Editar
+                            <button type="button"
+                                (click)="setTelefone = !setTelefone && findTelefonesByUsuarioAsync()">Editar
                                 contato</button>
                         </div>
                     </div>
 
+                    <!-- Gênero -->
                     <div class="input-update">
                         <label for="genero">Gênero</label>
                         <input type="text" id="genero" placeholder="Insira seu genero" formControlName="genero"
                             readonly />
                     </div>
 
+                    <!-- Newsletter -->
                     <div class="input-update" style="border: none;">
                         <label for="newsletter">Newsletter</label>
                         <div class="checkbox">
@@ -278,11 +291,11 @@
                     </div>
 
                     <button class="button button-warning button-semi button-uppercase button-base"
-                        (click)="sendUsuarioLogin(formUsuarioModel.value)">Salvar alterações</button>
+                        (click)="updateAsync(formUsuarioModel.value)">Salvar alterações</button>
                 </form>
             </div>
 
-            <div class="box order" *ngIf="valueSelected == 'meus-pedidos'">
+            <div class="box order" *ngIf="valueRadioBoxSelected == 'meus-pedidos'">
                 <span class="span-title">Pedidos</span>
                 <small class="small-title">Confira os detalhes de seus pedidos</small>
 
@@ -315,20 +328,17 @@
                 <ng-template #emptyOrder>
                     <app-emptymessage
                         message="Nenhum pedido ainda registrado, realize sua primeira compra, veja nosso catálogo de produtos."
-                        routerLink="/produtos"
-                        icon="fas fa-shopping-cart"
-                        link="Ir ao cátalogo"
-                    ></app-emptymessage>
+                        routerLink="/produtos" icon="fas fa-shopping-cart" link="Ir ao cátalogo"></app-emptymessage>
                 </ng-template>
             </div>
 
-            <div class="box address" *ngIf="valueSelected == 'enderecos'">
+            <div class="box address" *ngIf="valueRadioBoxSelected == 'enderecos'">
                 <span class="span-title">Endereços</span>
                 <small class="small-title">Mantenha sempre seus endereços atualizados</small>
 
                 <div class="location-options">
-                    <app-radiolocation *ngFor="let endereco of enderecosModel" (active)="activeEnderecoApelido($event)"
-                        enderecoApelido="{{endereco.id.enderecoApelido}}"
+                    <app-radiolocation *ngFor="let endereco of enderecosModel"
+                        (active)="activeEnderecoApelidoAsync($event)" enderecoApelido="{{endereco.id.enderecoApelido}}"
                         enderecoLogradouro="{{endereco.enderecoLogradouro}}"
                         enderecoNumero="{{endereco.enderecoNumero}}" enderecoBairro="{{endereco.enderecoBairro}}"
                         enderecoReferencia="{{endereco.enderecoReferencia}}"
@@ -344,7 +354,7 @@
                 </div>
             </div>
 
-            <div class="contact" *ngIf="valueSelected == 'atendimentos'">
+            <div class="contact" *ngIf="valueRadioBoxSelected == 'atendimentos'">
                 <div class="contact-info">
                     <h4>Entre em contato</h4>
 

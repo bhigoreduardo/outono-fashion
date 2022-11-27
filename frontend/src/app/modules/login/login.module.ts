@@ -6,7 +6,7 @@ import { LoginComponent } from './login.component';
 import { SharedModule } from '../../shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ConfirmacaoComponent } from './components/confirmacao/confirmacao.component';
-
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -17,7 +17,8 @@ import { ConfirmacaoComponent } from './components/confirmacao/confirmacao.compo
     CommonModule,
     LoginRoutingModule,
     SharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxMaskModule.forRoot()
   ]
 })
 export class LoginModule { }

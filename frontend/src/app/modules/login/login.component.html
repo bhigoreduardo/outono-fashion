@@ -1,7 +1,5 @@
 <!-- MESSAGE -->
-<app-message
-    [message]="message"
-></app-message>
+<app-message [message]="message" (clearMessage)="clearMessage($event)"></app-message>
 <!-- / MESSAGE -->
 
 <!-- LOGIN -->
@@ -46,7 +44,7 @@
                 </div>
 
                 <div class="submit-wrapper">
-                    <button type="button" (click)="sendLogin(formLogin.value)" [disabled]="formLogin.invalid"
+                    <button type="button" (click)="loginAsync(formLogin.value)" [disabled]="formLogin.invalid"
                         class="button button-warning button-uppercase button-semi button-base">
                         Entrar
                     </button>
@@ -72,8 +70,8 @@
             </div>
 
             <span class="terms">
-                Eu concordo com os <a>Termos de serviço</a> e as
-                <a>Políticas de privacidade</a>
+                Eu concordo com os <a routerLink="/termos-uso">Termos de serviço</a> e as
+                <a routerLink="politicas-privacidade">Políticas de privacidade</a>
             </span>
 
             <form *ngIf="registerType == 'pf'" class="form-data form-pf" [formGroup]="formInsertPF">
@@ -124,7 +122,7 @@
                     <div class="input-small"
                         [ngClass]="{invalid: formInsertPF.controls['cpfCnpj'].invalid && (formInsertPF.controls['cpfCnpj'].touched || formInsertPF.controls['cpfCnpj'].dirty), valid: formInsertPF.valid}">
                         <label class="input-label">
-                            <input type="text" class="input-field" placeholder="Informe seu CPF"
+                            <input type="text" class="input-field" placeholder="Informe seu CPF" mask="000.000.000-00"
                                 formControlName="cpfCnpj" />
                             <small class="small-label">CPF</small>
                             <div class="group-icon">
@@ -138,7 +136,7 @@
                     <div class="input-small"
                         [ngClass]="{invalid: formInsertPF.controls['rgIe'].invalid && (formInsertPF.controls['rgIe'].touched || formInsertPF.controls['rgIe'].dirty), valid: formInsertPF.valid}">
                         <label class="input-label">
-                            <input type="text" class="input-field" placeholder="Informe seu RG"
+                            <input type="text" class="input-field" placeholder="Informe seu RG" mask="0.000.000"
                                 formControlName="rgIe" />
                             <small class="small-label">RG</small>
                             <div class="group-icon">
@@ -152,7 +150,7 @@
                     <div class="input-small"
                         [ngClass]="{invalid: formInsertPF.controls['dataNascimento'].invalid && (formInsertPF.controls['dataNascimento'].touched || formInsertPF.controls['dataNascimento'].dirty), valid: formInsertPF.valid}">
                         <label class="input-label">
-                            <input type="text" class="input-field" placeholder="Informe seu Nascimento"
+                            <input type="date" class="input-field" placeholder="Informe seu Nascimento"
                                 formControlName="dataNascimento" />
                             <small class="small-label">Nascimento</small>
                             <div class="group-icon">
@@ -210,7 +208,7 @@
                 </div>
 
                 <div class="submit-wrapper">
-                    <button type="button" (click)="sendInsertPF(formInsertPF.value)"
+                    <button type="button" (click)="insertPFAsync(formInsertPF.value)"
                         class="button button-warning button-uppercase button-semi button-base">
                         Cadastrar
                     </button>
@@ -251,7 +249,7 @@
                     <div class="input-small"
                         [ngClass]="{invalid: formInsertPJ.controls['cpfCnpj'].invalid && (formInsertPJ.controls['cpfCnpj'].touched || formInsertPJ.controls['cpfCnpj'].dirty), valid: formInsertPJ.valid}">
                         <label class="input-label">
-                            <input type="text" class="input-field" placeholder="Informe seu CNPJ"
+                            <input type="text" class="input-field" placeholder="Informe seu CNPJ" mask="00.000.000/0000-00"
                                 formControlName="cpfCnpj" />
                             <small class="small-label">CNPJ</small>
                             <div class="group-icon">
@@ -265,7 +263,7 @@
                     <div class="input-small"
                         [ngClass]="{invalid: formInsertPJ.controls['rgIe'].invalid && (formInsertPJ.controls['rgIe'].touched || formInsertPJ.controls['rgIe'].dirty), valid: formInsertPJ.valid}">
                         <label class="input-label">
-                            <input type="text" class="input-field" placeholder="Informe sua IE"
+                            <input type="text" class="input-field" placeholder="Informe sua IE" mask="000.000.000.000"
                                 formControlName="rgIe" />
                             <small class="small-label">IE</small>
                             <div class="group-icon">
@@ -313,7 +311,7 @@
                 </div>
 
                 <div class="submit-wrapper">
-                    <button type="button" (click)="sendInsertPJ(formInsertPJ.value)"
+                    <button type="button" (click)="insertPJAsync(formInsertPJ.value)"
                         class="button button-warning button-uppercase button-semi button-base">
                         Cadastrar
                     </button>

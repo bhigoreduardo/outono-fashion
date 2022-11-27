@@ -58,7 +58,7 @@ export class FinalizarCompraComponent implements OnInit {
   }
 
   getUsuarioModel(): void {
-    this.usuarioModel = this.contaService.getUsuarioModel();
+    this.usuarioModel = JSON.parse(localStorage.getItem('usuarioModel')!);
     this.findEnderecosByUsuarioAsync();
   }
 
@@ -131,10 +131,10 @@ export class FinalizarCompraComponent implements OnInit {
     this.formCartaoCredito = this.formBuilder.group({
       numero: new FormControl(null, [Validators.required, Validators.minLength(16), Validators.maxLength(16)]),
       nomeImpresso: new FormControl(null, [Validators.required, Validators.minLength(5), Validators.maxLength(120)]),
-      mesValidade: new FormControl(null, [Validators.required, Validators.minLength(1), Validators.maxLength(2)]),
-      anoValidade: new FormControl(null, [Validators.required, Validators.minLength(1), Validators.maxLength(2)]),
+      mesValidade: new FormControl('Mês', [Validators.required, Validators.minLength(1), Validators.maxLength(2)]),
+      anoValidade: new FormControl('Ano', [Validators.required, Validators.minLength(1), Validators.maxLength(2)]),
       cvv: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(4)]),
-      parcela: new FormControl(null, Validators.required)
+      parcela: new FormControl('Parcelamento', Validators.required)
     });
   }
 
@@ -184,7 +184,7 @@ export class FinalizarCompraComponent implements OnInit {
       pagamento: { id: this.formaPagamento },
       enderecoApelido: this.enderecoApelido,
       usuario: { id: this.usuarioModel.id },
-      itensPedido: itensPedidoInput,      
+      itensPedido: itensPedidoInput,
     }
 
     if (this.cupomModel != undefined) {

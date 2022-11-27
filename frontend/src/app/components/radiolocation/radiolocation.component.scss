@@ -47,4 +47,18 @@ label {
         color: $color-gray-700;
         font-weight: $font-weight-regular;
     }
+
+    .fa-trash {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+
+        font-size: $font-size-sm;
+        line-height: $line-height-sm;
+        transition: all 200ms ease-in;
+
+        &:hover {
+            color: $color-red;
+        }
+    }
 }

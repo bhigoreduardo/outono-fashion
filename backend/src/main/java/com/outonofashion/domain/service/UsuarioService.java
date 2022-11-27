@@ -1,5 +1,6 @@
 package com.outonofashion.domain.service;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -28,24 +29,23 @@ public class UsuarioService {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
+
 	@Autowired
 	private GrupoService grupoService;
 
 	public Usuario authLogin(String email, String senha) {
 		Usuario usuario = usuarioRepository.findByEmail(email)
 				.orElseThrow(() -> new UsuarioNaoEncontradoException(String.format(USER_NAO_ENCONTRADO, email)));
-		
+
 		if (passwordEncoder.matches(senha, usuario.getSenha())) {
 			return usuario;
 		}
-		
+
 		throw new NegocioException(SENHA_INCORRETA);
 	}
 
 	public Usuario findById(Long usuarioId) {
-		return usuarioRepository.findById(usuarioId)
-				.orElseThrow(() -> new UsuarioNaoEncontradoException(usuarioId));
+		return usuarioRepository.findById(usuarioId).orElseThrow(() -> new UsuarioNaoEncontradoException(usuarioId));
 	}
 
 	@Transactional
@@ -57,7 +57,7 @@ public class UsuarioService {
 		Optional<Usuario> usuarioCpfCnpjPresent = usuarioRepository.findByCpfCnpj(usuario.getCpfCnpj());
 
 		if (usuario.isNovoUsuario()) {
-			
+
 			if (usuarioEmailPresent.isPresent() && usuarioCpfCnpjPresent.isPresent()) {
 				throw new NegocioException(String.format(USER_EMAIL_CPFCNPJ, usuario.getEmail(), usuario.getCpfCnpj()));
 			} else if (usuarioEmailPresent.isPresent()) {
@@ -65,15 +65,18 @@ public class UsuarioService {
 			} else if (usuarioCpfCnpjPresent.isPresent()) {
 				throw new NegocioException(String.format(USER_CPFCNPJ, usuario.getCpfCnpj()));
 			}
-			
+
 			usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
-			
+
+		} else {
+			LocalDate dataNascimento = findById(usuario.getId()).getDataNascimento();
+			usuario.setDataNascimento(dataNascimento);
 		}
-		
+
 		return usuarioRepository.save(usuario);
 
 	}
-	
+
 	@Transactional
 	public void setSenha(Long usuarioId, String senhaAtual, String novaSenha) {
 		Usuario usuario = findById(usuarioId);
@@ -81,23 +84,23 @@ public class UsuarioService {
 		if (!passwordEncoder.matches(senhaAtual, usuario.getSenha())) {
 			throw new NegocioException("Senha atual informada não coincide com a senha do usuário.");
 		}
-		
+
 		usuario.setSenha(passwordEncoder.encode(novaSenha));
 	}
-	
+
 	@Transactional
 	public void addGrupo(Long usuarioId, Long grupoId) {
 		Usuario usuario = findById(usuarioId);
 		Grupo grupo = grupoService.findById(grupoId);
-		
+
 		usuario.addGrupo(grupo);
 	}
-	
+
 	@Transactional
 	public void removeGrupo(Long usuarioId, Long grupoId) {
 		Usuario usuario = findById(usuarioId);
 		Grupo grupo = grupoService.findById(grupoId);
-		
+
 		usuario.removeGrupo(grupo);
 	}
 

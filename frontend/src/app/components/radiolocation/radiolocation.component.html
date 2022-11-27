@@ -5,10 +5,14 @@
         <address>
             <p class="street">{{enderecoLogradouro}}, {{enderecoNumero}}</p>
             <p class="neighborhood">{{enderecoBairro}}</p>
-            <p class="complement" *ngIf="enderecoReferencia || enderecoComplemento; else emptyComplement ">{{enderecoReferencia}} {{enderecoComplemento}}</p>
-            <ng-template #emptyComplement><p>-</p></ng-template>
+            <p class="complement" *ngIf="enderecoReferencia || enderecoComplemento; else emptyComplement ">
+                {{enderecoReferencia}} {{enderecoComplemento}}</p>
+            <ng-template #emptyComplement>
+                <p>-</p>
+            </ng-template>
             <p class="state">{{enderecoCidade}} - {{enderecoUf}}</p>
             <p class="cep">CEP: {{enderecoCep}}</p>
         </address>
+        <a><i class="fas fa-trash"></i></a>
     </span>
 </label>

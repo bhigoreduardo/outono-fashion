@@ -78,6 +78,12 @@
                     top: 5px;
                 }
             }
+
+            &::-webkit-inner-spin-button,
+            &::-webkit-calendar-picker-indicator {
+                display: none;
+                -webkit-appearance: none;
+            }
         }
 
         .small-label {
@@ -127,7 +133,6 @@
             }
         }
     }
-
 }
 
 /* INPUT BOX */
@@ -135,6 +140,7 @@
     position: relative;
 
     &.valid {
+
         .text-field,
         .input-field {
             border: 1px solid $color-warning;
@@ -149,6 +155,7 @@
     }
 
     &.invalid {
+
         .text-field,
         .input-field {
             border: 1px solid $color-red;

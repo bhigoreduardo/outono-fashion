@@ -15,88 +15,25 @@ import { ContaService } from './service/conta.service';
 })
 export class ContaComponent implements OnInit {
 
+  // Usuário Vars
+  usuarioModel!: IUsuarioModel;
+  telefonesModel: ITelefoneModel[] = [];
+  setTelefone!: Boolean;
+  newTelefone!: Boolean;
+  addressApiRes!: any;
+  addressAdd!: Boolean;
+  enderecosModel: IEnderecoModel[] = [];
+
   // Pedido Vars
   pedidosModel: IPedidoModel[] = [];
-
-  constructor(
-    private formBuilder: FormBuilder,
-    private contaService: ContaService
-  ) { }
-
-  ngOnInit(): void {
-    this.getUsuarioLoginModel();
-    this.initializeVars();
-    this.initializeSlides();
-
-    this.findEnderecosByUsuarioAsync();
-
-    this.findPedidosByUsuarioAsync();
-  }
-
-  findPedidosByUsuario(usuarioId: number) {
-    return new Promise(resolve => {
-      this.contaService.findPedidosByUsuario(usuarioId).subscribe(
-        res => {
-          resolve(res);
-        }
-      )
-    });
-  }
-
-  async findPedidosByUsuarioAsync() {
-    this.pedidosModel = <IPedidoModel[]>await this.findPedidosByUsuario(this.usuarioModel.id);
-    this.pedidosModel.forEach(pedido => {
-      pedido.itensPedido.forEach(itemPedido => {
-        console.log(itemPedido.produto)
-      })
-    })
-  }
-
-  array: string[] = ['1', '2', '3', '4'];
-
-  activeEnderecoApelido(enderecoApelido: string) {
-    const enderecoModel = this.enderecosModel.filter(endereco => endereco.id.enderecoApelido == enderecoApelido)[0];
-
-    const enderecoInput: IEnderecoInput = {
-      id: { enderecoApelido: enderecoModel.id.enderecoApelido },
-      usuario: { id: this.usuarioModel.id },
-      enderecoCep: enderecoModel.enderecoCep,
-      enderecoBairro: enderecoModel.enderecoBairro,
-      enderecoLogradouro: enderecoModel.enderecoLogradouro,
-      enderecoNumero: enderecoModel.enderecoNumero,
-      enderecoComplemento: enderecoModel.enderecoComplemento,
-      enderecoReferencia: enderecoModel.enderecoReferencia,
-      enderecoUf: enderecoModel.enderecoUf,
-      enderecoCidade: enderecoModel.enderecoCidade,
-      enderecoAtivo: enderecoModel.enderecoAtivo
-    }
-
-    this.contaService.activeEndereco(enderecoInput);
-  }
-
-  // User Vars
-  usuarioModel!: IUsuarioModel;
-
-  // Header User
-  radioBoxes!: any[];
-  valueSelected!: string;
-
-  setValue(value: string) {
-    this.valueSelected = value;
-  }
-
-  isValueSelected(value: string) {
-    return this.valueSelected == value;
-  }
+  orderSlider!: SwiperOptions;
 
   // Forms Vars
   formUsuarioModel!: FormGroup;
-  formSetPassword!: FormGroup;
+  formSetSenha!: FormGroup;
   formInsertTelefone!: FormGroup;
   formMessage!: FormGroup;
-  formInsertAddress!: FormGroup;
-
-  message: string | undefined;
+  formInsertEndereco!: FormGroup;
 
   // Password Vars
   passwordCurrentBoolean: boolean = true;
@@ -107,43 +44,28 @@ export class ContaComponent implements OnInit {
 
   setPassword!: Boolean;
 
-  // Telefone Vars
-  telefonesModel: ITelefoneModel[] = [];
+  // Header
+  radioBoxes!: any[];
+  valueRadioBoxSelected!: string;
 
-  setTelefone!: Boolean;
-  newTelefone!: Boolean;
+  message: string | undefined;
 
-  // Slider Order
-  orderSlider!: SwiperOptions;
+  constructor(
+    private formBuilder: FormBuilder,
+    private contaService: ContaService
+  ) { }
 
-  // Address Vars
-  addressApiRes!: any;
-  addressAdd!: Boolean;
-  enderecosModel: IEnderecoModel[] = [];
-
-  findEnderecosByUsuario(usuarioId: number) {
-    return new Promise(resolve => {
-      this.contaService.findEnderecosByUsuario(usuarioId).subscribe(
-        res => {
-          resolve(res);
-        }
-      );
-    });
-  }
-
-  async findEnderecosByUsuarioAsync() {
-    this.enderecosModel = <IEnderecoModel[]>await this.findEnderecosByUsuario(this.usuarioModel.id);
-  }
-
-
-
-  getUsuarioLoginModel(): void {
-    this.usuarioModel = JSON.parse(localStorage.getItem('usuarioModel')!);
-    this.createForm(this.usuarioModel);
+  ngOnInit(): void {
+    this.initializeVars();
+    this.createForms();
+    this.getUsuarioModel();
+    this.findPedidosByUsuarioAsync();
+    this.initializeSlides();
+    this.findEnderecosByUsuarioAsync();
   }
 
   initializeVars(): void {
-    this.valueSelected = 'dados-pessoais';
+    this.valueRadioBoxSelected = 'dados-pessoais';
     this.setPassword = false;
     this.setTelefone = false;
     this.newTelefone = false
@@ -181,7 +103,7 @@ export class ContaComponent implements OnInit {
     ]
   }
 
-  createForm(usuarioModel: IUsuarioModel): void {
+  createFormUsuarioModel(usuarioModel: IUsuarioModel): void {
     this.formUsuarioModel = this.formBuilder.group({
       nome: new FormControl(usuarioModel.nome, [Validators.required, Validators.minLength(5), Validators.maxLength(60)]),
       sobrenome: new FormControl(usuarioModel.sobrenome, [Validators.required, Validators.minLength(5), Validators.maxLength(60)]),
@@ -192,8 +114,10 @@ export class ContaComponent implements OnInit {
       genero: new FormControl({ value: usuarioModel.genero.descricao, disabled: true }, Validators.required),
       newsletter: new FormControl(usuarioModel.newsletter)
     });
+  }
 
-    this.formSetPassword = this.formBuilder.group({
+  createForms(): void {
+    this.formSetSenha = this.formBuilder.group({
       senhaAtual: new FormControl(null, [Validators.required, Validators.minLength(5)]),
       novaSenha: new FormControl(null, [Validators.required, Validators.minLength(5)]),
     })
@@ -209,7 +133,7 @@ export class ContaComponent implements OnInit {
       mensagem: new FormControl(null, [Validators.required, Validators.maxLength(500)])
     });
 
-    this.formInsertAddress = this.formBuilder.group({
+    this.formInsertEndereco = this.formBuilder.group({
       enderecoCep: new FormControl(null, [Validators.required, Validators.maxLength(8)]),
       enderecoBairro: new FormControl(),
       enderecoLogradouro: new FormControl(null, [Validators.required, Validators.maxLength(60)]),
@@ -223,33 +147,85 @@ export class ContaComponent implements OnInit {
     });
   }
 
-  updateFormInsertAddress(addressApiRes: any) {
-    this.formInsertAddress.patchValue({ enderecoBairro: addressApiRes.bairro, enderecoLogradouro: addressApiRes.logradouro, enderecoUf: addressApiRes.uf, enderecoCidade: addressApiRes.localidade });
-    // this.formInsertAddress.setValue({enderecoBairro: addressApiRes.bairro, enderecoLogradouro: addressApiRes.logradouro});
+  getUsuarioModel(): void {
+    this.usuarioModel = JSON.parse(localStorage.getItem('usuarioModel')!);
+    this.createFormUsuarioModel(this.usuarioModel);
   }
 
-  sendUsuarioLogin(values: any): void {
+  setValue(value: string) {
+    this.valueRadioBoxSelected = value;
+  }
+
+  isValueRadioBoxSelected(value: string) {
+    return this.valueRadioBoxSelected == value;
+  }
+
+  findPedidosByUsuario(usuarioId: number) {
+    return new Promise(resolve => {
+      this.contaService.findPedidosByUsuario(usuarioId).subscribe(
+        res => {
+          resolve(res);
+        }
+      )
+    });
+  }
+
+  async findPedidosByUsuarioAsync() {
+    this.pedidosModel = <IPedidoModel[]>await this.findPedidosByUsuario(this.usuarioModel.id);
+  }
+
+  initializeSlides() {
+    this.orderSlider = {
+      direction: 'horizontal',
+      slidesPerView: 1,
+      spaceBetween: 0,
+      scrollbar: { draggable: true }
+    }
+  }
+
+  findEnderecosByUsuario(usuarioId: number) {
+    return new Promise(resolve => {
+      this.contaService.findEnderecosByUsuario(usuarioId).subscribe(
+        res => {
+          resolve(res);
+        }
+      );
+    });
+  }
+
+  async findEnderecosByUsuarioAsync() {
+    this.enderecosModel = <IEnderecoModel[]>await this.findEnderecosByUsuario(this.usuarioModel.id);
+  }
+
+  update(usuarioInput: IUsuarioInput) {
+    return new Promise(resolve => {
+      this.contaService.update(usuarioInput, this.usuarioModel.id).subscribe(
+        res => {
+          localStorage.setItem('usuarioModel', JSON.stringify(res));
+          this.getUsuarioModel();
+          this.message = "Alterações salvas com sucesso!";
+        }, error => {
+          this.message = error.error.userMessage;
+        }
+      )
+    });
+  }
+
+  async updateAsync(values: any) {
     const usuarioInput: IUsuarioInput = {
       nome: values.nome,
       sobrenome: values.sobrenome,
       email: this.usuarioModel.email,
       cpfCnpj: this.usuarioModel.cpfCnpj,
       rgIe: this.usuarioModel.rgIe,
-      dataNascimento: new Date(),
+      dataNascimento: this.usuarioModel.dataNascimento,
       genero: {
         id: this.usuarioModel.genero.id
       },
       newsletter: values.newsletter
     }
 
-    this.contaService.update(usuarioInput, this.usuarioModel.id).subscribe(
-      res => {
-        localStorage.setItem('usuarioModel', JSON.stringify(res));
-        this.message = "Alterações salvas com sucesso!";
-      }, error => {
-        this.message = error.error.userMessage;
-      }
-    )
+    await this.update(usuarioInput);
   }
 
   setPasswordCurrent(): void {
@@ -262,50 +238,36 @@ export class ContaComponent implements OnInit {
     this.passwordNewType = (this.passwordNewBoolean == true) ? 'password' : 'text';
   }
 
-  sendSetPassword(values: any): void {
+  setSenha(senhaInput: ISenhaInput) {
+    return new Promise(resolve => {
+      this.contaService.setSenha(senhaInput, this.usuarioModel.id).subscribe(
+        res => {
+          this.formSetSenha.reset();
+          this.setPassword = false;
+
+          this.setPasswordCurrent();
+          this.setPasswordNew();
+
+          this.message = "Senha alterada com sucesso!";
+        }, error => {
+          this.message = error.error.userMessage;
+        }
+      )
+    });
+  }
+
+  async setSenhaAsync(values: any) {
     const senhaInput: ISenhaInput = {
       senhaAtual: values.senhaAtual,
       novaSenha: values.novaSenha
     }
 
-    this.contaService.setSenha(senhaInput, this.usuarioModel.id).subscribe(
-      res => {
-        this.formSetPassword.reset();
-        this.setPassword = false;
-
-        this.setPasswordCurrent();
-        this.setPasswordNew();
-
-        this.message = "Senha alterada com sucesso!";
-      }, error => {
-        this.message = error.error.userMessage;
-      }
-    )
+    await this.setSenha(senhaInput);
   }
 
-  sendInsertTelefone(values: any): void {
-    const telefoneInput: ITelefoneInput = {
-      numero: values.numero,
-      usuario: {
-        id: this.usuarioModel.id
-      }
-    }
-
-    this.contaService.insertTelefone(telefoneInput).subscribe(
-      res => {
-        this.formInsertTelefone.reset();
-        this.newTelefone = false;
-
-        this.message = "Telefone salvo com sucesso!";
-      }, error => {
-        this.message = error.error.userMessage;
-      }
-    )
-  }
-
-  getTelefones(usuarioId: number) {
+  findTelefonesByUsuario(usuarioId: number) {
     return new Promise(resolve => {
-      this.contaService.findTelefoneByUsuario(usuarioId).subscribe(
+      this.contaService.findTelefonesByUsuario(usuarioId).subscribe(
         data => {
           resolve(data);
           console.log(data)
@@ -314,47 +276,100 @@ export class ContaComponent implements OnInit {
     })
   }
 
-  async findTelefones() {
-    this.telefonesModel = <ITelefoneModel[]>await this.getTelefones(this.usuarioModel.id);
+  async findTelefonesByUsuarioAsync() {
+    this.telefonesModel = <ITelefoneModel[]>await this.findTelefonesByUsuario(this.usuarioModel.id);
+  }
+
+  insertTelefone(telefoneInput: ITelefoneInput) {
+    return new Promise(resolve => {
+      this.contaService.insertTelefone(telefoneInput).subscribe(
+        res => {
+          this.findTelefonesByUsuarioAsync();
+          this.formInsertTelefone.reset();
+          this.newTelefone = false;
+
+          this.message = "Telefone salvo com sucesso!";
+        }, error => {
+          this.message = error.error.userMessage;
+        }
+      )
+    });
+  }
+
+  async insertTelefoneAsync(values: any) {
+    const telefoneInput: ITelefoneInput = {
+      numero: values.numero,
+      usuario: {
+        id: this.usuarioModel.id
+      }
+    }
+
+    await this.insertTelefone(telefoneInput);
   }
 
   deleteTelefoneByNumero(numero: string) {
-
-    this.contaService.deleteTelefoneByNumero(numero).subscribe(
-      data => {
-        this.getTelefones(this.usuarioModel.id);
-        this.message = 'Número ' + numero + ' excluído com sucesso!';
-        window.location.reload();
-      },
-      error => {
-        this.message = error.userMessage;
-      }
-    );
-
+    return new Promise(resolve => {
+      this.contaService.deleteTelefoneByNumero(numero).subscribe(
+        data => {
+          this.findTelefonesByUsuarioAsync();
+          this.message = 'Número telefone excluído com sucesso!';
+          // window.location.reload();
+        },
+        error => {
+          this.message = error.userMessage;
+        }
+      );
+    });
   }
 
-  initializeSlides() {
-    this.orderSlider = {
-      direction: 'horizontal',
-      slidesPerView: 1,
-      spaceBetween: 0,
-      scrollbar: { draggable: true }
-    }
+  async deleteTelefoneByNumeroAsync(numero: string) {
+    await this.deleteTelefoneByNumero(numero);
+  }
+
+  patchFormInsertEndereco(addressApiRes: any) {
+    this.formInsertEndereco.patchValue({
+      enderecoBairro: addressApiRes.bairro,
+      enderecoLogradouro: addressApiRes.logradouro,
+      enderecoUf: addressApiRes.uf,
+      enderecoCidade: addressApiRes.localidade
+    });
+    // this.formInsertEndereco.setValue({enderecoBairro: addressApiRes.bairro, enderecoLogradouro: addressApiRes.logradouro});
   }
 
   searchCep(values: any) {
-    this.contaService.searchCep(values.enderecoCep).subscribe(
-      res => {
-        this.addressApiRes = res;
-        this.updateFormInsertAddress(this.addressApiRes);
-      }, error => {
-        this.message = error.error.message;
-      }
-    )
+    return new Promise(resolve => {
+      this.contaService.searchCep(values.enderecoCep).subscribe(
+        res => {
+          this.addressApiRes = res;
+          this.patchFormInsertEndereco(this.addressApiRes);
+        }, error => {
+          this.message = error.error.message;
+        }
+      )
+    });
   }
 
-  // POST Methods
-  insertAddress(values: any) {
+  async searchCepAsync(values: any) {
+    await this.searchCep(values);
+  }
+
+  insertEndereco(enderecoInput: IEnderecoInput) {
+    return new Promise(resolve => {
+      this.contaService.insertEndereco(enderecoInput).subscribe(
+        res => {
+          this.findEnderecosByUsuarioAsync();
+          this.formInsertEndereco.reset();
+          this.addressAdd = false;
+
+          this.message = 'Endereço cadastrado com sucesso!';
+        }, error => {
+          this.message = error.userMessage;
+        }
+      );
+    });
+  }
+
+  async insertEnderecoAsync(values: any) {
     const enderecoInput: IEnderecoInput = {
       id: { enderecoApelido: values.enderecoApelido },
       usuario: { id: this.usuarioModel.id },
@@ -369,13 +384,43 @@ export class ContaComponent implements OnInit {
       enderecoAtivo: values.enderecoAtivo
     }
 
-    this.contaService.insertAddress(enderecoInput).subscribe(
-      res => {
-        this.message = 'Endereço cadastrado com sucesso!';
-      }, error => {
-        this.message = error.userMessage;
-      }
-    );
+    await this.insertEndereco(enderecoInput);
+  }
+
+  activeEnderecoApelido(enderecoInput: IEnderecoInput) {
+    return new Promise(resolve => {
+      this.contaService.activeEndereco(enderecoInput).subscribe(
+        res => {
+          this.findEnderecosByUsuarioAsync();
+        }, error => {
+          this.message = error.userMessage;
+        }
+      );
+    });
+  }
+
+  async activeEnderecoApelidoAsync(enderecoApelido: string) {
+    const enderecoModel = this.enderecosModel.filter(endereco => endereco.id.enderecoApelido == enderecoApelido)[0];
+
+    const enderecoInput: IEnderecoInput = {
+      id: { enderecoApelido: enderecoModel.id.enderecoApelido },
+      usuario: { id: this.usuarioModel.id },
+      enderecoCep: enderecoModel.enderecoCep,
+      enderecoBairro: enderecoModel.enderecoBairro,
+      enderecoLogradouro: enderecoModel.enderecoLogradouro,
+      enderecoNumero: enderecoModel.enderecoNumero,
+      enderecoComplemento: enderecoModel.enderecoComplemento,
+      enderecoReferencia: enderecoModel.enderecoReferencia,
+      enderecoUf: enderecoModel.enderecoUf,
+      enderecoCidade: enderecoModel.enderecoCidade,
+      enderecoAtivo: enderecoModel.enderecoAtivo
+    }
+
+    await this.activeEnderecoApelido(enderecoInput);
+  }
+
+  clearMessage(value: any): void {
+    this.message = undefined;
   }
 
 }

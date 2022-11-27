@@ -38,7 +38,7 @@ public class UsuarioController {
 	private UsuarioInputDisassembler usuarioInputDisassembler;
 	
 	@PostMapping("/login")
-	public UsuarioModel authLogin(@RequestBody @Valid UsuarioLoginInput usuarioLoginInput) {
+	public UsuarioModel login(@RequestBody @Valid UsuarioLoginInput usuarioLoginInput) {
 		Usuario usuario = usuarioService.authLogin(usuarioLoginInput.getEmail(), usuarioLoginInput.getSenha());
 		
 		return usuarioModelAssembler.toModel(usuario);

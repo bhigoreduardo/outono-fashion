@@ -12,7 +12,7 @@ export class LoginService {
 
   constructor(private httpClient: HttpClient) { }
 
-  authLogin(usuarioLoginModel: IUsuarioLoginInput): Observable<IUsuarioModel> {
+  login(usuarioLoginModel: IUsuarioLoginInput): Observable<IUsuarioModel> {
     let url = environment.domain + 'usuarios/login';
 
     return this.httpClient
@@ -37,13 +37,3 @@ export class LoginService {
   }
 
 }
-
-// let headers = new HttpHeaders();
-    // let params = new HttpParams();
-
-    // params = params.append('email', usuarioLoginModel.email);
-    // params = params.append('senha', usuarioLoginModel.senha);
-
-    // return this.httpClient
-    //   .get<IUsuarioLoginModel>(url, { headers,  params})
-    //   .pipe(map(res => res));

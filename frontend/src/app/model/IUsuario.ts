@@ -2,16 +2,16 @@ import { IGeneroInput, IGeneroModel } from "./IGenero";
 
 export interface IUsuario {
     nome: string;
-    sobrenome: string | null;
+    sobrenome?: string;
     email: string;
     cpfCnpj: string;
     rgIe: string;
-    dataNascimento: Date | null;
+    dataNascimento?: Date;
 }
 
 export interface IUsuarioInput extends IUsuario {
     genero: IGeneroInput
-    newsletter: Boolean | null;
+    newsletter?: Boolean;
 }
 
 export interface IUsuarioSenhaInput extends IUsuario {

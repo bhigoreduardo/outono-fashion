@@ -24,12 +24,13 @@ export class ContaService {
       .pipe(map(res => res));
   }
 
+  findEnderecosByUsuario(usuarioId: number): Observable<IEnderecoModel[]> {
+    let url = environment.domain + 'enderecos/' + usuarioId;
 
-
-
-
-
-
+    return this.httpClient
+      .get<IEnderecoModel[]>(url)
+      .pipe(map(res => res));
+  }
 
   update(usuarioInput: IUsuarioInput, usuarioId: number): Observable<IUsuarioModel> {
     let url = environment.domain + 'usuarios/' + usuarioId;
@@ -55,7 +56,7 @@ export class ContaService {
       .pipe(map(res => res));
   }
 
-  findTelefoneByUsuario(usuarioId: number): Observable<ITelefoneModel[]> {
+  findTelefonesByUsuario(usuarioId: number): Observable<ITelefoneModel[]> {
     let url = environment.domain + 'telefones/' + usuarioId;
 
     return this.httpClient
@@ -74,22 +75,16 @@ export class ContaService {
   searchCep(cep: string): Observable<any> {
     let url = 'https://viacep.com.br/ws/' + cep + '/json/';
 
-    return this.httpClient.get<any>(url).pipe(map(res => res));
+    return this.httpClient
+      .get<any>(url)
+      .pipe(map(res => res));
   }
 
-  insertAddress(enderecoInput: IEnderecoInput): Observable<IEnderecoModel> {
+  insertEndereco(enderecoInput: IEnderecoInput): Observable<IEnderecoModel> {
     let url = environment.domain + 'enderecos';
 
     return this.httpClient
       .post<IEnderecoModel>(url, enderecoInput)
-      .pipe(map(res => res));
-  }
-
-  findEnderecosByUsuario(usuarioId: number): Observable<IEnderecoModel[]> {
-    let url = environment.domain + 'enderecos/' + usuarioId;
-
-    return this.httpClient
-      .get<IEnderecoModel[]>(url)
       .pipe(map(res => res));
   }
 
@@ -101,8 +96,5 @@ export class ContaService {
       .put<IUserMessage>(url, enderecoInput)
       .pipe(map(res => res));
   }
-
-  getUsuarioModel(): IUsuarioModel {
-    return JSON.parse(localStorage.getItem('usuarioModel')!);
-  }
+  
 }
