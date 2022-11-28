@@ -120,7 +120,7 @@ export class ProdutosComponent implements OnInit {
 
     // Get URL Page Values
     this.page = (Number(queryParams.get('page')) == 0) ? 1 : Number(queryParams.get('page'));
-    this.size = (Number(queryParams.get('size')) == 0) ? 4 : Number(queryParams.get('size'));
+    this.size = (Number(queryParams.get('size')) == 0) ? 12 : Number(queryParams.get('size'));
 
     // Get All Produtos
     this.findProdutos(this.generoURL, this.categoriaURL, this.tipoURL, this.corURL, this.tamanhoURL, this.marcaURL, this.minValue, this.maxValue, this.order);

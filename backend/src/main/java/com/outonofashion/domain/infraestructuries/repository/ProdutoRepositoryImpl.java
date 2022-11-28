@@ -3,6 +3,7 @@ package com.outonofashion.domain.infraestructuries.repository;
 import java.math.BigDecimal;
 import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -10,8 +11,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -36,10 +35,10 @@ import com.outonofashion.domain.repository.TipoRepository;
 
 @Repository
 public class ProdutoRepositoryImpl implements ProdutoRepositoryQueries {
-	
+
 	@PersistenceContext
 	private EntityManager entityManager;
-	
+
 	@Autowired
 	private CategoriaRepository categoriaRepository;
 
@@ -57,275 +56,145 @@ public class ProdutoRepositoryImpl implements ProdutoRepositoryQueries {
 
 	@Autowired
 	private CorRepository corRepository;
-	
+
 	@Override
 	public List<Produto> findProdutos(String[] categoria, String[] tipo, String[] genero, String[] tamanho,
 			String[] marca, String[] cor, String precoMin, String precoMax, String order) {
 
-		// Created Query
-		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<Produto> produtoQuery = criteriaBuilder.createQuery(Produto.class);
-		Root<Produto> produtoRoot = produtoQuery.from(Produto.class);
+		var jpql = new StringBuilder();
+		var parameters = new HashMap<String, Object>();
 
-		// Created Predicates Where Clause
-		List<Predicate> predicates = new ArrayList<Predicate>();
+		jpql.append("SELECT p FROM Produto p WHERE 0 = 0 ");
 
 		if (categoria.length != 0) {
-			// Join Get Categoria Reference in Produto Model
-			Join<Produto, Categoria> produtoCategoriaJoin = produtoRoot.join("categoria");
-
-			// Get Id Categoria Join Produto
-			Path<Long> categoriaId = produtoCategoriaJoin.get("id");
-
-			// Storage Id Categoria Search
-			List<Long> categoriaIds = new ArrayList<>();
+			jpql.append("AND p.categoria IN :categorias ");
+			List<Categoria> categorias = new ArrayList<>();
 
 			for (int i = 0; i < categoria.length; i++) {
-				if (categoriaRepository.findByDescricao(categoria[i]).isEmpty())
-					continue;
-
-				Categoria categoriaSearch = categoriaRepository.findByDescricao(categoria[i]).get();
-
-				categoriaIds.add(categoriaSearch.getId());
+				categorias.add(categoriaRepository.findByDescricao(categoria[i]).get());
 			}
-
-			// Created CategoriaId Search Predicate
-			Predicate predicateCategoriaId = criteriaBuilder.isTrue(categoriaId.in(categoriaIds));
-
-			// Added CategoriaId Search Predicate Into Predicates List
-			predicates.add(predicateCategoriaId);
+			parameters.put("categorias", categorias);
 		}
 
 		if (tipo.length != 0) {
-
-			Join<Produto, Tipo> produtoTipoJoin = produtoRoot.join("tipo");
-
-			Path<Long> tipoId = produtoTipoJoin.get("id");
-
-			List<Long> tipoIds = new ArrayList<>();
-
+			jpql.append("AND p.tipo IN :tipos ");
+			List<Tipo> tipos = new ArrayList<>();
+			
 			for (int i = 0; i < tipo.length; i++) {
-				if (tipoRepository.findByDescricao(tipo[i]).isEmpty())
-					continue;
-
-				Tipo tipoSearch = tipoRepository.findByDescricao(tipo[i]).get();
-
-				tipoIds.add(tipoSearch.getId());
+				tipos.add(tipoRepository.findByDescricao(tipo[i]).get());
 			}
-
-			Predicate predicateTipoId = criteriaBuilder.isTrue(tipoId.in(tipoIds));
-
-			predicates.add(predicateTipoId);
-		}
-
-		if (genero.length != 0) {
-
-			Join<Produto, Genero> produtoGeneroJoin = produtoRoot.join("genero");
-
-			Path<Long> generoId = produtoGeneroJoin.get("id");
-
-			List<Long> generoIds = new ArrayList<>();
-
-			for (int i = 0; i < genero.length; i++) {
-				if (generoRepository.findByDescricao(genero[i]).isEmpty())
-					continue;
-
-				Genero generoSearch = generoRepository.findByDescricao(genero[i]).get();
-
-				generoIds.add(generoSearch.getId());
-			}
-
-			Predicate predicateGeneroId = criteriaBuilder.isTrue(generoId.in(generoIds));
-
-			predicates.add(predicateGeneroId);
-		}
-
-		if (marca.length != 0) {
-
-			Join<Produto, Marca> produtoMarcaJoin = produtoRoot.join("marca");
-
-			Path<Long> marcaId = produtoMarcaJoin.get("id");
-
-			List<Long> marcaIds = new ArrayList<>();
-
-			for (int i = 0; i < marca.length; i++) {
-				if (marcaRepository.findByDescricao(marca[i]).isEmpty())
-					continue;
-
-				Marca marcaSearch = marcaRepository.findByDescricao(marca[i]).get();
-
-				marcaIds.add(marcaSearch.getId());
-			}
-
-			Predicate predicateMarcaId = criteriaBuilder.isTrue(marcaId.in(marcaIds));
-
-			predicates.add(predicateMarcaId);
-		}
-
-		if (tamanho.length != 0) {
-
-			CriteriaQuery<Estoque> estoqueQuery = criteriaBuilder.createQuery(Estoque.class);
-			Root<Estoque> estoqueRoot = estoqueQuery.from(Estoque.class);
-
-			Join<Estoque, Tamanho> estoqueTamanhoJoin = estoqueRoot.join("tamanho");
-
-			Path<Long> tamanhoId = estoqueTamanhoJoin.get("id");
-
-			List<Long> tamanhoIds = new ArrayList<>();
-
-			for (int i = 0; i < tamanho.length; i++) {
-				if (tamanhoRepository.findByDescricao(tamanho[i]).isEmpty())
-					continue;
-
-				Tamanho tamanhoSearch = tamanhoRepository.findByDescricao(tamanho[i]).get();
-
-				tamanhoIds.add(tamanhoSearch.getId());
-			}
-
-			Predicate predicateTamanhoId = criteriaBuilder.isTrue(tamanhoId.in(tamanhoIds));
-
-			estoqueQuery.where(predicateTamanhoId);
-
-			TypedQuery<Estoque> estoqueTypedQuery = entityManager.createQuery(estoqueQuery);
-
-			if (!estoqueTypedQuery.getResultList().isEmpty()) {
-
-				List<Long> produtoIds = new ArrayList<>();
-
-				for (int i = 0; i < estoqueTypedQuery.getResultList().size(); i++) {
-					Estoque estoqueSearch = estoqueTypedQuery.getResultList().get(i);
-
-					if (produtoIds.contains(estoqueSearch.getProduto().getId()))
-						continue;
-
-					produtoIds.add(estoqueSearch.getProduto().getId());
-				}
-
-				predicates.add(produtoRoot.get("id").in(produtoIds));
-
-			} else {
-
-				// Gambiarra
-				predicates.add(produtoRoot.get("nome").in("nenhum"));
-
-			}
-
-		}
-
-		if (cor.length != 0) {
-
-			CriteriaQuery<Estoque> estoqueQuery = criteriaBuilder.createQuery(Estoque.class);
-			Root<Estoque> estoqueRoot = estoqueQuery.from(Estoque.class);
-
-			Join<Estoque, Cor> estoqueCorJoin = estoqueRoot.join("cor");
-
-			Path<Long> corId = estoqueCorJoin.get("id");
-
-			List<Long> corIds = new ArrayList<>();
-
-			for (int i = 0; i < cor.length; i++) {
-				if (corRepository.findByDescricao(cor[i]).isEmpty())
-					continue;
-
-				Cor corSearch = corRepository.findByDescricao(cor[i]).get();
-
-				corIds.add(corSearch.getId());
-			}
-
-			Predicate predicateCorId = criteriaBuilder.isTrue(corId.in(corIds));
-
-			estoqueQuery.where(predicateCorId);
-
-			TypedQuery<Estoque> estoqueTypedQuery = entityManager.createQuery(estoqueQuery);
-
-			if (!estoqueTypedQuery.getResultList().isEmpty()) {
-
-				List<Long> produtoIds = new ArrayList<>();
-
-				for (int i = 0; i < estoqueTypedQuery.getResultList().size(); i++) {
-					Estoque estoqueSearch = estoqueTypedQuery.getResultList().get(i);
-
-					if (produtoIds.contains(estoqueSearch.getProduto().getId()))
-						continue;
-
-					produtoIds.add(estoqueSearch.getProduto().getId());
-				}
-
-				predicates.add(produtoRoot.get("id").in(produtoIds));
-
-			} else {
-
-				// Gambiarra
-				predicates.add(produtoRoot.get("nome").in("nenhum"));
-
-			}
-
-		}
-
-		if (precoMin.length() != 0 && precoMax.length() != 0) {
-
-			BigDecimal precoMinimo = new BigDecimal(precoMin);
-			BigDecimal precoMaximo = new BigDecimal(precoMax);
-
-			CriteriaQuery<Estoque> estoqueQuery = criteriaBuilder.createQuery(Estoque.class);
-			Root<Estoque> estoqueRoot = estoqueQuery.from(Estoque.class);
-
-			Join<Estoque, Produto> estoqueProdutoJoin = estoqueRoot.join("produto");
-
-			Predicate precoPredicate = criteriaBuilder.between(estoqueRoot.get("preco"), precoMinimo, precoMaximo);
-
-			estoqueQuery.where(precoPredicate);
-
-			TypedQuery<Estoque> estoqueTypedQuery = entityManager.createQuery(estoqueQuery);
-
-			if (!estoqueTypedQuery.getResultList().isEmpty()) {
-
-				List<Long> produtoIds = new ArrayList<>();
-
-				for (int i = 0; i < estoqueTypedQuery.getResultList().size(); i++) {
-					Estoque estoqueSearch = estoqueTypedQuery.getResultList().get(i);
-
-					if (produtoIds.contains(estoqueSearch.getProduto().getId()))
-						continue;
-
-					produtoIds.add(estoqueSearch.getProduto().getId());
-				}
-
-				predicates.add(produtoRoot.get("id").in(produtoIds));
-
-			} else {
-
-				// Gambiarra
-				predicates.add(produtoRoot.get("nome").in("nenhum"));
-
-			}
-
+			parameters.put("tipos", tipos);
 		}
 		
-		predicates.add(criteriaBuilder.equal(produtoRoot.get("ativo"), true));
+		if (genero.length != 0) {
+			jpql.append("AND p.genero IN :generos ");
+			List<Genero> generos = new ArrayList<>();
+			
+			for (int i = 0; i < genero.length; i++) {
+				generos.add(generoRepository.findByDescricao(genero[i]).get());
+			}
+			parameters.put("generos", generos);
+		}
+		
+		if (marca.length != 0) {
+			jpql.append("AND p.marca IN :marcas ");
+			List<Marca> marcas = new ArrayList<>();
+			
+			for (int i = 0; i < marca.length; i++) {
+				marcas.add(marcaRepository.findByDescricao(marca[i]).get());
+			}
+			parameters.put("marcas", marcas);
+		}
+		
+		if (tamanho.length != 0) {
+			var jpqlEstoque = new StringBuilder();
+			var parametersEstoque = new HashMap<String, Object>();
 
-		produtoQuery.where(predicates.toArray(new Predicate[0]));
-
+			jpqlEstoque.append("SELECT e FROM Estoque e WHERE 0 = 0 AND e.tamanho IN :tamanhos");
+			List<Tamanho> tamanhos = new ArrayList<>();
+			
+			for (int i = 0; i < tamanho.length; i++) {
+				tamanhos.add(tamanhoRepository.findByDescricao(tamanho[i]).get());
+			}
+			parametersEstoque.put("tamanhos", tamanhos);
+			
+			TypedQuery<Estoque> queryEstoque = entityManager.createQuery(jpqlEstoque.toString(), Estoque.class);
+			parametersEstoque.forEach((key, value) -> queryEstoque.setParameter(key, value));
+			
+			List<Long> produtosTamanhoId = new ArrayList<>();
+			queryEstoque.getResultList().forEach(estoque -> {
+				produtosTamanhoId.add(estoque.getProduto().getId());
+			});
+			
+			jpql.append("AND p.id IN :produtosTamanhoId ");
+			parameters.put("produtosTamanhoId", produtosTamanhoId);
+		}
+		
+		if (cor.length != 0) {
+			var jpqlEstoque = new StringBuilder();
+			var parametersEstoque = new HashMap<String, Object>();
+			
+			jpqlEstoque.append("SELECT e FROM Estoque e WHERE 0 = 0 AND e.cor IN :cores");
+			List<Cor> cores = new ArrayList<>();
+			
+			for (int i = 0; i < cor.length; i++) {
+				cores.add(corRepository.findByDescricao(cor[i]).get());
+			}
+			parametersEstoque.put("cores", cores);
+			
+			TypedQuery<Estoque> queryEstoque = entityManager.createQuery(jpqlEstoque.toString(), Estoque.class);
+			parametersEstoque.forEach((key, value) -> queryEstoque.setParameter(key, value));
+			
+			List<Long> produtosCorId = new ArrayList<>();
+			queryEstoque.getResultList().forEach(estoque -> {
+				produtosCorId.add(estoque.getProduto().getId());
+			});
+			
+			jpql.append("AND p.id IN :produtosCorId ");
+			parameters.put("produtosCorId", produtosCorId);
+		}
+		
+		if (precoMin.length() != 0 && precoMax.length() != 0) {
+			var jpqlEstoque = new StringBuilder();
+			var parametersEstoque = new HashMap<String, Object>();
+			
+			jpqlEstoque.append("SELECT e FROM Estoque e WHERE 0 = 0 AND e.preco BETWEEN :precoMin AND :precoMax");
+			parametersEstoque.put("precoMin", new BigDecimal(precoMin));
+			parametersEstoque.put("precoMax", new BigDecimal(precoMax));
+			
+			TypedQuery<Estoque> queryEstoque = entityManager.createQuery(jpqlEstoque.toString(), Estoque.class);
+			parametersEstoque.forEach((key, value) -> queryEstoque.setParameter(key, value));
+			
+			List<Long> produtosPrecoId = new ArrayList<>();
+			queryEstoque.getResultList().forEach(estoque -> {
+				produtosPrecoId.add(estoque.getProduto().getId());
+			});
+			
+			jpql.append("AND p.id IN :produtosPrecoId ");
+			parameters.put("produtosPrecoId", produtosPrecoId);
+		}
+		
 		if (order.length() != 0) {
-			System.out.println(order);
 			if (order.equals("populares")) {
 				
 			} else if (order.equals("mais-vendidos")) {
 				
 			} else if (order.equals("novos")) {
-				produtoQuery.orderBy(criteriaBuilder.desc(produtoRoot.get("dataCadastro")));
+				jpql.append("ORDER BY p.dataCadastro DESC");
 			} else if (order.equals("ofertas")) {
-				
+				jpql.append("ORDER BY p.estoques.ofertas DESC");
 			} else if (order.equals("mais-caro")) {
-				
+				jpql.append("ORDER BY p.estoques.preco DESC");
 			} else if (order.equals("mais-barato")) {
-				
+				jpql.append("ORDER BY p.estoques.preco ASC");
 			}
 		} else {
-			produtoQuery.orderBy(criteriaBuilder.asc(produtoRoot.get("id")));
+			jpql.append("ORDER BY p.id ASC");
 		}
 
-		TypedQuery<Produto> query = entityManager.createQuery(produtoQuery);
+		TypedQuery<Produto> query = entityManager.createQuery(jpql.toString(), Produto.class);
+
+		parameters.forEach((key, value) -> query.setParameter(key, value));
 
 		return query.getResultList();
 

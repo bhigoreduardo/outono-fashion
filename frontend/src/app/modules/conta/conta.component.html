@@ -101,7 +101,7 @@
             [ngClass]="{invalid: formInsertEndereco.controls['enderecoCep'].invalid && (formInsertEndereco.controls['enderecoCep'].touched || formInsertEndereco.controls['enderecoCep'].dirty), valid: formInsertEndereco.valid}">
             <label for="enderecoCep">CEP</label>
             <div class="wrapper-input">
-                <input type="text" id="enderecoCep" placeholder="Insira seu CEP" formControlName="enderecoCep" />
+                <input type="text" id="enderecoCep" placeholder="Insira seu CEP" formControlName="enderecoCep" mask="00.000-000" />
                 <button type="button" (click)="searchCepAsync(formInsertEndereco.value)">Pesquisar</button>
             </div>
         </div>

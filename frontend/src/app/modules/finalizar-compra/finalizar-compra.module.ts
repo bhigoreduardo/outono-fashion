@@ -10,6 +10,7 @@ import { HeaderCheckoutComponent } from './components/header-checkout/header-che
 import { FooterCheckoutComponent } from './components/footer-checkout/footer-checkout.component';
 import { ConfirmacaoComponent } from './components/confirmacao/confirmacao.component';
 import { LoginCheckoutComponent } from '../login/components/login-checkout/login-checkout.component';
+import { NgxMaskModule } from 'ngx-mask';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { LoginCheckoutComponent } from '../login/components/login-checkout/login
     FinalizarCompraRoutingModule,
     SharedModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxMaskModule.forRoot()
   ]
 })
 export class FinalizarCompraModule { }

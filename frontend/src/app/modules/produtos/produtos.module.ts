@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { NgxMaskModule } from 'ngx-mask';
 
 import { SwiperModule } from 'swiper/angular';
 import { SharedModule } from '../../shared.module';
@@ -16,7 +17,8 @@ import { ProdutosComponent } from './produtos.component';
     CommonModule,
     ProdutosRoutingModule,
     SharedModule,
-    SwiperModule
+    SwiperModule,
+    NgxMaskModule.forRoot()
   ]
 })
 export class ProdutosModule { }

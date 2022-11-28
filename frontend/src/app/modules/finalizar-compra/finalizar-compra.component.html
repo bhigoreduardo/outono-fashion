@@ -20,7 +20,7 @@
             [ngClass]="{invalid: formInsertEndereco.controls['enderecoCep'].invalid && (formInsertEndereco.controls['enderecoCep'].touched || formInsertEndereco.controls['enderecoCep'].dirty), valid: formInsertEndereco.valid}">
             <label for="enderecoCep">CEP</label>
             <div class="wrapper-input">
-                <input type="text" id="enderecoCep" placeholder="Insira seu CEP" formControlName="enderecoCep" />
+                <input type="text" id="enderecoCep" placeholder="Insira seu CEP" formControlName="enderecoCep" mask="00.000-000" />
                 <button type="button" (click)="searchCepAsync(formInsertEndereco.value)">Pesquisar</button>
             </div>
         </div>
@@ -162,7 +162,7 @@
                                 [ngClass]="{invalid: formCartaoCredito.controls['numero'].invalid && (formCartaoCredito.controls['numero'].touched || formCartaoCredito.controls['numero'].dirty), valid: formCartaoCredito.valid}">
                                 <label class="input-label" for="numero">Número do cartão</label>
                                 <input type="text" id="numero" class="input-field"
-                                    placeholder="Insira os números do cartão" required formControlName="numero" />
+                                    placeholder="Insira os números do cartão" required formControlName="numero" mask="0000.0000.0000.0000" />
                                 <div class="group-icon">
                                     <i class="fas fa-check-circle"></i>
                                     <i class="fas fa-times-circle"></i>

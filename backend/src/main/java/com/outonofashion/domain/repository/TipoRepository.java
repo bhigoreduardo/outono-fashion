@@ -11,7 +11,7 @@ import com.outonofashion.domain.model.Tipo;
 @Repository
 public interface TipoRepository extends JpaRepository<Tipo, Long>, TipoRepositoryQueries {
 
-	@Query(nativeQuery = true, value = "SELECT * FROM Tipo t WHERE UNACCENT(LOWER(t.descricao)) = UNACCENT(LOWER(:descricao))")
+	@Query(nativeQuery = true, value = "SELECT * FROM Tipo t WHERE REPLACE(UNACCENT(LOWER(t.descricao)), '-', ' ') = REPLACE(UNACCENT(LOWER(:descricao)), '-', ' ')")
 	public Optional<Tipo> findByDescricao(String descricao);
 	
 	/*

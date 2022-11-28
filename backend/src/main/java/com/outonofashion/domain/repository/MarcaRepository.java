@@ -11,7 +11,7 @@ import com.outonofashion.domain.model.Marca;
 @Repository
 public interface MarcaRepository extends JpaRepository<Marca, Long> {
 
-	@Query(nativeQuery = true, value = "SELECT * FROM Marca m WHERE UNACCENT(LOWER(m.descricao)) = UNACCENT(LOWER(:descricao))")
+	@Query(nativeQuery = true, value = "SELECT * FROM Marca m WHERE REPLACE(UNACCENT(LOWER(m.descricao)), '-', ' ') = REPLACE(UNACCENT(LOWER(:descricao)), '-', ' ')")
 	public Optional<Marca> findByDescricao(String descricao);
 
 }

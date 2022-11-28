@@ -9,7 +9,7 @@ import com.outonofashion.domain.model.Categoria;
 
 public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
 	
-	@Query(nativeQuery = true, value = "SELECT * FROM Categoria c WHERE UNACCENT(LOWER(c.descricao)) = UNACCENT(LOWER(:descricao))")
+	@Query(nativeQuery = true, value = "SELECT * FROM Categoria c WHERE REPLACE(UNACCENT(LOWER(c.descricao)), '-', ' ') = REPLACE(UNACCENT(LOWER(:descricao)), '-', ' ')")
 	public Optional<Categoria> findByDescricao(String descricao);
 
 }
