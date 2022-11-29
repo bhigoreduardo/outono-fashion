@@ -117,10 +117,10 @@
             <div class="product-choice" (change)="setQuantidadeEstoque()">
                 <h6 class="title">Escolha o tamanho</h6>
                 <div class="radiobox-container">
-                    <app-radiobox *ngFor="let estoque of estoques"
-                        (click)="setTamanho(estoque.tamanho.descricao, estoque.tamanho.id)"
-                        title="{{estoque.tamanho.descricao}}" placeholder="{{estoque.tamanho.descricao}}" name="tamanho"
-                        value="{{estoque.tamanho.descricao | replace}}" check="''">
+                    <app-radiobox *ngFor="let tamanho of tamanhos"
+                        (click)="setTamanho(tamanho.descricao, tamanho.id)"
+                        title="{{tamanho.descricao}}" placeholder="{{tamanho.descricao}}" name="tamanho"
+                        value="{{tamanho.descricao | replace}}" check="''">
                     </app-radiobox>
                 </div>
 

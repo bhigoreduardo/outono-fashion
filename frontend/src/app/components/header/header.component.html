@@ -96,14 +96,70 @@
         <a><i class="fas fa-arrow-left" (click)="clearTarget()"></i></a>
 
         <div class="container">
-            <div #masculino data-target="masculino" (mouseout)="clearTarget()" [ngClass]="{active: target == masculino}"
-                class="box-container">
-                Masculino
+            <div #masculino data-target="masculino" (mouseover)="target=masculino" (mouseout)="clearTarget()"
+                [ngClass]="{active: target == masculino}" class="box-container">
+                <a class="button button-warning button-xs button-target">Ir para Masculino</a>
+
+                <div class="box">
+                    <h6>Calçados</h6>
+                    <div class="list-item custom-scrollbar">
+                        <a *ngFor="let calcado of calcadosMasculino"
+                            (click)="goToProdutos('masculino', 'calcados', calcado.descricao)">{{calcado.descricao}}</a>
+                    </div>
+                    <a class="active" (click)="goToProdutos('masculino', 'calcados')">Todos calçados</a>
+                </div>
+
+                <div class="box">
+                    <h6>Roupas</h6>
+                    <div class="list-item custom-scrollbar">
+                        <a href="">Bermudas</a>
+                        <a href="">Calças</a>
+                        <a href="">Camisas</a>
+                        <a href="">Jaquetas</a>
+                        <a href="">Moletons</a>
+                        <a href="">Shorts</a>
+                        <a href="">Vestidos</a>
+                    </div>
+                    <a class="active" href="">Todas roupas</a>
+                </div>
+
+                <div class="box">
+                    <h6>Acessórios</h6>
+                    <div class="list-item custom-scrollbar">
+                        <a href="">Bonés</a>
+                        <a href="">Malas</a>
+                        <a href="">Meias</a>
+                        <a href="">Mochilas</a>
+                        <a href="">Óculos</a>
+                        <a href="">Relógios</a>
+                    </div>
+                    <a class="active" href="">Todos acessórios</a>
+                </div>
+
+                <div class="box">
+                    <h6>Marcas</h6>
+                    <div class="list-item custom-scrollbar">
+                        <a href="">Adidas</a>
+                        <a href="">Asics</a>
+                        <a href="">Fila</a>
+                        <a href="">Kappa</a>
+                        <a href="">Mizuno</a>
+                        <a href="">Nike</a>
+                        <a href="">Oakley</a>
+                    </div>
+                    <a class="active" href="">Todas marcas</a>
+                </div>
+
+                <div class="box">
+                    <a href="">
+                        <img title="Tênis com até 80% Off" [src]="masculinoHighlight" alt="">
+                    </a>
+                </div>
             </div>
 
             <div #feminino data-target="feminino" (mouseover)="target=feminino" (mouseout)="clearTarget()"
                 [ngClass]="{active: target == feminino}" class="box-container">
-                <a class="button button-warning button-xs button-target" href="">Ir para Feminino</a>
+                <a class="button button-warning button-xs button-target">Ir para Feminino</a>
 
                 <div class="box">
                     <h6>Calçados</h6>

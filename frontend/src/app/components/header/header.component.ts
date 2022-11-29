@@ -26,7 +26,10 @@ export class HeaderComponent implements OnInit {
 
   // Drop Vars
   femininoHighlight = "/assets/images/feminino-highlights-drop-menu.webp";
+  masculinoHighlight = "/assets/images/masculino-highlights-drop-menu.webp";
+
   calcadosFeminino: ITipoModel[] = [];
+  calcadosMasculino: ITipoModel[] = [];
 
   constructor(
     private loginService: LoginService,
@@ -105,6 +108,7 @@ export class HeaderComponent implements OnInit {
 
   async initializeDropVars() {
     this.calcadosFeminino = <ITipoModel[]>await this.findByGeneroAndCategoria('feminino', 'calcados');
+    this.calcadosMasculino = <ITipoModel[]>await this.findByGeneroAndCategoria('masculino', 'calcados');
   }
 
 }

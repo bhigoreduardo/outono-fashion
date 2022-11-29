@@ -5,6 +5,7 @@ import { ICorModel } from 'src/app/model/ICor';
 import { IEstoqueModel } from 'src/app/model/IEstoque';
 import { IImagemModel } from 'src/app/model/IImagem';
 import { IProdutoCarrinho, IProdutoDetalheModel, IProdutoModel } from 'src/app/model/IProduto';
+import { ITamanhoModel } from 'src/app/model/ITamanho';
 import { CarrinhoService } from 'src/app/modules/carrinho/service/carrinho.service';
 import { SwiperOptions } from 'swiper';
 
@@ -30,10 +31,11 @@ export class IndividualComponent implements OnInit {
   marca!: string;
   imagens: IImagemModel[] = [];
   nome!: string;
-  estoques: IEstoqueModel[] = [];
+  // estoques: IEstoqueModel[] = [];
   descricao!: string;
   detalhe!: string;
   cores: ICorModel[] = [];
+  tamanhos: ITamanhoModel[] = [];
   quantidadeEstoque!: number;
   preco!: number;
   precoSelecionado!: number;
@@ -223,18 +225,18 @@ export class IndividualComponent implements OnInit {
   }
 
   initializeProdutoProps(): void {
-    this.produto!.estoques.forEach((value, index) => {
+    this.produto!.estoques.forEach((estoque, index) => {
 
-      if (index == 0) {
-        this.cores.push(value.cor);
-      } else if (index < this.produto.estoques.length) {
-        if (!(this.produto.estoques[index].cor.descricao == this.produto.estoques[index++].cor.descricao)) {
-          this.cores.push(value.cor);
-        }
+      if (this.cores.length == 0 || (!this.cores.some(cor => cor.descricao == estoque.cor.descricao))) {
+        this.cores.push(estoque.cor);
       }
 
-      if (index == 0 || this.preco < value.preco) {
-        this.preco = value.preco;
+      if (this.tamanhos.length == 0 || (!this.tamanhos.some(tamanho => tamanho.descricao == estoque.tamanho.descricao))) {
+        this.tamanhos.push(estoque.tamanho);
+      }
+
+      if (index == 0 || this.preco < estoque.preco) {
+        this.preco = estoque.preco;
       }
 
     });
@@ -245,7 +247,7 @@ export class IndividualComponent implements OnInit {
     this.marca = this.produto.marca.descricao;
     this.imagens = this.produto.imagens;
     this.nome = this.produto.nome;
-    this.estoques = this.produto.estoques;
+    // this.estoques = this.produto.estoques;
     this.descricao = this.produto.descricao;
     this.detalhe = this.produto.detalhe;
     this.comentarios = this.produto.comentarios;
