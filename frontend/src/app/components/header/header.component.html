@@ -84,9 +84,9 @@
             <a title="Início" (mouseover)="clearTarget()">Início</a>
             <a title="Masculino" (mouseover)="target=masculino" [ngClass]="{active: target == masculino}">Masculino</a>
             <a title="Feminino" (mouseover)="target=feminino" [ngClass]="{active: target == feminino}">Feminino</a>
-            <a title="Infantil" (mouseover)="target=infantil" [ngClass]="{active: target == infantil}">Infantil</a>
-            <a title="Acessórios" (mouseover)="clearTarget()">Acessórios</a>
-            <a title="Marcas" (mouseover)="clearTarget()">Marcas</a>
+            <a title="Menino" (mouseover)="target=menino" [ngClass]="{active: target == menino}">Menino</a>
+            <a title="Menina" (mouseover)="target=menina" [ngClass]="{active: target == menina}">Menina</a>
+            <a title="Marcas" (mouseover)="clearTarget()" (click)="redirectTo('/produtos')">Marcas</a>
             <a title="Promoções" (mouseover)="clearTarget()"><i class="fas fa-tags"></i> Promoções</a>
         </div>
     </nav>
@@ -145,7 +145,8 @@
 
             <div #feminino data-target="feminino" (mouseover)="target=feminino" (mouseout)="clearTarget()"
                 [ngClass]="{active: target == feminino}" class="box-container">
-                <a class="button button-warning button-xs button-target">Ir para Feminino</a>
+                <a class="button button-warning button-xs button-target" (click)="redirectTo('/produtos/feminino')">Ir
+                    para Feminino</a>
 
                 <div class="box">
                     <h6>Calçados</h6>
@@ -168,28 +169,19 @@
                 <div class="box">
                     <h6>Acessórios</h6>
                     <div class="list-item custom-scrollbar">
-                        <a href="">Bonés</a>
-                        <a href="">Malas</a>
-                        <a href="">Meias</a>
-                        <a href="">Mochilas</a>
-                        <a href="">Óculos</a>
-                        <a href="">Relógios</a>
+                        <a *ngFor="let acessorio of acessoriosFeminino"
+                            (click)="goToProdutos('feminino', 'acessorios', acessorio.descricao)">{{acessorio.descricao}}</a>
                     </div>
-                    <a class="active" href="">Todos acessórios</a>
+                    <a class="active" (click)="goToProdutos('feminino', 'acessorios')">Todos acessórios</a>
                 </div>
 
                 <div class="box">
                     <h6>Marcas</h6>
                     <div class="list-item custom-scrollbar">
-                        <a href="">Adidas</a>
-                        <a href="">Asics</a>
-                        <a href="">Fila</a>
-                        <a href="">Kappa</a>
-                        <a href="">Mizuno</a>
-                        <a href="">Nike</a>
-                        <a href="">Oakley</a>
+                        <a *ngFor="let marca of marcasFeminino"
+                            (click)="goToProdutos('feminino', undefined , undefined, marca.descricao)">{{marca.descricao}}</a>
                     </div>
-                    <a class="active" href="">Todas marcas</a>
+                    <a class="active" (click)="goToProdutos('feminino')">Todas as marcas</a>
                 </div>
 
                 <div class="box">
@@ -199,20 +191,101 @@
                 </div>
             </div>
 
-            <div #infantil data-target="infantil" (mouseout)="clearTarget()" [ngClass]="{active: target == infantil}"
-                class="box-container">
-                Infantil
+            <div #menino data-target="menino" (mouseover)="target=menino" (mouseout)="clearTarget()"
+                [ngClass]="{active: target == menino}" class="box-container">
+                <a class="button button-warning button-xs button-target" (click)="redirectTo('/produtos/menino')">Ir
+                    para Menino</a>
+
+                <div class="box">
+                    <h6>Calçados</h6>
+                    <div class="list-item custom-scrollbar">
+                        <a *ngFor="let calcado of calcadosMenino"
+                            (click)="goToProdutos('menino', 'calcados', calcado.descricao)">{{calcado.descricao}}</a>
+                    </div>
+                    <a class="active" (click)="goToProdutos('menino', 'calcados')">Todos calçados</a>
+                </div>
+
+                <div class="box">
+                    <h6>Roupas</h6>
+                    <div class="list-item custom-scrollbar">
+                        <a *ngFor="let roupa of roupasMenino"
+                            (click)="goToProdutos('menino', 'roupas', roupa.descricao)">{{roupa.descricao}}</a>
+                    </div>
+                    <a class="active" (click)="goToProdutos('menino', 'roupas')">Todas roupas</a>
+                </div>
+
+                <div class="box">
+                    <h6>Acessórios</h6>
+                    <div class="list-item custom-scrollbar">
+                        <a *ngFor="let acessorio of acessoriosMenino"
+                            (click)="goToProdutos('menino', 'acessorios', acessorio.descricao)">{{acessorio.descricao}}</a>
+                    </div>
+                    <a class="active" (click)="goToProdutos('menino', 'acessorios')">Todos acessórios</a>
+                </div>
+
+                <div class="box">
+                    <h6>Marcas</h6>
+                    <div class="list-item custom-scrollbar">
+                        <a *ngFor="let marca of marcasMenino"
+                            (click)="goToProdutos('menino', undefined , undefined, marca.descricao)">{{marca.descricao}}</a>
+                    </div>
+                    <a class="active" (click)="goToProdutos('menino')">Todas as marcas</a>
+                </div>
+
+                <div class="box">
+                    <a href="">
+                        <img title="Tênis à partir de 129,99" [src]="meninoHighlight" alt="">
+                    </a>
+                </div>
             </div>
 
-            <!-- <div #acessorio data-target="acessorio" (mouseout)="clearTarget()" [ngClass]="{active: target == acessorio}"
-                class="box-container">
-                Acessório
-            </div>
+            <div #menina data-target="menina" (mouseover)="target=menina" (mouseout)="clearTarget()"
+                [ngClass]="{active: target == menina}" class="box-container">
+                <a class="button button-warning button-xs button-target" (click)="redirectTo('/produtos/menina')">Ir
+                    para Menina</a>
 
-            <div #marcas data-target="marcas" (mouseout)="clearTarget()" [ngClass]="{active: target == marcas}"
-                class="box-container">
-                Marcas
-            </div> -->
+                <div class="box">
+                    <h6>Calçados</h6>
+                    <div class="list-item custom-scrollbar">
+                        <a *ngFor="let calcado of calcadosMenina"
+                            (click)="goToProdutos('menina', 'calcados', calcado.descricao)">{{calcado.descricao}}</a>
+                    </div>
+                    <a class="active" (click)="goToProdutos('menina', 'calcados')">Todos calçados</a>
+                </div>
+
+                <div class="box">
+                    <h6>Roupas</h6>
+                    <div class="list-item custom-scrollbar">
+                        <a *ngFor="let roupa of roupasMenina"
+                            (click)="goToProdutos('menina', 'roupas', roupa.descricao)">{{roupa.descricao}}</a>
+                    </div>
+                    <a class="active" (click)="goToProdutos('menina', 'roupas')">Todas roupas</a>
+                </div>
+
+                <div class="box">
+                    <h6>Acessórios</h6>
+                    <div class="list-item custom-scrollbar">
+                        <a *ngFor="let acessorio of acessoriosMenina"
+                            (click)="goToProdutos('menina', 'acessorios', acessorio.descricao)">{{acessorio.descricao}}</a>
+                    </div>
+                    <a class="active" (click)="goToProdutos('menina', 'acessorios')">Todos acessórios</a>
+                </div>
+
+                <div class="box">
+                    <h6>Marcas</h6>
+                    <div class="list-item custom-scrollbar">
+                        <a *ngFor="let marca of marcasMenina"
+                            (click)="goToProdutos('menina', undefined , undefined, marca.descricao)">{{marca.descricao}}</a>
+                    </div>
+                    <a class="active" (click)="goToProdutos('menina')">Todas as marcas</a>
+                </div>
+
+                <div class="box">
+                    <a href="">
+                        <img title="Pijamas com 50% Off" [src]="meninaHighlight" alt="">
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </header>

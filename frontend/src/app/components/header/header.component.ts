@@ -26,17 +26,32 @@ export class HeaderComponent implements OnInit {
   target: any;
 
   // Drop Vars
-  femininoHighlight = "/assets/images/feminino-highlights-drop-menu.webp";
   masculinoHighlight = "/assets/images/masculino-highlights-drop-menu.webp";
-
-  calcadosFeminino: ITipoModel[] = [];
-  roupasFeminino: ITipoModel[] = [];
-
+  femininoHighlight = "/assets/images/feminino-highlights-drop-menu.webp";
+  
+  meninoHighlight = "/assets/images/menino-highlights-drop-menu.webp";
+  meninaHighlight = "/assets/images/menina-highlights-drop-menu.webp";
+  
   calcadosMasculino: ITipoModel[] = [];
   roupasMasculino: ITipoModel[] = [];
   acessoriosMasculino: ITipoModel[] = [];
 
+  calcadosFeminino: ITipoModel[] = [];
+  roupasFeminino: ITipoModel[] = [];
+  acessoriosFeminino: ITipoModel[] = [];
+
+  calcadosMenino: ITipoModel[] = [];
+  roupasMenino: ITipoModel[] = [];
+  acessoriosMenino: ITipoModel[] = [];
+
+  calcadosMenina: ITipoModel[] = [];
+  roupasMenina: ITipoModel[] = [];
+  acessoriosMenina: ITipoModel[] = [];
+
   marcasMasculino: IMarcaModel[] = [];
+  marcasFeminino: IMarcaModel[] = [];
+  marcasMenino: IMarcaModel[] = [];
+  marcasMenina: IMarcaModel[] = [];
 
   constructor(
     private loginService: LoginService,
@@ -134,14 +149,26 @@ export class HeaderComponent implements OnInit {
   }
 
   async initializeDropVars() {
-    this.calcadosFeminino = <ITipoModel[]>await this.findByGeneroAndCategoria('feminino', 'calcados');
-    this.roupasFeminino = <ITipoModel[]>await this.findByGeneroAndCategoria('feminino', 'roupas');
-
     this.calcadosMasculino = <ITipoModel[]>await this.findByGeneroAndCategoria('masculino', 'calcados');
     this.roupasMasculino = <ITipoModel[]>await this.findByGeneroAndCategoria('masculino', 'roupas');
     this.acessoriosMasculino = <ITipoModel[]>await this.findByGeneroAndCategoria('masculino', 'acessorios');
 
+    this.calcadosFeminino = <ITipoModel[]>await this.findByGeneroAndCategoria('feminino', 'calcados');
+    this.roupasFeminino = <ITipoModel[]>await this.findByGeneroAndCategoria('feminino', 'roupas');
+    this.acessoriosFeminino = <ITipoModel[]>await this.findByGeneroAndCategoria('feminino', 'acessorios');
+
+    this.calcadosMenino = <ITipoModel[]>await this.findByGeneroAndCategoria('menino', 'calcados');
+    this.roupasMenino = <ITipoModel[]>await this.findByGeneroAndCategoria('menino', 'roupas');
+    this.acessoriosMenino = <ITipoModel[]>await this.findByGeneroAndCategoria('menino', 'acessorios');
+
+    this.calcadosMenina = <ITipoModel[]>await this.findByGeneroAndCategoria('menina', 'calcados');
+    this.roupasMenina = <ITipoModel[]>await this.findByGeneroAndCategoria('menina', 'roupas');
+    this.acessoriosMenina = <ITipoModel[]>await this.findByGeneroAndCategoria('menina', 'acessorios');
+
     this.marcasMasculino = <IMarcaModel[]>await this.findByGenero('masculino');
+    this.marcasFeminino = <IMarcaModel[]>await this.findByGenero('feminino');
+    this.marcasMenino = <IMarcaModel[]>await this.findByGenero('menino');
+    this.marcasMenina = <IMarcaModel[]>await this.findByGenero('menina');
   }
 
 }
