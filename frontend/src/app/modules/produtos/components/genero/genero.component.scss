@@ -1,0 +1,56 @@
+@import '../../../../../styles.scss';
+
+.know-products .box-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @media screen and (max-width: 768px) {
+        flex-wrap: wrap;
+    }
+
+    .box {
+        flex: 1 1 200px;
+        text-align: center;
+
+        @media screen and (max-width: 650px) {
+            flex: 1 1 180px;
+        }
+
+        @media screen and (max-width: 590px) {
+            flex: 1 1 160px;
+        }
+
+        @media screen and (max-width: 530px) {
+            flex: 1 1 140px;
+        }
+
+        @media screen and (max-width: 470px) {
+            flex: 1 1 120px;
+        }
+
+        img {
+            max-width: 120px;
+        }
+    }
+}
+
+.banner-ads {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+}
+
+.offer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    a {
+        transition: all 200ms ease-in;
+
+        &:hover {
+            transform: scale(0.95);
+        }
+    }
+}

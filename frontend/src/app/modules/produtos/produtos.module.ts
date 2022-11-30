@@ -7,11 +7,13 @@ import { SharedModule } from '../../shared.module';
 import { IndividualComponent } from './components/individual/individual.component';
 import { ProdutosRoutingModule } from './produtos-routing.module';
 import { ProdutosComponent } from './produtos.component';
+import { GeneroComponent } from './components/genero/genero.component';
 
 @NgModule({
   declarations: [
     ProdutosComponent,
-    IndividualComponent
+    IndividualComponent,
+    GeneroComponent
   ],
   imports: [
     CommonModule,

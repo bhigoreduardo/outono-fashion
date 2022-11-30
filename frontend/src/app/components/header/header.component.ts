@@ -1,5 +1,6 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
+import { IMarcaModel } from 'src/app/model/IMarca';
 import { ITipoModel } from 'src/app/model/ITipo';
 import { IUsuarioModel } from 'src/app/model/IUsuario';
 import { CarrinhoService } from 'src/app/modules/carrinho/service/carrinho.service';
@@ -29,7 +30,13 @@ export class HeaderComponent implements OnInit {
   masculinoHighlight = "/assets/images/masculino-highlights-drop-menu.webp";
 
   calcadosFeminino: ITipoModel[] = [];
+  roupasFeminino: ITipoModel[] = [];
+
   calcadosMasculino: ITipoModel[] = [];
+  roupasMasculino: ITipoModel[] = [];
+  acessoriosMasculino: ITipoModel[] = [];
+
+  marcasMasculino: IMarcaModel[] = [];
 
   constructor(
     private loginService: LoginService,
@@ -72,14 +79,24 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  goToProdutos(genero: string, categoria: string, tipo?: string) {
+  goToProdutos(genero: string, categoria?: string, tipo?: string, marca?: string) {
     let query = {};
 
-    query = { ...query, genero: genero, categoria: categoria };
+    query = { ...query, genero: genero };
+
+    if (categoria != undefined) {
+      categoria = this.replaceAll(categoria, ' ', '-');
+      query = { ...query, categoria: categoria };
+    }
 
     if (tipo != undefined) {
       tipo = this.replaceAll(tipo, ' ', '-');
       query = { ...query, tipo: tipo };
+    }
+
+    if (marca != undefined) {
+      marca = this.replaceAll(marca, ' ', '-');
+      query = { ...query, marca: marca };
     }
 
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
@@ -106,9 +123,25 @@ export class HeaderComponent implements OnInit {
     })
   }
 
+  findByGenero(genero: string) {
+    return new Promise(resolve => {
+      this.headerService.findByGenero(genero).subscribe(
+        data => {
+          resolve(data);
+        }
+      )
+    })
+  }
+
   async initializeDropVars() {
     this.calcadosFeminino = <ITipoModel[]>await this.findByGeneroAndCategoria('feminino', 'calcados');
+    this.roupasFeminino = <ITipoModel[]>await this.findByGeneroAndCategoria('feminino', 'roupas');
+
     this.calcadosMasculino = <ITipoModel[]>await this.findByGeneroAndCategoria('masculino', 'calcados');
+    this.roupasMasculino = <ITipoModel[]>await this.findByGeneroAndCategoria('masculino', 'roupas');
+    this.acessoriosMasculino = <ITipoModel[]>await this.findByGeneroAndCategoria('masculino', 'acessorios');
+
+    this.marcasMasculino = <IMarcaModel[]>await this.findByGenero('masculino');
   }
 
 }

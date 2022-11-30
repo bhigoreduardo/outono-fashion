@@ -146,6 +146,7 @@
                 priceMax="{{produto.estoques | priceproduto:'max'}}"
                 nome="{{produto.nome | replace:' ':'-'}}"
                 id="{{produto.id}}"
+                offer="{{produto.estoques | ofertaproduto:'min'}}"
             ></app-card>
         </div>
 

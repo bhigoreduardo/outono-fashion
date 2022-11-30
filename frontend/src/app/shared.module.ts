@@ -18,6 +18,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { RadioaccountComponent } from './components/radioaccount/radioaccount.component';
 import { InputupdateComponent } from './components/inputupdate/inputupdate.component';
 import { EmptymessageComponent } from './components/emptymessage/emptymessage.component';
+import { OfertaprodutoPipe } from './pipes/ofertaproduto.pipe';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { EmptymessageComponent } from './components/emptymessage/emptymessage.co
     MessageComponent,
     RadioaccountComponent,
     InputupdateComponent,
-    EmptymessageComponent
+    EmptymessageComponent,
+    OfertaprodutoPipe
   ],
   imports: [
     CommonModule,
@@ -59,7 +61,8 @@ import { EmptymessageComponent } from './components/emptymessage/emptymessage.co
     MessageComponent,
     RadioaccountComponent,
     InputupdateComponent,
-    EmptymessageComponent
+    EmptymessageComponent,
+    OfertaprodutoPipe
   ]
 })
 export class SharedModule { }

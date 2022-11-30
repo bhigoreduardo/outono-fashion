@@ -1,0 +1,92 @@
+<!-- HEADER COMPONENT -->
+<app-header></app-header>
+<!-- / HEADER COMPONENT -->
+
+<!-- BANNER -->
+<section class="banner gap-section">
+    <swiper [config]="bannerSlide" #customBannerSlide>
+        <ng-template swiperSlide *ngFor="let image of bannerImages">
+            <div class="image-wrapper">
+                <a (click)="goToProdutos(image.genero, image.categoria, image.tipo)">
+                    <img src="{{image.nome}}" alt="">
+                </a>
+            </div>
+        </ng-template>
+    </swiper>
+
+    <div class="slide-controls container">
+        <button type="button" class="prev-button" (click)="prevSlide(customBannerSlide)">
+            <i title="Anterior" class="fas fa-chevron-left"></i>
+        </button>
+
+        <button type="button" class="next-button" (click)="nextSlide(customBannerSlide)">
+            <i title="Próximo" class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+</section>
+<!-- / BANNER -->
+
+<!-- KNOW PRODUCTS -->
+<section class="know-products container gap-section">
+    <div class="headline">
+        <h6 class="subtitle">Conheça nossos produtos</h6>
+        <h4 class="title">Aproveite ofertas imperdíveis</h4>
+    </div>
+
+    <div class="box-container">
+        <a (click)="goToProdutos(categoria.genero, categoria.categoria, categoria.tipo)" class="box"
+            *ngFor="let categoria of categoriaImages">
+            <img src="{{categoria.nome}}" />
+        </a>
+    </div>
+</section>
+<!-- /KNOW PRODUCTS -->
+
+<!-- BANNER ADS -->
+<section class="banner-ads container gap-section">
+    <a (click)="goToProdutos(ads.genero, ads.categoria, ads.tipo)" class="image" *ngFor="let ads of adsImages">
+        <img src="{{ads.nome}}" />
+    </a>
+</section>
+<!-- / BANNER ADS -->
+
+<!-- NEWS PRODUTOS -->
+<section class="products container gap-section">
+    <div class="headline">
+        <h6 class="subtitle">Novidade</h6>
+        <h4 class="title">Últimas peças do catálogo</h4>
+    </div>
+
+    <swiper [config]="newProdutos" #customNewProdutos>
+        <ng-template swiperSlide *ngFor="let produto of produtosNew">
+            <app-card
+                image="/assets/produtos/{{produto.genero.descricao | replace:' ':'-'}}/{{produto.categoria.descricao | replace:' ':'-'}}/{{produto.tipo.descricao | replace:' ':'-'}}/{{produto.nome | replace:' ':'-'}}-{{produto.id}}-1.webp"
+                name="{{produto.nome}}" priceMin="{{produto.estoques | priceproduto:'min'}}"
+                nome="{{produto.nome | replace:' ':'-'}}" id="{{produto.id}}"></app-card>
+        </ng-template>
+    </swiper>
+
+    <div class="slide-controls container">
+        <button type="button" class="prev-button" (click)="prevSlide(customNewProdutos)">
+            <i title="Anterior" class="fas fa-chevron-left"></i>
+        </button>
+
+        <button type="button" class="next-button" (click)="nextSlide(customNewProdutos)">
+            <i title="Próximo" class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+</section>
+<!-- / NEWS PRODUTOS -->
+
+<!-- OFFER PRODUTOS -->
+<section class="offer container gap-section">
+    <a (click)="goToProdutos(offer.genero, offer.categoria, offer.tipo)" class="image"
+        *ngFor="let offer of offerImages">
+        <img src="{{offer.nome}}" />
+    </a>
+</section>
+<!-- / OFFER PRODUTOS -->
+
+<!-- FOOTER -->
+<app-footer></app-footer>
+<!-- / FOOTER -->
