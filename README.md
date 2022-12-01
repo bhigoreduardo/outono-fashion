@@ -1,17 +1,18 @@
 <h1 align="center">
   💻<br>Outono Fashion E-commerce
 </h1>
-<img src="" alt="Cover projeto" />
+<img src="./assets/images/cover.png" alt="Cover projeto" />
 
+- **Cliente:** Higor E. Batista
 - **PO (Product Owner):** Higor E. Batista
 - **Scrum Master:** Higor E. Batista
 - **Dev Team:** Higor E. Batista
 
 ✅ RESTApi
 ✅ Design Responsivo
-✅ Segurança e Autenticação JWT
-✅ Gateway Pagamento
-✅ CMS (Dashboard Estatísticas e Gestão)
+<!-- ✅ Segurança e Autenticação JWT -->
+<!-- ✅ Gateway Pagamento -->
+<!-- ✅ CMS (Dashboard Estatísticas e Gestão) -->
 
 # ✨ Objetivo:
 
@@ -22,18 +23,18 @@
 <summary><b>📒 Regras de Negócio</b></summary>
 
 ## Requisitos:
-### 1. Usuários
+### 1. Usuário
 - **Experiência do Usuário (Cliente):**
     - Autenticação para acessar a conta, comentar, favoritar, pagar/comprar (segurança)
-    - Visualização prévia dos detalhes de produtos (modal)
     - Buscar e filtrar produtos limitando 12 produtos/página (avançada)
     - Cadastrar diferentes endereços de entrega (apelido)
     - Comentar em produtos comprados (credibilidade)
     - Permitir cadastrar somente um CPF/CNPJ e E-mail
     - Pagamento facilitado e flexível no cartão de crédito em até 12x sem juros
-    - Pagamento cartão e boleto
-    - Cupom de desconto restrito por CPF/CNPJ não cumulativo
+    - Pagamento cartão, boleto e PIX
+    - Cupom de desconto restrito por CPF/CNPJ não cumulativo e com validade
     - Salvar cartões de crédito histórico
+    - Visualização prévia dos detalhes de produtos (modal)
     - Devolução no cartão ou conta bancária do cliente
 
 - **Experiência do Usuário (Administrador):**
@@ -50,103 +51,31 @@
     - Editar próprias informações cadastrais
     - Cadastrar e Editar próprias postagens Blog
 
-- **Características do Usuário [Cliente/ADM/Editor/Vendedor]:**
-    - Nome
-    - Sobrenome
-    - E-mail (Único)
-    - Senha
-    - CPF/CNPJ (Único)
-    - RG/IE (Único e opcional)
-    - Gênero
-    - Data de Nascimento
-    - Apelido Endereço
-        - Endereço: CEP, Bairro, Logradouro, Número, Complemento, Referência, Ativo (selecionado)
-    - Ativo (Cadastro Ativo)
-    - Imagem
+### 2 Produto
+- **Valores do Gênero**
+    - Masculino, Feminino, Menino, Menina, Unissex
 
-### 2. Produtos
-- **Características do Produto:**
-    - Nome
-    - Descrição (curta)
-    - Detalhes (longa)
-    - Imagem
-    - Estoque
-    - Peso
-    - Dimensões: Comprimento, Largura, Altura
-    - Gênero (masculino/feminino/menino/menina/unissex)
-    - Categoria
-    - Tipo
-    - Tamanho
-    - Marca
-    - Cor
-    - Preço
-    - Oferta (Porcentagem)
-    - Ativo
+- **Valores da Categoria**
+    - Calçados, Roupas, Acessórios
+    
+- **Valores do Tipo**
+    - *Calçados:* Botas, Chinelos, Chuteiras(M), Crocs, Sapatênis, Tênis
+    - *Roupas:* Bermudas, Calças, Camisas, Jaquetas, Moletons, Shorts, Vestidos(F)
+    - *Acessórios:* Bonés, Malas, Meias, Mochilas, Óculos, Relógios
 
-- **Características do Pedido:**
-    - N produtos
-    - Subtotal
-    - Taxa da entrega
-    - Valor total
-    - Data do pedido
-    - Data de pagamento
-    - Data do envio
-    - Data da entrega
-    - Status: AGUARDANDO PAGAMENTO, PAGAMENTO CONFIRMADO, ENVIADO, ENTREGUE
+- **Valores do Tamanho**
+    - PP, P, M, G, GG, XG, 20 - 50 (múltiplo 2), Único
 
-- **Características do Gênero**
-    - Descrição
+- **Valores da Marca**
+    - *Calçados:* Adidas, Asics, Fila, Kappa, Mizuno, Nike, Oakley, Olympikus, Puma
+    - *Roupas:* Adidas, Aramis, Armadilho, Calvin Klein, Colcci, Everlast, Lacoste, Nike, Reserva
+    - *Acessórios:* Adidas, Amora, Capricho, Caterpillar, Coca Cola, Colcci, Everlast
 
-- **Características da Categoria**
-    - Descrição
+- **Valores da Cor**
+    - Amarelo, Azul Claro, Azul Escuro, Bege, Bordô, Branco, Cinza, Dourado, Laranja, Lilás, Marinho, Marrom, Preto, Rosa, Roxo
+    - Verde, Verde Escuro, Verde Claro, Vermelho, Vinho, Violeta
 
-- **Características do Tipo**
-    - Descrição
-
-- **Características do Tamanho**
-    - Descrição
-
-- **Características da Marca**
-    - Descrição
-    - Imagem
-
-- **Características da Cor**
-    - Descrição
-
-    ### 2.1 Valores Produtos
-    - **Valores do Gênero**
-        - Masculino, Feminino, Menino, Menina, Unissex
-
-    - **Valores da Categoria**
-        - Calçados, Roupas, Acessórios
-        Select * from TABELA where CAMPO like '%texto_para_encontrar%' collate utf8_general_ci
-
-    - **Valores do Tipo**
-        - *Calçados:* Botas, Chinelos, Chuteiras(M), Crocs, Sapatênis, Tênis
-        - *Roupas:* Bermudas, Calças, Camisas, Jaquetas, Moletons, Shorts, Vestidos(F)
-        - *Acessórios:* Bonés, Malas, Meias, Mochilas, Óculos, Relógios
-
-    - **Valores do Tamanho**
-        - PP, P, M, G, GG, XG, 20 - 50 (múltiplo 2), Único
-
-    - **Valores da Marca**
-        - *Calçados:* Adidas, Asics, Fila, Kappa, Mizuno, Nike, Oakley, Olympikus, Puma
-        - *Roupas:* Adidas, Aramis, Armadilho, Calvin Klein, Colcci, Everlast, Lacoste, Nike, Reserva
-        - *Acessórios:* Adidas, Amora, Capricho, Caterpillar, Coca Cola, Colcci, Everlast
-
-    - **Características da Cor**
-        - Amarelo, Azul Claro, Azul Escuro, Bege, Bordô, Branco, Cinza, Dourado, Laranja, Lilás, Marinho, Marrom, Preto, Rosa, Roxo
-        - Verde, Verde Escuro, Verde Claro, Vermelho, Vinho, Violeta
-
-### 3. Manipulação Produtos
-- **Faixa de preço**
-    - Menos 60, Entre (60 - 100), Entre (100 - 160), Entre (160 - 240), Entre (240 - 380), Entre (380 - 770), Mais 770
-
-- **Gestão Produto**
-    - Tipo depende da Categoria
-    - Marca depende do Tipo
-
-### 4. Blog
+### 3. Blog
 - **Características do Post (Blog)**
     - Título
     - Conteúdo (Text Rich)
@@ -159,40 +88,28 @@
 </details>
 
 <details>
-<summary><b>📃 Páginas (Front)</b></summary>
+<summary><b>📃 Rotas</b></summary>
 
 ### 1. Produtos
-- **Página Produtos:** Dedicada ao Gênero ou Categoria de produtos
-    //- Página Produtos Unissex: `/produtos`
+- **Página Produtos:** Dedicada ao Gênero dos produtos
     - Página Produtos Masculino: `/masculino`
     - Página Produtos Feminino: `/feminino`
-    - Página Produtos Infantil: `/infantil`
-    //- Página Produtos Menino: `/menino`
-    //- Página Produtos Menina: `/menina`
-
-    - Página Produtos Promoções (Unissex): `/promocoes`
-    //- Página Produtos Calçados (Unissex): `/calcados`
-    //- Página Produtos Roupas (Unissex): `/roupas`
-    - Página Produtos Acessórios (Unissex): `/acessorios`
-    - Página Produtos Marcas (Unissex): `/marcas`
+    - Página Produtos Menino: `/menino`
+    - Página Produtos Menina: `/menina`
 
 - **Página Filtro:** Dedicada ao resultado de busca do usuário (cliente)
     - Página Filtro Produto Individual: `/produtos/camisa-polo-masculina/1`
     - Página Filtro Pesquisa (Barra de Pesquisa): `/produtos/bota-masculina-colcci-preta-tamanho-40`
-    - Página Filtro Calçados (Sidebar): `/produtos?categoria=calcados&tipo=chinelo&genero=masculino&tamanho=40,42&marca=coca-cola&cor=azul&precoMin=60&precoMax=100`
-    - Página Filtro Roupas (Sidebar): `/produtos?categoria=roupas&tipo=biquini&genero=feminino&tamanho=m&marca=billabong&cor=verde&precoMin=100&precoMax=160`
-    - Página Filtro Acessórios (Sidebar): `/produtos?categoria=acessorios&tipo=oculos&genero=menino&tamanho=50&marca=atitude&cor=prata&precoMin=240&precoMax=380`
-    - Página Filtro Marcas (Sidebar): `/produtos?marca=adidas&tipo=agasalho&genero=menina,menino&tamanho=p&cor=rosa&precoMin&precoMax=380-770&sort=menor-preco`
+    - Página Filtro (Sidebar e Navbar): `/produtos?categoria=calcados&tipo=chinelo&genero=masculino&tamanho=40&tamanho42&marca=coca-cola&cor=azul&precoMin=60&precoMax=100`
 
     - Sorted: Mais Populares, Novidades, Menor Preço, Maior Preço, Maior Desconto
     
-
 ### 2. Usuários (Cliente)
 - **Página Autenticação:** Dedicada a permissão de acesso ao usuário (cliente)
     - Página Login/Cadastro: `/login`
-    - Página Cadastro Confirmação: `/login/cadastrado`
-    - Página Login Pagamento: `/login/finalizar-compra`
-    - Página Redefinir Senha: `/login/redefinir-senha`
+    - Página Cadastro Confirmação: `/login/confirmacao`
+    - Página Login Finalizar compra: `/login/finalizar-compra`
+    - Página Recuperar Senha: `/login/recuperar-senha`
 
 - **Página Dados Cliente**
     - Página Conta: `/conta`
@@ -202,18 +119,16 @@
     - Página Carrinho: `/carrinho`
 
 - **Página Pagamento**
-    - Página Finalizar Login: `/finalizar-compra/login`
     - Página Finalizar Compra: `/finalizar-compra`
     - Página Confirmação: `/finalizar-compra/confirmacao`
 
 ### 3. Navegação Livre
 - **Página Institucionais:** Dedicada a exploração do usuário (cliente)
-    - Página Inicial: `outonofashion.com`
+    - Página Inicial: `/inicio`
     - Página Sobre: `/sobre`
-    - Página Política de Privacidade: `/politicas-privacidade`
-    - Página Não Encontrada: `/pagina-nao-encontrada`
     - Página Contato: `/contato`
     - Página Blog: `/blog`
+    - Página Não Encontrada: `**`
 
 ### 4. Autenticação Gestores
 - **Página Gerência Usuário (Comum)**
@@ -503,162 +418,12 @@
 
 </details>
 
-## 📌 Roadmap (Steps):
+# 🙆‍♂️ Imagens Créditos:
 
-<details>
-<summary><b>🧑‍⚖️ Hierarquia Dependências</b></summary>
-
-- **Sprint Básico Funcionamento Usuário**
-    - 1. Página Inicial
-    - 2. Página Filtro
-    - 3. Página Produto Individual
-    - 4. Página Autenticação (Cliente)
-    - 5. Página Carrinho (Cliente)
-    - 6. Página Pagamento (Cliente)
-    - 7. Página Conta (Cliente)
-
-- **Sprint Melhor Experiência Usuário**
-    - 1. Página Produtos
-    - 2. Favoritos
-    - 3. Contato
-    - 4. Não Encontrada
-
-- **Experiência ADM**
-    - 1. Login/Cadastro
-    - 2. Página E-commerce (Produto) -> Cadastros (Produto)
-
-- **Coleta Experiência Cliente**
-    - 1. Comentário
-
-- **Análise Produtos ADM**
-    - 1. Pedidos
-    - 2. Comentários
-
-- **Expansão do Time Gestores**
-    - 1. Cadastro Confirmação
-    - 2. Página Inicial (Relatórios)
-    - 3. Editar Pefil
-
-- **Controle ADM**
-    - 1. Cadastro Editor
-    - 2. Cadastro Vendedor
-
-- **Branding Negócio**
-    - 1. Sobre
-    - 2. Políticas de Privacidade
-
-- **Acompanhamento Cliente-Vendedores**
-    - 1. Chat
-
-- **Geração de Conteúdo (SEO)**
-    - 1. Blog
-
-- **Gestão de campanhas**
-    - 1. Inicial
-    - 2. Produtos
-    - 3. Newsletter
-
-- **Gestão Institucionais**
-    - 1. Sobre
-    - 2. Políticas de Privacidade
-
-</details>
-
-<details>
-<summary><b>🚀 Scrum Funcionamento Usuário</b></summary>
-
-### Backlog Funcionamento Usuário
-
-- [x] Design (Figma)
-    - [x] Página Inicial
-    - [x] Página Filtro
-    - [x] Página Produto Individual
-    - [x] Página Autenticação (Cliente)
-    - [x] Página Carrinho (Cliente)
-    - [x] Página Pagamento (Cliente)
-    - [x] Página Conta (Cliente)
-- [ ] Front-End (Angular)
-    - [ ] Página Inicial (Header - Hero - Footer)
-    - [ ] Página Filtro
-    - [ ] Página Produto Individual
-    - [ ] Página Autenticação (Cliente)
-    - [ ] Página Carrinho (Cliente)
-    - [ ] Página Pagamento (Cliente)
-    - [ ] Página Conta (Cliente)
-- [ ] Back-End (RESTApi Spring)
-    - [ ] Página Filtro
-    - [ ] Página Produto Individual
-    - [ ] Página Autenticação (Cliente)
-    - [ ] Página Carrinho (Cliente)
-    - [ ] Página Pagamento (Cliente)
-    - [ ] Página Conta (Cliente)
-
-### Sprint Planning Funcionamento Usuário [1 2 3 5 8]
-Task      | Score | Responsável
-----------|-------|------------
-Design    | 3     | Higor
-Front-End | 5     | Higor
-Back-End  | 3     | Higor
-
-<details>
-<summary><b>⏳ Sprint Funcionamento Usuário</b></summary>
-
-- ### Prazos
-    - Design (1 dia)
-    - Back-End (3 dias)
-    - Front-End (3 dias)
-
-- ### Em Andamento
-    - [x] 28/10 Design
-    - [ ] 29/10 Back-End
-
-- ### Validação
-    - [ ] 29/10 Design
-
-- ### Aguardando Deploy
-
-- ### Em Produção
-
-- ### Revisão Sprint
-
-</details>
-
-</details>
-
-## 🗃️ Documentos Projeto:
-
-<details>
-<summary><b>📝 Modelagem de Entidades</b></summary>
-
-<details>
-<summary><b>🧺 Produto</b></summary>
-
-![Produto Conceitual](assets/images/produto-conceitual.png)
-
-</details>
-
-<details>
-<summary><b>👦 Usuário</b></summary>
-
-![Produto Conceitual](assets/images/usuario-conceitual.png)
-
-</details>
-
-</details>
-
-Configurações:
-SHOW TIMEZONE;
-
-SET TIME ZONE 'UTC';
-SET TIME ZONE 'GMT+3';
-
-SELECT CURRENT_TIMESTAMP
-
-SELECT NOW()
-
-Imagens Créditos:
+- **Fontes** 🥰
     - Netshoes: https://www.netshoes.com.br/
-    - Dafiti: 
+    - Dafiti: https://www.dafiti.com.br/
+    - Zattini: https://www.zattini.com.br/
 
 ## 💼 Tecnologias utilizadas:
 
