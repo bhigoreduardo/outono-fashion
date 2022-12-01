@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-confirmacao',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConfirmacaoComponent implements OnInit {
 
-  constructor() { }
+  logo: string = '/assets/images/logo.svg';
+  backgroundImage: string = '/assets/images/login.png';
+
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  redirectTo(link: string): void {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([link]);
+    });
   }
 
 }

@@ -1,0 +1,23 @@
+<section class="register-message container">
+    <div class="content-wrapper">
+        <div class="content">
+            <a class="logo"><img [src]="logo" /></a>
+            <h3>Cadastro concluído</h3>
+            <p>
+                Bem-vindo ao Outono Fashion, tem uma interface incrível esperando por
+                você
+            </p>
+            <p>
+                Para acessar sua conta vá para a página de login e digite seu e-mail e
+                senha cadastrados.
+            </p>
+
+            <a class="button button-warning button-semi-bold button-sm" (click)="redirectTo('/login')">
+                Fazer login
+            </a>
+        </div>
+        <div class="background">
+            <img [src]="backgroundImage" alt="Outono Fashion">
+        </div>
+    </div>
+</section>
