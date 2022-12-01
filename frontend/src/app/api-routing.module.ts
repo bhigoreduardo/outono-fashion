@@ -14,6 +14,7 @@ const routes: Routes = [
   { path: 'inicio', loadChildren: () => import('./modules/inicio/inicio.module').then(m => m.InicioModule) },
   { path: 'conta', loadChildren: () => import('./modules/conta/conta.module').then(m => m.ContaModule), canActivate: [ContaGuard] },
   { path: 'contato', loadChildren: () => import('./modules/contato/contato.module').then(m => m.ContatoModule) },
+  { path: 'sobre', loadChildren: () => import('./modules/sobre/sobre.module').then(m => m.SobreModule) },
   { path: '**', component: ErrorComponent }
 ]
 

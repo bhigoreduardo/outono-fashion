@@ -1,0 +1,105 @@
+@import '../../../styles.scss';
+
+.about {
+
+    .banner {
+        margin-bottom: 20px;
+
+        img {
+            max-height: 300px;
+        }
+    }
+
+    .title {
+        text-align: center;
+
+        h3 {
+            font-size: $font-size-h2;
+            line-height: $line-height-h2;
+            font-weight: $font-weight-regular;
+            margin-bottom: 20px;
+            color: $color-black;
+        }
+    }
+
+    p {
+        font-size: $font-size-sm;
+        line-height: $line-height-sm;
+        color: $color-gray-700;
+        font-weight: $font-weight-regular;
+    }
+
+    .box-container {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 30px;
+
+        .box {
+            i {
+                display: block;
+                font-size: $font-size-h2;
+                line-height: $line-height-h2;
+                color: $color-gray-800;
+                margin-bottom: 30px;
+            }
+
+            h6 {
+                font-size: $font-size-base;
+                margin-bottom: 10px;
+            }
+
+            i,
+            h6 {
+                text-align: center;
+            }
+
+            p {
+                font-size: $font-size-sm;
+                line-height: $line-height-sm;
+                color: $color-gray-700;
+                font-weight: $font-weight-regular;
+            }
+        }
+
+        >.box,
+        >.icon-information {
+            flex: 1 1 300px;
+        }
+
+        .icon-information {
+            text-align: center;
+
+            &:not(:last-child) {
+                border-right: 1px solid $color-black;
+
+                @media screen and (max-width: 1007px) {
+                    border-right: none;
+                }
+            }
+
+            &:first-child {
+                @media screen and (max-width: 1007px) {
+                    border-right: 1px solid $color-black;
+                }
+
+                @media screen and (max-width: 678px) {
+                    border: none;
+                }
+            }
+
+            h4 {
+                font-size: $font-size-h2;
+                line-height: $line-height-h2;
+                color: $color-black;
+                margin-bottom: 10px;
+            }
+
+            span {
+                font-size: $font-size-sm;
+                line-height: $line-height-sm;
+                color: $color-black;
+            }
+        }
+    }
+}

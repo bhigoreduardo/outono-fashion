@@ -1,0 +1,50 @@
+<!-- HEADER COMPONENT -->
+<app-header></app-header>
+<!-- / HEADER COMPONENT -->
+
+<section class="about">
+    <div class="banner">
+        <img [src]="backgroundAbout" alt="" />
+    </div>
+
+    <div class="container">
+        <div class="title">
+            <h3>Sobre nós</h3>
+            <p>Somos mais do que uma fashiontech.</p>
+            <p>
+                Somos um time de inconformados que respira tecnologia para reinventar o
+                negócio da moda.
+            </p>
+        </div>
+
+        <div class="box-container gap-section">
+            <div class="box" *ngFor="let description of boxDescription">
+                <i class="{{description.iconClass}}"></i>
+                <h6>{{description.title}}</h6>
+                <p>{{description.description}}
+                </p>
+            </div>
+        </div>
+
+        <div class="box-container gap-section">
+            <div class="icon-information">
+                <h4>10</h4>
+                <span>Anos</span>
+            </div>
+
+            <div class="icon-information">
+                <h4>+6.000</h4>
+                <span>Marcas</span>
+            </div>
+
+            <div class="icon-information">
+                <h4>+400.000</h4>
+                <span>Produtos</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<app-footer></app-footer>
+<!-- / FOOTER -->
