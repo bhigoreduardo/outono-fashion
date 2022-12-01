@@ -7,7 +7,7 @@ import { IProdutoCarrinho } from '../../../model/IProduto';
 })
 export class CarrinhoService {
   produtosCarrinho: IProdutoCarrinho[] = [];
-  
+
   constructor() { }
 
   addProdutoCarrinho(produto: IProdutoCarrinho) {
@@ -48,7 +48,7 @@ export class CarrinhoService {
         .reduce((prev, currProduto) => prev + currProduto.quantidade, 0);
     }
 
-    return -1;
+    return 0;
   }
 
   getProdutosCarrinho(): IProdutoCarrinho[] {
@@ -80,6 +80,10 @@ export class CarrinhoService {
     );
 
     localStorage.setItem('carrinho', JSON.stringify(this.produtosCarrinho));
+  }
+
+  clearProdutosCarrinho(): void {
+    localStorage.removeItem('carrinho');
   }
 
   setTaxaEntrega(cep: string) {

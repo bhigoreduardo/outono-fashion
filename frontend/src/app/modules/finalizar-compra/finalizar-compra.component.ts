@@ -288,6 +288,7 @@ export class FinalizarCompraComponent implements OnInit {
     this.checkoutService.insertPedido(pedidoInput).subscribe(
       res => {
         localStorage.setItem('codigoPedido', res.codigoPedido);
+        this.carrinhoService.clearProdutosCarrinho();
 
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
           this.router.navigate(['finalizar-compra/confirmacao']);

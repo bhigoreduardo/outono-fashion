@@ -7,6 +7,8 @@ import { ITelefoneInput, ITelefoneModel } from 'src/app/model/ITelefone';
 import { IUsuarioInput, IUsuarioModel } from 'src/app/model/IUsuario';
 import { SwiperOptions } from 'swiper';
 import { ContaService } from './service/conta.service';
+import { LoginService } from '../login/service/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-conta',
@@ -52,7 +54,9 @@ export class ContaComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private contaService: ContaService
+    private contaService: ContaService,
+    private loginService: LoginService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -416,6 +420,17 @@ export class ContaComponent implements OnInit {
     }
 
     await this.activeEnderecoApelido(enderecoInput);
+  }
+
+  redirectTo(link: string): void {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([link]);
+    });
+  }
+
+  loggout(): void {
+    this.loginService.loggout();
+    this.redirectTo('/');
   }
 
   clearMessage(value: any): void {
