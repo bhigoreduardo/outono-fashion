@@ -1,0 +1,12 @@
+<section id="cookie-toolbar" class="cookie-toolbar" [ngClass]="{active: cookieBoolean}">
+    <div class="container">
+        <p>
+            <span>Cookies:</span> para melhorar sua experiência de navegação, você
+            pode concordar com nossa
+            <a (click)="setPolicy.emit('true')">política de privacidade.</a>
+        </p>
+        <button class="button button-white button-uppercase button-regular button-sm" (click)="setCookie()">
+            Concordar e fechar
+        </button>
+    </div>
+</section>

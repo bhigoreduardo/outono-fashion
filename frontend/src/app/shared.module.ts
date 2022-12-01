@@ -20,6 +20,9 @@ import { InputupdateComponent } from './components/inputupdate/inputupdate.compo
 import { EmptymessageComponent } from './components/emptymessage/emptymessage.component';
 import { OfertaprodutoPipe } from './pipes/ofertaproduto.pipe';
 import { NewsletterComponent } from './components/newsletter/newsletter.component';
+import { CookieComponent } from './components/cookie/cookie.component';
+import { OfferComponent } from './components/offer/offer.component';
+import { PolicyComponent } from './components/policy/policy.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,10 @@ import { NewsletterComponent } from './components/newsletter/newsletter.componen
     InputupdateComponent,
     EmptymessageComponent,
     OfertaprodutoPipe,
-    NewsletterComponent
+    NewsletterComponent,
+    CookieComponent,
+    OfferComponent,
+    PolicyComponent
   ],
   imports: [
     CommonModule,
@@ -65,7 +71,10 @@ import { NewsletterComponent } from './components/newsletter/newsletter.componen
     InputupdateComponent,
     EmptymessageComponent,
     OfertaprodutoPipe,
-    NewsletterComponent
+    NewsletterComponent,
+    CookieComponent,
+    OfferComponent,
+    PolicyComponent
   ]
 })
 export class SharedModule { }

@@ -1,1 +1,4 @@
 <router-outlet></router-outlet>
+<app-cookie (setPolicy)="setPolicy($event)"></app-cookie>
+<app-offer></app-offer>
+<app-policy [policyBoolean]="policyBoolean" (setPolicy)="setPolicy($event)"></app-policy>

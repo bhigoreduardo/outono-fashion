@@ -1,0 +1,159 @@
+<div class="policy-private container" [ngClass]="{active: policyBoolean}">
+    <div class="header">
+        <div class="image">
+            <img [src]="logo" />
+        </div>
+
+        <div class="navigation">
+            <h4>Central de Privacidade</h4>
+            <div class="button-group">
+                <button class="button-header" (click)="targetInformation = 'cookie'">Gestão de cookies</button>
+                <button class="button-header" (click)="targetInformation = 'policy'">Política de privacidade</button>
+                <i class="fas fa-times" (click)="setPolicy.emit('false');"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <aside class="nav-sidebar">
+            <button class="button-nav" (click)="targetInformation = 'required'">Estritamente necessários</button>
+            <button class="button-nav" (click)="targetInformation = 'analytics'">Analíticos</button>
+            <button class="button-nav" (click)="targetInformation = 'operation'">Funcionalidade</button>
+            <button class="button-nav" (click)="targetInformation = 'ads'">Publicidade</button>
+        </aside>
+
+        <div class="information">
+            <div class="description cookie" *ngIf="targetInformation == 'cookie'">
+                <h5>O que são Cookies?</h5>
+                <p>
+                    Cookies são pequenos arquivos digitais em formato de texto que são
+                    armazenados no dispositivo do usuário (computador, smartphone, tablet
+                    etc.) pelo navegador de internet e que guardam informações
+                    relacionadas às suas preferências, como idioma preferido, localização,
+                    recorrência das suas sessões e outras variáveis que os desenvolvedores
+                    de site consideram relevantes para tornar a sua experiência muito mais
+                    eficiente.
+                </p>
+
+                <h5>Para que servem os Cookies?</h5>
+                <p>
+                    Os Cookies servem para aprimorar a experiência do usuário, tanto em
+                    termos de performance como em termos de usabilidade, uma vez que os
+                    conteúdos disponibilizados serão direcionados às suas necessidades e
+                    expectativas. Os Cookies também podem ser utilizados para compilar
+                    estatísticas anônimas e agregadas que permitem entender como o usuário
+                    utiliza o site, bem como para aprimorar suas estruturas e conteúdo.
+                    Por serem estatísticas anônimas, não é possível identificá-lo
+                    pessoalmente por meio desses dados. A utilização de Cookies é algo
+                    muito comum em qualquer plataforma digital atualmente. O seu uso não
+                    prejudica de forma alguma os dispositivos em que são armazenados.
+                </p>
+            </div>
+            <div class="description policy" *ngIf="targetInformation == 'policy'">
+                <h5>DEFINIÇÕES</h5>
+                <p>
+                    Para os fins desta Política, devem se considerar as seguintes
+                    definições e descrições para seu melhor entendimento: Anonimização:
+                    Utilização de meios técnicos razoáveis e disponíveis no momento do
+                    Tratamento, por meio dos quais um dado perde a possibilidade de
+                    associação, direta ou indireta, quanto à identificação de um
+                    indivíduo. Computação em nuvem: É a tecnologia de virtualização de
+                    serviços construída a partir da interligação de mais de um servidor
+                    por meio de uma rede de informação comum (p.ex. a Internet), com
+                    objetivo de reduzir custos e aumentar a disponibilidade dos serviços
+                    sustentados.
+                </p>
+
+                <h5>COLETA DE DADOS PESSOAIS</h5>
+                <p>
+                    Os tipos de Dados Pessoais e a forma como os coletamos dependem da
+                    interação do Usuário em nosso site. O Usuário é responsável pela
+                    veracidade dos dados pessoais que fornecer à Dafiti. Qualquer prejuízo
+                    decorrente da inclusão de informações falsas ou desatualizadas, será
+                    de única e exclusiva responsabilidade do Usuário.
+                </p>
+            </div>
+            <div class="description required" *ngIf="targetInformation == 'required'">
+                <p>
+                    Permitem a navegação e utilização das aplicações, bem como acessar a
+                    áreas seguras do site. Sem estes Cookies, o site não funciona
+                    corretamente.
+                </p>
+
+                <ul>
+                    <li>Dados de interface. Válido por até 29 dias</li>
+                    <li>Informações de Usuário Autenticado. Cookie permanente</li>
+                    <li>Informações de acesso. Cookie permanente</li>
+                    <li>Ultimo produto visto. Cookie permanente</li>
+                    <li>Cookie permanente</li>
+                </ul>
+            </div>
+            <div class="description analytics" *ngIf="targetInformation == 'analytics'">
+                <p>
+                    Coletam dados estatísticos anônimos com a finalidade de analisar a
+                    utilização do site e seu respectivo desempenho.
+                </p>
+
+                <ul>
+                    <li>
+                        Este cookie é usado para detectar a primeira sessão de exibição de
+                        página de um usuário. Cookie permanente
+                    </li>
+                    <li>
+                        Contém informações sobre a origem do tráfego ou campanha que
+                        direcionou o usuário ao site. O cookie é definido quando o
+                        javascript GA.js é carregado e atualizado quando os dados são
+                        enviados para o servidor Google Anaytics Válido por até 182 dias
+                    </li>
+                    <li>
+                        Estado interno em experimentação para detectar sessões do navegador.
+                        Cookie permanente
+                    </li>
+                </ul>
+            </div>
+            <div class="description operation" *ngIf="targetInformation == 'operation'">
+                <p>
+                    São utilizados para assegurar a disponibilização de funcionalidades
+                    adicionais do site ou para guardar as preferências definidas pelo
+                    usuário ao navegar na internet, sempre que utilizar o mesmo
+                    dispositivo.
+                </p>
+
+                <ul>
+                    <li>
+                        A validação do desvio do relógio do cliente (para computadores que
+                        não sincronizam seu relógio com a Internet - foi observada muito no
+                        Leste Europeu). Cookie permanente
+                    </li>
+                    <li>
+                        Identificador anônimo exclusivo do Dynamic Yield. Cookie permanente
+                    </li>
+                    <li>
+                        Cookie de sessão vazia para notar o fechamento do navegador. Cookie
+                        permanente
+                    </li>
+                </ul>
+            </div>
+            <div class="description ads" *ngIf="targetInformation == 'ads'">
+                <p>
+                    Direcionam a publicidade em função dos seus interesses, ajudando a
+                    medir o sucesso de aplicações e a eficácia da publicidade de
+                    terceiros.
+                </p>
+
+                <ul>
+                    <li>
+                        Este cookie é usado para segmentação, análise e otimização de
+                        campanhas publicitárias no pacote DoubleClick / Google Marketing.
+                        Válido por até 2 dias
+                    </li>
+                    <li>
+                        Este cookie é usado para segmentação, análise e otimização de
+                        campanhas publicitárias no pacote DoubleClick / Google Marketing.
+                        Válido por até 729 dias
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
