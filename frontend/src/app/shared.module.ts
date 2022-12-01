@@ -23,6 +23,7 @@ import { NewsletterComponent } from './components/newsletter/newsletter.componen
 import { CookieComponent } from './components/cookie/cookie.component';
 import { OfferComponent } from './components/offer/offer.component';
 import { PolicyComponent } from './components/policy/policy.component';
+import { ErrorComponent } from './components/error/error.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { PolicyComponent } from './components/policy/policy.component';
     NewsletterComponent,
     CookieComponent,
     OfferComponent,
-    PolicyComponent
+    PolicyComponent,
+    ErrorComponent
   ],
   imports: [
     CommonModule,

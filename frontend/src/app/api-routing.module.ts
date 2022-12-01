@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { ContaGuard } from './modules/conta/service/conta.guard';
 import { CheckoutGuard } from './modules/finalizar-compra/service/checkout.guard';
+import { ErrorComponent } from './components/error/error.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -12,7 +13,8 @@ const routes: Routes = [
   { path: 'login', loadChildren: () => import('./modules/login/login.module').then(m => m.LoginModule) },
   { path: 'inicio', loadChildren: () => import('./modules/inicio/inicio.module').then(m => m.InicioModule) },
   { path: 'conta', loadChildren: () => import('./modules/conta/conta.module').then(m => m.ContaModule), canActivate: [ContaGuard] },
-  { path: 'contato', loadChildren: () => import('./modules/contato/contato.module').then(m => m.ContatoModule) }
+  { path: 'contato', loadChildren: () => import('./modules/contato/contato.module').then(m => m.ContatoModule) },
+  { path: '**', component: ErrorComponent }
 ]
 
 @NgModule({
