@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { InicioRoutingModule } from './inicio-routing.module';
 import { InicioComponent } from './inicio.component';
+import { SharedModule } from 'src/app/shared.module';
+import { SwiperModule } from 'swiper/angular';
 
 
 @NgModule({
@@ -11,7 +13,9 @@ import { InicioComponent } from './inicio.component';
   ],
   imports: [
     CommonModule,
-    InicioRoutingModule
+    InicioRoutingModule,
+    SharedModule,
+    SwiperModule
   ]
 })
 export class InicioModule { }

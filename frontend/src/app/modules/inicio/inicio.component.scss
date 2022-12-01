@@ -1,0 +1,191 @@
+@import '../../../styles.scss';
+
+.offers {
+    .product-container {
+        display: grid;
+        grid-template-areas:
+            "a1 a1 a2 a3"
+            "a1 a1 a4 a5";
+        gap: 30px;
+
+        @media screen and (max-width: 1000px) {
+            grid-template-areas:
+                "a1 a1 a2 a2"
+                "a1 a1 a3 a3"
+                "a4 a4 a5 a5";
+        }
+
+        @media screen and (max-width: 620px) {
+            grid-template-areas:
+                "a1"
+                "a2"
+                "a3"
+                "a4"
+                "a5";
+        }
+
+        .product {
+            position: relative;
+
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+            overflow: hidden;
+
+            &:not(:first-of-type) .content {
+                right: 20px;
+            }
+
+            .content {
+                position: absolute;
+                background-color: $color-white-700;
+                box-shadow: $box-shadow-large;
+                top: 20px;
+                left: 20px;
+
+                padding: 20px;
+
+                h5 {
+                    font-size: $font-size-base;
+                    line-height: $line-height-base;
+                    font-weight: $font-weight-bold;
+                    color: $color-black;
+                    text-transform: uppercase;
+                }
+
+                span {
+                    display: inline-block;
+                    font-size: $font-size-sm;
+                    line-height: $line-height-sm;
+                    color: $color-gray-700;
+                    margin-bottom: 10px;
+                }
+
+                a {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    width: fit-content;
+
+                    i {
+                        max-width: 10px;
+                        color: $color-warning;
+                    }
+                }
+            }
+
+            img {
+                max-height: 550px;
+                width: auto;
+            }
+
+            &:not(:first-of-type) img {
+                max-height: 235px;
+            }
+        }
+
+        .product.item-1 {
+            grid-area: a1;
+        }
+
+        .product.item-2 {
+            grid-area: a2;
+        }
+
+        .product.item-3 {
+            grid-area: a3;
+        }
+
+        .product.item-4 {
+            grid-area: a4;
+        }
+
+        .product.item-5 {
+            grid-area: a5;
+        }
+    }
+}
+
+.banner-promotion {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+
+    height: 410px;
+
+    @media screen and (max-width: 970px) {
+        grid-template-columns: 100%;
+    }
+
+    .background {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100%;
+        z-index: -1;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+
+        h6 {
+            font-size: $font-size-sm;
+            line-height: $line-height-sm;
+            color: $color-white;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            font-weight: $font-weight-semi-bold;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: $font-size-display;
+            color: $color-white;
+            line-height: $line-height-display;
+            font-weight: $font-weight-semi-bold;
+            text-align: center;
+            margin-bottom: 20px;
+
+            @media screen and (max-width: 480px) {
+                font-size: $font-size-h1;
+                line-height: $line-height-h1;
+            }
+        }
+    }
+}
+
+.brand {
+    .content {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 100px;
+
+        a {
+            flex: 1 1 100px;
+            padding: 20px;
+            transition: all 200ms ease-in-out;
+            text-align: center;
+
+            &:hover {
+                box-shadow: $box-shadow-large;
+                transform: scale(1.1);
+
+                img {
+                    opacity: 1;
+                }
+            }
+
+            img {
+                max-width: 100px;
+                opacity: 0.7;
+            }
+        }
+    }
+}

@@ -1,0 +1,133 @@
+@import '../../../styles.scss';
+
+.newsletter {
+    position: relative;
+    margin-bottom: 50px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+
+    img {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100%;
+        width: auto;
+        z-index: -1;
+    }
+
+    .newsletter-form {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        border-bottom: 1px solid $color-gray-600;
+        padding-bottom: 30px;
+
+        @media screen and (max-width: 768px) {
+            flex-direction: column;
+        }
+
+        .description {
+            span {
+                display: inline-block;
+            }
+
+            h4 {
+                font-size: $font-size-h4;
+                font-weight: $font-weight-bold;
+                line-height: $line-height-h4;
+                color: $color-white;
+                margin: 10px 0;
+            }
+
+            a {
+                transition: all 200ms ease-in;
+                text-decoration: underline;
+
+                &:hover {
+                    color: $color-white;
+                }
+            }
+        }
+
+        form {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+
+            @media screen and (max-width: 480px) {
+                flex-direction: column;
+            }
+
+            input {
+                width: 100%;
+                font-size: $font-size-sm;
+                line-height: $line-height-sm;
+                padding: 10px 20px;
+                transition: all 200ms ease-in;
+
+                &:focus {
+                    background-color: $color-black;
+                    color: $color-white;
+                }
+            }
+
+            button {
+                @media screen and (max-width: 480px) {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    .box-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+
+        .box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            transition: all 200ms ease-in;
+
+            &:hover {
+                background-color: $color-white;
+                transform: scale(1.1);
+
+                i,
+                h6,
+                p {
+                    color: var(--color-black);
+                }
+            }
+
+            i {
+                font-size: $font-size-h1;
+                line-height: $line-height-h1;
+                color: $color-white;
+            }
+
+            h6 {
+                font-size: $font-size-sm;
+                font-weight: $font-weight-semi-bold;
+                line-height: $line-height-sm;
+                color: $color-white;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                margin-bottom: 10px;
+            }
+        }
+    }
+
+    .box-container .box p,
+    .box-container .box p a,
+    .newsletter-form .description p,
+    .newsletter-form .description a {
+        font-size: $font-size-xs;
+        font-weight: $font-weight-regular;
+        line-height: $line-height-xs;
+        color: $color-gray-400;
+    }
+}

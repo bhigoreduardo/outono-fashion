@@ -81,7 +81,7 @@
         <a><i class="fas fa-times" (click)="navbarToggleBoolean=false"></i></a>
 
         <div class="header--navbar-list-item">
-            <a title="Início" (mouseover)="clearTarget()">Início</a>
+            <a title="Início" (mouseover)="clearTarget()" (click)="redirectTo('/')">Início</a>
             <a title="Masculino" (mouseover)="target=masculino" [ngClass]="{active: target == masculino}">Masculino</a>
             <a title="Feminino" (mouseover)="target=feminino" [ngClass]="{active: target == feminino}">Feminino</a>
             <a title="Menino" (mouseover)="target=menino" [ngClass]="{active: target == menino}">Menino</a>

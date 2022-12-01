@@ -20,6 +20,7 @@
 /* INPUT SMALL */
 .input-small {
     &.valid {
+
         .input-label {
             border: 1px solid $color-warning;
 
@@ -33,6 +34,7 @@
     }
 
     &.invalid {
+
         .input-label {
             border: 1px solid $color-red;
 
@@ -57,6 +59,11 @@
         border: 1px solid $color-gray-500;
 
         height: 60px;
+
+        &.text {
+            height: 200px;
+            padding: 20px;
+        }
 
         .input-field {
             font-size: $font-size-base;
@@ -84,6 +91,15 @@
                 display: none;
                 -webkit-appearance: none;
             }
+        }
+
+        .text-field {
+            width: 100%;
+            font-size: $font-size-base;
+            line-height: $line-height-base;
+            font-family: inherit;
+
+            height: 200px;
         }
 
         .small-label {

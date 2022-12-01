@@ -1,0 +1,116 @@
+<!-- HEADER COMPONENT -->
+<app-header></app-header>
+<!-- / HEADER COMPONENT -->
+
+<section class="contact container gap-section">
+    <h4 class="title">Canais de atendimento</h4>
+    <div class="contact-info">
+        <h5>Fale conosco</h5>
+        <div class="box-container">
+            <div class="box">
+                <h6>E-mail</h6>
+                <span><a>outonofashion@contato.com.br</a></span>
+            </div>
+
+            <div class="box">
+                <h6>Telefone</h6>
+                <span><a>+55 (00) 0000-0000</a></span>
+            </div>
+
+            <div class="box">
+                <h6>Horário de funcionamento</h6>
+                <span>De Seg-Sex. de 08-20h, exceto feriados nacionais.</span>
+            </div>
+        </div>
+        <h5>Trocas e Devoluções</h5>
+        <h6>Como trocar ou devolver</h6>
+        <p>
+            Você pode solicitar a troca ou devolução de um produto em até 60
+            (sessenta) dias corridos após o recebimento do seu pedido.
+        </p>
+    </div>
+
+    <div class="contact-form" [formGroup]="formContato">
+        <!-- Nome -->
+        <div class="input-small"
+            [ngClass]="{invalid: formContato.controls['nome'].invalid && (formContato.controls['nome'].touched || formContato.controls['nome'].dirty), valid: formContato.valid}">
+            <label class="input-label">
+                <input type="text" class="input-field" placeholder="Informe seu nome" formControlName="nome" />
+                <small class="small-label">Nome</small>
+                <div class="group-icon">
+                    <i class="fas fa-check-circle"></i>
+                    <i class="fas fa-times-circle"></i>
+                </div>
+            </label>
+        </div>
+
+        <!-- CPF/CNPJ -->
+        <div class="input-small"
+            [ngClass]="{invalid: formContato.controls['cpfCnpj'].invalid && (formContato.controls['cpfCnpj'].touched || formContato.controls['cpfCnpj'].dirty), valid: formContato.valid}">
+            <label class="input-label">
+                <input type="text" class="input-field" placeholder="Informe seu CPF ou CNPJ" formControlName="cpfCnpj"
+                    mask="000.000.000-00||00.000.000/0000-00" />
+                <small class="small-label">CPF ou CNPJ</small>
+                <div class="group-icon">
+                    <i class="fas fa-check-circle"></i>
+                    <i class="fas fa-times-circle"></i>
+                </div>
+            </label>
+        </div>
+
+        <!-- E-mail -->
+        <div class="input-small"
+            [ngClass]="{invalid: formContato.controls['email'].invalid && (formContato.controls['email'].touched || formContato.controls['email'].dirty), valid: formContato.valid}">
+            <label class="input-label">
+                <input type="text" class="input-field" placeholder="Informe seu E-mail" formControlName="email" />
+                <small class="small-label">E-mail</small>
+                <div class="group-icon">
+                    <i class="fas fa-check-circle"></i>
+                    <i class="fas fa-times-circle"></i>
+                </div>
+            </label>
+        </div>
+
+        <!-- Telefone -->
+        <div class="input-small"
+            [ngClass]="{invalid: formContato.controls['telefone'].invalid && (formContato.controls['telefone'].touched || formContato.controls['telefone'].dirty), valid: formContato.valid}">
+            <label class="input-label">
+                <input type="text" class="input-field" placeholder="Informe seu Telefone" formControlName="telefone"
+                    mask="(00) 0 0000-0000" />
+                <small class="small-label">Telefone</small>
+                <div class="group-icon">
+                    <i class="fas fa-check-circle"></i>
+                    <i class="fas fa-times-circle"></i>
+                </div>
+            </label>
+        </div>
+
+        <!-- Mensagem -->
+        <div class="input-small"
+            [ngClass]="{invalid: formContato.controls['mensagem'].invalid && (formContato.controls['mensagem'].touched || formContato.controls['mensagem'].dirty), valid: formContato.valid}">
+            <label class="input-label text">
+                <textarea class="text-field" placeholder="Insira sua mensagem" formControlName="mensagem"></textarea>
+                <small class="small-label">Mensagem</small>
+                <div class="group-icon">
+                    <i class="fas fa-check-circle"></i>
+                    <i class="fas fa-times-circle"></i>
+                </div>
+            </label>
+        </div>
+
+        <div class="button-group">
+            <button type="button" class="button button-none button-uppercase button-semi-bold button-sm" (click)="resetForm()">
+                Limpar campos
+            </button>
+
+            <button type="button" class="button button-warning button-uppercase button-semi-bold button-sm"
+                [disabled]="formContato.invalid">
+                Enviar mensagem
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<app-footer></app-footer>
+<!-- / FOOTER -->

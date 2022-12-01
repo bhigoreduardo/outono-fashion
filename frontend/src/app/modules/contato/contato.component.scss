@@ -1,0 +1,62 @@
+@import '../../../styles.scss';
+
+.contact {
+    .title {
+        font-size: $font-size-h2;
+        line-height: $line-height-h2;
+        color: $color-black;
+        margin-bottom: 20px;
+    }
+
+    .contact-info {
+        h5 {
+            font-size: $font-size-lg;
+            line-height: $line-height-lg;
+            color: $color-black;
+            text-decoration: underline;
+            margin-bottom: 20px;
+        }
+
+        h6 {
+            font-size: $font-size-sm;
+            line-height: $line-height-sm;
+            color: $color-gray-800;
+            margin-bottom: 5px;
+        }
+
+        span,
+        p {
+            font-size: $font-size-xs;
+            line-height: $line-height-xs;
+            color: $color-gray-600;
+        }
+
+        .box-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 30px;
+
+            @media screen and (max-width: 720px) {
+                flex-wrap: wrap;
+            }
+        }
+    }
+
+    .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+
+        .button-group {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+
+            @media screen and (max-width: 500px) {
+                grid-template-columns: 100%;
+            }
+        }
+    }
+}

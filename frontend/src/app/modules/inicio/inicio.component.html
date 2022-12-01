@@ -1,1 +1,149 @@
-<p>inicio works!</p>
+<!-- HEADER COMPONENT -->
+<app-header></app-header>
+<!-- / HEADER COMPONENT -->
+
+<!-- BANNER -->
+<section class="banner gap-section">
+    <swiper [config]="bannerSlide" #customBannerSlide>
+        <ng-template swiperSlide *ngFor="let image of bannerImages">
+            <div class="image-wrapper">
+                <a (click)="goToProdutos(image.genero, image.categoria, image.tipo)">
+                    <img src="{{image.nome}}" alt="">
+                </a>
+            </div>
+        </ng-template>
+    </swiper>
+
+    <div class="slide-controls container">
+        <button type="button" class="prev-button" (click)="prevSlide(customBannerSlide)">
+            <i title="Anterior" class="fas fa-chevron-left"></i>
+        </button>
+
+        <button type="button" class="next-button" (click)="nextSlide(customBannerSlide)">
+            <i title="Próximo" class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+</section>
+<!-- / BANNER -->
+
+<!-- OFFERS -->
+<section class="offers container gap-section">
+    <div class="headline">
+        <h6 class="subtitle">Não perca</h6>
+        <h4 class="title">Promoções Imperdíveis</h4>
+    </div>
+
+    <div class="product-container">
+        <div class="product {{data.item}}" *ngFor="let data of offerData">
+            <div class="content">
+                <h5>{{data.h5}}</h5>
+                <span>{{data.span}}</span>
+                <a class="button button-black button-semi-bold button-uppercase button-xs"
+                    (click)="goToProdutos(data.genero, data.categoria, data.tipo)">
+                    Confira
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+            <img [src]="data.image" alt="" />
+        </div>
+    </div>
+</section>
+<!-- / OFFERS -->
+
+<!-- NEWS PRODUTOS FEMININO -->
+<section class="products container gap-section">
+    <div class="headline">
+        <h6 class="subtitle">Descubra Lançamentos</h6>
+        <h4 class="title">Moda feminina</h4>
+    </div>
+
+    <swiper [config]="newProdutos" #customNewProdutosFeminino>
+        <ng-template swiperSlide *ngFor="let produto of produtosNewFeminino">
+            <app-card
+                image="/assets/produtos/{{produto.genero.descricao | replace:' ':'-'}}/{{produto.categoria.descricao | replace:' ':'-'}}/{{produto.tipo.descricao | replace:' ':'-'}}/{{produto.nome | replace:' ':'-'}}-{{produto.id}}-1.webp"
+                name="{{produto.nome}}" priceMin="{{produto.estoques | priceproduto:'min'}}"
+                nome="{{produto.nome | replace:' ':'-'}}" id="{{produto.id}}"></app-card>
+        </ng-template>
+    </swiper>
+
+    <div class="slide-controls container">
+        <button type="button" class="prev-button" (click)="prevSlide(customNewProdutosFeminino)">
+            <i title="Anterior" class="fas fa-chevron-left"></i>
+        </button>
+
+        <button type="button" class="next-button" (click)="nextSlide(customNewProdutosFeminino)">
+            <i title="Próximo" class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+</section>
+<!-- / NEWS PRODUTOS FEMININO -->
+
+<!-- BANNER PROMOTION -->
+<section class="banner-promotion container gap-section">
+    <img class="background" [src]="bannerPromotion" alt="" />
+    <div class="content">
+        <h6>Nova coleção</h6>
+        <h2>Conheça nossa nova coleção</h2>
+        <a class="button button-warning button-uppercase button-semi-bold button-base">
+            Conheça
+        </a>
+    </div>
+</section>
+<!-- / BANNER PROMOTION -->
+
+<!-- MOST SALE -->
+<!-- / MOST SALE -->
+
+<!-- NEWS PRODUTOS MASCULINO -->
+<section class="products container gap-section">
+    <div class="headline">
+        <h6 class="subtitle">Descubra Lançamentos</h6>
+        <h4 class="title">Moda masculino</h4>
+    </div>
+
+    <swiper [config]="newProdutos" #customNewProdutosMasculino>
+        <ng-template swiperSlide *ngFor="let produto of produtosNewMasculino">
+            <app-card
+                image="/assets/produtos/{{produto.genero.descricao | replace:' ':'-'}}/{{produto.categoria.descricao | replace:' ':'-'}}/{{produto.tipo.descricao | replace:' ':'-'}}/{{produto.nome | replace:' ':'-'}}-{{produto.id}}-1.webp"
+                name="{{produto.nome}}" priceMin="{{produto.estoques | priceproduto:'min'}}"
+                nome="{{produto.nome | replace:' ':'-'}}" id="{{produto.id}}"></app-card>
+        </ng-template>
+    </swiper>
+
+    <div class="slide-controls container">
+        <button type="button" class="prev-button" (click)="prevSlide(customNewProdutosMasculino)">
+            <i title="Anterior" class="fas fa-chevron-left"></i>
+        </button>
+
+        <button type="button" class="next-button" (click)="nextSlide(customNewProdutosMasculino)">
+            <i title="Próximo" class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+</section>
+<!-- / NEWS PRODUTOS MASCULINO -->
+
+<!-- BRAND -->
+<section class="brand container">
+    <div class="headline">
+        <h6 class="subtitle">Top Marcas</h6>
+        <h4 class="title">Conheça e Descubra</h4>
+    </div>
+
+    <div class="content">
+        <a><img src="/assets/images/brand-1.webp" alt="" /></a>
+        <a><img src="/assets/images/brand-2.webp" alt="" /></a>
+        <a><img src="/assets/images/brand-3.webp" alt="" /></a>
+        <a><img src="/assets/images/brand-4.webp" alt="" /></a>
+        <a><img src="/assets/images/brand-5.webp" alt="" /></a>
+        <a><img src="/assets/images/brand-6.webp" alt="" /></a>
+    </div>
+</section>
+<!-- / BRAND -->
+
+<!-- NEWSLETTER -->
+<app-newsletter></app-newsletter>
+<!-- / NEWSLETTER -->
+
+<!-- FOOTER -->
+<app-footer></app-footer>
+<!-- / FOOTER -->
