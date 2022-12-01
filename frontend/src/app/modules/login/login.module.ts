@@ -7,11 +7,13 @@ import { SharedModule } from '../../shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ConfirmacaoComponent } from './components/confirmacao/confirmacao.component';
 import { NgxMaskModule } from 'ngx-mask';
+import { RecuperarSenhaComponent } from './components/recuperar-senha/recuperar-senha.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
-    ConfirmacaoComponent
+    ConfirmacaoComponent,
+    RecuperarSenhaComponent
   ],
   imports: [
     CommonModule,
